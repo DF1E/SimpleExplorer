@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/android:list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="2"
+        android:drawSelectorOnTop="true"
+        android:fastScrollEnabled="true"
+        android:longClickable="true"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:smoothScrollbar="true" />
+
+</LinearLayout>
