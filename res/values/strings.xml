@@ -86,6 +86,7 @@
     <string name="viewmode">View Mode</string>
     <string name="simple">Simple</string>
     <string name="detailed">Detailed</string>
+    <string name="fstext">Thank you for installing this App! \nDF1E \n\nChanges: \nv1.7: \nChanges on Actionbar \nAdded Icon for Bookmarks \nInfodialog on first start \nv1.6: \nAdded ViewMode option \nremove old stuff \nsome small changes \nv1.5 \nAdded Bookmarks \nAdded Sort Option \nSome New Icons</string>
     <string name="xda">XDA Forum</string>
 
 </resources>

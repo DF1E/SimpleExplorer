@@ -6,8 +6,6 @@
     <string name="newd">Neuer Ordner</string>
     <string name="search">Suchen</string>
     <string name="settings">Einstellungen</string>
-    <string name="generalsettings">Allgemeine Einstellungen</string>
-    <string name="viewsettings">Ansichtseinstellungen</string>
     <string name="zipfolder">Ordner Verpacken</string>
     <string name="pasteintofolder">In Ordner kopieren/ verschieben</string>
     <string name="filenotfound">Datei nicht gefunden</string>
@@ -23,7 +21,6 @@
     <string name="newfolderwasnotcreated">New Folder was not created</string>
     <string name="multiselectisoffnow">Multiselect ist deaktiviert</string>
     <string name="pressbackagaintoquit">Erneut klicken um das Programm zu beenden</string>
-    <string name="Backupall">Alle sichern</string>
     <string name="copy">Kopieren</string>
     <string name="delete">Löschen</string>
     <string name="move">Verschieben</string>
@@ -40,8 +37,6 @@
     <string name="sdcard">SD Karte</string>
     <string name="files">" Dateien"</string>
     <string name="folders">"" Ordner "</string>
-    <string name="pathis">Verzeichnis: </string>
-    <string name="pathsdcard">Verzeichnis: /sdcard</string>
     <string name="created">" erstellt"</string>
     <string name="options">Optionen</string>
     <string name="desc">desc</string>
@@ -55,9 +50,6 @@
     <string name="multis">Mehrfach-Auswahl</string>
     <string name="unistall">Deinstallieren</string>
     <string name="filewasrenamed">Umbenennen erfolgreich</string>
-    <string name="internalsdcard">Interne SD Karte</string>
-    <string name="externalsdcard">Externe SD Karte</string>
-    <string name="setpathsum">Setze Startverzeichnis</string>
     <string name="setpath">Verzeichnis</string>
     <string name="fname">Name:</string>
     <string name="fdirectory">Verzeichnis:</string>
@@ -65,8 +57,6 @@
     <string name="hiddenfiles">Versteckte Dateien</string>
     <string name="showpreview">Bildvorschau</string>
     <string name="multioff">Mehrfachauswahl deaktiviert</string>
-    <string name="sortby">Sortierung</string>
-    <string name="sortsum">Dateien werden in sortierter Reihenfolge dargestellt</string>
     <string name="size">Größe:</string>
     <string name="size1">Größe</string>
     <string name="name">Name</string>
@@ -74,8 +64,6 @@
     <string name="itcouldntbefound">Die Sucheingabe konnte nicht gefunden werden</string>
     <string name="create">Erstellen</string>
     <string name="searchtext">Suchbegriff eingeben</string>
-    <string name="zip">Zip</string>
-    <string name="createzip">Zip Datei erstellen</string>
     <string name="sdcardnotfound">Keine SD Karte vorhanden!</string>
     <string name="choosefiles">Wähle Dateien aus!</string>
     <string name="copysuccsess">Kopieren erfolgreich!</string>
@@ -93,12 +81,12 @@
     <string name="bookmarkadded">Lesezeichen hinzugefügt</string>
     <string name="bookmarkexist">Lesezeichen bereits vorhanden</string>
     <string name="createbookmark">Lesezeichen erstellen</string>
-    <string name="bookmarksdelete">Lesezeichen löschen</string>
     <string name="uisettings">Oberfläche</string>
     <string name="advancedsettings">Erweitert</string>
     <string name="viewmode">Ansichtsmodus</string>
     <string name="simple">Einfache Liste</string>
     <string name="detailed">Detaillierte Liste</string>
+    <string name="fstext">Thank you for installing this App! \nDF1E \n\nChanges: \nv1.7: \nChanges on Actionbar \nAdded Icon for Bookmarks \nInfodialog on first start \nv1.6: \nAdded ViewMode option \nremove old stuff \nsome small changes \nv1.5 \nAdded Bookmarks \nAdded Sort Option \nSome New Icons</string>
     <string name="xda">XDA Forum</string>
 
 </resources>
