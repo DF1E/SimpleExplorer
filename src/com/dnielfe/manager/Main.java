@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Application;
@@ -167,6 +168,37 @@ public final class Main extends ListActivity implements
 		checkEnvironment();
 		setDirectoryButtons();
 		displayFreeSpace();
+		firststartdialog();
+	}
+
+	private void firststartdialog() {
+		SharedPreferences prefs = getSharedPreferences("Info", 0);
+		boolean runOnce = prefs.getBoolean("ranOnce", false);
+		if (runOnce == false) {
+
+			final Dialog dialog1 = new Dialog(Main.this);
+			dialog1.setContentView(R.layout.fsdialog);
+			dialog1.setTitle(R.string.info);
+			dialog1.setCancelable(true);
+
+			TextView textv = (TextView) dialog1.findViewById(R.id.infotext);
+			textv.setText(R.string.fstext);
+
+			Button button1 = (Button) dialog1.findViewById(R.id.quit);
+			button1.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					dialog1.cancel();
+				}
+			});
+
+			dialog1.show();
+		}
+
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putBoolean("ranOnce", true);
+		editor.commit();
+
 	}
 
 	@Override
@@ -444,7 +476,7 @@ public final class Main extends ListActivity implements
 				}
 			}
 
-			// zip file
+			// ZIP file
 			else if (item_ext.equalsIgnoreCase(".zip")) {
 
 				if (mReturnIntent) {
@@ -1063,11 +1095,10 @@ public final class Main extends ListActivity implements
 								File file = new File(path);
 								if (file != null) {
 									if (file.isDirectory()) {
-										// getFileList(path);
 										mHandler.opendir(path);
 										setDirectoryButtons();
+										listview();
 									} else {
-										// getOperations(path);
 										Intent i1 = new Intent();
 										i1.setAction(android.content.Intent.ACTION_VIEW);
 										i1.setDataAndType(Uri.fromFile(file),
@@ -1076,7 +1107,7 @@ public final class Main extends ListActivity implements
 									}
 								}
 							} else {
-								Toast.makeText(Main.this, "Error",
+								Toast.makeText(Main.this, R.string.error,
 										Toast.LENGTH_SHORT).show();
 							}
 						}
@@ -1150,7 +1181,6 @@ public final class Main extends ListActivity implements
 						return;
 					}
 				}
-
 			});
 			AlertDialog alertmore = builder3.create();
 			alertmore.show();

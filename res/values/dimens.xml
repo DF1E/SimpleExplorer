@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="itemsmall">13sp</dimen>
-    <dimen name="itembig">15sp</dimen>
     <dimen name="infopage">14sp</dimen>
     <dimen name="itemheight">50dp</dimen>
     <dimen name="itemheightlarge">65dp</dimen>
+
 </resources>

@@ -4,21 +4,22 @@
     <item
         android:id="@+id/create"
         android:icon="@drawable/create"
-        android:showAsAction="never"
+        android:showAsAction="always"
         android:title="@string/create"/>
     <item
         android:id="@+id/bookmarks"
-        android:showAsAction="never"
+        android:icon="@drawable/bookmark"
+        android:showAsAction="always"
         android:title="@string/bookmark"/>
     <item
         android:id="@+id/multis"
         android:icon="@drawable/multi"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:title="@string/multis"/>
     <item
         android:id="@+id/finfo"
         android:icon="@drawable/info1"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:title="@string/dir_info"/>
     <item
         android:id="@+id/settings"

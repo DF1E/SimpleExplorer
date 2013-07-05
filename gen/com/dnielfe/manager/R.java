@@ -23,35 +23,33 @@ public final class R {
         public static final int transparent=0x7f060003;
     }
     public static final class dimen {
-        public static final int infopage=0x7f070002;
-        public static final int itembig=0x7f070001;
-        public static final int itemheight=0x7f070003;
-        public static final int itemheightlarge=0x7f070004;
-        public static final int itemsmall=0x7f070000;
+        public static final int infopage=0x7f070000;
+        public static final int itemheight=0x7f070001;
+        public static final int itemheightlarge=0x7f070002;
     }
     public static final class drawable {
         public static final int appicon=0x7f020000;
-        public static final int buttonaction=0x7f020001;
-        public static final int config32=0x7f020002;
-        public static final int copy=0x7f020003;
-        public static final int create=0x7f020004;
-        public static final int delete=0x7f020005;
-        public static final int excel=0x7f020006;
-        public static final int folder=0x7f020007;
-        public static final int folder_full=0x7f020008;
-        public static final int html32=0x7f020009;
-        public static final int ic_launcher=0x7f02000a;
-        public static final int image=0x7f02000b;
-        public static final int info1=0x7f02000c;
-        public static final int jar32=0x7f02000d;
-        public static final int listmore=0x7f02000e;
-        public static final int move=0x7f02000f;
-        public static final int movies=0x7f020010;
-        public static final int multi=0x7f020011;
-        public static final int music=0x7f020012;
-        public static final int pdf=0x7f020013;
-        public static final int ppt=0x7f020014;
-        public static final int sdcard=0x7f020015;
+        public static final int bookmark=0x7f020001;
+        public static final int buttonaction=0x7f020002;
+        public static final int config32=0x7f020003;
+        public static final int copy=0x7f020004;
+        public static final int create=0x7f020005;
+        public static final int delete=0x7f020006;
+        public static final int excel=0x7f020007;
+        public static final int folder=0x7f020008;
+        public static final int folder_full=0x7f020009;
+        public static final int html32=0x7f02000a;
+        public static final int ic_launcher=0x7f02000b;
+        public static final int image=0x7f02000c;
+        public static final int info1=0x7f02000d;
+        public static final int jar32=0x7f02000e;
+        public static final int listmore=0x7f02000f;
+        public static final int move=0x7f020010;
+        public static final int movies=0x7f020011;
+        public static final int multi=0x7f020012;
+        public static final int music=0x7f020013;
+        public static final int pdf=0x7f020014;
+        public static final int ppt=0x7f020015;
         public static final int search=0x7f020016;
         public static final int share=0x7f020017;
         public static final int text=0x7f020018;
@@ -68,9 +66,9 @@ public final class R {
         public static final int actionshare=0x7f0b001d;
         public static final int avaible_size=0x7f0b0013;
         public static final int bookmarks=0x7f0b001f;
-        public static final int bottom_view=0x7f0b0016;
+        public static final int bottom_view=0x7f0b0017;
         public static final int create=0x7f0b001e;
-        public static final int dateview=0x7f0b0018;
+        public static final int dateview=0x7f0b0019;
         public static final int directory_buttons=0x7f0b0002;
         public static final int dirs_label=0x7f0b000f;
         public static final int fifth_title=0x7f0b0012;
@@ -78,42 +76,39 @@ public final class R {
         public static final int finfo=0x7f0b0021;
         public static final int first_title=0x7f0b000e;
         public static final int fourth_title=0x7f0b000b;
-        public static final int info1=0x7f0b0023;
-        public static final int listView1=0x7f0b0019;
+        public static final int infotext=0x7f0b0014;
         public static final int multis=0x7f0b0020;
-        public static final int multiselect_icon=0x7f0b0014;
+        public static final int multiselect_icon=0x7f0b0015;
         public static final int name=0x7f0b0004;
         public static final int name_label=0x7f0b0005;
         public static final int path=0x7f0b0006;
         public static final int path_label=0x7f0b0007;
         public static final int progressBar=0x7f0b0003;
         public static final int quit=0x7f0b000d;
-        public static final int row_image=0x7f0b0015;
+        public static final int row_image=0x7f0b0016;
         public static final int scroll_text=0x7f0b0001;
         public static final int second_title=0x7f0b0010;
         public static final int settings=0x7f0b0022;
         public static final int sizelayout=0x7f0b000a;
         public static final int third_title=0x7f0b0008;
         public static final int time_stamp=0x7f0b0009;
-        public static final int top_view=0x7f0b0017;
+        public static final int top_view=0x7f0b0018;
         public static final int total_size=0x7f0b000c;
     }
     public static final class layout {
         public static final int actionbar=0x7f030000;
         public static final int details=0x7f030001;
         public static final int folderinfo=0x7f030002;
-        public static final int home=0x7f030003;
-        public static final int item=0x7f030004;
-        public static final int menu=0x7f030005;
+        public static final int fsdialog=0x7f030003;
+        public static final int home=0x7f030004;
+        public static final int item=0x7f030005;
     }
     public static final class menu {
         public static final int actionmode=0x7f0a0000;
         public static final int main=0x7f0a0001;
-        public static final int saveapps=0x7f0a0002;
     }
     public static final class string {
         public static final int AvaibleSize=0x7f080043;
-        public static final int Backupall=0x7f080058;
         public static final int LastModified=0x7f08001b;
         public static final int Numberoffiles=0x7f08001a;
         public static final int Numberoffolders=0x7f080019;
@@ -124,7 +119,6 @@ public final class R {
         public static final int bookmark=0x7f08004c;
         public static final int bookmarkadded=0x7f08004d;
         public static final int bookmarkexist=0x7f08004e;
-        public static final int bookmarksdelete=0x7f080062;
         public static final int calcinfo=0x7f08001f;
         public static final int cancel=0x7f080010;
         public static final int cannotbeundoneareyousureyouwanttodelete=0x7f08000f;
@@ -137,14 +131,12 @@ public final class R {
         public static final int createbookmark=0x7f08004f;
         public static final int created=0x7f080024;
         public static final int createnewfolder=0x7f080020;
-        public static final int createzip=0x7f080061;
         public static final int delete=0x7f080016;
         public static final int desc=0x7f080026;
         public static final int detailed=0x7f080054;
         public static final int details=0x7f08002a;
         public static final int dir_info=0x7f080001;
         public static final int error=0x7f08004b;
-        public static final int externalsdcard=0x7f08005c;
         public static final int extracthere=0x7f08000e;
         public static final int fdirectory=0x7f080033;
         public static final int file=0x7f080049;
@@ -156,11 +148,10 @@ public final class R {
         public static final int folders=0x7f080023;
         public static final int folderwasrenamed=0x7f08002b;
         public static final int foundfiles=0x7f08002c;
-        public static final int generalsettings=0x7f080056;
+        public static final int fstext=0x7f080055;
         public static final int hiddenfiles=0x7f080035;
         public static final int image=0x7f080046;
         public static final int info=0x7f080002;
-        public static final int internalsdcard=0x7f08005b;
         public static final int ioexception=0x7f080009;
         public static final int itcouldntbefound=0x7f08003c;
         public static final int move=0x7f080017;
@@ -177,8 +168,6 @@ public final class R {
         public static final int openas=0x7f080044;
         public static final int options=0x7f080025;
         public static final int pasteintofolder=0x7f080007;
-        public static final int pathis=0x7f080059;
-        public static final int pathsdcard=0x7f08005a;
         public static final int pressbackagaintoquit=0x7f080014;
         public static final int rename=0x7f08001d;
         public static final int sdcard=0x7f080021;
@@ -186,7 +175,6 @@ public final class R {
         public static final int search=0x7f080004;
         public static final int searchtext=0x7f08003e;
         public static final int setpath=0x7f080031;
-        public static final int setpathsum=0x7f08005d;
         public static final int settings=0x7f080005;
         public static final int share=0x7f08001e;
         public static final int showpreview=0x7f080036;
@@ -197,8 +185,6 @@ public final class R {
         public static final int sorrycouldntfindahtmlviewver=0x7f08000b;
         public static final int sorrycouldntfindapdfviewver=0x7f08000a;
         public static final int sort=0x7f08004a;
-        public static final int sortby=0x7f08005e;
-        public static final int sortsum=0x7f08005f;
         public static final int text=0x7f080045;
         public static final int toopen=0x7f08000d;
         public static final int type=0x7f08003b;
@@ -206,10 +192,8 @@ public final class R {
         public static final int unistall=0x7f08002e;
         public static final int video=0x7f080047;
         public static final int viewmode=0x7f080052;
-        public static final int viewsettings=0x7f080057;
-        public static final int xda=0x7f080055;
+        public static final int xda=0x7f080056;
         public static final int youdonthavepermissiontounzip=0x7f080011;
-        public static final int zip=0x7f080060;
         public static final int zipfolder=0x7f080006;
     }
     public static final class style {

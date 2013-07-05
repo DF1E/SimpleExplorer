@@ -62,13 +62,7 @@ public class Thumbnails extends Thread {
 				options.outWidth = mWidth;
 				options.outHeight = mHeight;
 
-				if (len_kb > 1000 && len_kb < 5000) {
-					options.inSampleSize = 32;
-					options.inPurgeable = true;
-					mThumb = new SoftReference<Bitmap>(
-							BitmapFactory.decodeFile(file.getPath(), options));
-
-				} else if (len_kb >= 5000) {
+				if (len_kb >= 1000) {
 					options.inSampleSize = 32;
 					options.inPurgeable = true;
 					mThumb = new SoftReference<Bitmap>(
