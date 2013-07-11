@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Datei Manager</string>
-    <string name="dir_info">Ordner Information</string>
+    <string name="dir_info">Ordner Informationen</string>
     <string name="newd">Neuer Ordner</string>
     <string name="search">Suchen</string>
     <string name="settings">Einstellungen</string>

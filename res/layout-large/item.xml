@@ -28,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:contentDescription="@string/desc"
             android:focusable="false"
@@ -57,7 +58,7 @@
                 android:singleLine="true"
                 android:textAllCaps="false"
                 android:textIsSelectable="false"
-                android:textSize="22sp" />
+                android:textSize="21sp" />
 
             <TextView
                 android:id="@+id/dateview"

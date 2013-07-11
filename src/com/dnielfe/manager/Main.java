@@ -36,6 +36,7 @@ import android.view.MenuItem;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
@@ -86,7 +87,6 @@ public final class Main extends ListActivity implements
 	private static String mZippedTarget;
 	private static String mSelectedListItem;
 	private TextView mDetailLabel;
-	static boolean hidden;
 	static boolean preview;
 	static int viewm;
 	static LinearLayout mDirectoryButtons;
@@ -101,7 +101,6 @@ public final class Main extends ListActivity implements
 	static String startpath = Environment.getExternalStorageDirectory()
 			.getPath();
 
-	@SuppressWarnings("unused")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -109,7 +108,7 @@ public final class Main extends ListActivity implements
 		// read settings
 		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
 		mSettings.registerOnSharedPreferenceChangeListener(this);
-		hidden = mSettings.getBoolean(PREF_HIDDEN, false);
+		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, false);
 		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, false);
 		String value = mSettings.getString("sort", "1");
 		int sort = Integer.parseInt(value);
@@ -117,6 +116,7 @@ public final class Main extends ListActivity implements
 		viewm = Integer.parseInt(viewmode);
 
 		mFileMag = new FileOperations();
+		mFileMag.setShowHiddenFiles(hidden);
 		mFileMag.setSortType(sort);
 
 		if (savedInstanceState != null)
@@ -149,6 +149,17 @@ public final class Main extends ListActivity implements
 		// register context menu for our list view
 		registerForContextMenu(getListView());
 
+		Intent intent3 = getIntent();
+		SearchIntent(intent3);
+
+		setsearchbutton();
+		checkEnvironment();
+		setDirectoryButtons();
+		displayFreeSpace();
+		firststartdialog();
+	}
+
+	private void setsearchbutton() {
 		// Image Button ActionBar Search
 		ImageButton mainButton = (ImageButton) findViewById(R.id.actionsearch);
 		mainButton.setOnClickListener(new OnClickListener() {
@@ -159,16 +170,15 @@ public final class Main extends ListActivity implements
 			}
 		});
 
-		Intent intent3 = getIntent();
-		SearchIntent(intent3);
+		mainButton.setOnLongClickListener(new OnLongClickListener() {
 
-		mDirectoryButtons = (LinearLayout) findViewById(R.id.directory_buttons);
-		HorizontalScrollView scrolltext = (HorizontalScrollView) findViewById(R.id.scroll_text);
-
-		checkEnvironment();
-		setDirectoryButtons();
-		displayFreeSpace();
-		firststartdialog();
+			@Override
+			public boolean onLongClick(View arg0) {
+				Toast.makeText(Main.this, getString(R.string.search),
+						Toast.LENGTH_LONG).show();
+				return false;
+			}
+		});
 	}
 
 	private void firststartdialog() {
@@ -198,7 +208,6 @@ public final class Main extends ListActivity implements
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putBoolean("ranOnce", true);
 		editor.commit();
-
 	}
 
 	@Override
@@ -258,6 +267,7 @@ public final class Main extends ListActivity implements
 	}
 
 	public void setDirectoryButtons() {
+
 		HorizontalScrollView scrolltext = (HorizontalScrollView) findViewById(R.id.scroll_text);
 		mDirectoryButtons = (LinearLayout) findViewById(R.id.directory_buttons);
 		mDirectoryButtons.removeAllViews();
@@ -379,7 +389,6 @@ public final class Main extends ListActivity implements
 
 		// If the user has multi-select on, we just need to record the file not
 		// make an intent for it.
-
 		if (multiSelect) {
 			mTable.addMultiPosition(position, file.getPath());
 

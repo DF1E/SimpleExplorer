@@ -30,10 +30,4 @@
             android:title="@string/bookmark" />
     </PreferenceCategory>
 
-    <PreferenceScreen android:title="@string/xda" >
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="http://forum.xda-developers.com/showthread.php?t=2330864" />
-    </PreferenceScreen>
-
 </PreferenceScreen>
