@@ -24,7 +24,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
+                android:minWidth="160dp"
                 android:text="@string/fname"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -33,11 +35,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:ellipsize="end"
-                android:gravity="right"
-                android:maxLength="40"
+                android:gravity="left"
                 android:maxLines="1"
                 android:textColor="?android:attr/textColorPrimaryDisableOnly"
                 android:textIsSelectable="false"
+                android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -53,7 +55,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="@string/fdirectory" />
+                android:minWidth="160dp"
+                android:text="@string/fdirectory"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/path_label"
@@ -61,11 +65,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:ellipsize="end"
-                android:gravity="right"
-                android:maxLength="35"
+                android:gravity="left"
                 android:maxLines="1"
-                android:textColor="?android:attr/textColorPrimaryDisableOnly"
-                android:textIsSelectable="false" />
+                android:textIsSelectable="false"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -81,7 +84,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:gravity="left"
-                android:text="@string/LastModified" />
+                android:minWidth="160dp"
+                android:text="@string/LastModified"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/time_stamp"
@@ -89,10 +94,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:ellipsize="end"
-                android:gravity="right"
-                android:maxLength="40"
+                android:gravity="left"
                 android:maxLines="1"
-                android:textIsSelectable="false" />
+                android:textIsSelectable="false"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -109,7 +114,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:gravity="left"
-                android:text="@string/TotalSize" />
+                android:minWidth="160dp"
+                android:text="@string/size"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/total_size"
@@ -117,10 +124,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:ellipsize="end"
-                android:gravity="right"
+                android:gravity="left"
                 android:maxLines="1"
                 android:textIsSelectable="false"
+                android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/Gray" />
         </LinearLayout>
     </LinearLayout>
 
@@ -134,6 +147,7 @@
         style="?android:attr/actionButtonStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ok" />
+        android:text="@string/ok"
+        android:textSize="18sp" />
 
 </LinearLayout>

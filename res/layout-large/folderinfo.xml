@@ -14,8 +14,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:maxLines="1"
+            android:minWidth="180dp"
             android:padding="3dp"
             android:text="@string/fname"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -23,10 +26,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:ellipsize="end"
             android:gravity="right|center_vertical"
             android:maxLines="1"
-            android:textColor="?android:attr/textColorPrimaryDisableOnly"
             android:textIsSelectable="false"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </TableRow>
 
@@ -37,18 +41,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:maxLines="1"
+            android:minWidth="180dp"
             android:padding="3dp"
-            android:text="@string/fdirectory" />
+            android:text="@string/fdirectory"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/path_label"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:ellipsize="end"
             android:gravity="right|center_vertical"
             android:maxLines="1"
-            android:textColor="?android:attr/textColorPrimaryDisableOnly"
-            android:textIsSelectable="false" />
+            android:textIsSelectable="false"
+            android:textSize="18sp" />
     </TableRow>
 
     <TableRow>
@@ -59,9 +67,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:gravity="left"
+            android:maxLines="1"
+            android:minWidth="180dp"
             android:padding="3dp"
             android:text="@string/Numberoffolders"
-            android:textSize="@dimen/infopage" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/dirs_label"
@@ -69,7 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:gravity="right|center_vertical"
-            android:textIsSelectable="false" />
+            android:textIsSelectable="false"
+            android:textSize="18sp" />
     </TableRow>
 
     <TableRow>
@@ -80,9 +91,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:gravity="left"
+            android:maxLines="1"
+            android:minWidth="180dp"
             android:padding="3dp"
             android:text="@string/Numberoffiles"
-            android:textSize="@dimen/infopage" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/files_label"
@@ -90,7 +103,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:gravity="right|center_vertical"
-            android:textIsSelectable="false" />
+            android:textIsSelectable="false"
+            android:textSize="18sp" />
     </TableRow>
 
     <TableRow>
@@ -101,9 +115,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:gravity="left"
+            android:maxLines="1"
+            android:minWidth="180dp"
             android:padding="3dp"
             android:text="@string/LastModified"
-            android:textSize="@dimen/infopage" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/time_stamp"
@@ -111,7 +127,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:gravity="right|center_vertical"
-            android:textIsSelectable="false" />
+            android:textIsSelectable="false"
+            android:textSize="18sp" />
     </TableRow>
 
     <TableRow>
@@ -122,9 +139,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:gravity="left"
+            android:maxLines="1"
+            android:minWidth="180dp"
             android:padding="3dp"
             android:text="@string/TotalSize"
-            android:textSize="@dimen/infopage" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/total_size"
@@ -133,6 +152,7 @@
             android:layout_gravity="right"
             android:gravity="right|center_vertical"
             android:textIsSelectable="false"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </TableRow>
 
@@ -144,8 +164,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:gravity="left"
+            android:maxLines="1"
+            android:minWidth="180dp"
             android:padding="3dp"
-            android:text="@string/AvaibleSize" />
+            android:text="@string/AvaibleSize"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/avaible_size"
@@ -154,6 +177,7 @@
             android:layout_gravity="right"
             android:gravity="right|center_vertical"
             android:textIsSelectable="false"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </TableRow>
 
