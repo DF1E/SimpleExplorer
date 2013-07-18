@@ -23,7 +23,7 @@ public class FileOperations {
 	private static final int SORT_TYPE = 1;
 	private static final int SORT_SIZE = 2;
 
-	private boolean mShowHiddenFiles = true;
+	private boolean mShowHiddenFiles;
 	private int mSortType = SORT_TYPE;
 	private long mDirSize = 0;
 	private Stack<String> mPathStack;

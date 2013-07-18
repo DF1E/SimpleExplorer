@@ -59,49 +59,47 @@ public final class R {
         public static final int zip=0x7f02001c;
     }
     public static final class id {
-        public static final int actioncopy=0x7f0b001b;
-        public static final int actiondelete=0x7f0b001c;
-        public static final int actionmove=0x7f0b001a;
+        public static final int actioncopy=0x7f0b001a;
+        public static final int actiondelete=0x7f0b001b;
+        public static final int actionmove=0x7f0b0019;
         public static final int actionsearch=0x7f0b0000;
-        public static final int actionshare=0x7f0b001d;
+        public static final int actionshare=0x7f0b001c;
         public static final int avaible_size=0x7f0b0013;
-        public static final int bookmarks=0x7f0b001f;
-        public static final int bottom_view=0x7f0b0017;
-        public static final int create=0x7f0b001e;
-        public static final int dateview=0x7f0b0019;
+        public static final int bookmarks=0x7f0b001e;
+        public static final int bottom_view=0x7f0b0016;
+        public static final int create=0x7f0b001d;
+        public static final int dateview=0x7f0b0018;
         public static final int directory_buttons=0x7f0b0002;
         public static final int dirs_label=0x7f0b000f;
         public static final int fifth_title=0x7f0b0012;
         public static final int files_label=0x7f0b0011;
-        public static final int finfo=0x7f0b0021;
+        public static final int finfo=0x7f0b0020;
         public static final int first_title=0x7f0b000e;
         public static final int fourth_title=0x7f0b000b;
-        public static final int infotext=0x7f0b0014;
-        public static final int multis=0x7f0b0020;
-        public static final int multiselect_icon=0x7f0b0015;
+        public static final int multis=0x7f0b001f;
+        public static final int multiselect_icon=0x7f0b0014;
         public static final int name=0x7f0b0004;
         public static final int name_label=0x7f0b0005;
         public static final int path=0x7f0b0006;
         public static final int path_label=0x7f0b0007;
         public static final int progressBar=0x7f0b0003;
         public static final int quit=0x7f0b000d;
-        public static final int row_image=0x7f0b0016;
+        public static final int row_image=0x7f0b0015;
         public static final int scroll_text=0x7f0b0001;
         public static final int second_title=0x7f0b0010;
-        public static final int settings=0x7f0b0022;
+        public static final int settings=0x7f0b0021;
         public static final int sizelayout=0x7f0b000a;
         public static final int third_title=0x7f0b0008;
         public static final int time_stamp=0x7f0b0009;
-        public static final int top_view=0x7f0b0018;
+        public static final int top_view=0x7f0b0017;
         public static final int total_size=0x7f0b000c;
     }
     public static final class layout {
         public static final int actionbar=0x7f030000;
         public static final int details=0x7f030001;
         public static final int folderinfo=0x7f030002;
-        public static final int fsdialog=0x7f030003;
-        public static final int home=0x7f030004;
-        public static final int item=0x7f030005;
+        public static final int home=0x7f030003;
+        public static final int item=0x7f030004;
     }
     public static final class menu {
         public static final int actionmode=0x7f0a0000;
@@ -148,7 +146,7 @@ public final class R {
         public static final int folders=0x7f080023;
         public static final int folderwasrenamed=0x7f08002b;
         public static final int foundfiles=0x7f08002c;
-        public static final int fstext=0x7f080055;
+        public static final int ftp=0x7f080055;
         public static final int hiddenfiles=0x7f080035;
         public static final int image=0x7f080046;
         public static final int info=0x7f080002;
@@ -192,7 +190,6 @@ public final class R {
         public static final int unistall=0x7f08002e;
         public static final int video=0x7f080047;
         public static final int viewmode=0x7f080052;
-        public static final int xda=0x7f080056;
         public static final int youdonthavepermissiontounzip=0x7f080011;
         public static final int zipfolder=0x7f080006;
     }

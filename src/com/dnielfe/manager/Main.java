@@ -98,7 +98,7 @@ public final class Main extends ListActivity implements
 	private String display_size;
 	static final String[] Q = new String[] { "B", "KB", "MB", "GB", "T", "P",
 			"E" };
-	static String startpath = Environment.getExternalStorageDirectory()
+	public static String startpath = Environment.getExternalStorageDirectory()
 			.getPath();
 
 	@Override
@@ -108,7 +108,7 @@ public final class Main extends ListActivity implements
 		// read settings
 		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
 		mSettings.registerOnSharedPreferenceChangeListener(this);
-		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, false);
+		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
 		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, false);
 		String value = mSettings.getString("sort", "1");
 		int sort = Integer.parseInt(value);
@@ -156,7 +156,6 @@ public final class Main extends ListActivity implements
 		checkEnvironment();
 		setDirectoryButtons();
 		displayFreeSpace();
-		firststartdialog();
 	}
 
 	private void setsearchbutton() {
@@ -179,35 +178,6 @@ public final class Main extends ListActivity implements
 				return false;
 			}
 		});
-	}
-
-	private void firststartdialog() {
-		SharedPreferences prefs = getSharedPreferences("Info", 0);
-		boolean runOnce = prefs.getBoolean("ranOnce", false);
-		if (runOnce == false) {
-
-			final Dialog dialog1 = new Dialog(Main.this);
-			dialog1.setContentView(R.layout.fsdialog);
-			dialog1.setTitle(R.string.info);
-			dialog1.setCancelable(true);
-
-			TextView textv = (TextView) dialog1.findViewById(R.id.infotext);
-			textv.setText(R.string.fstext);
-
-			Button button1 = (Button) dialog1.findViewById(R.id.quit);
-			button1.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					dialog1.cancel();
-				}
-			});
-
-			dialog1.show();
-		}
-
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putBoolean("ranOnce", true);
-		editor.commit();
 	}
 
 	@Override
@@ -807,7 +777,7 @@ public final class Main extends ListActivity implements
 										Toast.LENGTH_LONG).show();
 							} else
 								Toast.makeText(Main.this,
-										mSelectedListItem + " was not renamed",
+										mSelectedListItem + "Error",
 										Toast.LENGTH_LONG).show();
 
 							dialog.dismiss();
@@ -863,7 +833,7 @@ public final class Main extends ListActivity implements
 										Toast.LENGTH_LONG).show();
 							} else
 								Toast.makeText(Main.this,
-										mSelectedListItem + " was not renamed",
+										mSelectedListItem + "Error",
 										Toast.LENGTH_LONG).show();
 
 							dialog.dismiss();
@@ -987,15 +957,11 @@ public final class Main extends ListActivity implements
 				setDisplay_size(String.format("%.2f B", (double) size));
 		}
 
-		System.out.println("Before Format : " + file3.lastModified());
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-		System.out.println("After Format : "
-				+ sdf1.format(file3.lastModified()));
 
 		// Only Dialog
 		final Dialog dialog1 = new Dialog(Main.this);
 		dialog1.setContentView(R.layout.details);
-		// dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 		dialog1.setTitle(R.string.details);
 		dialog1.setCancelable(true);
 
@@ -1029,15 +995,11 @@ public final class Main extends ListActivity implements
 		File file1 = new File(mFileMag.getCurrentDir() + "/"
 				+ mSelectedListItem);
 
-		System.out.println("Before Format : " + file1.lastModified());
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-		System.out
-				.println("After Format : " + sdf.format(file1.lastModified()));
 
 		// Only Dialog
 		final Dialog dialog = new Dialog(Main.this);
 		dialog.setContentView(R.layout.details);
-		// dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 		dialog.setTitle(R.string.details);
 		dialog.setCancelable(true);
 
@@ -1052,7 +1014,7 @@ public final class Main extends ListActivity implements
 		text2.setText(sdf.format(file1.lastModified()));
 
 		TextView text3 = (TextView) dialog.findViewById(R.id.total_size);
-		text3.setText(" --- ");
+		text3.setText("---");
 
 		// Set up Button
 		Button button = (Button) dialog.findViewById(R.id.quit);
@@ -1200,6 +1162,7 @@ public final class Main extends ListActivity implements
 			info.putExtra("PATH_NAME", mFileMag.getCurrentDir());
 			Main.this.startActivity(info);
 			return true;
+
 		case R.id.settings:
 			Intent intent = new Intent(Main.this, Settings.class);
 			startActivity(intent);
@@ -1346,7 +1309,6 @@ public final class Main extends ListActivity implements
 						String temp = mFileMag.getCurrentDir();
 						mHandler.updateDirectory(mFileMag
 								.getNextDir(temp, true));
-
 					}
 				});
 

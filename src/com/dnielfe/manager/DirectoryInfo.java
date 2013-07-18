@@ -70,6 +70,7 @@ public class DirectoryInfo extends Activity {
 		protected void onPreExecute() {
 			dialog = ProgressDialog.show(DirectoryInfo.this, "",
 					getString(R.string.calcinfo));
+			dialog.setCancelable(true);
 		}
 
 		protected Long doInBackground(String... vals) {
