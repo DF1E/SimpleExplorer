@@ -133,7 +133,6 @@ public final class Main extends ListActivity implements
 		actionBar.setDisplayShowCustomEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(false);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		// actionBar.setBackgroundDrawable(new ColorDrawable(COLOR.BLUE));
 
 		// ActionBar Layout
 		LayoutInflater inflator = (LayoutInflater) this
@@ -1180,7 +1179,7 @@ public final class Main extends ListActivity implements
 				null);
 	}
 
-	public void openaction() {
+	private void openaction() {
 		final File file = new File(mFileMag.getCurrentDir() + "/"
 				+ mSelectedListItem);
 		final CharSequence[] openAsOperations = { getString(R.string.text),
@@ -1241,53 +1240,7 @@ public final class Main extends ListActivity implements
 		alert.show();
 	}
 
-	// On back pressed Actions
-	@Override
-	public boolean onKeyDown(int keycode, KeyEvent event) {
-		String current = mFileMag.getCurrentDir();
-
-		if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
-				&& !current.equals("/")) {
-			if (mHandler.isMultiSelected()) {
-				mTable.killMultiSelect(true);
-				Toast.makeText(Main.this, R.string.multioff, Toast.LENGTH_SHORT)
-						.show();
-
-			} else {
-				// stop updating thumbnail icons if its running
-				mHandler.stopThumbnailThread();
-				mHandler.updateDirectory(mFileMag.getPreviousDir());
-				setDirectoryButtons();
-				listview();
-			}
-			return true;
-
-		} else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
-				&& current.equals("/")) {
-			Toast.makeText(Main.this, getString(R.string.pressbackagaintoquit),
-					Toast.LENGTH_SHORT).show();
-
-			if (mHandler.isMultiSelected()) {
-				mTable.killMultiSelect(true);
-				Toast.makeText(Main.this, R.string.multioff, Toast.LENGTH_SHORT)
-						.show();
-			}
-
-			mUseBackKey = false;
-			setDirectoryButtons();
-
-			return false;
-
-		} else if (keycode == KeyEvent.KEYCODE_BACK && !mUseBackKey
-				&& current.equals("/")) {
-			finish();
-
-			return false;
-		}
-		return false;
-	}
-
-	protected void createfile() {
+	private void createfile() {
 		AlertDialog.Builder alertf = new AlertDialog.Builder(this);
 		alertf.setTitle(getString(R.string.newfile));
 
@@ -1475,5 +1428,51 @@ public final class Main extends ListActivity implements
 		mHandler.mContext.startActivity(Intent.createChooser(mail_int,
 				getString(R.string.share)));
 		mHandler.mDelegate.killMultiSelect(true);
+	}
+
+	// On back pressed Actions
+	@Override
+	public boolean onKeyDown(int keycode, KeyEvent event) {
+		String current = mFileMag.getCurrentDir();
+
+		if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
+				&& !current.equals("/")) {
+			if (mHandler.isMultiSelected()) {
+				mTable.killMultiSelect(true);
+				Toast.makeText(Main.this, R.string.multioff, Toast.LENGTH_SHORT)
+						.show();
+
+			} else {
+				// stop updating thumbnail icons if its running
+				mHandler.stopThumbnailThread();
+				mHandler.updateDirectory(mFileMag.getPreviousDir());
+				setDirectoryButtons();
+				listview();
+			}
+			return true;
+
+		} else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
+				&& current.equals("/")) {
+			Toast.makeText(Main.this, getString(R.string.pressbackagaintoquit),
+					Toast.LENGTH_SHORT).show();
+
+			if (mHandler.isMultiSelected()) {
+				mTable.killMultiSelect(true);
+				Toast.makeText(Main.this, R.string.multioff, Toast.LENGTH_SHORT)
+						.show();
+			}
+
+			mUseBackKey = false;
+			setDirectoryButtons();
+
+			return false;
+
+		} else if (keycode == KeyEvent.KEYCODE_BACK && !mUseBackKey
+				&& current.equals("/")) {
+			finish();
+
+			return false;
+		}
+		return false;
 	}
 }
