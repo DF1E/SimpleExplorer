@@ -10,8 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/actionsearch"
-        android:paddingLeft="2dp" >
+        android:layout_toLeftOf="@+id/actionsearch" >
 
         <HorizontalScrollView
             android:id="@+id/scroll_text"
@@ -58,7 +57,6 @@
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/actionsearch"
         android:fillViewport="true"
-        android:indeterminateBehavior="repeat"
-        android:paddingLeft="2dp" />
+        android:indeterminateBehavior="repeat" />
 
 </RelativeLayout>
