@@ -532,17 +532,20 @@ public class EventHandler {
 					mViewHolder.icon.setImageResource(R.drawable.config32);
 
 				} else if (sub_ext.equalsIgnoreCase("apk")) {
-
+					final Drawable appicon;
 					try {
 						PackageInfo packageInfo = activity.getPackageManager()
 								.getPackageArchiveInfo(temp,
 										PackageManager.GET_ACTIVITIES);
 						ApplicationInfo appInfo = packageInfo.applicationInfo;
+
 						appInfo.sourceDir = temp;
 						appInfo.publicSourceDir = temp;
-						Drawable icon = appInfo.loadIcon(activity
-								.getPackageManager());
-						mViewHolder.icon.setBackground(icon);
+
+						appicon = appInfo
+								.loadIcon(activity.getPackageManager());
+						mViewHolder.icon.setImageDrawable(appicon);
+
 					} catch (Exception e) {
 						mViewHolder.icon.setImageResource(R.drawable.appicon);
 					}
@@ -626,7 +629,7 @@ public class EventHandler {
 	private class BackgroundWork extends
 			AsyncTask<String, Void, ArrayList<String>> {
 		private String file_name;
-		ProgressDialog pr_dialog;
+		public ProgressDialog pr_dialog;
 		private int type;
 		private int copy_rtn;
 

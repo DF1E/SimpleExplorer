@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Datei Manager</string>
+    <string name="app_name">Simple Explorer</string>
     <string name="dir_info">Ordner Informationen</string>
     <string name="newd">Neuer Ordner</string>
     <string name="search">Suchen</string>
@@ -32,7 +32,7 @@
     <string name="rename">Umbenennen</string>
     <string name="share">Teilen</string>
     <string name="info">Info</string>
-    <string name="calcinfo">Berechne Informationen</string>
+    <string name="calcinfo">Berechne Daten</string>
     <string name="createnewfolder">Neuer Ordner</string>
     <string name="sdcard">SD Karte</string>
     <string name="files">" Dateien"</string>
@@ -86,6 +86,6 @@
     <string name="viewmode">Ansichtsmodus</string>
     <string name="simple">Einfache Liste</string>
     <string name="detailed">Detaillierte Liste</string>
-    <string name="ftp">FTP Server</string>
+    <string name="createmsg">Setze Punkt vor dem Text um versteckten Ordner zu erstellen.</string>
 
 </resources>

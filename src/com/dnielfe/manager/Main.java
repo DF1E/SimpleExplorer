@@ -181,20 +181,20 @@ public final class Main extends ListActivity implements
 
 	@Override
 	protected void onResume() {
-		super.onResume();
 		mHandler.updateDirectory(mFileMag.getNextDir(mFileMag.getCurrentDir(),
 				true));
 		displayFreeSpace();
 		setDirectoryButtons();
-	}
-
-	public void searchaction() {
-		this.onSearchRequested();
+		super.onResume();
 	}
 
 	public void listview() {
 		ListView listview = this.getListView();
 		listview.setSelection(0);
+	}
+
+	public void searchaction() {
+		this.onSearchRequested();
 	}
 
 	public void onNewIntent(Intent intent) {
@@ -870,6 +870,7 @@ public final class Main extends ListActivity implements
 				Toast.makeText(this, getString(R.string.error),
 						Toast.LENGTH_SHORT).show();
 			}
+			return true;
 
 		case F_MENU_MOVE:
 		case D_MENU_MOVE:
@@ -1100,11 +1101,12 @@ public final class Main extends ListActivity implements
 						return;
 
 					case 1:
+						final EditText input = new EditText(Main.this);
+
 						AlertDialog.Builder alert = new AlertDialog.Builder(
 								Main.this);
 						alert.setTitle(getString(R.string.createnewfolder));
-
-						final EditText input = new EditText(Main.this);
+						alert.setMessage(R.string.createmsg);
 						alert.setView(input);
 						alert.setCancelable(true);
 						alert.setPositiveButton(getString(R.string.ok),
@@ -1163,8 +1165,8 @@ public final class Main extends ListActivity implements
 			return true;
 
 		case R.id.settings:
-			Intent intent = new Intent(Main.this, Settings.class);
-			startActivity(intent);
+			Intent intent1 = new Intent(Main.this, Settings.class);
+			startActivity(intent1);
 			return true;
 
 		default:
