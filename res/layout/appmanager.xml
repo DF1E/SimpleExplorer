@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/backup_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/android:list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="2"
+        android:drawSelectorOnTop="true"
+        android:fastScrollEnabled="true"
+        android:longClickable="true"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:smoothScrollbar="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/backup_button_all"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonline"
+            android:onClick="onClick"
+            android:text="@string/backup" />
+    </LinearLayout>
+
+</LinearLayout>
