@@ -48,7 +48,6 @@
     <string name="folderwasrenamed">Ordner wurde umbenannt</string>
     <string name="foundfiles">Gefunden</string>
     <string name="multis">Mehrfach-Auswahl</string>
-    <string name="unistall">Deinstallieren</string>
     <string name="filewasrenamed">Umbenennen erfolgreich</string>
     <string name="setpath">Verzeichnis</string>
     <string name="fname">Name:</string>
@@ -87,5 +86,21 @@
     <string name="simple">Einfache Liste</string>
     <string name="detailed">Detaillierte Liste</string>
     <string name="createmsg">Setze Punkt vor dem Text um versteckten Ordner zu erstellen.</string>
+    <string name="appmanager">App Manager</string>
+    <string name="launch">Starten</string>
+    <string name="uninstallapp">Deinstallieren</string>
+    <string name="manage">Verwalten</string>
+    <string name="backup">Backup</string>
+    <string name="singlebackup">Einzel Backup</string>
+    <string name="playstore">Playstore</string>
+    <string name="version">"Version "</string>
+    <string name="apps">" Apps"</string>
+    <string name="selectall">Alle auswählen</string>
+    <string name="unselectall">Alle abwählen</string>
+    <string name="backupcomplete">Backup abgeschlossen</string>
+    <string name="noapps">Keine Apps ausgewählt</string>
+    <string name="backedup">" gespeichert"</string>
+    <string name="backuperror">Fehler beim Backup</string>
+    <string name="loading">Lade..</string>
 
 </resources>
