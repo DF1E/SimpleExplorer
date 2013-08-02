@@ -7,12 +7,10 @@ import java.util.ArrayList;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -40,7 +38,6 @@ public class EventHandler {
 	private static final int UNZIPTO_TYPE = 0x03;
 	private static final int ZIP_TYPE = 0x04;
 	private static final int DELETE_TYPE = 0x05;
-	private static Activity activity;
 	final Context mContext;
 	private static int fileCount = 0;
 	private final FileOperations mFileMang;
@@ -51,6 +48,7 @@ public class EventHandler {
 	private boolean thumbnail_flag = true;
 	private static final String searchdirectory = "/storage/";
 	private int viewmode = Main.viewm;
+	public static Drawable res;
 	// the list used to feed info into the array adapter and when multi-select
 	// is on
 	ArrayList<String> mDataSource;
@@ -532,20 +530,11 @@ public class EventHandler {
 					mViewHolder.icon.setImageResource(R.drawable.config32);
 
 				} else if (sub_ext.equalsIgnoreCase("apk")) {
-					final Drawable appicon;
+
 					try {
-						PackageInfo packageInfo = activity.getPackageManager()
-								.getPackageArchiveInfo(temp,
-										PackageManager.GET_ACTIVITIES);
-						ApplicationInfo appInfo = packageInfo.applicationInfo;
-
-						appInfo.sourceDir = temp;
-						appInfo.publicSourceDir = temp;
-
-						appicon = appInfo
-								.loadIcon(activity.getPackageManager());
-						mViewHolder.icon.setImageDrawable(appicon);
-
+						// Drawable icon = getApk(file);
+						// mViewHolder.icon.setImageDrawable(icon);
+						mViewHolder.icon.setImageResource(R.drawable.appicon);
 					} catch (Exception e) {
 						mViewHolder.icon.setImageResource(R.drawable.appicon);
 					}
@@ -760,11 +749,8 @@ public class EventHandler {
 								public void onClick(DialogInterface dialog,
 										int position) {
 									String path = file.get(position);
-									updateDirectory(mFileMang.getNextDir(
-											path.substring(0,
-													path.lastIndexOf("/")),
-
-											true));
+									opendir(path.substring(0,
+											path.lastIndexOf("/")));
 									mDelegate.notifyDataSetChanged();
 								}
 							});
@@ -897,5 +883,30 @@ public class EventHandler {
 		mDelegate.killMultiSelect(false);
 		updateDirectory(mFileMang.getNextDir(mFileMang.getCurrentDir(), true));
 
+	}
+
+	private Drawable getApk(File file2) {
+		try {
+			String path = mFileMang.getCurrentDir();
+			File file = new File(path);
+			String[] list = file.list();
+
+			for (String str : list) {
+				String not_installed_apk_file = path + "/" + str;
+				PackageManager pm = mContext.getPackageManager();
+				PackageInfo pi = pm.getPackageArchiveInfo(
+						not_installed_apk_file, 0);
+				if (pi == null)
+					continue;
+				// the secret are these two lines....
+				pi.applicationInfo.sourceDir = not_installed_apk_file;
+				pi.applicationInfo.publicSourceDir = not_installed_apk_file;
+				//
+				res = pi.applicationInfo.loadIcon(pm);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
 	}
 }

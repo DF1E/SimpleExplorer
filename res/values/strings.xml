@@ -85,6 +85,21 @@
     <string name="viewmode">View Mode</string>
     <string name="simple">Simple</string>
     <string name="detailed">Detailed</string>
-    <string name="createmsg">Setze Punkt vor dem Text um versteckten Ordner zu erstellen.</string>
-
-</resources>
+    <string name="createmsg">Set point before the text to create hidden folder.</string>
+    <string name="appmanager">App Manager</string>
+    <string name="launch">Launch</string>
+    <string name="uninstallapp">Uninstall App</string>
+    <string name="manage">Manage</string>
+    <string name="backup">Backup</string>
+    <string name="singlebackup">Single Backup</string>
+    <string name="playstore">Playstore</string>
+    <string name="version">"Version "</string>
+    <string name="apps">" Apps"</string>
+    <string name="selectall">Select All</string>
+    <string name="unselectall">Unselect All</string>
+    <string name="backupcomplete">Backup complete</string>
+    <string name="noapps">No Apps selected</string>
+    <string name="backedup">" backed up"</string>
+    <string name="backuperror">Unable to  backup</string>
+    <string name="loading">Loading..</string>
+</resources>

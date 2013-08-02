@@ -2,6 +2,7 @@ package com.dnielfe.manager;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -37,6 +38,7 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.ViewConfiguration;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
@@ -151,6 +153,7 @@ public final class Main extends ListActivity implements
 		Intent intent3 = getIntent();
 		SearchIntent(intent3);
 
+		getOverflowMenu();
 		setsearchbutton();
 		checkEnvironment();
 		setDirectoryButtons();
@@ -195,11 +198,6 @@ public final class Main extends ListActivity implements
 
 	public void searchaction() {
 		this.onSearchRequested();
-	}
-
-	public void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		SearchIntent(intent);
 	}
 
 	public void SearchIntent(Intent intent) {
@@ -1037,6 +1035,21 @@ public final class Main extends ListActivity implements
 		return true;
 	}
 
+	private void getOverflowMenu() {
+
+		try {
+			ViewConfiguration config = ViewConfiguration.get(this);
+			Field menuKeyField = ViewConfiguration.class
+					.getDeclaredField("sHasPermanentMenuKey");
+			if (menuKeyField != null) {
+				menuKeyField.setAccessible(true);
+				menuKeyField.setBoolean(config, false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -1164,9 +1177,14 @@ public final class Main extends ListActivity implements
 			Main.this.startActivity(info);
 			return true;
 
-		case R.id.settings:
-			Intent intent1 = new Intent(Main.this, Settings.class);
+		case R.id.appmanager:
+			Intent intent1 = new Intent(Main.this, AppManager.class);
 			startActivity(intent1);
+			return true;
+
+		case R.id.settings:
+			Intent intent2 = new Intent(Main.this, Settings.class);
+			startActivity(intent2);
 			return true;
 
 		default:
@@ -1315,6 +1333,7 @@ public final class Main extends ListActivity implements
 
 	public static class ProgressbarClass extends Application {
 
+		@SuppressWarnings("deprecation")
 		public static int totalMemory() {
 			StatFs statFs = new StatFs(Environment.getRootDirectory()
 					.getAbsolutePath());
@@ -1322,6 +1341,7 @@ public final class Main extends ListActivity implements
 			return Total;
 		}
 
+		@SuppressWarnings("deprecation")
 		public static int freeMemory() {
 			StatFs statFs = new StatFs(Environment.getRootDirectory()
 					.getAbsolutePath());
@@ -1329,6 +1349,7 @@ public final class Main extends ListActivity implements
 			return Free;
 		}
 
+		@SuppressWarnings("deprecation")
 		public static int busyMemory() {
 			StatFs statFs = new StatFs(Environment.getRootDirectory()
 					.getAbsolutePath());
