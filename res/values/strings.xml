@@ -102,4 +102,9 @@
     <string name="backedup">" backed up"</string>
     <string name="backuperror">Unable to  backup</string>
     <string name="loading">Loading..</string>
-</resources>
+    <string name="deletesearchsuggestions">Delete Suggestions</string>
+    <string name="suggestionscleared">Search suggestions cleared</string>
+    <string name="searchprefs">Search Preferences</string>
+    <string name="enablesearchsuggestions">Searchsuggestions</string>
+
+</resources>

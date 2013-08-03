@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="Gray">#BDBDBD</color>
-    <color name="ItemGray">#A0A0A0</color>
+    <color name="gray">#999999</color>
     <color name="HoloBlue">#33B5E5</color>
     <color name="transparent">#000000FF</color>
 

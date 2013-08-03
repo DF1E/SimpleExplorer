@@ -102,5 +102,9 @@
     <string name="backedup">" gespeichert"</string>
     <string name="backuperror">Fehler beim Backup</string>
     <string name="loading">Lade..</string>
+    <string name="deletesearchsuggestions">Vorschläge löschen</string>
+    <string name="suggestionscleared">Suchvorschläge gelöscht</string>
+    <string name="searchprefs">Sucheinstellungen</string>
+    <string name="enablesearchsuggestions">Suchvorschläge</string>
 
 </resources>

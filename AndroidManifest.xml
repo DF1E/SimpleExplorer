@@ -11,14 +11,6 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
-
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:smallScreens="true"
-        android:xlargeScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -30,6 +22,7 @@
         <activity
             android:name=".Main"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -78,6 +71,9 @@
             </intent-filter>
         </activity>
 
+        <provider
+            android:name=".SearchSuggestions"
+            android:authorities="com.dnielfe.manager" />
         <provider
             android:name=".Bookmarks"
             android:authorities="com.dnielfe.manager.bookmarks" >

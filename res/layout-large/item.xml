@@ -70,7 +70,7 @@
                 android:gravity="top"
                 android:singleLine="true"
                 android:textAllCaps="false"
-                android:textColor="@color/ItemGray"
+                android:textColor="@color/gray"
                 android:textIsSelectable="false"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -87,7 +87,7 @@
             android:gravity="right|center_vertical"
             android:paddingRight="1dp"
             android:singleLine="true"
-            android:textColor="@color/ItemGray"
+            android:textColor="@color/gray"
             android:textIsSelectable="false"
             android:textSize="16sp" />
     </RelativeLayout>
