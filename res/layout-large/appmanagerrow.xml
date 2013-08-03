@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:descendantFocusability="blocksDescendants"
-    android:padding="3dp" >
+    android:padding="4dp" >
 
     <ImageView
         android:id="@+id/icon"
@@ -12,7 +12,7 @@
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:padding="1dp" />
+        android:padding="2dp" />
 
     <com.dnielfe.checkbox.CheckBoxActivity
         android:id="@+id/select_icon"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:padding="1dp" />
+        android:padding="2dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,27 +29,27 @@
         android:layout_toLeftOf="@id/select_icon"
         android:layout_toRightOf="@id/icon"
         android:orientation="vertical"
-        android:paddingLeft="3dp" >
+        android:paddingLeft="4dp" >
 
         <TextView
             android:id="@+id/app_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp" />
+            android:textSize="21sp" />
 
         <TextView
             android:id="@+id/version"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/installdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 </RelativeLayout>

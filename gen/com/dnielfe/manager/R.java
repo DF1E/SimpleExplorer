@@ -17,10 +17,9 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int Gray=0x7f060000;
-        public static final int HoloBlue=0x7f060002;
-        public static final int ItemGray=0x7f060001;
-        public static final int transparent=0x7f060003;
+        public static final int HoloBlue=0x7f060001;
+        public static final int gray=0x7f060000;
+        public static final int transparent=0x7f060002;
     }
     public static final class dimen {
         public static final int itemheight=0x7f070000;
@@ -151,10 +150,12 @@ public final class R {
         public static final int createmsg=0x7f080054;
         public static final int createnewfolder=0x7f080020;
         public static final int delete=0x7f080016;
+        public static final int deletesearchsuggestions=0x7f080065;
         public static final int desc=0x7f080026;
         public static final int detailed=0x7f080053;
         public static final int details=0x7f08002a;
         public static final int dir_info=0x7f080001;
+        public static final int enablesearchsuggestions=0x7f080068;
         public static final int error=0x7f08004a;
         public static final int extracthere=0x7f08000e;
         public static final int fdirectory=0x7f080032;
@@ -196,6 +197,7 @@ public final class R {
         public static final int sdcard=0x7f080021;
         public static final int sdcardnotfound=0x7f08003e;
         public static final int search=0x7f080004;
+        public static final int searchprefs=0x7f080067;
         public static final int searchtext=0x7f08003d;
         public static final int selectall=0x7f08005e;
         public static final int setpath=0x7f080030;
@@ -210,6 +212,7 @@ public final class R {
         public static final int sorrycouldntfindahtmlviewver=0x7f08000b;
         public static final int sorrycouldntfindapdfviewver=0x7f08000a;
         public static final int sort=0x7f080049;
+        public static final int suggestionscleared=0x7f080066;
         public static final int text=0x7f080044;
         public static final int toopen=0x7f08000d;
         public static final int type=0x7f08003a;
@@ -226,7 +229,7 @@ public final class R {
         public static final int AppBaseTheme=0x7f090000;
     }
     public static final class xml {
-        public static final int searchable=0x7f040000;
-        public static final int settings=0x7f040001;
+        public static final int preferences=0x7f040000;
+        public static final int searchable=0x7f040001;
     }
 }
