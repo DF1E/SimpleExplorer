@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.preference.PreferenceManager;
+import android.provider.SearchRecentSuggestions;
 import android.text.format.Formatter;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -54,11 +55,11 @@ import android.widget.Toast;
 public final class Main extends ListActivity implements
 		OnSharedPreferenceChangeListener {
 
-	private static final String PREFS_THUMBNAIL = "thumbnail";
 	private static final String PREF_HIDDEN = "displayhiddenfiles";
 	public static final String PREF_PREVIEW = "showpreview";
 	public static final String PREFS_SORT = "sort";
 	public static final String PREFS_VIEW = "viewmode";
+	public static final String PREF_SEARCH = "enablesearchsuggestions";
 
 	private static final int D_MENU_BOOKMARK = 4;
 	private static final int F_MENU_OPENAS = 5;
@@ -89,7 +90,6 @@ public final class Main extends ListActivity implements
 	private static String mZippedTarget;
 	private static String mSelectedListItem;
 	private TextView mDetailLabel;
-	static boolean preview;
 	static int viewm;
 	static LinearLayout mDirectoryButtons;
 	static ActionMode mActionMode;
@@ -183,17 +183,18 @@ public final class Main extends ListActivity implements
 	}
 
 	@Override
+	protected void onNewIntent(Intent intent) {
+		setIntent(intent);
+		SearchIntent(intent);
+	}
+
+	@Override
 	protected void onResume() {
 		mHandler.updateDirectory(mFileMag.getNextDir(mFileMag.getCurrentDir(),
 				true));
 		displayFreeSpace();
 		setDirectoryButtons();
 		super.onResume();
-	}
-
-	public void listview() {
-		ListView listview = this.getListView();
-		listview.setSelection(0);
 	}
 
 	public void searchaction() {
@@ -203,13 +204,33 @@ public final class Main extends ListActivity implements
 	public void SearchIntent(Intent intent) {
 		setIntent(intent);
 
+		boolean searchsuggestion = mSettings.getBoolean(PREF_SEARCH, false);
+
 		// search action
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
 
-			if (query.length() > 0)
+			if (query.length() > 0) {
 				mHandler.searchForFile(query);
+
+				if (searchsuggestion == true) {
+					SearchRecentSuggestions suggestions = new SearchRecentSuggestions(
+							this, SearchSuggestions.AUTHORITY,
+							SearchSuggestions.MODE);
+					suggestions.saveRecentQuery(query, null);
+				} else {
+					SearchRecentSuggestions suggestions = new SearchRecentSuggestions(
+							this, SearchSuggestions.AUTHORITY,
+							SearchSuggestions.MODE);
+					suggestions.clearHistory();
+				}
+			}
 		}
+	}
+
+	public void listview() {
+		ListView listview = this.getListView();
+		listview.setSelection(0);
 	}
 
 	private void checkEnvironment() {
@@ -626,25 +647,23 @@ public final class Main extends ListActivity implements
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		SharedPreferences.Editor editor = mSettings.edit();
-		boolean thumbnail;
-
-		thumbnail = data.getBooleanExtra("THUMBNAIL", true);
-		editor.putBoolean(PREFS_THUMBNAIL, thumbnail);
-		editor.commit();
+		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
+		mSettings.registerOnSharedPreferenceChangeListener(this);
+		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
+		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, false);
 
 		String value = mSettings.getString("sort", "1");
 		int sort = Integer.parseInt(value);
-
 		String viewmode = mSettings.getString("viewmode", "1");
 		viewm = Integer.parseInt(viewmode);
 
 		mFileMag = new FileOperations();
+		mFileMag.setShowHiddenFiles(hidden);
 		mFileMag.setSortType(sort);
-		mHandler.setShowThumbnails(thumbnail);
 
-		mHandler.updateDirectory(mFileMag.getNextDir(mFileMag.getCurrentDir(),
-				true));
+		mHandler.setShowThumbnails(thumb);
+
+		mHandler.opendir(startpath);
 	}
 
 	@Override
@@ -1296,11 +1315,13 @@ public final class Main extends ListActivity implements
 
 	}
 
+	@Override
 	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
 		if (// When the user chooses to show/hide hidden files, update the list
 			// to correspond with the user's choice
 		Settings.PREFS_DISPLAYHIDDENFILES.equals(key)
-				|| Settings.PREFS_PREVIEW.equals(key)) {
+				|| Settings.PREFS_PREVIEW.equals(key)
+				|| Settings.PREFS_SEARCH.equals(key)) {
 
 		}
 	}
