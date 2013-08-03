@@ -24,6 +24,18 @@
             android:key="viewmode"
             android:title="@string/viewmode" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/searchprefs" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="enablesearchsuggestions"
+            android:title="@string/enablesearchsuggestions" />
+
+        <com.dnielfe.manager.ClearSearchSuggestions
+            android:defaultValue="true"
+            android:dependency="enablesearchsuggestions"
+            android:key="clearsearch"
+            android:title="@string/deletesearchsuggestions" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/advancedsettings" >
         <Preference
             android:key="editbookmarks"
