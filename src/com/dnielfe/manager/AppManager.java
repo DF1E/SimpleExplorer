@@ -144,7 +144,7 @@ public class AppManager extends ListActivity {
 				}
 				updateactionbar();
 				// This enable fast-scroll divider
-				if (mAppList.size() > 35) {
+				if (mAppList.size() > 40) {
 					getListView().setFastScrollEnabled(true);
 				} else {
 					getListView().setFastScrollEnabled(false);

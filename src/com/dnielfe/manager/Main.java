@@ -78,7 +78,7 @@ public final class Main extends ListActivity implements
 	private static final int F_MENU_COPY = 18;
 	private static final int F_MENU_DETAILS = 19;
 	private static final int D_MENU_DETAILS = 20;
-	private SharedPreferences mSettings;
+
 	private static FileOperations mFileMag;
 	private static EventHandler mHandler;
 	private static EventHandler.TableRow mTable;
@@ -86,17 +86,17 @@ public final class Main extends ListActivity implements
 	private boolean mHoldingFile = false;
 	private boolean mHoldingZip = false;
 	private boolean mUseBackKey = true;
-	private static String mCopiedTarget;
-	private static String mZippedTarget;
-	private static String mSelectedListItem;
-	private TextView mDetailLabel;
-	static int viewm;
-	static LinearLayout mDirectoryButtons;
+	SharedPreferences mSettings;
+	LinearLayout mDirectoryButtons;
 	static ActionMode mActionMode;
 	static int directorytextsize = 16;
 	private final int KB = 1024;
 	private final int MG = KB * KB;
 	private final int GB = MG * KB;
+
+	private static String mCopiedTarget;
+	private static String mZippedTarget;
+	private static String mSelectedListItem;
 	private String display_size;
 	static final String[] Q = new String[] { "B", "KB", "MB", "GB", "T", "P",
 			"E" };
@@ -108,14 +108,14 @@ public final class Main extends ListActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 		// read settings
+
 		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
-		mSettings.registerOnSharedPreferenceChangeListener(this);
 		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
-		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, false);
+		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, true);
 		String value = mSettings.getString("sort", "1");
 		int sort = Integer.parseInt(value);
 		String viewmode = mSettings.getString("viewmode", "1");
-		viewm = Integer.parseInt(viewmode);
+		int viewm = Integer.parseInt(viewmode);
 
 		mFileMag = new FileOperations();
 		mFileMag.setShowHiddenFiles(hidden);
@@ -127,6 +127,7 @@ public final class Main extends ListActivity implements
 		else
 			mHandler = new EventHandler(Main.this, mFileMag);
 
+		mHandler.setViewMode(viewm);
 		mHandler.setShowThumbnails(thumb);
 		mTable = mHandler.new TableRow();
 
@@ -190,11 +191,22 @@ public final class Main extends ListActivity implements
 
 	@Override
 	protected void onResume() {
-		mHandler.updateDirectory(mFileMag.getNextDir(mFileMag.getCurrentDir(),
-				true));
-		displayFreeSpace();
-		setDirectoryButtons();
 		super.onResume();
+
+		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
+		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, true);
+		String value = mSettings.getString("sort", "1");
+		int sort = Integer.parseInt(value);
+		String viewmode = mSettings.getString("viewmode", "1");
+		int viewm = Integer.parseInt(viewmode);
+
+		mFileMag.setShowHiddenFiles(hidden);
+		mFileMag.setSortType(sort);
+		mHandler.setViewMode(viewm);
+		mHandler.setShowThumbnails(thumb);
+
+		mHandler.opendir(mFileMag.getCurrentDir());
 	}
 
 	public void searchaction() {
@@ -333,11 +345,8 @@ public final class Main extends ListActivity implements
 		outState.putString("location", mFileMag.getCurrentDir());
 	}
 
-	/*
-	 * Returns the file that was selected to the intent that called this
-	 * activity. usually from the caller is another application.
-	 */
-
+	// Returns the file that was selected to the intent that called this
+	// activity. usually from the caller is another application.
 	private void returnIntentResults(File data) {
 		mReturnIntent = false;
 
@@ -365,7 +374,7 @@ public final class Main extends ListActivity implements
 			long id) {
 		final String item = mHandler.getData(position);
 		boolean multiSelect = mHandler.isMultiSelected();
-		File file = new File(mFileMag.getCurrentDir() + "/" + item);
+		final File file = new File(mFileMag.getCurrentDir() + "/" + item);
 		String item_ext = null;
 
 		try {
@@ -483,7 +492,8 @@ public final class Main extends ListActivity implements
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 					AlertDialog alert;
 					mZippedTarget = mFileMag.getCurrentDir() + "/" + item;
-					CharSequence[] option = { getString(R.string.extracthere) };
+					CharSequence[] option = { getString(R.string.openwith),
+							getString(R.string.extracthere) };
 
 					builder.setTitle(getString(R.string.options));
 					builder.setItems(option,
@@ -493,6 +503,18 @@ public final class Main extends ListActivity implements
 										int which) {
 									switch (which) {
 									case 0:
+										Intent zipIntent = new Intent();
+										zipIntent
+												.setAction(android.content.Intent.ACTION_VIEW);
+										zipIntent.setDataAndType(
+												Uri.fromFile(file),
+												"application/zip");
+										try {
+											startActivity(zipIntent);
+										} catch (Exception e) {
+										}
+										break;
+									case 1:
 										String dir = mFileMag.getCurrentDir();
 										mHandler.unZipFile(item, dir + "/");
 										break;
@@ -641,29 +663,6 @@ public final class Main extends ListActivity implements
 				}
 			}
 		}
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
-		mSettings.registerOnSharedPreferenceChangeListener(this);
-		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
-		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, false);
-
-		String value = mSettings.getString("sort", "1");
-		int sort = Integer.parseInt(value);
-		String viewmode = mSettings.getString("viewmode", "1");
-		viewm = Integer.parseInt(viewmode);
-
-		mFileMag = new FileOperations();
-		mFileMag.setShowHiddenFiles(hidden);
-		mFileMag.setSortType(sort);
-
-		mHandler.setShowThumbnails(thumb);
-
-		mHandler.opendir(startpath);
 	}
 
 	@Override
@@ -947,9 +946,7 @@ public final class Main extends ListActivity implements
 									+ name, Toast.LENGTH_SHORT).show();
 				}
 			}
-
 			mHoldingZip = false;
-			mDetailLabel.setText("");
 			mZippedTarget = "";
 			return true;
 		}
@@ -1145,7 +1142,7 @@ public final class Main extends ListActivity implements
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int whichButton) {
-										if (input.getText().length() > 1) {
+										if (input.getText().length() >= 1) {
 											if (mFileMag.createDir(
 													mFileMag.getCurrentDir()
 															+ "/", input
@@ -1317,12 +1314,11 @@ public final class Main extends ListActivity implements
 
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-		if (// When the user chooses to show/hide hidden files, update the list
-			// to correspond with the user's choice
-		Settings.PREFS_DISPLAYHIDDENFILES.equals(key)
+		if (Settings.PREFS_DISPLAYHIDDENFILES.equals(key)
 				|| Settings.PREFS_PREVIEW.equals(key)
-				|| Settings.PREFS_SEARCH.equals(key)) {
-
+				|| Settings.PREFS_SEARCH.equals(key)
+				|| Settings.PREFS_SORT.equals(key)
+				|| Settings.PREFS_VIEW.equals(key)) {
 		}
 	}
 

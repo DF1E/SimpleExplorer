@@ -47,7 +47,7 @@ public class EventHandler {
 	private boolean delete_after_copy = false;
 	private boolean thumbnail_flag = true;
 	private static final String searchdirectory = "/storage/";
-	private int viewmode = Main.viewm;
+	private int viewmode;
 	public static Drawable res;
 	// the list used to feed info into the array adapter and when multi-select
 	// is on
@@ -114,6 +114,11 @@ public class EventHandler {
 	 */
 	public void setShowThumbnails(boolean show) {
 		thumbnail_flag = show;
+	}
+
+	// Get Viewmode from Main Activity
+	public void setViewMode(int mode) {
+		viewmode = mode;
 	}
 
 	/**
@@ -692,7 +697,6 @@ public class EventHandler {
 						mFileMang.deleteTarget(params[0]);
 				}
 
-				delete_after_copy = false;
 				return null;
 
 			case UNZIP_TYPE:
@@ -766,13 +770,19 @@ public class EventHandler {
 					mMultiSelectData.clear();
 				}
 
-				if (copy_rtn == 0)
+				if (delete_after_copy) {
+					Toast.makeText(mContext, R.string.movesuccsess,
+							Toast.LENGTH_SHORT).show();
+				}
+
+				else if (copy_rtn == 0)
 					Toast.makeText(mContext, R.string.copysuccsess,
 							Toast.LENGTH_SHORT).show();
 				else
 					Toast.makeText(mContext, R.string.copyfail,
 							Toast.LENGTH_SHORT).show();
 
+				delete_after_copy = false;
 				pr_dialog.dismiss();
 				updateDirectory(mFileMang.getNextDir(mFileMang.getCurrentDir(),
 						true));

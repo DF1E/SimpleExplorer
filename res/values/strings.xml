@@ -30,7 +30,7 @@
     <string name="Numberoffiles">Number of Files:</string>
     <string name="LastModified">Last Modified:</string>
     <string name="TotalSize">Used:</string>
-    <string name="rename">Rename File</string>
+    <string name="rename">Rename</string>
     <string name="share">Share</string>
     <string name="calcinfo">Calculating Information</string>
     <string name="createnewfolder">Create new Folder</string>
@@ -65,10 +65,12 @@
     <string name="searchtext">Search</string>
     <string name="sdcardnotfound">Couldnt find SD Card!</string>
     <string name="choosefiles">Select Files!</string>
-    <string name="copysuccsess">successfully copy!</string>
+    <string name="copysuccsess">successfully copy</string>
+    <string name="movesuccsess">successfully move</string>
     <string name="copyfail">Copy failed!</string>
     <string name="AvaibleSize">Total Size:</string>
     <string name="openas">Open as</string>
+    <string name="openwith">Open with</string>
     <string name="text">Text</string>
     <string name="image">Image</string>
     <string name="video">Video</string>
@@ -76,7 +78,7 @@
     <string name="file">File</string>
     <string name="sort">Sort</string>
     <string name="error">Error</string>
-    <string name="bookmark">Bookmark</string>
+    <string name="bookmark">Bookmarks</string>
     <string name="bookmarkadded">Bookmark added</string>
     <string name="bookmarkexist">Bookmark already exists!</string>
     <string name="createbookmark">Create Bookmark</string>

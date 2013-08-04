@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,7 +16,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.view.Menu;
@@ -29,10 +27,12 @@ public class Settings extends PreferenceActivity implements
 	public static final String PREFS_DISPLAYHIDDENFILES = "displayhiddenfiles";
 	public static final String PREFS_PREVIEW = "showpreview";
 	public static final String PREFS_SEARCH = "enablesearchsuggestions";
+	public static final String PREFS_SORT = "sort";
+	public static final String PREFS_VIEW = "viewmode";
 	private static final int DIALOG_DELETE_BOOKMARKS = 1;
 	private Cursor deleteBookmarksCursor;
 	private List<Uri> bookmarksToDelete = new LinkedList<Uri>();
-	SharedPreferences settings;
+	private Intent is = new Intent();
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -55,45 +55,6 @@ public class Settings extends PreferenceActivity implements
 						return false;
 					}
 				});
-	}
-
-	static void setDisplayHiddenFiles(Context context, boolean enabled) {
-		SharedPreferences settings = PreferenceManager
-				.getDefaultSharedPreferences(context);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putBoolean(PREFS_DISPLAYHIDDENFILES, enabled);
-		editor.commit();
-	}
-
-	static boolean getDisplayHiddenFiles(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context)
-				.getBoolean(PREFS_DISPLAYHIDDENFILES, true);
-	}
-
-	static void setPreview(Context context, boolean enabled) {
-		SharedPreferences settings = PreferenceManager
-				.getDefaultSharedPreferences(context);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putBoolean(PREFS_PREVIEW, enabled);
-		editor.commit();
-	}
-
-	static boolean getPreviewFiles(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context)
-				.getBoolean(PREFS_PREVIEW, true);
-	}
-
-	static void setSearchSuggestions(Context context, boolean enabled) {
-		SharedPreferences settings = PreferenceManager
-				.getDefaultSharedPreferences(context);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putBoolean(PREFS_SEARCH, enabled);
-		editor.commit();
-	}
-
-	static boolean getSearchSuggestions(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context)
-				.getBoolean(PREFS_SEARCH, false);
 	}
 
 	@Override
@@ -213,5 +174,11 @@ public class Settings extends PreferenceActivity implements
 		return managedQuery(Bookmarks.CONTENT_URI, new String[] {
 				Bookmarks._ID, Bookmarks.NAME, Bookmarks.PATH,
 				Bookmarks.CHECKED }, null, null, null);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		setResult(RESULT_CANCELED, is);
 	}
 }

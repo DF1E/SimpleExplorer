@@ -65,10 +65,12 @@
     <string name="searchtext">Suchbegriff eingeben</string>
     <string name="sdcardnotfound">Keine SD Karte vorhanden!</string>
     <string name="choosefiles">Wähle Dateien aus!</string>
-    <string name="copysuccsess">Kopieren erfolgreich!</string>
+    <string name="copysuccsess">Kopieren erfolgreich</string>
+    <string name="movesuccsess">Verschieben erfolgreich</string>
     <string name="copyfail">Kopieren fehlgeschlagen!</string>
     <string name="AvaibleSize">Ordner Gesamtgröße:</string>
     <string name="openas">Öffnen als</string>
+    <string name="openwith">Öffnen mit</string>
     <string name="text">Text</string>
     <string name="image">Bild</string>
     <string name="video">Video</string>
