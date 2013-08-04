@@ -32,7 +32,6 @@ public class Settings extends PreferenceActivity implements
 	private static final int DIALOG_DELETE_BOOKMARKS = 1;
 	private Cursor deleteBookmarksCursor;
 	private List<Uri> bookmarksToDelete = new LinkedList<Uri>();
-	private Intent is = new Intent();
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -174,11 +173,5 @@ public class Settings extends PreferenceActivity implements
 		return managedQuery(Bookmarks.CONTENT_URI, new String[] {
 				Bookmarks._ID, Bookmarks.NAME, Bookmarks.PATH,
 				Bookmarks.CHECKED }, null, null, null);
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		setResult(RESULT_CANCELED, is);
 	}
 }
