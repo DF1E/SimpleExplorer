@@ -499,7 +499,7 @@ public class AppManager extends ListActivity {
 		ViewHolder(View row) {
 			name = (TextView) row.findViewById(R.id.app_name);
 			select = (CheckBox) row.findViewById(R.id.select_icon);
-			version = (TextView) row.findViewById(R.id.version);
+			version = (TextView) row.findViewById(R.id.versionlabel);
 			size = (TextView) row.findViewById(R.id.installdate);
 			image = (ImageView) row.findViewById(R.id.icon);
 		}

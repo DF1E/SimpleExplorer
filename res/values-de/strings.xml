@@ -60,6 +60,7 @@
     <string name="size1">Größe</string>
     <string name="name">Name</string>
     <string name="type">Typ</string>
+    <string name="xdaforum">XDA Forum</string>
     <string name="itcouldntbefound">Die Sucheingabe konnte nicht gefunden werden</string>
     <string name="create">Erstellen</string>
     <string name="searchtext">Suchbegriff eingeben</string>
@@ -108,5 +109,7 @@
     <string name="suggestionscleared">Suchvorschläge gelöscht</string>
     <string name="searchprefs">Sucheinstellungen</string>
     <string name="enablesearchsuggestions">Suchvorschläge</string>
+    <string name="defaultdir">Standard Verzeichnis</string>
+    <string name="about">About</string>
 
 </resources>

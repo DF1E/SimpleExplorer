@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Application;
@@ -113,8 +114,10 @@ public final class Main extends ListActivity implements
 		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
 		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, true);
 		String value = mSettings.getString("sort", "1");
-		int sort = Integer.parseInt(value);
 		String viewmode = mSettings.getString("viewmode", "1");
+		String defaultdir = mSettings.getString("defaultdir", startpath);
+
+		int sort = Integer.parseInt(value);
 		int viewm = Integer.parseInt(viewmode);
 
 		mFileMag = new FileOperations();
@@ -157,6 +160,8 @@ public final class Main extends ListActivity implements
 		getOverflowMenu();
 		setsearchbutton();
 		checkEnvironment();
+
+		mHandler.opendir(defaultdir);
 		setDirectoryButtons();
 		displayFreeSpace();
 	}
@@ -197,12 +202,14 @@ public final class Main extends ListActivity implements
 		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
 		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, true);
 		String value = mSettings.getString("sort", "1");
-		int sort = Integer.parseInt(value);
 		String viewmode = mSettings.getString("viewmode", "1");
+
+		int sort = Integer.parseInt(value);
 		int viewm = Integer.parseInt(viewmode);
 
 		mFileMag.setShowHiddenFiles(hidden);
 		mFileMag.setSortType(sort);
+
 		mHandler.setViewMode(viewm);
 		mHandler.setShowThumbnails(thumb);
 

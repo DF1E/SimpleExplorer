@@ -73,6 +73,7 @@ public class DirectoryInfo extends Activity {
 			dialog.setCancelable(true);
 		}
 
+		@SuppressWarnings("deprecation")
 		protected Long doInBackground(String... vals) {
 			FileOperations flmg = new FileOperations();
 			File dir = new File(vals[0]);

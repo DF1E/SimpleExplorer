@@ -15,8 +15,7 @@ public class CheckBoxActivity extends CheckBox {
 		super(context, attrs);
 	}
 
-	public CheckBoxActivity(Context context, AttributeSet attrs,
-			int defStyle) {
+	public CheckBoxActivity(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
 

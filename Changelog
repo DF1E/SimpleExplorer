@@ -1,4 +1,8 @@
 Changelog:
+v1.7.3	added default directory option
+		added forumlink in preferences
+		improved search
+		improved layout for xhdpi devices
 v1.7.2	Bug Fixes (new folder, rename folder, move/copy)
 		Open Zip with other Apps Options
 		load preferences changes

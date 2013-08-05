@@ -38,7 +38,7 @@
             android:textSize="21sp" />
 
         <TextView
-            android:id="@+id/version"
+            android:id="@+id/versionlabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"

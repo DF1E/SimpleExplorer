@@ -37,9 +37,21 @@
             android:title="@string/deletesearchsuggestions" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/advancedsettings" >
+        <EditTextPreference
+            android:dialogTitle="@string/defaultdir"
+            android:key="defaultdir"
+            android:title="@string/defaultdir" />
+
         <Preference
             android:key="editbookmarks"
             android:title="@string/bookmark" />
     </PreferenceCategory>
+
+    <PreferenceScreen android:title="@string/xdaforum" >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="http://forum.xda-developers.com/showthread.php?t=2330864" >
+        </intent>
+    </PreferenceScreen>
 
 </PreferenceScreen>
