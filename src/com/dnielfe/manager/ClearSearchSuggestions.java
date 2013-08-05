@@ -22,7 +22,8 @@ public class ClearSearchSuggestions extends Preference {
 				SearchSuggestions.MODE);
 		suggestions.clearHistory();
 
-		Toast.makeText(getContext(), R.string.suggestionscleared, Toast.LENGTH_SHORT).show();
+		Toast.makeText(getContext(), R.string.suggestionscleared,
+				Toast.LENGTH_SHORT).show();
 		notifyChanged();
 	}
 }
