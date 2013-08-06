@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,11 +40,10 @@ public class EventHandler {
 	final Context mContext;
 	private static int fileCount = 0;
 	private final FileOperations mFileMang;
-	private Thumbnails mThumbnail;
 	TableRow mDelegate;
 	private boolean multi_select_flag = false;
 	private boolean delete_after_copy = false;
-	private boolean thumbnail_flag = true;
+	private boolean thumbnail = true;
 	private static final String searchdirectory = "/storage/";
 	private int viewmode;
 	public static Drawable res;
@@ -114,7 +112,7 @@ public class EventHandler {
 	 * @param show
 	 */
 	public void setShowThumbnails(boolean show) {
-		thumbnail_flag = show;
+		thumbnail = show;
 	}
 
 	// Get Viewmode from Main Activity
@@ -244,18 +242,6 @@ public class EventHandler {
 	 */
 	public void zipFile(String zipPath) {
 		new BackgroundWork(ZIP_TYPE).execute(zipPath);
-	}
-
-	/**
-	 * this will stop our background thread that creates thumbnail icons if the
-	 * thread is running. this should be stopped when ever we leave the folder
-	 * the image files are in.
-	 */
-	public void stopThumbnailThread() {
-		if (mThumbnail != null) {
-			mThumbnail.setCancelThumbnails(true);
-			mThumbnail = null;
-		}
 	}
 
 	/**
@@ -430,9 +416,6 @@ public class EventHandler {
 			else
 				mViewHolder.mSelect.setVisibility(ImageView.GONE);
 
-			if (mThumbnail == null)
-				mThumbnail = new Thumbnails(52, 52);
-
 			if (file != null && file.isFile()) {
 				String ext = file.toString();
 				String sub_ext = ext.substring(ext.lastIndexOf(".") + 1);
@@ -461,29 +444,16 @@ public class EventHandler {
 						|| sub_ext.equalsIgnoreCase("raw")
 						|| sub_ext.equalsIgnoreCase("tiff")) {
 
-					if (thumbnail_flag && file.length() != 0) {
-						Bitmap thumb = mThumbnail
-								.isBitmapCached(file.getPath());
+					if (thumbnail == true && file.length() != 0) {
 
-						if (thumb == null) {
-							final Handler handle = new Handler(
-									new Handler.Callback() {
-										public boolean handleMessage(Message msg) {
-											notifyDataSetChanged();
+						Drawable icon = mContext.getResources().getDrawable(
+								R.drawable.image);
+						Bitmap bitmap = ((BitmapDrawable) icon).getBitmap();
+						BitmapLoader.INSTANCE.setPlaceholder(bitmap);
+						mViewHolder.icon.setTag(file.getAbsolutePath());
 
-											return true;
-										}
-									});
-
-							mThumbnail.createNewThumbnail(mDataSource,
-									mFileMang.getCurrentDir(), handle);
-
-							if (!mThumbnail.isAlive())
-								mThumbnail.start();
-
-						} else {
-							mViewHolder.icon.setImageBitmap(thumb);
-						}
+						BitmapLoader.INSTANCE.loadBitmap(
+								file.getAbsolutePath(), mViewHolder.icon);
 
 					} else {
 						mViewHolder.icon.setImageResource(R.drawable.image);
@@ -829,7 +799,6 @@ public class EventHandler {
 					.show();
 		}
 
-		stopThumbnailThread();
 		updateDirectory(mFileMang.setHomeDir(path));
 	}
 

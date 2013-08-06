@@ -20,7 +20,7 @@ public class DirectoryInfo extends Activity {
 	private static final int GB = MG * KB;
 	private String mPathName;
 	private TextView mNameLabel, mPathLabel, mDirLabel, mFileLabel, mTimeLabel,
-			mTotalLabel, mAvaibleLabel;
+			mTotalLabel, mAvaibleLabel, mFreeLabel;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +49,7 @@ public class DirectoryInfo extends Activity {
 		mFileLabel = (TextView) findViewById(R.id.files_label);
 		mTimeLabel = (TextView) findViewById(R.id.time_stamp);
 		mTotalLabel = (TextView) findViewById(R.id.total_size);
+		mFreeLabel = (TextView) findViewById(R.id.freespace);
 		mAvaibleLabel = (TextView) findViewById(R.id.avaible_size);
 
 		new BackgroundWork().execute(mPathName);
@@ -64,6 +65,7 @@ public class DirectoryInfo extends Activity {
 		private ProgressDialog dialog;
 		private String mDisplaySize;
 		private String mAvaibleSize;
+		private String mFreeSpace;
 		private int mFileCount = 0;
 		private int mDirCount = 0;
 
@@ -122,6 +124,20 @@ public class DirectoryInfo extends Activity {
 					mDisplaySize = String.format("%.2f B", (double) size);
 			}
 
+			StatFs free = new StatFs(Environment.getExternalStorageDirectory()
+					.getPath());
+			double freespace = (double) free.getAvailableBlocks()
+					* (double) free.getBlockSize();
+
+			if (freespace > GB)
+				mFreeSpace = String.format("%.2f GB", (double) freespace / GB);
+			else if (freespace < GB && freespace > MG)
+				mFreeSpace = String.format("%.2f MB", (double) freespace / MG);
+			else if (freespace < MG && freespace > KB)
+				mFreeSpace = String.format("%.2f KB", (double) freespace / KB);
+			else
+				mFreeSpace = String.format("%.2f B", (double) freespace);
+
 			return size;
 		}
 
@@ -138,7 +154,7 @@ public class DirectoryInfo extends Activity {
 			else
 				mAvaibleSize = String.format("%.2f B", (double) test);
 
-			String s = String.valueOf(mAvaibleSize);
+			String avaible = String.valueOf(mAvaibleSize);
 
 			System.out.println("Before Format : " + dir.lastModified());
 			SimpleDateFormat sdf1 = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
@@ -151,7 +167,8 @@ public class DirectoryInfo extends Activity {
 			mFileLabel.setText(mFileCount + getString(R.string.files));
 			mTotalLabel.setText(mDisplaySize);
 			mTimeLabel.setText(sdf1.format(dir.lastModified()));
-			mAvaibleLabel.setText(s);
+			mAvaibleLabel.setText(avaible);
+			mFreeLabel.setText(mFreeSpace);
 
 			dialog.cancel();
 		}

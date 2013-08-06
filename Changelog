@@ -4,6 +4,7 @@ v1.7.3	added default directory option
 		speed up image preview loading
 		AppManager:	delete saved apps
 					create shortcut on home
+		FolderInfo update
 		improved search
 		improved layout for xhdpi devices
 v1.7.2	Bug Fixes (new folder, rename folder, move/copy)

@@ -115,5 +115,6 @@
     <string name="deleteapps">Apps löschen</string>
     <string name="deleteappsmsg">Lösche gespeicherten Apps werden von der SD Karte gelöscht!</string>
     <string name="appsdeleted">Apps von der SD Karte geöscht</string>
+    <string name="freespace">Freier Speicher:</string>
 
 </resources>

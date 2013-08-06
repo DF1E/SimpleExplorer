@@ -6,7 +6,6 @@ import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Application;
@@ -328,7 +327,6 @@ public final class Main extends ListActivity implements
 				public void onClick(View view) {
 					String dir1 = (String) view.getTag();
 
-					mHandler.stopThumbnailThread();
 					mHandler.updateDirectory(mFileMag.setHomeDir(dir1));
 					setDirectoryButtons();
 				}
@@ -399,7 +397,6 @@ public final class Main extends ListActivity implements
 		} else {
 			if (file.isDirectory()) {
 				if (file.canRead()) {
-					mHandler.stopThumbnailThread();
 					mHandler.updateDirectory(mFileMag.getNextDir(item, false));
 					displayFreeSpace();
 					setDirectoryButtons();
@@ -1078,7 +1075,6 @@ public final class Main extends ListActivity implements
 		switch (item.getItemId()) {
 
 		case android.R.id.home:
-			mHandler.stopThumbnailThread();
 			finish();
 			return true;
 
@@ -1490,8 +1486,6 @@ public final class Main extends ListActivity implements
 						.show();
 
 			} else {
-				// stop updating thumbnail icons if its running
-				mHandler.stopThumbnailThread();
 				mHandler.updateDirectory(mFileMag.getPreviousDir());
 				setDirectoryButtons();
 				listview();
