@@ -135,7 +135,7 @@ public final class R {
         public static final int app_name=0x7f080000;
         public static final int appmanager=0x7f080058;
         public static final int apps=0x7f080060;
-        public static final int appsdeleted=0x7f080072;
+        public static final int appsdeleted=0x7f080071;
         public static final int attach=0x7f080018;
         public static final int backedup=0x7f080065;
         public static final int backup=0x7f08005c;
@@ -179,7 +179,7 @@ public final class R {
         public static final int folders=0x7f080023;
         public static final int folderwasrenamed=0x7f08002b;
         public static final int foundfiles=0x7f08002c;
-        public static final int freespace=0x7f080071;
+        public static final int freespace=0x7f080072;
         public static final int hiddenfiles=0x7f080034;
         public static final int image=0x7f080048;
         public static final int info=0x7f080002;

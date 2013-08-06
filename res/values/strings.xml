@@ -114,6 +114,7 @@
     <string name="shortcutcreated">Shortcut created</string>
     <string name="deleteapps">Delete Apps</string>
     <string name="deleteappsmsg">Saved Apps will be deleted from SD Card!</string>
+    <string name="appsdeleted">Apps removed from SD Card</string>
     <string name="freespace">Free Space:</string>
 
 </resources>
