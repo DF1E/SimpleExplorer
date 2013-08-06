@@ -7,13 +7,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -34,6 +37,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
@@ -125,6 +129,7 @@ public class AppManager extends ListActivity {
 				ActionBar actionBar = getActionBar();
 				actionBar.setSubtitle(getString(R.string.loading));
 				actionBar.show();
+				getOverflowMenu();
 			}
 
 			@Override
@@ -161,6 +166,21 @@ public class AppManager extends ListActivity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setSubtitle(mAppList.size() + getString(R.string.apps));
 		actionBar.show();
+	}
+
+	private void getOverflowMenu() {
+
+		try {
+			ViewConfiguration config = ViewConfiguration.get(this);
+			Field menuKeyField = ViewConfiguration.class
+					.getDeclaredField("sHasPermanentMenuKey");
+			if (menuKeyField != null) {
+				menuKeyField.setAccessible(true);
+				menuKeyField.setBoolean(config, false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -640,6 +660,14 @@ public class AppManager extends ListActivity {
 			finish();
 			return true;
 
+		case R.id.shortcut:
+			createshortcut();
+			return true;
+
+		case R.id.deleteapps:
+			deleteapps();
+			return true;
+
 		case R.id.actionselect:
 			if (mMenuItem.getTitle().toString()
 					.equals(getString(R.string.selectall))) {
@@ -663,10 +691,64 @@ public class AppManager extends ListActivity {
 		return false;
 	}
 
+	private void createshortcut() {
+		Intent shortcutIntent = new Intent(AppManager.this, AppManager.class);
+		shortcutIntent.setAction(Intent.ACTION_MAIN);
+
+		shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		Intent addIntent = new Intent();
+		addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+		addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME,
+				getString(R.string.appmanager));
+		addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+				Intent.ShortcutIconResource.fromContext(AppManager.this,
+						R.drawable.appmanager));
+		addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+		AppManager.this.sendBroadcast(addIntent);
+
+		Toast.makeText(AppManager.this, getString(R.string.shortcutcreated),
+				Toast.LENGTH_SHORT).show();
+	}
+
+	private void deleteapps() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.deleteapps);
+		builder.setMessage(R.string.deleteappsmsg);
+		builder.setCancelable(true);
+		builder.setPositiveButton((R.string.ok),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						File savedApps = new File(Environment
+								.getExternalStorageDirectory().getPath()
+								+ "/savedApps/");
+						if (savedApps.isDirectory()) {
+							String[] children = savedApps.list();
+							for (int i = 0; i < children.length; i++) {
+								new File(savedApps, children[i]).delete();
+							}
+						}
+						Toast.makeText(AppManager.this,
+								getString(R.string.appsdeleted),
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+		builder.setNegativeButton((R.string.cancel),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+		builder.create().show();
+
+	}
+
 	@Override
 	public void onBackPressed() {
-		final CheckBox checkBox = (CheckBox) findViewById(R.id.select_icon);
-		if (checkBox.isChecked()) {
+		if (mMenuItem.getTitle().toString()
+				.equals(getString(R.string.unselectall))) {
 			for (int i = 0; i < mAppList.size(); i++) {
 				mStarStates[i] = false;
 				multiSelectData.remove(mAppList.get(i));

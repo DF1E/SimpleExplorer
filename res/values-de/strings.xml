@@ -110,6 +110,10 @@
     <string name="searchprefs">Sucheinstellungen</string>
     <string name="enablesearchsuggestions">Suchvorschläge</string>
     <string name="defaultdir">Standard Verzeichnis</string>
-    <string name="about">About</string>
+    <string name="shortcut">Shortcut erstellen</string>
+    <string name="shortcutcreated">Shortcut erstellt</string>
+    <string name="deleteapps">Apps löschen</string>
+    <string name="deleteappsmsg">Lösche gespeicherten Apps werden von der SD Karte gelöscht!</string>
+    <string name="appsdeleted">Apps von der SD Karte geöscht</string>
 
 </resources>

@@ -110,5 +110,10 @@
     <string name="searchprefs">Search Preferences</string>
     <string name="enablesearchsuggestions">Searchsuggestions</string>
     <string name="defaultdir">Default Directory</string>
+    <string name="shortcut">Create Shortcut</string>
+    <string name="shortcutcreated">Shortcut created</string>
+    <string name="deleteapps">Delete Apps</string>
+    <string name="deleteappsmsg">Saved Apps will be deleted from SD Card!</string>
+    <string name="appsdeleted">Saved App removed from SD Card</string>
 
 </resources>
