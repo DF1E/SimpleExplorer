@@ -18,7 +18,7 @@ import java.util.zip.ZipOutputStream;
 import android.util.Log;
 
 public class FileOperations {
-	private static final int BUFFER = 2024;
+	private static final int BUFFER = 2048;
 	private static final int SORT_ALPHA = 0;
 	private static final int SORT_TYPE = 1;
 	private static final int SORT_SIZE = 2;
@@ -151,24 +151,6 @@ public class FileOperations {
 			return -1;
 
 		return 0;
-	}
-
-	/**
-	 * 
-	 * @param zipName
-	 * @param toDir
-	 * @param fromDir
-	 */
-	public void extractZipFilesFromDir(String zipName, String toDir,
-			String fromDir) {
-		if (!(toDir.charAt(toDir.length() - 1) == '/'))
-			toDir += "/";
-		if (!(fromDir.charAt(fromDir.length() - 1) == '/'))
-			fromDir += "/";
-
-		String org_path = fromDir + zipName;
-
-		extractZipFiles(org_path, toDir);
 	}
 
 	/**

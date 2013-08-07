@@ -68,7 +68,6 @@ public final class Main extends ListActivity implements
 	private static final int D_MENU_COPY = 8;
 	private static final int D_MENU_PASTE = 9;
 	private static final int D_MENU_ZIP = 10;
-	private static final int D_MENU_UNZIP = 11;
 	private static final int D_MENU_MOVE = 12;
 	private static final int F_MENU_BOOKMARK = 13;
 	private static final int F_MENU_MOVE = 14;
@@ -84,7 +83,6 @@ public final class Main extends ListActivity implements
 	private static EventHandler.TableRow mTable;
 	private boolean mReturnIntent = false;
 	private boolean mHoldingFile = false;
-	private boolean mHoldingZip = false;
 	private boolean mUseBackKey = true;
 	SharedPreferences mSettings;
 	LinearLayout mDirectoryButtons;
@@ -95,7 +93,6 @@ public final class Main extends ListActivity implements
 	private final int GB = MG * KB;
 
 	private static String mCopiedTarget;
-	private static String mZippedTarget;
 	private static String mSelectedListItem;
 	private String display_size;
 	static final String[] Q = new String[] { "B", "KB", "MB", "GB", "T", "P",
@@ -495,7 +492,6 @@ public final class Main extends ListActivity implements
 				} else {
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 					AlertDialog alert;
-					mZippedTarget = mFileMag.getCurrentDir() + "/" + item;
 					CharSequence[] option = { getString(R.string.openwith),
 							getString(R.string.extracthere) };
 
@@ -924,34 +920,7 @@ public final class Main extends ListActivity implements
 
 		case D_MENU_ZIP:
 			String dir = mFileMag.getCurrentDir();
-
 			mHandler.zipFile(dir + "/" + mSelectedListItem);
-			return true;
-
-		case D_MENU_UNZIP:
-			if (mHoldingZip && mZippedTarget.length() > 1) {
-				String current_dir = mFileMag.getCurrentDir() + "/"
-						+ mSelectedListItem + "/";
-				String old_dir = mZippedTarget.substring(0,
-						mZippedTarget.lastIndexOf("/"));
-				String name = mZippedTarget.substring(
-						mZippedTarget.lastIndexOf("/") + 1,
-						mZippedTarget.length());
-
-				if (new File(mZippedTarget).canRead()
-						&& new File(current_dir).canWrite()) {
-					mHandler.unZipFileToDir(name, current_dir, old_dir);
-					setDirectoryButtons();
-
-				} else {
-					Toast.makeText(
-							this,
-							getString(R.string.youdonthavepermissiontounzip)
-									+ name, Toast.LENGTH_SHORT).show();
-				}
-			}
-			mHoldingZip = false;
-			mZippedTarget = "";
 			return true;
 		}
 

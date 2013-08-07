@@ -3,14 +3,11 @@ package com.dnielfe.manager;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import android.os.AsyncTask;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -34,7 +31,6 @@ public class EventHandler {
 	private static final int SEARCH_TYPE = 0x00;
 	private static final int COPY_TYPE = 0x01;
 	private static final int UNZIP_TYPE = 0x02;
-	private static final int UNZIPTO_TYPE = 0x03;
 	private static final int ZIP_TYPE = 0x04;
 	private static final int DELETE_TYPE = 0x05;
 	final Context mContext;
@@ -218,20 +214,6 @@ public class EventHandler {
 	 */
 	public void unZipFile(String file, String path) {
 		new BackgroundWork(UNZIP_TYPE).execute(file, path);
-	}
-
-	/**
-	 * This method will take a zip file and extract it to another location
-	 * 
-	 * @param name
-	 *            the name of the of the new file (the dir name is used)
-	 * @param newDir
-	 *            the dir where to extract to
-	 * @param oldDir
-	 *            the dir where the zip file is
-	 */
-	public void unZipFileToDir(String name, String newDir, String oldDir) {
-		new BackgroundWork(UNZIPTO_TYPE).execute(name, newDir, oldDir);
 	}
 
 	/**
@@ -422,7 +404,6 @@ public class EventHandler {
 
 				// This series of else if statements will determine which icon
 				// is displayed
-
 				if (sub_ext.equalsIgnoreCase("pdf")) {
 					mViewHolder.icon.setImageResource(R.drawable.pdf);
 
@@ -506,14 +487,7 @@ public class EventHandler {
 					mViewHolder.icon.setImageResource(R.drawable.config32);
 
 				} else if (sub_ext.equalsIgnoreCase("apk")) {
-
-					try {
-						// Drawable icon = getApk(file);
-						// mViewHolder.icon.setImageDrawable(icon);
-						mViewHolder.icon.setImageResource(R.drawable.appicon);
-					} catch (Exception e) {
-						mViewHolder.icon.setImageResource(R.drawable.appicon);
-					}
+					mViewHolder.icon.setImageResource(R.drawable.appicon);
 
 				} else if (sub_ext.equalsIgnoreCase("jar")) {
 					mViewHolder.icon.setImageResource(R.drawable.jar32);
@@ -622,11 +596,6 @@ public class EventHandler {
 				pr_dialog.setCancelable(false);
 				break;
 
-			case UNZIPTO_TYPE:
-				pr_dialog = ProgressDialog.show(mContext, "", "Unzipping");
-				pr_dialog.setCancelable(false);
-				break;
-
 			case ZIP_TYPE:
 				pr_dialog = ProgressDialog.show(mContext, "", "Zipping");
 				pr_dialog.setCancelable(false);
@@ -672,11 +641,6 @@ public class EventHandler {
 
 			case UNZIP_TYPE:
 				mFileMang.extractZipFiles(params[0], params[1]);
-				return null;
-
-			case UNZIPTO_TYPE:
-				mFileMang.extractZipFilesFromDir(params[0], params[1],
-						params[2]);
 				return null;
 
 			case ZIP_TYPE:
@@ -760,12 +724,6 @@ public class EventHandler {
 				break;
 
 			case UNZIP_TYPE:
-				updateDirectory(mFileMang.getNextDir(mFileMang.getCurrentDir(),
-						true));
-				pr_dialog.dismiss();
-				break;
-
-			case UNZIPTO_TYPE:
 				updateDirectory(mFileMang.getNextDir(mFileMang.getCurrentDir(),
 						true));
 				pr_dialog.dismiss();
@@ -862,31 +820,5 @@ public class EventHandler {
 		delete_after_copy = true;
 		mDelegate.killMultiSelect(false);
 		updateDirectory(mFileMang.getNextDir(mFileMang.getCurrentDir(), true));
-
-	}
-
-	private Drawable getApk(File file2) {
-		try {
-			String path = mFileMang.getCurrentDir();
-			File file = new File(path);
-			String[] list = file.list();
-
-			for (String str : list) {
-				String not_installed_apk_file = path + "/" + str;
-				PackageManager pm = mContext.getPackageManager();
-				PackageInfo pi = pm.getPackageArchiveInfo(
-						not_installed_apk_file, 0);
-				if (pi == null)
-					continue;
-				// the secret are these two lines....
-				pi.applicationInfo.sourceDir = not_installed_apk_file;
-				pi.applicationInfo.publicSourceDir = not_installed_apk_file;
-				//
-				res = pi.applicationInfo.loadIcon(pm);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return res;
 	}
 }

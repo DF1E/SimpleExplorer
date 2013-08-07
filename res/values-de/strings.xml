@@ -17,7 +17,7 @@
     <string name="extracthere">Hier Extrahieren</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dies kann nicht rückgängig gemacht werden!"</string>
     <string name="cancel">Abbrechen</string>
-    <string name="youdonthavepermissiontounzip">Du hast keine Berechtigungen "to unzip" !</string>
+    <string name="youdonthavepermissiontounzip">Du hast keine Berechtigungen zum entpacken!</string>
     <string name="newfolderwasnotcreated">New Folder was not created</string>
     <string name="multiselectisoffnow">Multiselect ist deaktiviert</string>
     <string name="pressbackagaintoquit">Erneut klicken um das Programm zu beenden</string>
