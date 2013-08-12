@@ -20,7 +20,7 @@ public class DirectoryInfo extends Activity {
 	private static final int GB = MG * KB;
 	private String mPathName;
 	private TextView mNameLabel, mPathLabel, mDirLabel, mFileLabel, mTimeLabel,
-			mTotalLabel, mAvaibleLabel, mFreeLabel;
+			mUsedLabel, mAvaibleLabel, mFreeLabel;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,7 +48,7 @@ public class DirectoryInfo extends Activity {
 		mDirLabel = (TextView) findViewById(R.id.dirs_label);
 		mFileLabel = (TextView) findViewById(R.id.files_label);
 		mTimeLabel = (TextView) findViewById(R.id.time_stamp);
-		mTotalLabel = (TextView) findViewById(R.id.total_size);
+		mUsedLabel = (TextView) findViewById(R.id.total_size);
 		mFreeLabel = (TextView) findViewById(R.id.freespace);
 		mAvaibleLabel = (TextView) findViewById(R.id.avaible_size);
 
@@ -57,17 +57,20 @@ public class DirectoryInfo extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		this.finish();
+		finish();
 		return;
 	}
 
 	private class BackgroundWork extends AsyncTask<String, Void, Long> {
+		File dir = new File(mPathName);
+
 		private ProgressDialog dialog;
 		private String mDisplaySize;
 		private String mAvaibleSize;
 		private String mFreeSpace;
 		private int mFileCount = 0;
 		private int mDirCount = 0;
+		long test = dir.getTotalSpace();
 
 		protected void onPreExecute() {
 			dialog = ProgressDialog.show(DirectoryInfo.this, "",
@@ -124,8 +127,8 @@ public class DirectoryInfo extends Activity {
 					mDisplaySize = String.format("%.2f B", (double) size);
 			}
 
-			StatFs free = new StatFs(Environment.getExternalStorageDirectory()
-					.getPath());
+			// get free space of sdcard
+			StatFs free = new StatFs(mPathName);
 			double freespace = (double) free.getAvailableBlocks()
 					* (double) free.getBlockSize();
 
@@ -138,13 +141,7 @@ public class DirectoryInfo extends Activity {
 			else
 				mFreeSpace = String.format("%.2f B", (double) freespace);
 
-			return size;
-		}
-
-		protected void onPostExecute(Long result) {
-			File dir = new File(mPathName);
-			long test = dir.getTotalSpace();
-
+			// get total size of sdcard
 			if (test > GB)
 				mAvaibleSize = String.format("%.2f GB", (double) test / GB);
 			else if (test < GB && test > MG)
@@ -154,21 +151,23 @@ public class DirectoryInfo extends Activity {
 			else
 				mAvaibleSize = String.format("%.2f B", (double) test);
 
-			String avaible = String.valueOf(mAvaibleSize);
+			return size;
+		}
 
-			System.out.println("Before Format : " + dir.lastModified());
+		protected void onPostExecute(Long result) {
+			File dir = new File(mPathName);
+
+			String avaible = String.valueOf(mAvaibleSize);
 			SimpleDateFormat sdf1 = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-			System.out.println("After Format : "
-					+ sdf1.format(dir.lastModified()));
 
 			mNameLabel.setText(dir.getName());
 			mPathLabel.setText(dir.getAbsolutePath());
 			mDirLabel.setText(mDirCount + getString(R.string.folders));
 			mFileLabel.setText(mFileCount + getString(R.string.files));
-			mTotalLabel.setText(mDisplaySize);
 			mTimeLabel.setText(sdf1.format(dir.lastModified()));
-			mAvaibleLabel.setText(avaible);
+			mUsedLabel.setText(mDisplaySize);
 			mFreeLabel.setText(mFreeSpace);
+			mAvaibleLabel.setText(avaible);
 
 			dialog.cancel();
 		}

@@ -3,11 +3,12 @@ package com.dnielfe.manager;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import com.dnielfe.utils.BitmapLoader;
+
 import android.os.AsyncTask;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -28,21 +29,15 @@ import android.widget.Toast;
  * class must be updated to display those changes.
  */
 public class EventHandler {
-	private static final int SEARCH_TYPE = 0x00;
 	private static final int COPY_TYPE = 0x01;
-	private static final int UNZIP_TYPE = 0x02;
-	private static final int ZIP_TYPE = 0x04;
-	private static final int DELETE_TYPE = 0x05;
 	final Context mContext;
 	private static int fileCount = 0;
-	private final FileOperations mFileMang;
+	private final FileOperations mFileMag;
 	TableRow mDelegate;
-	private boolean multi_select_flag = false;
+	boolean multi_select_flag = false;
 	private boolean delete_after_copy = false;
 	private boolean thumbnail = true;
-	private static final String searchdirectory = "/storage/";
 	private int viewmode;
-	public static Drawable res;
 	// the list used to feed info into the array adapter and when multi-select
 	// is on
 	ArrayList<String> mDataSource;
@@ -59,10 +54,9 @@ public class EventHandler {
 	 */
 	public EventHandler(Context context, final FileOperations manager) {
 		mContext = context;
-		mFileMang = manager;
+		mFileMag = manager;
 
-		mDataSource = new ArrayList<String>(
-				mFileMang.setHomeDir(Main.startpath));
+		mDataSource = new ArrayList<String>(mFileMag.setHomeDir(Main.startpath));
 		// Original
 		// mDataSource = new ArrayList<String>(mFileMang.setHomeDir(Environment
 		// .getExternalStorageDirectory().getPath()));
@@ -83,10 +77,9 @@ public class EventHandler {
 	public EventHandler(Context context, final FileOperations manager,
 			String location) {
 		mContext = context;
-		mFileMang = manager;
+		mFileMag = manager;
 
-		mDataSource = new ArrayList<String>(
-				mFileMang.getNextDir(location, true));
+		mDataSource = new ArrayList<String>(mFileMag.getNextDir(location, true));
 	}
 
 	/**
@@ -151,26 +144,6 @@ public class EventHandler {
 	}
 
 	/**
-	 * Will search for a file then display all files with the search parameter
-	 * in its name
-	 * 
-	 * @param name
-	 *            the name to search for
-	 */
-	public void searchForFile(String name) {
-		new BackgroundWork(SEARCH_TYPE).execute(name);
-	}
-
-	/**
-	 * Will delete the file name that is passed on a background thread.
-	 * 
-	 * @param name
-	 */
-	public void deleteFile(String name) {
-		new BackgroundWork(DELETE_TYPE).execute(name);
-	}
-
-	/**
 	 * Will copy a file or folder to another location.
 	 * 
 	 * @param oldLocation
@@ -201,29 +174,6 @@ public class EventHandler {
 
 			new BackgroundWork(COPY_TYPE).execute(data);
 		}
-	}
-
-	/**
-	 * This will extract a zip file to the same directory.
-	 * 
-	 * @param file
-	 *            the zip file name
-	 * @param path
-	 *            the path were the zip file will be extracted (the current
-	 *            directory)
-	 */
-	public void unZipFile(String file, String path) {
-		new BackgroundWork(UNZIP_TYPE).execute(file, path);
-	}
-
-	/**
-	 * Creates a zip file
-	 * 
-	 * @param zipPath
-	 *            the path to the directory you want to zip
-	 */
-	public void zipFile(String zipPath) {
-		new BackgroundWork(ZIP_TYPE).execute(zipPath);
 	}
 
 	/**
@@ -355,7 +305,7 @@ public class EventHandler {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			final ViewHolder mViewHolder;
 			int num_items = 0;
-			String temp = mFileMang.getCurrentDir();
+			String temp = mFileMag.getCurrentDir();
 			File file = new File(temp + "/" + mDataSource.get(position));
 			String[] list = file.list();
 
@@ -567,7 +517,6 @@ public class EventHandler {
 	 */
 	private class BackgroundWork extends
 			AsyncTask<String, Void, ArrayList<String>> {
-		private String file_name;
 		public ProgressDialog pr_dialog;
 		private int type;
 		private int copy_rtn;
@@ -581,28 +530,8 @@ public class EventHandler {
 		protected void onPreExecute() {
 
 			switch (type) {
-			case SEARCH_TYPE:
-				pr_dialog = ProgressDialog.show(mContext, "", "Searching");
-				pr_dialog.setCancelable(true);
-				break;
-
 			case COPY_TYPE:
 				pr_dialog = ProgressDialog.show(mContext, "", "Copying");
-				pr_dialog.setCancelable(false);
-				break;
-
-			case UNZIP_TYPE:
-				pr_dialog = ProgressDialog.show(mContext, "", "Unzipping");
-				pr_dialog.setCancelable(false);
-				break;
-
-			case ZIP_TYPE:
-				pr_dialog = ProgressDialog.show(mContext, "", "Zipping");
-				pr_dialog.setCancelable(false);
-				break;
-
-			case DELETE_TYPE:
-				pr_dialog = ProgressDialog.show(mContext, "", "Deleting");
 				pr_dialog.setCancelable(false);
 				break;
 			}
@@ -613,46 +542,23 @@ public class EventHandler {
 		protected ArrayList<String> doInBackground(String... params) {
 
 			switch (type) {
-			case SEARCH_TYPE:
-				file_name = params[0];
-				ArrayList<String> found = mFileMang.searchInDirectory(
-						searchdirectory, file_name);
-				return found;
-
 			case COPY_TYPE:
 				int len = params.length;
 
 				if (mMultiSelectData != null && !mMultiSelectData.isEmpty()) {
 					for (int i = 1; i < len; i++) {
-						copy_rtn = mFileMang.copyToDirectory(params[i],
+						copy_rtn = mFileMag.copyToDirectory(params[i],
 								params[0]);
 
 						if (delete_after_copy)
-							mFileMang.deleteTarget(params[i]);
+							mFileMag.deleteTarget(params[i]);
 					}
 				} else {
-					copy_rtn = mFileMang.copyToDirectory(params[0], params[1]);
+					copy_rtn = mFileMag.copyToDirectory(params[0], params[1]);
 
 					if (delete_after_copy)
-						mFileMang.deleteTarget(params[0]);
+						mFileMag.deleteTarget(params[0]);
 				}
-
-				return null;
-
-			case UNZIP_TYPE:
-				mFileMang.extractZipFiles(params[0], params[1]);
-				return null;
-
-			case ZIP_TYPE:
-				mFileMang.createZipFile(params[0]);
-				return null;
-
-			case DELETE_TYPE:
-				int size = params.length;
-
-				for (int i = 0; i < size; i++)
-					mFileMang.deleteTarget(params[i]);
-
 				return null;
 			}
 			return null;
@@ -661,44 +567,7 @@ public class EventHandler {
 		// This is called when the background thread is finished.
 		@Override
 		protected void onPostExecute(final ArrayList<String> file) {
-			final CharSequence[] names;
-			int len = file != null ? file.size() : 0;
-
 			switch (type) {
-			case SEARCH_TYPE:
-				if (len == 0) {
-					Toast.makeText(mContext, R.string.itcouldntbefound,
-							Toast.LENGTH_SHORT).show();
-
-				} else {
-					names = new CharSequence[len];
-
-					for (int i = 0; i < len; i++) {
-						String entry = file.get(i);
-						names[i] = entry.substring(entry.lastIndexOf("/") + 1,
-								entry.length());
-					}
-
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-							mContext);
-					builder.setTitle(R.string.foundfiles);
-					builder.setItems(names,
-							new DialogInterface.OnClickListener() {
-
-								public void onClick(DialogInterface dialog,
-										int position) {
-									String path = file.get(position);
-									opendir(path.substring(0,
-											path.lastIndexOf("/")));
-									mDelegate.notifyDataSetChanged();
-								}
-							});
-					AlertDialog dialog = builder.create();
-					dialog.show();
-				}
-				pr_dialog.dismiss();
-				break;
-
 			case COPY_TYPE:
 				if (mMultiSelectData != null && !mMultiSelectData.isEmpty()) {
 					multi_select_flag = false;
@@ -719,31 +588,8 @@ public class EventHandler {
 
 				delete_after_copy = false;
 				pr_dialog.dismiss();
-				updateDirectory(mFileMang.getNextDir(mFileMang.getCurrentDir(),
+				updateDirectory(mFileMag.getNextDir(mFileMag.getCurrentDir(),
 						true));
-				break;
-
-			case UNZIP_TYPE:
-				updateDirectory(mFileMang.getNextDir(mFileMang.getCurrentDir(),
-						true));
-				pr_dialog.dismiss();
-				break;
-
-			case ZIP_TYPE:
-				updateDirectory(mFileMang.getNextDir(mFileMang.getCurrentDir(),
-						true));
-				pr_dialog.dismiss();
-				break;
-
-			case DELETE_TYPE:
-				if (mMultiSelectData != null && !mMultiSelectData.isEmpty()) {
-					mMultiSelectData.clear();
-					multi_select_flag = false;
-				}
-
-				updateDirectory(mFileMang.getNextDir(mFileMang.getCurrentDir(),
-						true));
-				pr_dialog.dismiss();
 				break;
 			}
 		}
@@ -757,7 +603,7 @@ public class EventHandler {
 					.show();
 		}
 
-		updateDirectory(mFileMang.setHomeDir(path));
+		updateDirectory(mFileMag.setHomeDir(path));
 	}
 
 	// Multiselect Delete Action
@@ -770,47 +616,13 @@ public class EventHandler {
 		}
 	}
 
-	public void multidelete() {
-		if (mMultiSelectData == null || mMultiSelectData.isEmpty()) {
-			mDelegate.killMultiSelect(true);
-		}
-
-		final String[] data = new String[mMultiSelectData.size()];
-		int at = 0;
-
-		for (String string : mMultiSelectData)
-			data[at++] = string;
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-		builder.setTitle(R.string.delete);
-		builder.setMessage(R.string.cannotbeundoneareyousureyouwanttodelete);
-		builder.setCancelable(true);
-		builder.setPositiveButton((R.string.delete),
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						new BackgroundWork(DELETE_TYPE).execute(data);
-						mDelegate.killMultiSelect(true);
-					}
-				});
-		builder.setNegativeButton((R.string.cancel),
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						mDelegate.killMultiSelect(true);
-						dialog.cancel();
-					}
-				});
-		builder.create().show();
-	}
-
 	public void multicopy() {
 		if (mMultiSelectData == null || mMultiSelectData.isEmpty()) {
 			mDelegate.killMultiSelect(true);
 		}
 		delete_after_copy = false;
 		mDelegate.killMultiSelect(false);
-		updateDirectory(mFileMang.getNextDir(mFileMang.getCurrentDir(), true));
+		updateDirectory(mFileMag.getNextDir(mFileMag.getCurrentDir(), true));
 	}
 
 	public void multimove() {
@@ -819,6 +631,6 @@ public class EventHandler {
 		}
 		delete_after_copy = true;
 		mDelegate.killMultiSelect(false);
-		updateDirectory(mFileMang.getNextDir(mFileMang.getCurrentDir(), true));
+		updateDirectory(mFileMag.getNextDir(mFileMag.getCurrentDir(), true));
 	}
 }

@@ -6,11 +6,17 @@ import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import com.dnielfe.utils.Bookmarks;
+import com.dnielfe.utils.Compress;
+import com.dnielfe.utils.Decompress;
+import com.dnielfe.utils.SearchSuggestions;
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
@@ -21,12 +27,12 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.preference.PreferenceManager;
 import android.provider.SearchRecentSuggestions;
-import android.text.format.Formatter;
 import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -78,27 +84,32 @@ public final class Main extends ListActivity implements
 	private static final int F_MENU_DETAILS = 19;
 	private static final int D_MENU_DETAILS = 20;
 
+	private static final int MULTIZIP_TYPE = 30;
+	private static final int UNZIP_TYPE = 31;
+	private static final int DELETE_TYPE = 32;
+	private static final int SEARCH_TYPE = 33;
+	private static final int ZIP_TYPE = 34;
+
 	private static FileOperations mFileMag;
 	private static EventHandler mHandler;
 	private static EventHandler.TableRow mTable;
+
 	private boolean mReturnIntent = false;
 	private boolean mHoldingFile = false;
 	private boolean mUseBackKey = true;
+
 	SharedPreferences mSettings;
 	LinearLayout mDirectoryButtons;
-	static ActionMode mActionMode;
-	static int directorytextsize = 16;
-	private final int KB = 1024;
-	private final int MG = KB * KB;
-	private final int GB = MG * KB;
+	ActionMode mActionMode;
+	private int directorytextsize = 15;
 
 	private static String mCopiedTarget;
 	private static String mSelectedListItem;
 	private String display_size;
-	static final String[] Q = new String[] { "B", "KB", "MB", "GB", "T", "P",
-			"E" };
 	public static String startpath = Environment.getExternalStorageDirectory()
 			.getPath();
+	private static final String searchdirectory = "/storage/";
+	private static String[] multidata;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -162,34 +173,6 @@ public final class Main extends ListActivity implements
 		displayFreeSpace();
 	}
 
-	private void setsearchbutton() {
-		// Image Button ActionBar Search
-		ImageButton mainButton = (ImageButton) findViewById(R.id.actionsearch);
-		mainButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				searchaction();
-			}
-		});
-
-		mainButton.setOnLongClickListener(new OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View arg0) {
-				Toast.makeText(Main.this, getString(R.string.search),
-						Toast.LENGTH_LONG).show();
-				return false;
-			}
-		});
-	}
-
-	@Override
-	protected void onNewIntent(Intent intent) {
-		setIntent(intent);
-		SearchIntent(intent);
-	}
-
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -212,8 +195,65 @@ public final class Main extends ListActivity implements
 		mHandler.opendir(mFileMag.getCurrentDir());
 	}
 
-	public void searchaction() {
-		this.onSearchRequested();
+	// with this you get the 3 dot menu button
+	private void getOverflowMenu() {
+
+		try {
+			ViewConfiguration config = ViewConfiguration.get(this);
+			Field menuKeyField = ViewConfiguration.class
+					.getDeclaredField("sHasPermanentMenuKey");
+			if (menuKeyField != null) {
+				menuKeyField.setAccessible(true);
+				menuKeyField.setBoolean(config, false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// check if sdcard is avaible
+	private void checkEnvironment() {
+
+		File f = null;
+		boolean sdCardExist = Environment.getExternalStorageState().equals(
+				Environment.MEDIA_MOUNTED);
+		if (sdCardExist) {
+			f = Environment.getExternalStorageDirectory();
+			if (f != null) {
+				startpath = f.getAbsolutePath();
+			}
+
+		} else {
+			Toast.makeText(Main.this, getString(R.string.sdcardnotfound),
+					Toast.LENGTH_LONG).show();
+		}
+	}
+
+	private void setsearchbutton() {
+		// Image Button ActionBar Search
+		ImageButton mainButton = (ImageButton) findViewById(R.id.actionsearch);
+		mainButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Main.this.onSearchRequested();
+			}
+		});
+
+		mainButton.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View arg0) {
+				Toast.makeText(Main.this, getString(R.string.search),
+						Toast.LENGTH_LONG).show();
+				return false;
+			}
+		});
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		setIntent(intent);
+		SearchIntent(intent);
 	}
 
 	public void SearchIntent(Intent intent) {
@@ -226,7 +266,7 @@ public final class Main extends ListActivity implements
 			String query = intent.getStringExtra(SearchManager.QUERY);
 
 			if (query.length() > 0) {
-				mHandler.searchForFile(query);
+				new BackgroundWork(SEARCH_TYPE).execute(query);
 
 				if (searchsuggestion == true) {
 					SearchRecentSuggestions suggestions = new SearchRecentSuggestions(
@@ -243,26 +283,11 @@ public final class Main extends ListActivity implements
 		}
 	}
 
+	// get ListView
 	public void listview() {
 		ListView listview = this.getListView();
+		// go to top of ListView
 		listview.setSelection(0);
-	}
-
-	private void checkEnvironment() {
-
-		File f = null;
-		boolean sdCardExist = Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED);
-		if (sdCardExist) {
-			f = Environment.getExternalStorageDirectory();
-			if (f != null) {
-				startpath = f.getAbsolutePath();
-			}
-
-		} else {
-			Toast.makeText(Main.this, getString(R.string.sdcardnotfound),
-					Toast.LENGTH_LONG).show();
-		}
 	}
 
 	public File currentDirectory() {
@@ -343,7 +368,6 @@ public final class Main extends ListActivity implements
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-
 		outState.putString("location", mFileMag.getCurrentDir());
 	}
 
@@ -356,19 +380,6 @@ public final class Main extends ListActivity implements
 		ret.setData(Uri.fromFile(data));
 		setResult(RESULT_OK, ret);
 		finish();
-	}
-
-	public String getAsString(long bytes) {
-		for (int i = 6; i >= 0; i--) {
-			double step = Math.pow(1024, i);
-			if (bytes > step)
-				return String.format("%3.2f %s", bytes / step, Q[i]);
-		}
-		return Long.toString(bytes);
-	}
-
-	public static String formatSize(Context context, long sizeInBytes) {
-		return Formatter.formatFileSize(context, sizeInBytes);
 	}
 
 	@Override
@@ -515,8 +526,13 @@ public final class Main extends ListActivity implements
 										}
 										break;
 									case 1:
-										String dir = mFileMag.getCurrentDir();
-										mHandler.unZipFile(item, dir + "/");
+										final String zipPath = mFileMag
+												.getCurrentDir() + "/" + item;
+										final String unZipPath = mFileMag
+												.getCurrentDir() + "/unzipped/";
+
+										new BackgroundWork(UNZIP_TYPE).execute(
+												zipPath, unZipPath);
 										break;
 									}
 								}
@@ -665,6 +681,7 @@ public final class Main extends ListActivity implements
 		}
 	}
 
+	// Will be displayed when long clicking ListView
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo info) {
@@ -755,11 +772,8 @@ public final class Main extends ListActivity implements
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 
-							mHandler.deleteFile(mFileMag.getCurrentDir() + "/"
-									+ mSelectedListItem);
-
-							mHandler.updateDirectory(mFileMag.getNextDir(
-									mFileMag.getCurrentDir(), true));
+							new BackgroundWork(DELETE_TYPE).execute(mFileMag
+									.getCurrentDir() + "/" + mSelectedListItem);
 							displayFreeSpace();
 						}
 					});
@@ -919,15 +933,21 @@ public final class Main extends ListActivity implements
 			return true;
 
 		case D_MENU_ZIP:
-			String dir = mFileMag.getCurrentDir();
-			mHandler.zipFile(dir + "/" + mSelectedListItem);
+			String zipPath = mFileMag.getCurrentDir() + "/" + mSelectedListItem;
+
+			new BackgroundWork(ZIP_TYPE).execute(zipPath);
 			return true;
 		}
 
 		return false;
 	}
 
+	// Dialog with File details
 	private void filedetails() {
+		final int KB = 1024;
+		final int MG = KB * KB;
+		final int GB = MG * KB;
+
 		// Get Infos for Dialog
 		File file3 = new File(mFileMag.getCurrentDir() + "/"
 				+ mSelectedListItem);
@@ -977,6 +997,7 @@ public final class Main extends ListActivity implements
 		dialog1.show();
 	}
 
+	// Dialog with Folder details
 	private void folderdetails() {
 		// Get Info for Dialog
 		File file1 = new File(mFileMag.getCurrentDir() + "/"
@@ -1015,28 +1036,13 @@ public final class Main extends ListActivity implements
 		dialog.show();
 	}
 
-	// Menus, options menu and context menu start here
+	// Options menu start here
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
 		return true;
-	}
-
-	private void getOverflowMenu() {
-
-		try {
-			ViewConfiguration config = ViewConfiguration.get(this);
-			Field menuKeyField = ViewConfiguration.class
-					.getDeclaredField("sHasPermanentMenuKey");
-			if (menuKeyField != null) {
-				menuKeyField.setAccessible(true);
-				menuKeyField.setBoolean(config, false);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -1281,7 +1287,6 @@ public final class Main extends ListActivity implements
 				});
 
 		alertf.show();
-
 	}
 
 	@Override
@@ -1349,6 +1354,7 @@ public final class Main extends ListActivity implements
 		}
 	}
 
+	// this will start when multibutton is clicked
 	public ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
 		// Called when the action mode is created; startActionMode() was called
@@ -1365,7 +1371,7 @@ public final class Main extends ListActivity implements
 			switch (item.getItemId()) {
 			case R.id.actiondelete:
 				try {
-					mHandler.multidelete();
+					multidelete();
 					mode.finish();
 				} catch (Exception e) {
 					Toast.makeText(Main.this, getString(R.string.choosefiles),
@@ -1403,6 +1409,17 @@ public final class Main extends ListActivity implements
 					mode.finish();
 				}
 				return true;
+			case R.id.actionzip:
+				try {
+					multizipfiles();
+
+					mode.finish();
+				} catch (Exception e) {
+					Toast.makeText(Main.this, getString(R.string.choosefiles),
+							Toast.LENGTH_SHORT).show();
+					mode.finish();
+				}
+				return true;
 			default:
 				return false;
 			}
@@ -1422,24 +1439,239 @@ public final class Main extends ListActivity implements
 		}
 	};
 
+	// multiactions
 	public void multishare() {
 		ArrayList<Uri> uris = new ArrayList<Uri>();
 		int length = mHandler.mMultiSelectData.size();
-		Intent mail_int = new Intent();
-
-		mail_int.setAction(android.content.Intent.ACTION_SEND_MULTIPLE);
-		mail_int.setType("text/plain");
-		mail_int.putExtra(Intent.EXTRA_BCC, "");
-		mail_int.putExtra(Intent.EXTRA_SUBJECT, " ");
 
 		for (int i = 0; i < length; i++) {
 			File file = new File(mHandler.mMultiSelectData.get(i));
 			uris.add(Uri.fromFile(file));
 		}
+
+		Intent mail_int = new Intent();
+		mail_int.setAction(android.content.Intent.ACTION_SEND_MULTIPLE);
+		mail_int.setType("text/plain");
+		mail_int.putExtra(Intent.EXTRA_BCC, "");
+		mail_int.putExtra(Intent.EXTRA_SUBJECT, " ");
 		mail_int.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
 		mHandler.mContext.startActivity(Intent.createChooser(mail_int,
 				getString(R.string.share)));
 		mHandler.mDelegate.killMultiSelect(true);
+	}
+
+	public void multidelete() {
+		if (mHandler.mMultiSelectData == null
+				|| mHandler.mMultiSelectData.isEmpty()) {
+			mHandler.mDelegate.killMultiSelect(true);
+		}
+
+		final String[] data = new String[mHandler.mMultiSelectData.size()];
+		int at = 0;
+
+		for (String string : mHandler.mMultiSelectData)
+			data[at++] = string;
+
+		int size = mHandler.mMultiSelectData.size();
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(getString(R.string.delete) + " ("
+				+ String.valueOf(size) + ")");
+		builder.setMessage(R.string.cannotbeundoneareyousureyouwanttodelete);
+		builder.setCancelable(true);
+		builder.setPositiveButton((R.string.delete),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						new BackgroundWork(DELETE_TYPE).execute(data);
+						mHandler.mDelegate.killMultiSelect(true);
+					}
+				});
+		builder.setNegativeButton((R.string.cancel),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						mHandler.mDelegate.killMultiSelect(true);
+						dialog.cancel();
+					}
+				});
+		builder.create().show();
+	}
+
+	private void multizipfiles() {
+		final String[] data = new String[mHandler.mMultiSelectData.size()];
+		int at = 0;
+
+		for (String string : mHandler.mMultiSelectData)
+			data[at++] = string;
+
+		multidata = data;
+
+		final String dir = mFileMag.getCurrentDir();
+		new BackgroundWork(MULTIZIP_TYPE).execute(dir);
+	}
+
+	// Backgroundwork for:
+	// search
+	// delete
+	// multizip
+	// unzip
+	// ZIP Folder
+	private class BackgroundWork extends
+			AsyncTask<String, Void, ArrayList<String>> {
+		public ProgressDialog pr_dialog;
+		private String file_name;
+		private int type;
+
+		private BackgroundWork(int type) {
+			this.type = type;
+		}
+
+		// This will show a Dialog while Action is running in Background
+		@Override
+		protected void onPreExecute() {
+
+			switch (type) {
+			case SEARCH_TYPE:
+				pr_dialog = ProgressDialog.show(Main.this, "",
+						getString(R.string.search));
+				pr_dialog.setCancelable(true);
+				break;
+			case DELETE_TYPE:
+				pr_dialog = ProgressDialog.show(Main.this, "",
+						getString(R.string.deleting));
+				pr_dialog.setCancelable(false);
+				break;
+			case MULTIZIP_TYPE:
+				pr_dialog = ProgressDialog.show(Main.this, "",
+						getString(R.string.zipping));
+				pr_dialog.setCancelable(false);
+				break;
+			case UNZIP_TYPE:
+				pr_dialog = ProgressDialog.show(Main.this, "",
+						getString(R.string.unzipping));
+				pr_dialog.setCancelable(false);
+				break;
+			case ZIP_TYPE:
+				pr_dialog = ProgressDialog.show(Main.this, "",
+						getString(R.string.zipping));
+				pr_dialog.setCancelable(false);
+				break;
+			}
+		}
+
+		// Background thread here
+		@Override
+		protected ArrayList<String> doInBackground(String... params) {
+
+			switch (type) {
+			case SEARCH_TYPE:
+				file_name = params[0];
+				ArrayList<String> found = mFileMag.searchInDirectory(
+						searchdirectory, file_name);
+				return found;
+			case DELETE_TYPE:
+				int size = params.length;
+
+				for (int i = 0; i < size; i++)
+					mFileMag.deleteTarget(params[i]);
+
+				return null;
+			case MULTIZIP_TYPE:
+				final String zipfile = mFileMag.getCurrentDir() + "/"
+						+ "zipfile.zip";
+
+				final Compress compress = new Compress(multidata, zipfile);
+
+				try {
+					compress.zip(params[0]);
+				} catch (Exception e) {
+
+				}
+				return null;
+			case UNZIP_TYPE:
+				final Decompress decompress = new Decompress(params[0],
+						params[1]);
+				try {
+					decompress.unzip();
+				} catch (Exception e) {
+
+				}
+				return null;
+			case ZIP_TYPE:
+				mFileMag.createZipFile(params[0]);
+				return null;
+			}
+			return null;
+		}
+
+		// This is called when the background thread is finished
+		@Override
+		protected void onPostExecute(final ArrayList<String> file) {
+			final CharSequence[] names;
+			int len = file != null ? file.size() : 0;
+
+			switch (type) {
+			case SEARCH_TYPE:
+				if (len == 0) {
+					Toast.makeText(Main.this, R.string.itcouldntbefound,
+							Toast.LENGTH_SHORT).show();
+
+				} else {
+					names = new CharSequence[len];
+
+					for (int i = 0; i < len; i++) {
+						String entry = file.get(i);
+						names[i] = entry.substring(entry.lastIndexOf("/") + 1,
+								entry.length());
+					}
+
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							Main.this);
+					builder.setTitle(R.string.foundfiles);
+					builder.setItems(names,
+							new DialogInterface.OnClickListener() {
+
+								public void onClick(DialogInterface dialog,
+										int position) {
+									String path = file.get(position);
+									mHandler.opendir(path.substring(0,
+											path.lastIndexOf("/")));
+								}
+							});
+					AlertDialog dialog = builder.create();
+					dialog.show();
+				}
+				pr_dialog.dismiss();
+				break;
+			case DELETE_TYPE:
+				if (mHandler.mMultiSelectData != null
+						&& !mHandler.mMultiSelectData.isEmpty()) {
+					mHandler.mMultiSelectData.clear();
+					mHandler.multi_select_flag = false;
+				}
+
+				mHandler.updateDirectory(mFileMag.getNextDir(
+						mFileMag.getCurrentDir(), true));
+				pr_dialog.dismiss();
+				break;
+			case MULTIZIP_TYPE:
+				mHandler.updateDirectory(mFileMag.getNextDir(
+						mFileMag.getCurrentDir(), true));
+				pr_dialog.dismiss();
+				break;
+			case UNZIP_TYPE:
+				mHandler.updateDirectory(mFileMag.getNextDir(
+						mFileMag.getCurrentDir(), true));
+				pr_dialog.dismiss();
+				break;
+			case ZIP_TYPE:
+				mHandler.updateDirectory(mFileMag.getNextDir(
+						mFileMag.getCurrentDir(), true));
+				pr_dialog.dismiss();
+				break;
+			}
+		}
 	}
 
 	// On back pressed Actions

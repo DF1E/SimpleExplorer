@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import android.util.Log;
@@ -31,7 +30,6 @@ public class FileOperations {
 
 	// Constructs an object of the class this class uses a stack to handle the
 	// navigation of directories
-
 	public FileOperations() {
 		mDirContent = new ArrayList<String>();
 		mPathStack = new Stack<String>();
@@ -151,65 +149,6 @@ public class FileOperations {
 			return -1;
 
 		return 0;
-	}
-
-	/**
-	 * 
-	 * @param zip_file
-	 * @param directory
-	 */
-	public void extractZipFiles(String zip_file, String directory) {
-		byte[] data = new byte[BUFFER];
-		String name, path, zipDir;
-		ZipEntry entry;
-		ZipInputStream zipstream;
-
-		if (!(directory.charAt(directory.length() - 1) == '/'))
-			directory += "/";
-
-		if (zip_file.contains("/")) {
-			path = zip_file;
-			name = path.substring(path.lastIndexOf("/") + 1, path.length() - 4);
-			zipDir = directory + name + "/";
-
-		} else {
-			path = directory + zip_file;
-			name = path.substring(path.lastIndexOf("/") + 1, path.length() - 4);
-			zipDir = directory + name + "/";
-		}
-
-		new File(zipDir).mkdir();
-
-		try {
-			zipstream = new ZipInputStream(new FileInputStream(path));
-
-			while ((entry = zipstream.getNextEntry()) != null) {
-				String buildDir = zipDir;
-				String[] dirs = entry.getName().split("/");
-
-				if (dirs != null && dirs.length > 0) {
-					for (int i = 0; i < dirs.length - 1; i++) {
-						buildDir += dirs[i] + "/";
-						new File(buildDir).mkdir();
-					}
-				}
-
-				int read = 0;
-				FileOutputStream out = new FileOutputStream(zipDir
-						+ entry.getName());
-				while ((read = zipstream.read(data, 0, BUFFER)) != -1)
-					out.write(data, 0, read);
-
-				zipstream.closeEntry();
-				out.close();
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -441,7 +380,7 @@ public class FileOperations {
 			String[] list = file.list();
 			int len = list.length;
 
-			/* add files/folder to arraylist depending on hidden status */
+			// add files/folder to ArrayList depending on hidden status
 			for (int i = 0; i < len; i++) {
 				if (!mShowHiddenFiles) {
 					if (list[i].toString().charAt(0) != '.')

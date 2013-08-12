@@ -1,4 +1,4 @@
-package com.dnielfe.checkbox;
+package com.dnielfe.utils;
 
 import android.content.Context;
 import android.util.AttributeSet;
