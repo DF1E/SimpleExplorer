@@ -3,7 +3,6 @@
 
     <string name="app_name">Simple Explorer</string>
     <string name="dir_info">Folder Information</string>
-    <string name="info">Info</string>
     <string name="newd">New Directory</string>
     <string name="search">Search</string>
     <string name="settings">Settings</string>
@@ -32,6 +31,7 @@
     <string name="TotalSize">Used:</string>
     <string name="rename">Rename</string>
     <string name="share">Share</string>
+    <string name="zip">Zip</string>
     <string name="calcinfo">Calculating Information</string>
     <string name="createnewfolder">Create new Folder</string>
     <string name="sdcard">SDCard</string>
@@ -116,5 +116,8 @@
     <string name="deleteappsmsg">Saved Apps will be deleted from SD Card!</string>
     <string name="appsdeleted">Apps removed from SD Card</string>
     <string name="freespace">Free Space:</string>
+    <string name="zipping">Zipping</string>
+    <string name="unzipping">Unzipping</string>
+    <string name="deleting">Deleting</string>
 
 </resources>

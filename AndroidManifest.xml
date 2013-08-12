@@ -3,7 +3,7 @@
     package="com.dnielfe.manager"
     android:installLocation="auto"
     android:versionCode="18"
-    android:versionName="1.7.3" >
+    android:versionName="1.7.4" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -78,10 +78,10 @@
         </activity>
 
         <provider
-            android:name=".SearchSuggestions"
+            android:name="com.dnielfe.utils.SearchSuggestions"
             android:authorities="com.dnielfe.manager" />
         <provider
-            android:name=".Bookmarks"
+            android:name="com.dnielfe.utils.Bookmarks"
             android:authorities="com.dnielfe.manager.bookmarks" >
         </provider>
     </application>

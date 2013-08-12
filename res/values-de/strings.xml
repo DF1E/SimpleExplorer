@@ -31,6 +31,7 @@
     <string name="TotalSize">Verwendet:</string>
     <string name="rename">Umbenennen</string>
     <string name="share">Teilen</string>
+    <string name="zip">Verpacken</string>
     <string name="info">Info</string>
     <string name="calcinfo">Berechne Daten</string>
     <string name="createnewfolder">Neuer Ordner</string>
@@ -110,11 +111,14 @@
     <string name="searchprefs">Sucheinstellungen</string>
     <string name="enablesearchsuggestions">Suchvorschläge</string>
     <string name="defaultdir">Standard Verzeichnis</string>
-    <string name="shortcut">Shortcut erstellen</string>
-    <string name="shortcutcreated">Shortcut erstellt</string>
+    <string name="shortcut">Verknüpfung erstellen</string>
+    <string name="shortcutcreated">Verknüpfung erstellt</string>
     <string name="deleteapps">Apps löschen</string>
-    <string name="deleteappsmsg">Lösche gespeicherten Apps werden von der SD Karte gelöscht!</string>
+    <string name="deleteappsmsg">Die gesicherten Apps werden von der SD Karte gelöscht!</string>
     <string name="appsdeleted">Apps von der SD Karte geöscht</string>
     <string name="freespace">Freier Speicher:</string>
+    <string name="zipping">Verpacken</string>
+    <string name="unzipping">Entpacken</string>
+    <string name="deleting">Löschen</string>
 
 </resources>

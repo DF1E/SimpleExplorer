@@ -1,4 +1,8 @@
 Changelog:
+v1.7.4	New Unzip Method
+		multizip files option
+		small fixes
+		much small updates
 v1.7.3	added default directory option
 		added forumlink in preferences
 		speed up image preview loading

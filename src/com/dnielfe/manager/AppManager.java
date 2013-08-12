@@ -168,6 +168,7 @@ public class AppManager extends ListActivity {
 		actionBar.show();
 	}
 
+	// with this you get the 3 dot menu button
 	private void getOverflowMenu() {
 
 		try {
@@ -224,7 +225,6 @@ public class AppManager extends ListActivity {
 			break;
 
 		case ID_MANAGE:
-
 			startActivity(new Intent(
 					android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
 					Uri.parse("package:" + mAppList.get(index).packageName)));
@@ -235,6 +235,7 @@ public class AppManager extends ListActivity {
 			Intent i1 = new Intent(Intent.ACTION_DELETE);
 			i1.setData(Uri.parse("package:" + mAppList.get(index).packageName));
 			startActivity(i1);
+			refreshList();
 			break;
 
 		case ID_MARKET:
@@ -412,7 +413,6 @@ public class AppManager extends ListActivity {
 			Toast.makeText(AppManager.this, getString(R.string.backuperror),
 					Toast.LENGTH_SHORT).show();
 		}
-
 	}
 
 	private void get_downloaded_apps() {
@@ -720,14 +720,11 @@ public class AppManager extends ListActivity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						File savedApps = new File(Environment
-								.getExternalStorageDirectory().getPath()
-								+ "/savedApps/");
-						if (savedApps.isDirectory()) {
-							String[] children = savedApps.list();
-							for (int i = 0; i < children.length; i++) {
-								new File(savedApps, children[i]).delete();
-							}
+						File folder = new File(BACKUP_LOC);
+
+						String[] children = folder.list();
+						for (int i = 0; i < children.length; i++) {
+							new File(folder, children[i]).delete();
 						}
 						Toast.makeText(AppManager.this,
 								getString(R.string.appsdeleted),
@@ -742,7 +739,6 @@ public class AppManager extends ListActivity {
 					}
 				});
 		builder.create().show();
-
 	}
 
 	@Override
