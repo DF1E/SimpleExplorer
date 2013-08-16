@@ -24,7 +24,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -58,8 +57,7 @@ import android.widget.ListView;
 import android.widget.Button;
 import android.widget.Toast;
 
-public final class Main extends ListActivity implements
-		OnSharedPreferenceChangeListener {
+public final class Main extends ListActivity {
 
 	private static final String PREF_HIDDEN = "displayhiddenfiles";
 	public static final String PREF_PREVIEW = "showpreview";
@@ -354,6 +352,14 @@ public final class Main extends ListActivity implements
 				}
 			});
 
+			b.setOnLongClickListener(new View.OnLongClickListener() {
+				public boolean onLongClick(View view) {
+					String dir1 = (String) view.getTag();
+					action(dir1);
+					return true;
+				}
+			});
+
 			mDirectoryButtons.addView(b);
 			mDirectoryButtons.addView(fv1);
 			scrolltext.postDelayed(new Runnable() {
@@ -363,6 +369,16 @@ public final class Main extends ListActivity implements
 				}
 			}, 100L);
 		}
+	}
+
+	private void action(String dir1) {
+		android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+		android.content.ClipData clip = android.content.ClipData.newPlainText(
+				"Copied Text", dir1);
+		clipboard.setPrimaryClip(clip);
+		Toast.makeText(this,
+				"'" + dir1 + "' " + getString(R.string.copiedtoclipboard),
+				Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -1021,9 +1037,6 @@ public final class Main extends ListActivity implements
 		TextView text2 = (TextView) dialog.findViewById(R.id.time_stamp);
 		text2.setText(sdf.format(file1.lastModified()));
 
-		TextView text3 = (TextView) dialog.findViewById(R.id.total_size);
-		text3.setText("---");
-
 		// Set up Button
 		Button button = (Button) dialog.findViewById(R.id.quit);
 		button.setOnClickListener(new OnClickListener() {
@@ -1034,6 +1047,43 @@ public final class Main extends ListActivity implements
 		});
 
 		dialog.show();
+
+		new AsyncTask<String[], Long, Long>() {
+			final TextView text3 = (TextView) dialog
+					.findViewById(R.id.total_size);
+			long size = 0;
+			private String mDisplaySize;
+			FileOperations flmg = new FileOperations();
+			int KB = 1024;
+			int MG = KB * KB;
+			int GB = MG * KB;
+
+			@Override
+			protected void onPreExecute() {
+				text3.setText("---");
+			}
+
+			@Override
+			protected Long doInBackground(String[]... params) {
+				String dir = mFileMag.getCurrentDir() + "/" + mSelectedListItem;
+				size = flmg.getDirSize(dir);
+
+				if (size > GB)
+					mDisplaySize = String.format("%.2f GB", (double) size / GB);
+				else if (size < GB && size > MG)
+					mDisplaySize = String.format("%.2f MB", (double) size / MG);
+				else if (size < MG && size > KB)
+					mDisplaySize = String.format("%.2f KB", (double) size / KB);
+				else
+					mDisplaySize = String.format("%.2f B", (double) size);
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Long result) {
+				text3.setText(mDisplaySize);
+			}
+		}.execute();
 	}
 
 	// Options menu start here
@@ -1289,16 +1339,6 @@ public final class Main extends ListActivity implements
 		alertf.show();
 	}
 
-	@Override
-	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-		if (Settings.PREFS_DISPLAYHIDDENFILES.equals(key)
-				|| Settings.PREFS_PREVIEW.equals(key)
-				|| Settings.PREFS_SEARCH.equals(key)
-				|| Settings.PREFS_SORT.equals(key)
-				|| Settings.PREFS_VIEW.equals(key)) {
-		}
-	}
-
 	public void setDisplay_size(String display_size) {
 		this.display_size = display_size;
 	}
@@ -1361,8 +1401,15 @@ public final class Main extends ListActivity implements
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			// Inflate a menu resource providing context menu items
-			mode.setTitle(R.string.choosefiles);
 			getMenuInflater().inflate(R.menu.actionmode, menu);
+			mActionMode = mode;
+			return true;
+		}
+
+		@Override
+		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			// Set Title
+			mode.setTitle(R.string.choosefiles);
 			return true;
 		}
 
@@ -1431,11 +1478,6 @@ public final class Main extends ListActivity implements
 			if (mHandler.isMultiSelected()) {
 				mTable.killMultiSelect(true);
 			}
-		}
-
-		@Override
-		public boolean onPrepareActionMode(ActionMode arg0, Menu arg1) {
-			return false;
 		}
 	};
 
@@ -1637,6 +1679,7 @@ public final class Main extends ListActivity implements
 									String path = file.get(position);
 									mHandler.opendir(path.substring(0,
 											path.lastIndexOf("/")));
+									setDirectoryButtons();
 								}
 							});
 					AlertDialog dialog = builder.create();
@@ -1681,28 +1724,17 @@ public final class Main extends ListActivity implements
 
 		if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
 				&& !current.equals("/")) {
-			if (mHandler.isMultiSelected()) {
-				mTable.killMultiSelect(true);
-				Toast.makeText(Main.this, R.string.multioff, Toast.LENGTH_SHORT)
-						.show();
 
-			} else {
-				mHandler.updateDirectory(mFileMag.getPreviousDir());
-				setDirectoryButtons();
-				listview();
-			}
+			mHandler.updateDirectory(mFileMag.getPreviousDir());
+			setDirectoryButtons();
+			listview();
+
 			return true;
 
 		} else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
 				&& current.equals("/")) {
 			Toast.makeText(Main.this, getString(R.string.pressbackagaintoquit),
 					Toast.LENGTH_SHORT).show();
-
-			if (mHandler.isMultiSelected()) {
-				mTable.killMultiSelect(true);
-				Toast.makeText(Main.this, R.string.multioff, Toast.LENGTH_SHORT)
-						.show();
-			}
 
 			mUseBackKey = false;
 			setDirectoryButtons();

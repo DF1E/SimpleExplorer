@@ -105,7 +105,8 @@ public class DirectoryInfo extends Activity {
 						(double) size / MG) : String.format("%.2f MB",
 						(double) size / KB);
 
-			} else if (vals[0].equals("/sdcard")) {
+			} else if (vals[0].equals(Environment.getExternalStorageDirectory()
+					.getPath())) {
 				StatFs fs = new StatFs(Environment
 						.getExternalStorageDirectory().getPath());
 				size = fs.getBlockCount() * (fs.getBlockSize() / KB);

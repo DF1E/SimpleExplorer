@@ -185,7 +185,6 @@ public class FileOperations {
 			Log.e(getString(R.string.filenotfound), e.getMessage());
 
 		} catch (IOException e) {
-			Log.e(getString(R.string.ioexception), e.getMessage());
 		}
 	}
 
@@ -497,14 +496,9 @@ public class FileOperations {
 						get_dir_size(list[i]);
 					}
 				} catch (IOException e) {
-					Log.e(getString(R.string.ioexception, e.getMessage()), null);
 				}
 			}
 		}
-	}
-
-	private String getString(int ioexception, String message) {
-		return null;
 	}
 
 	// Inspired by org.apache.commons.io.FileUtils.isSymlink()

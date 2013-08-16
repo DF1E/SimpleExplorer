@@ -9,7 +9,6 @@
     <string name="zipfolder">Ordner Verpacken</string>
     <string name="pasteintofolder">In Ordner kopieren/ verschieben</string>
     <string name="filenotfound">Datei nicht gefunden</string>
-    <string name="ioexception">IO Exception</string>
     <string name="sorrycouldntfindapdfviewver">Kein PDF Viewer vorhanden</string>
     <string name="sorrycouldntfindahtmlviewver">Kein HTML Viewer vorhanden</string>
     <string name="sorrycouldnt">konnte nicht</string>
@@ -28,10 +27,10 @@
     <string name="Numberoffolders">Anzahl der Ordner:</string>
     <string name="Numberoffiles">Anzahl der Daten:</string>
     <string name="LastModified">Zuletzt Geändert:</string>
-    <string name="TotalSize">Verwendet:</string>
+    <string name="used">Verwendet:</string>
     <string name="rename">Umbenennen</string>
     <string name="share">Teilen</string>
-    <string name="zip">Verpacken</string>
+    <string name="multizip">Verpacken</string>
     <string name="info">Info</string>
     <string name="calcinfo">Berechne Daten</string>
     <string name="createnewfolder">Neuer Ordner</string>
@@ -115,10 +114,11 @@
     <string name="shortcutcreated">Verknüpfung erstellt</string>
     <string name="deleteapps">Apps löschen</string>
     <string name="deleteappsmsg">Die gesicherten Apps werden von der SD Karte gelöscht!</string>
-    <string name="appsdeleted">Apps von der SD Karte geöscht</string>
+    <string name="appsdeleted">Apps von der SD Karte gelöscht</string>
     <string name="freespace">Freier Speicher:</string>
     <string name="zipping">Verpacken</string>
     <string name="unzipping">Entpacken</string>
     <string name="deleting">Löschen</string>
+    <string name="copiedtoclipboard">in die Zwischenablage kopiert</string>
 
 </resources>

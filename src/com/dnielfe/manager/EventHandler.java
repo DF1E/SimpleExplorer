@@ -249,7 +249,7 @@ public class EventHandler {
 		private final int MG = KB * KB;
 		private final int GB = MG * KB;
 		private String display_size;
-		private ArrayList<Integer> positions;
+		ArrayList<Integer> positions;
 
 		public TableRow() {
 			super(mContext, R.layout.item, mDataSource);

@@ -3,13 +3,12 @@
     package="com.dnielfe.manager"
     android:installLocation="auto"
     android:versionCode="18"
-    android:versionName="1.7.4" >
+    android:versionName="1.7.5" >
 
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
 
-    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
@@ -79,10 +78,12 @@
 
         <provider
             android:name="com.dnielfe.utils.SearchSuggestions"
-            android:authorities="com.dnielfe.manager" />
+            android:authorities="com.dnielfe.manager"
+            android:exported="false" />
         <provider
             android:name="com.dnielfe.utils.Bookmarks"
-            android:authorities="com.dnielfe.manager.bookmarks" >
+            android:authorities="com.dnielfe.manager.bookmarks"
+            android:exported="false" >
         </provider>
     </application>
 

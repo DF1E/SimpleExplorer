@@ -148,7 +148,7 @@
             android:maxLines="1"
             android:minWidth="120dp"
             android:padding="2dp"
-            android:text="@string/TotalSize" />
+            android:text="@string/used" />
 
         <TextView
             android:id="@+id/total_size"

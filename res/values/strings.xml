@@ -9,7 +9,6 @@
     <string name="zipfolder">Zip Folder</string>
     <string name="pasteintofolder">Paste into Folder</string>
     <string name="filenotfound">File not found</string>
-    <string name="ioexception">IO Exception</string>
     <string name="sorrycouldntfindapdfviewver">Sorry couldnt find a PDF Viewer</string>
     <string name="sorrycouldntfindahtmlviewver">Sorry couldnt find a HTML Viewer</string>
     <string name="sorrycouldnt">Sorry couldnt</string>
@@ -17,7 +16,6 @@
     <string name="extracthere">Extract here</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"This cannot be undone"</string>
     <string name="cancel">Cancel</string>
-    <string name="youdonthavepermissiontounzip">You dont have permission to unzip!</string>
     <string name="newfolderwasnotcreated">New Folder was not created</string>
     <string name="multiselectisoffnow">Multiselect is off now</string>
     <string name="pressbackagaintoquit">Press back again to quit</string>
@@ -28,10 +26,10 @@
     <string name="Numberoffolders">Number of Folders:</string>
     <string name="Numberoffiles">Number of Files:</string>
     <string name="LastModified">Last Modified:</string>
-    <string name="TotalSize">Used:</string>
+    <string name="used">Used:</string>
     <string name="rename">Rename</string>
     <string name="share">Share</string>
-    <string name="zip">Zip</string>
+    <string name="multizip">Zip</string>
     <string name="calcinfo">Calculating Information</string>
     <string name="createnewfolder">Create new Folder</string>
     <string name="sdcard">SDCard</string>
@@ -119,5 +117,6 @@
     <string name="zipping">Zipping</string>
     <string name="unzipping">Unzipping</string>
     <string name="deleting">Deleting</string>
+    <string name="copiedtoclipboard">copied to Clipboard</string>
 
 </resources>
