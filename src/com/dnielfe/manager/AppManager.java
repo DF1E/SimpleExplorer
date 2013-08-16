@@ -125,15 +125,12 @@ public class AppManager extends ListActivity {
 				return null;
 			}
 
+			@Override
 			protected void onPreExecute() {
 				ActionBar actionBar = getActionBar();
 				actionBar.setSubtitle(getString(R.string.loading));
 				actionBar.show();
 				getOverflowMenu();
-			}
-
-			@Override
-			protected void onProgressUpdate(Long... updatedSize) {
 			}
 
 			@Override
@@ -720,15 +717,7 @@ public class AppManager extends ListActivity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						File folder = new File(BACKUP_LOC);
-
-						String[] children = folder.list();
-						for (int i = 0; i < children.length; i++) {
-							new File(folder, children[i]).delete();
-						}
-						Toast.makeText(AppManager.this,
-								getString(R.string.appsdeleted),
-								Toast.LENGTH_SHORT).show();
+						delete();
 					}
 				});
 		builder.setNegativeButton((R.string.cancel),
@@ -739,6 +728,39 @@ public class AppManager extends ListActivity {
 					}
 				});
 		builder.create().show();
+	}
+
+	private void delete() {
+		new AsyncTask<String[], Long, Long>() {
+			private ProgressDialog dialog;
+
+			@Override
+			protected void onPreExecute() {
+				dialog = ProgressDialog.show(AppManager.this, "",
+						getString(R.string.deleting));
+				dialog.setCancelable(true);
+			}
+
+			@Override
+			protected Long doInBackground(String[]... params) {
+				File folder = new File(BACKUP_LOC);
+
+				String[] children = folder.list();
+				for (int i = 0; i < children.length; i++) {
+					new File(folder, children[i]).delete();
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Long result) {
+				Toast.makeText(AppManager.this,
+						getString(R.string.appsdeleted), Toast.LENGTH_SHORT)
+						.show();
+				
+				dialog.cancel();
+			}
+		}.execute();
 	}
 
 	@Override
