@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.dnielfe.utils.BitmapLoader;
 
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -56,11 +57,8 @@ public class EventHandler {
 		mContext = context;
 		mFileMag = manager;
 
-		mDataSource = new ArrayList<String>(mFileMag.setHomeDir(Main.startpath));
-		// Original
-		// mDataSource = new ArrayList<String>(mFileMang.setHomeDir(Environment
-		// .getExternalStorageDirectory().getPath()));
-
+		mDataSource = new ArrayList<String>(mFileMag.setHomeDir(Environment
+				.getExternalStorageDirectory().getPath()));
 	}
 
 	/**

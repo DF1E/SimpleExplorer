@@ -1,7 +1,8 @@
 Changelog:
+v.1.7.6 Folder Shortcut on Homescreen (only 1)
 v.1.7.5 Details update
 		copy path to clipboard when directory button longclick
-		bug fixes
+		bug fixes and corrections
 v1.7.4	New Unzip Method
 		multizip files option
 		small fixes
@@ -29,9 +30,3 @@ v1.6	Added ViewMode option
 v1.5	Added Bookmarks
 		Added Sort Option
 		Some New Icons
-v1.4 	Multi Move
-		Multi Icons
-		Updated Folder Info
-		Bugs fixed
-		removed useless things
-v1.3: 	First Release

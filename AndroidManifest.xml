@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dnielfe.manager"
     android:installLocation="auto"
-    android:versionCode="18"
-    android:versionName="1.7.5" >
+    android:versionCode="21"
+    android:versionName="1.7.6" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -61,6 +61,11 @@
         <activity
             android:name=".Settings"
             android:label="@string/settings" >
+        </activity>
+        <activity android:name="com.dnielfe.utils.Shortcut" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".AppManager"

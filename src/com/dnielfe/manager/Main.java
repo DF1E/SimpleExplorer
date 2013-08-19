@@ -1,3 +1,22 @@
+/*
+ * Copyright (C) 2013 Simple Explorer
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA  02110-1301, USA.
+ */
+
 package com.dnielfe.manager;
 
 import java.io.File;
@@ -5,11 +24,11 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import com.dnielfe.utils.Bookmarks;
 import com.dnielfe.utils.Compress;
 import com.dnielfe.utils.Decompress;
 import com.dnielfe.utils.SearchSuggestions;
+import com.dnielfe.utils.Shortcut;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -64,7 +83,9 @@ public final class Main extends ListActivity {
 	public static final String PREFS_SORT = "sort";
 	public static final String PREFS_VIEW = "viewmode";
 	public static final String PREF_SEARCH = "enablesearchsuggestions";
+	public static final String PREFS_SHORTCUT = "shortcut";
 
+	private static final int D_MENU_SHORTCUT = 3;
 	private static final int D_MENU_BOOKMARK = 4;
 	private static final int F_MENU_OPENAS = 5;
 	private static final int D_MENU_DELETE = 6;
@@ -101,10 +122,10 @@ public final class Main extends ListActivity {
 	ActionMode mActionMode;
 	private int directorytextsize = 15;
 
-	private static String mCopiedTarget;
-	private static String mSelectedListItem;
+	static String mCopiedTarget;
+	static String mSelectedListItem;
 	private String display_size;
-	public static String startpath = Environment.getExternalStorageDirectory()
+	private static String startpath = Environment.getExternalStorageDirectory()
 			.getPath();
 	private static final String searchdirectory = "/storage/";
 	private static String[] multidata;
@@ -113,8 +134,8 @@ public final class Main extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
-		// read settings
 
+		// read settings
 		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
 		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, true);
@@ -166,7 +187,15 @@ public final class Main extends ListActivity {
 		setsearchbutton();
 		checkEnvironment();
 
-		mHandler.opendir(defaultdir);
+		Intent intent = getIntent();
+		// Check for Shortcut Extra
+		if (intent.hasExtra("shortcut")) {
+			String shortcut = (String) getIntent().getExtras().get("shortcut");
+			mHandler.opendir(shortcut);
+		} else {
+			mHandler.opendir(defaultdir);
+		}
+
 		setDirectoryButtons();
 		displayFreeSpace();
 	}
@@ -190,6 +219,7 @@ public final class Main extends ListActivity {
 		mHandler.setViewMode(viewm);
 		mHandler.setShowThumbnails(thumb);
 
+		// refresh
 		mHandler.opendir(mFileMag.getCurrentDir());
 	}
 
@@ -315,6 +345,7 @@ public final class Main extends ListActivity {
 				String rootsystem = "/";
 				mHandler.opendir(rootsystem);
 				setDirectoryButtons();
+
 			}
 		});
 
@@ -355,7 +386,7 @@ public final class Main extends ListActivity {
 			b.setOnLongClickListener(new View.OnLongClickListener() {
 				public boolean onLongClick(View view) {
 					String dir1 = (String) view.getTag();
-					action(dir1);
+					savetoclip(dir1);
 					return true;
 				}
 			});
@@ -371,7 +402,8 @@ public final class Main extends ListActivity {
 		}
 	}
 
-	private void action(String dir1) {
+	// save current string in clipboard
+	private void savetoclip(String dir1) {
 		android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 		android.content.ClipData clip = android.content.ClipData.newPlainText(
 				"Copied Text", dir1);
@@ -718,6 +750,7 @@ public final class Main extends ListActivity {
 			menu.add(0, D_MENU_ZIP, 0, getString(R.string.zipfolder));
 			menu.add(0, D_MENU_PASTE, 0, getString(R.string.pasteintofolder))
 					.setEnabled(mHoldingFile || multi_data);
+			menu.add(0, D_MENU_SHORTCUT, 0, getString(R.string.createshortcut));
 			menu.add(0, D_MENU_BOOKMARK, 0, getString(R.string.createbookmark));
 			menu.add(0, D_MENU_DETAILS, 0, getString(R.string.details));
 
@@ -953,9 +986,39 @@ public final class Main extends ListActivity {
 
 			new BackgroundWork(ZIP_TYPE).execute(zipPath);
 			return true;
+
+		case D_MENU_SHORTCUT:
+			createfoldershortcut(mSelectedListItem);
+			return true;
 		}
 
 		return false;
+	}
+
+	public void createfoldershortcut(String mSelectedListItem) {
+		String path = mFileMag.getCurrentDir() + mSelectedListItem;
+
+		Intent shortcutIntent = new Intent(Main.this, Shortcut.class);
+		shortcutIntent.setAction(Intent.ACTION_MAIN);
+
+		shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		Intent addIntent = new Intent();
+		addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+		addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, mSelectedListItem);
+		addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+				Intent.ShortcutIconResource.fromContext(Main.this,
+						R.drawable.ic_launcher));
+		addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+		Main.this.sendBroadcast(addIntent);
+
+		Toast.makeText(Main.this, getString(R.string.shortcutcreated),
+				Toast.LENGTH_SHORT).show();
+
+		SharedPreferences settings = getSharedPreferences(PREFS_SHORTCUT, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString(PREFS_SHORTCUT, path);
+		editor.commit();
 	}
 
 	// Dialog with File details

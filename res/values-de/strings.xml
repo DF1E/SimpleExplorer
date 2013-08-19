@@ -120,5 +120,6 @@
     <string name="unzipping">Entpacken</string>
     <string name="deleting">Löschen</string>
     <string name="copiedtoclipboard">in die Zwischenablage kopiert</string>
+    <string name="createshortcut">Verknüpfung erstellen</string>
 
 </resources>

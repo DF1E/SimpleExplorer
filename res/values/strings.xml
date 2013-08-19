@@ -118,5 +118,6 @@
     <string name="unzipping">Unzipping</string>
     <string name="deleting">Deleting</string>
     <string name="copiedtoclipboard">copied to Clipboard</string>
+    <string name="createshortcut">Create Shortcut</string>
 
 </resources>
