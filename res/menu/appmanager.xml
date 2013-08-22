@@ -4,7 +4,7 @@
     <item
         android:id="@+id/actionselect"
         android:icon="@drawable/multi"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:title="@string/selectall"/>
     <item
         android:id="@+id/shortcut"

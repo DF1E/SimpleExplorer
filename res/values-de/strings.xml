@@ -31,7 +31,6 @@
     <string name="rename">Umbenennen</string>
     <string name="share">Teilen</string>
     <string name="multizip">Verpacken</string>
-    <string name="info">Info</string>
     <string name="calcinfo">Berechne Daten</string>
     <string name="createnewfolder">Neuer Ordner</string>
     <string name="sdcard">SD Karte</string>
@@ -120,6 +119,5 @@
     <string name="unzipping">Entpacken</string>
     <string name="deleting">Löschen</string>
     <string name="copiedtoclipboard">in die Zwischenablage kopiert</string>
-    <string name="createshortcut">Verknüpfung erstellen</string>
 
 </resources>

@@ -21,14 +21,12 @@ package com.dnielfe.manager;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import com.dnielfe.utils.Bookmarks;
 import com.dnielfe.utils.Compress;
 import com.dnielfe.utils.Decompress;
 import com.dnielfe.utils.SearchSuggestions;
-import com.dnielfe.utils.Shortcut;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -62,12 +60,11 @@ import android.view.MenuItem;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.view.ViewConfiguration;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -75,6 +72,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 public final class Main extends ListActivity {
 
@@ -117,9 +115,9 @@ public final class Main extends ListActivity {
 	private boolean mHoldingFile = false;
 	private boolean mUseBackKey = true;
 
-	SharedPreferences mSettings;
-	LinearLayout mDirectoryButtons;
-	ActionMode mActionMode;
+	private SharedPreferences mSettings;
+	private LinearLayout mDirectoryButtons;
+	public ActionMode mActionMode;
 	private int directorytextsize = 15;
 
 	static String mCopiedTarget;
@@ -183,8 +181,6 @@ public final class Main extends ListActivity {
 		Intent intent3 = getIntent();
 		SearchIntent(intent3);
 
-		getOverflowMenu();
-		setsearchbutton();
 		checkEnvironment();
 
 		Intent intent = getIntent();
@@ -223,22 +219,6 @@ public final class Main extends ListActivity {
 		mHandler.opendir(mFileMag.getCurrentDir());
 	}
 
-	// with this you get the 3 dot menu button
-	private void getOverflowMenu() {
-
-		try {
-			ViewConfiguration config = ViewConfiguration.get(this);
-			Field menuKeyField = ViewConfiguration.class
-					.getDeclaredField("sHasPermanentMenuKey");
-			if (menuKeyField != null) {
-				menuKeyField.setAccessible(true);
-				menuKeyField.setBoolean(config, false);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	// check if sdcard is avaible
 	private void checkEnvironment() {
 
@@ -255,27 +235,6 @@ public final class Main extends ListActivity {
 			Toast.makeText(Main.this, getString(R.string.sdcardnotfound),
 					Toast.LENGTH_LONG).show();
 		}
-	}
-
-	private void setsearchbutton() {
-		// Image Button ActionBar Search
-		ImageButton mainButton = (ImageButton) findViewById(R.id.actionsearch);
-		mainButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Main.this.onSearchRequested();
-			}
-		});
-
-		mainButton.setOnLongClickListener(new OnLongClickListener() {
-			@Override
-			public boolean onLongClick(View arg0) {
-				Toast.makeText(Main.this, getString(R.string.search),
-						Toast.LENGTH_LONG).show();
-				return false;
-			}
-		});
 	}
 
 	@Override
@@ -311,6 +270,62 @@ public final class Main extends ListActivity {
 		}
 	}
 
+	public void onButtonClick(View view) {
+
+		switch (view.getId()) {
+
+		case R.id.appmanager:
+			Intent intent1 = new Intent(Main.this, AppManager.class);
+			startActivity(intent1);
+			break;
+
+		case R.id.folderinfo:
+			Intent info = new Intent(Main.this, DirectoryInfo.class);
+			info.putExtra("PATH_NAME", mFileMag.getCurrentDir());
+			Main.this.startActivity(info);
+			break;
+
+		case R.id.settings:
+			Intent intent2 = new Intent(Main.this, Settings.class);
+			startActivity(intent2);
+			break;
+
+		case R.id.close:
+			backflip();
+			break;
+
+		case R.id.open:
+			nextflip();
+			break;
+		}
+	}
+
+	private void nextflip() {
+		final ViewFlipper page = (ViewFlipper) findViewById(R.id.flipper);
+		final Animation animFlipInForeward = AnimationUtils.loadAnimation(this,
+				R.anim.left_in);
+		final Animation animFlipOutForeward = AnimationUtils.loadAnimation(
+				this, R.anim.left_out);
+
+		page.setInAnimation(animFlipInForeward);
+		page.setOutAnimation(animFlipOutForeward);
+		page.showNext();
+
+	}
+
+	private void backflip() {
+		final ViewFlipper page = (ViewFlipper) findViewById(R.id.flipper);
+		final Animation animFlipInBackward = AnimationUtils.loadAnimation(this,
+				R.anim.right_in);
+		final Animation animFlipOutBackward = AnimationUtils.loadAnimation(
+				this, R.anim.right_out);
+
+		page.setInAnimation(animFlipInBackward);
+		page.setOutAnimation(animFlipOutBackward);
+		page.showNext();
+
+	}
+
 	// get ListView
 	public void listview() {
 		ListView listview = this.getListView();
@@ -318,7 +333,7 @@ public final class Main extends ListActivity {
 		listview.setSelection(0);
 	}
 
-	public File currentDirectory() {
+	private File currentDirectory() {
 		return new File(mFileMag.getCurrentDir());
 	}
 
@@ -345,17 +360,10 @@ public final class Main extends ListActivity {
 				String rootsystem = "/";
 				mHandler.opendir(rootsystem);
 				setDirectoryButtons();
-
 			}
 		});
 
 		mDirectoryButtons.addView(bt);
-		FrameLayout fv = new FrameLayout(this);
-		fv.setBackground(getResources().getDrawable(R.drawable.listmore));
-		fv.setLayoutParams(new FrameLayout.LayoutParams(WRAP_CONTENT,
-				MATCH_PARENT, Gravity.CENTER_VERTICAL));
-
-		mDirectoryButtons.addView(fv);
 
 		// Add other buttons
 		String dir = "";
@@ -391,8 +399,8 @@ public final class Main extends ListActivity {
 				}
 			});
 
-			mDirectoryButtons.addView(b);
 			mDirectoryButtons.addView(fv1);
+			mDirectoryButtons.addView(b);
 			scrolltext.postDelayed(new Runnable() {
 				public void run() {
 					HorizontalScrollView hv = (HorizontalScrollView) findViewById(R.id.scroll_text);
@@ -462,6 +470,7 @@ public final class Main extends ListActivity {
 						mUseBackKey = true;
 
 				} else {
+
 					Toast.makeText(this,
 							getString(R.string.cantreadfolderduetopermissions),
 							Toast.LENGTH_SHORT).show();
@@ -738,10 +747,10 @@ public final class Main extends ListActivity {
 		boolean multi_data = mHandler.hasMultiSelectData();
 		AdapterContextMenuInfo _info = (AdapterContextMenuInfo) info;
 		mSelectedListItem = mHandler.getData(_info.position);
+		File item = new File(mFileMag.getCurrentDir() + "/" + mSelectedListItem);
 
 		// is it a directory and is multi-select turned off
-		if (mFileMag.isDirectory(mSelectedListItem)
-				&& !mHandler.isMultiSelected()) {
+		if (item.isDirectory() && !mHandler.isMultiSelected()) {
 			menu.setHeaderTitle(mSelectedListItem);
 			menu.add(0, D_MENU_DELETE, 0, getString(R.string.delete));
 			menu.add(0, D_MENU_RENAME, 0, getString(R.string.rename));
@@ -750,13 +759,12 @@ public final class Main extends ListActivity {
 			menu.add(0, D_MENU_ZIP, 0, getString(R.string.zipfolder));
 			menu.add(0, D_MENU_PASTE, 0, getString(R.string.pasteintofolder))
 					.setEnabled(mHoldingFile || multi_data);
-			menu.add(0, D_MENU_SHORTCUT, 0, getString(R.string.createshortcut));
+			menu.add(0, D_MENU_SHORTCUT, 0, getString(R.string.shortcut));
 			menu.add(0, D_MENU_BOOKMARK, 0, getString(R.string.createbookmark));
 			menu.add(0, D_MENU_DETAILS, 0, getString(R.string.details));
 
 			// is it a file and is multi-select turned off
-		} else if (!mFileMag.isDirectory(mSelectedListItem)
-				&& !mHandler.isMultiSelected()) {
+		} else if (!item.isDirectory() && !mHandler.isMultiSelected()) {
 			menu.setHeaderTitle(mSelectedListItem);
 			menu.add(0, F_MENU_OPENAS, 0, getString(R.string.openas));
 			menu.add(0, F_MENU_DELETE, 0, getString(R.string.delete));
@@ -847,7 +855,7 @@ public final class Main extends ListActivity {
 							if (input3.getText().length() < 1)
 								dialog.dismiss();
 
-							if (mFileMag.renameTarget(mFileMag.getCurrentDir()
+							if (FileUtils.renameTarget(mFileMag.getCurrentDir()
 									+ "/" + mSelectedListItem, input3.getText()
 									.toString()) == 0) {
 								Toast.makeText(Main.this,
@@ -877,13 +885,17 @@ public final class Main extends ListActivity {
 			return true;
 
 		case F_MENU_DETAILS:
+			File file3 = new File(mFileMag.getCurrentDir() + "/"
+					+ mSelectedListItem);
 
-			filedetails();
+			filedetails(file3, mSelectedListItem);
 			return true;
 
 		case D_MENU_DETAILS:
+			File file1 = new File(mFileMag.getCurrentDir() + "/"
+					+ mSelectedListItem);
 
-			folderdetails();
+			folderdetails(file1, mSelectedListItem);
 			return true;
 
 		case F_MENU_RENAME:
@@ -903,7 +915,7 @@ public final class Main extends ListActivity {
 							if (inputf.getText().length() < 1)
 								dialog.dismiss();
 
-							if (mFileMag.renameTarget(mFileMag.getCurrentDir()
+							if (FileUtils.renameTarget(mFileMag.getCurrentDir()
 									+ "/" + mSelectedListItem, inputf.getText()
 									.toString()) == 0) {
 								Toast.makeText(Main.this,
@@ -995,7 +1007,7 @@ public final class Main extends ListActivity {
 		return false;
 	}
 
-	public void createfoldershortcut(String mSelectedListItem) {
+	private void createfoldershortcut(String mSelectedListItem) {
 		String path = mFileMag.getCurrentDir() + mSelectedListItem;
 
 		Intent shortcutIntent = new Intent(Main.this, Shortcut.class);
@@ -1022,14 +1034,10 @@ public final class Main extends ListActivity {
 	}
 
 	// Dialog with File details
-	private void filedetails() {
+	private void filedetails(File file3, String mSelectedListItem) {
 		final int KB = 1024;
 		final int MG = KB * KB;
 		final int GB = MG * KB;
-
-		// Get Infos for Dialog
-		File file3 = new File(mFileMag.getCurrentDir() + "/"
-				+ mSelectedListItem);
 
 		if (file3.isFile()) {
 			double size = file3.length();
@@ -1077,10 +1085,8 @@ public final class Main extends ListActivity {
 	}
 
 	// Dialog with Folder details
-	private void folderdetails() {
+	private void folderdetails(File file1, final String mSelectedListItem) {
 		// Get Info for Dialog
-		File file1 = new File(mFileMag.getCurrentDir() + "/"
-				+ mSelectedListItem);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
@@ -1116,7 +1122,7 @@ public final class Main extends ListActivity {
 					.findViewById(R.id.total_size);
 			long size = 0;
 			private String mDisplaySize;
-			FileOperations flmg = new FileOperations();
+			FileUtils flmg = new FileUtils();
 			int KB = 1024;
 			int MG = KB * KB;
 			int GB = MG * KB;
@@ -1234,7 +1240,7 @@ public final class Main extends ListActivity {
 									public void onClick(DialogInterface dialog,
 											int whichButton) {
 										if (input.getText().length() >= 1) {
-											if (mFileMag.createDir(
+											if (FileUtils.createDir(
 													mFileMag.getCurrentDir()
 															+ "/", input
 															.getText()
@@ -1278,20 +1284,8 @@ public final class Main extends ListActivity {
 			alertmore.show();
 			return true;
 
-		case R.id.finfo:
-			Intent info = new Intent(Main.this, DirectoryInfo.class);
-			info.putExtra("PATH_NAME", mFileMag.getCurrentDir());
-			Main.this.startActivity(info);
-			return true;
-
-		case R.id.appmanager:
-			Intent intent1 = new Intent(Main.this, AppManager.class);
-			startActivity(intent1);
-			return true;
-
-		case R.id.settings:
-			Intent intent2 = new Intent(Main.this, Settings.class);
-			startActivity(intent2);
+		case R.id.search:
+			this.onSearchRequested();
 			return true;
 
 		default:
@@ -1545,7 +1539,7 @@ public final class Main extends ListActivity {
 	};
 
 	// multiactions
-	public void multishare() {
+	private void multishare() {
 		ArrayList<Uri> uris = new ArrayList<Uri>();
 		int length = mHandler.mMultiSelectData.size();
 
@@ -1565,7 +1559,7 @@ public final class Main extends ListActivity {
 		mHandler.mDelegate.killMultiSelect(true);
 	}
 
-	public void multidelete() {
+	private void multidelete() {
 		if (mHandler.mMultiSelectData == null
 				|| mHandler.mMultiSelectData.isEmpty()) {
 			mHandler.mDelegate.killMultiSelect(true);
@@ -1672,14 +1666,14 @@ public final class Main extends ListActivity {
 			switch (type) {
 			case SEARCH_TYPE:
 				file_name = params[0];
-				ArrayList<String> found = mFileMag.searchInDirectory(
+				ArrayList<String> found = FileUtils.searchInDirectory(
 						searchdirectory, file_name);
 				return found;
 			case DELETE_TYPE:
 				int size = params.length;
 
 				for (int i = 0; i < size; i++)
-					mFileMag.deleteTarget(params[i]);
+					FileUtils.deleteTarget(params[i]);
 
 				return null;
 			case MULTIZIP_TYPE:
@@ -1704,7 +1698,7 @@ public final class Main extends ListActivity {
 				}
 				return null;
 			case ZIP_TYPE:
-				mFileMag.createZipFile(params[0]);
+				FileUtils.createZipFile(params[0]);
 				return null;
 			}
 			return null;

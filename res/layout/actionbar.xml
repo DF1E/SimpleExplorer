@@ -5,53 +5,110 @@
     android:gravity="center_vertical"
     android:orientation="horizontal" >
 
-    <HorizontalScrollView
-        android:id="@+id/scroll_text"
+    <ViewFlipper
+        android:id="@+id/flipper"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/actionsearch"
-        android:fillViewport="true"
-        android:scrollbars="none" >
+        android:layout_alignParentTop="true" >
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="top" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <LinearLayout
-                android:id="@+id/directory_buttons"
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/open"
+                android:fillViewport="true"
+                android:indeterminateBehavior="repeat" />
+
+            <HorizontalScrollView
+                android:id="@+id/scroll_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/open"
+                android:fillViewport="true"
+                android:scrollbars="none" >
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="top" >
+
+                    <LinearLayout
+                        android:id="@+id/directory_buttons"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:longClickable="true"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+                </FrameLayout>
+            </HorizontalScrollView>
+
+            <ImageButton
+                android:id="@+id/open"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/buttonopen"
+                android:contentDescription="@null"
+                android:onClick="onButtonClick" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/appmanager"
+                style="?android:attr/actionButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="top"
-                android:longClickable="true"
-                android:orientation="horizontal" >
-            </LinearLayout>
-        </FrameLayout>
-    </HorizontalScrollView>
+                android:layout_weight="1"
+                android:contentDescription="@string/desc"
+                android:onClick="onButtonClick"
+                android:src="@drawable/save" />
 
-    <ImageButton
-        android:id="@+id/actionsearch"
-        style="?android:attr/actionButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="right|center_vertical"
-        android:contentDescription="@string/desc"
-        android:src="@drawable/search" />
+            <ImageButton
+                android:id="@+id/folderinfo"
+                style="?android:attr/actionButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/desc"
+                android:onClick="onButtonClick"
+                android:src="@drawable/info1" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/actionsearch"
-        android:fillViewport="true"
-        android:indeterminateBehavior="repeat" />
+            <ImageButton
+                android:id="@+id/settings"
+                style="?android:attr/actionButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/desc"
+                android:onClick="onButtonClick"
+                android:src="@drawable/settings" />
+
+            <ImageButton
+                android:id="@+id/close"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/buttonclose"
+                android:contentDescription="@null"
+                android:onClick="onButtonClick" />
+        </LinearLayout>
+    </ViewFlipper>
 
 </RelativeLayout>

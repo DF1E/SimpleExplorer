@@ -17,17 +17,9 @@
         android:showAsAction="ifRoom"
         android:title="@string/multis"/>
     <item
-        android:id="@+id/finfo"
-        android:icon="@drawable/info1"
+        android:id="@+id/search"
+        android:icon="@drawable/search"
         android:showAsAction="ifRoom"
-        android:title="@string/dir_info"/>
-    <item
-        android:id="@+id/appmanager"
-        android:showAsAction="never"
-        android:title="@string/appmanager"/>
-    <item
-        android:id="@+id/settings"
-        android:showAsAction="never"
-        android:title="@string/settings"/>
+        android:title="@string/search"/>
 
 </menu>

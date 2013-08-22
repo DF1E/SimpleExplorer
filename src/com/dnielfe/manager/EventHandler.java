@@ -179,7 +179,7 @@ public class EventHandler {
 	 * 
 	 * @param position
 	 *            the indext of the arraylist holding the dir content
-	 * @return the data in the arraylist at position (position)
+	 * @return the data in the ArrayList at position (position)
 	 */
 	public String getData(int position) {
 
@@ -376,7 +376,7 @@ public class EventHandler {
 					if (thumbnail == true && file.length() != 0) {
 
 						Drawable icon = mContext.getResources().getDrawable(
-								R.drawable.image);
+								R.drawable.bitmap);
 						Bitmap bitmap = ((BitmapDrawable) icon).getBitmap();
 						BitmapLoader.INSTANCE.setPlaceholder(bitmap);
 						mViewHolder.icon.setTag(file.getAbsolutePath());
@@ -545,17 +545,17 @@ public class EventHandler {
 
 				if (mMultiSelectData != null && !mMultiSelectData.isEmpty()) {
 					for (int i = 1; i < len; i++) {
-						copy_rtn = mFileMag.copyToDirectory(params[i],
+						copy_rtn = FileUtils.copyToDirectory(params[i],
 								params[0]);
 
 						if (delete_after_copy)
-							mFileMag.deleteTarget(params[i]);
+							FileUtils.deleteTarget(params[i]);
 					}
 				} else {
-					copy_rtn = mFileMag.copyToDirectory(params[0], params[1]);
+					copy_rtn = FileUtils.copyToDirectory(params[0], params[1]);
 
 					if (delete_after_copy)
-						mFileMag.deleteTarget(params[0]);
+						FileUtils.deleteTarget(params[0]);
 				}
 				return null;
 			}

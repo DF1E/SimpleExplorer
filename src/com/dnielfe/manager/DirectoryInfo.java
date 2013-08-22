@@ -2,6 +2,7 @@ package com.dnielfe.manager;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+
 import android.os.Bundle;
 import android.os.AsyncTask;
 import android.os.StatFs;
@@ -71,6 +72,7 @@ public class DirectoryInfo extends Activity {
 		private int mFileCount = 0;
 		private int mDirCount = 0;
 		long test = dir.getTotalSpace();
+		long freespace = dir.getFreeSpace();
 
 		protected void onPreExecute() {
 			dialog = ProgressDialog.show(DirectoryInfo.this, "",
@@ -80,7 +82,7 @@ public class DirectoryInfo extends Activity {
 
 		@SuppressWarnings("deprecation")
 		protected Long doInBackground(String... vals) {
-			FileOperations flmg = new FileOperations();
+			FileUtils flmg = new FileUtils();
 			File dir = new File(vals[0]);
 			long size = 0;
 			int len = 0;
@@ -105,16 +107,6 @@ public class DirectoryInfo extends Activity {
 						(double) size / MG) : String.format("%.2f MB",
 						(double) size / KB);
 
-			} else if (vals[0].equals(Environment.getExternalStorageDirectory()
-					.getPath())) {
-				StatFs fs = new StatFs(Environment
-						.getExternalStorageDirectory().getPath());
-				size = fs.getBlockCount() * (fs.getBlockSize() / KB);
-
-				mDisplaySize = (size > GB) ? String.format("%.2f GB",
-						(double) size / GB) : String.format("%.2f GB",
-						(double) size / MG);
-
 			} else {
 				size = flmg.getDirSize(vals[0]);
 
@@ -128,11 +120,7 @@ public class DirectoryInfo extends Activity {
 					mDisplaySize = String.format("%.2f B", (double) size);
 			}
 
-			// get free space of sdcard
-			StatFs free = new StatFs(mPathName);
-			double freespace = (double) free.getAvailableBlocks()
-					* (double) free.getBlockSize();
-
+			// get free space on SDcard
 			if (freespace > GB)
 				mFreeSpace = String.format("%.2f GB", (double) freespace / GB);
 			else if (freespace < GB && freespace > MG)
@@ -142,7 +130,7 @@ public class DirectoryInfo extends Activity {
 			else
 				mFreeSpace = String.format("%.2f B", (double) freespace);
 
-			// get total size of sdcard
+			// get total size of SDcard
 			if (test > GB)
 				mAvaibleSize = String.format("%.2f GB", (double) test / GB);
 			else if (test < GB && test > MG)
