@@ -4,7 +4,8 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import com.dnielfe.utils.BitmapLoader;
+import com.dnielfe.utils.ImagePreview;
+import com.dnielfe.utils.VideoPreview;
 
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -378,10 +379,10 @@ public class EventHandler {
 						Drawable icon = mContext.getResources().getDrawable(
 								R.drawable.bitmap);
 						Bitmap bitmap = ((BitmapDrawable) icon).getBitmap();
-						BitmapLoader.INSTANCE.setPlaceholder(bitmap);
+						ImagePreview.INSTANCE.setPlaceholder(bitmap);
 						mViewHolder.icon.setTag(file.getAbsolutePath());
 
-						BitmapLoader.INSTANCE.loadBitmap(
+						ImagePreview.INSTANCE.loadBitmap(
 								file.getAbsolutePath(), mViewHolder.icon);
 
 					} else {
@@ -405,7 +406,18 @@ public class EventHandler {
 						|| sub_ext.equalsIgnoreCase("flv")
 						|| sub_ext.equalsIgnoreCase("mp4")) {
 
-					mViewHolder.icon.setImageResource(R.drawable.movies);
+					if (thumbnail == true && file.length() != 0) {
+						Drawable icon = mContext.getResources().getDrawable(
+								R.drawable.bitmap);
+						Bitmap bitmap = ((BitmapDrawable) icon).getBitmap();
+						VideoPreview.INSTANCE.setPlaceholder(bitmap);
+						mViewHolder.icon.setTag(file.getAbsolutePath());
+
+						VideoPreview.INSTANCE.loadBitmap(
+								file.getAbsolutePath(), mViewHolder.icon);
+					} else {
+						mViewHolder.icon.setImageResource(R.drawable.movies);
+					}
 
 				} else if (sub_ext.equalsIgnoreCase("doc")
 						|| sub_ext.equalsIgnoreCase("docx")) {
