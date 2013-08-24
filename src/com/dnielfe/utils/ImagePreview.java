@@ -22,7 +22,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.ImageView;
 
-public enum BitmapLoader {
+public enum ImagePreview {
 	INSTANCE;
 
 	private final ConcurrentMap<String, Bitmap> cache;
@@ -31,7 +31,7 @@ public enum BitmapLoader {
 			.synchronizedMap(new ConcurrentHashMap<ImageView, String>());
 	private Bitmap placeholder;
 
-	BitmapLoader() {
+	ImagePreview() {
 		cache = new ConcurrentHashMap<String, Bitmap>();
 		pool = Executors.newFixedThreadPool(5);
 	}
