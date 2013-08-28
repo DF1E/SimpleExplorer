@@ -20,8 +20,10 @@
     <string name="multiselectisoffnow">Multiselect is off now</string>
     <string name="pressbackagaintoquit">Press back again to quit</string>
     <string name="copy">Copy</string>
+    <string name="copying">Copying</string>
     <string name="delete">Delete</string>
     <string name="move">Move</string>
+    <string name="moving">Moving</string>
     <string name="attach">Share</string>
     <string name="Numberoffolders">Number of Folders:</string>
     <string name="Numberoffiles">Number of Files:</string>

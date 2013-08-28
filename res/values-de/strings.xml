@@ -17,12 +17,14 @@
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dies kann nicht rückgängig gemacht werden!"</string>
     <string name="cancel">Abbrechen</string>
     <string name="youdonthavepermissiontounzip">Du hast keine Berechtigungen zum entpacken!</string>
-    <string name="newfolderwasnotcreated">New Folder was not created</string>
+    <string name="newfolderwasnotcreated">Neuer Ordner wurde nicht erstellt</string>
     <string name="multiselectisoffnow">Multiselect ist deaktiviert</string>
     <string name="pressbackagaintoquit">Erneut klicken um das Programm zu beenden</string>
     <string name="copy">Kopieren</string>
+    <string name="copying">Kopiere</string>
     <string name="delete">Löschen</string>
     <string name="move">Verschieben</string>
+    <string name="moving">Verschiebe</string>
     <string name="attach">Teilen</string>
     <string name="Numberoffolders">Anzahl der Ordner:</string>
     <string name="Numberoffiles">Anzahl der Daten:</string>

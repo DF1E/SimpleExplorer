@@ -3,13 +3,14 @@ package com.dnielfe.manager;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Stack;
 
 import com.dnielfe.utils.ImagePreview;
 import com.dnielfe.utils.VideoPreview;
 
-import android.os.AsyncTask;
 import android.os.Environment;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -31,19 +32,24 @@ import android.widget.Toast;
  * class must be updated to display those changes.
  */
 public class EventHandler {
-	private static final int COPY_TYPE = 0x01;
+	private static final int SORT_ALPHA = 0;
+	private static final int SORT_TYPE = 1;
+	private static final int SORT_SIZE = 2;
+
 	final Context mContext;
 	private static int fileCount = 0;
-	private final FileOperations mFileMag;
 	TableRow mDelegate;
 	boolean multi_select_flag = false;
-	private boolean delete_after_copy = false;
+
 	private boolean thumbnail = true;
 	private int viewmode;
-	// the list used to feed info into the array adapter and when multi-select
-	// is on
-	ArrayList<String> mDataSource;
-	ArrayList<String> mMultiSelectData;
+	private boolean mShowHiddenFiles;
+	private int mSortType = SORT_TYPE;
+
+	public ArrayList<String> mMultiSelectData;
+	private ArrayList<String> mDataSource;
+	private Stack<String> mPathStack;
+	private ArrayList<String> mDirContent;
 
 	/**
 	 * Creates an EventHandler object. This object is used to communicate most
@@ -51,14 +57,16 @@ public class EventHandler {
 	 * 
 	 * @param context
 	 *            The context of the main activity e.g Main
-	 * @param manager
-	 *            The FileManager object that was instantiated from Main
 	 */
-	public EventHandler(Context context, final FileOperations manager) {
+	public EventHandler(Context context) {
 		mContext = context;
-		mFileMag = manager;
 
-		mDataSource = new ArrayList<String>(mFileMag.setHomeDir(Environment
+		mPathStack = new Stack<String>();
+
+		mPathStack.push("/");
+		mPathStack.push(mPathStack.peek());
+
+		mDataSource = new ArrayList<String>(setHomeDir(Environment
 				.getExternalStorageDirectory().getPath()));
 	}
 
@@ -68,17 +76,18 @@ public class EventHandler {
 	 * 
 	 * @param context
 	 *            The context of the main activity e.g Main
-	 * @param manager
-	 *            The FileManager object that was instantiated from Main
 	 * @param location
 	 *            The first directory to display to the user
 	 */
-	public EventHandler(Context context, final FileOperations manager,
-			String location) {
+	public EventHandler(Context context, String location) {
 		mContext = context;
-		mFileMag = manager;
 
-		mDataSource = new ArrayList<String>(mFileMag.getNextDir(location, true));
+		mPathStack = new Stack<String>();
+
+		mPathStack.push("/");
+		mPathStack.push(mPathStack.peek());
+
+		mDataSource = new ArrayList<String>(getNextDir(location, true));
 	}
 
 	/**
@@ -108,15 +117,13 @@ public class EventHandler {
 		viewmode = mode;
 	}
 
-	/**
-	 * If you want to move a file (cut/paste) and not just copy/paste use this
-	 * method to tell the file manager to delete the old reference of the file.
-	 * 
-	 * @param delete
-	 *            true if you want to move a file, false to copy the file
-	 */
-	public void setDeleteAfterCopy(boolean delete) {
-		delete_after_copy = delete;
+	public void setSortType(int type) {
+		mSortType = type;
+	}
+
+	// Option to show hidden Files
+	public void setShowHiddenFiles(boolean choice) {
+		mShowHiddenFiles = choice;
 	}
 
 	/**
@@ -140,39 +147,6 @@ public class EventHandler {
 	 */
 	public boolean hasMultiSelectData() {
 		return (mMultiSelectData != null && mMultiSelectData.size() > 0);
-	}
-
-	/**
-	 * Will copy a file or folder to another location.
-	 * 
-	 * @param oldLocation
-	 *            from location
-	 * @param newLocation
-	 *            to location
-	 */
-	public void copyFile(String oldLocation, String newLocation) {
-		String[] data = { oldLocation, newLocation };
-
-		new BackgroundWork(COPY_TYPE).execute(data);
-	}
-
-	/**
-	 * 
-	 * @param newLocation
-	 */
-	public void copyFileMultiSelect(String newLocation) {
-		String[] data;
-		int index = 1;
-
-		if (mMultiSelectData.size() > 0) {
-			data = new String[mMultiSelectData.size() + 1];
-			data[0] = newLocation;
-
-			for (String s : mMultiSelectData)
-				data[index++] = s;
-
-			new BackgroundWork(COPY_TYPE).execute(data);
-		}
 	}
 
 	/**
@@ -205,6 +179,72 @@ public class EventHandler {
 			mDataSource.add(data);
 
 		mDelegate.notifyDataSetChanged();
+	}
+
+	// Choose Directory Option
+	public void opendir(String path) {
+		if (multi_select_flag) {
+			mDelegate.killMultiSelect(true);
+			Toast.makeText(mContext, R.string.multioff, Toast.LENGTH_SHORT)
+					.show();
+		}
+
+		updateDirectory(setHomeDir(path));
+	}
+
+	// multi-select
+	public void multiselect() {
+		if (multi_select_flag) {
+			mDelegate.killMultiSelect(true);
+
+		} else {
+			multi_select_flag = true;
+		}
+	}
+
+	// This will return a string of the current directory path
+	public String getCurrentDir() {
+		return mPathStack.peek();
+	}
+
+	// This will return a string of the current home path
+	public ArrayList<String> setHomeDir(String name) {
+		// This will eventually be placed as a settings item
+		mPathStack.clear();
+		mPathStack.push("/");
+		mPathStack.push(name);
+
+		return populate_list();
+	}
+
+	// This will return to the previous Directory
+	public ArrayList<String> getPreviousDir() {
+		int size = mPathStack.size();
+
+		if (size >= 2)
+			mPathStack.pop();
+
+		else if (size == 0)
+			mPathStack.push("/");
+
+		return populate_list();
+	}
+
+	public ArrayList<String> getNextDir(String path, boolean isFullPath) {
+		int size = mPathStack.size();
+
+		if (!path.equals(mPathStack.peek()) && !isFullPath) {
+			if (size == 1)
+				mPathStack.push("/" + path);
+			else
+				mPathStack.push(mPathStack.peek() + "/" + path);
+		}
+
+		else if (!path.equals(mPathStack.peek()) && isFullPath) {
+			mPathStack.push(path);
+		}
+
+		return populate_list();
 	}
 
 	private static class ViewHolder {
@@ -304,7 +344,7 @@ public class EventHandler {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			final ViewHolder mViewHolder;
 			int num_items = 0;
-			String temp = mFileMag.getCurrentDir();
+			String temp = getCurrentDir();
 			File file = new File(temp + "/" + mDataSource.get(position));
 			String[] list = file.list();
 
@@ -515,132 +555,132 @@ public class EventHandler {
 		}
 	}
 
-	/**
-	 * A private inner class of EventHandler used to perform time extensive
-	 * operations. So the user does not think the the application has hung,
-	 * operations such as copy/past, search, unzip and zip will all be performed
-	 * in the background. This class extends AsyncTask in order to give the user
-	 * a progress dialog to show that the app is working properly.
-	 * 
-	 * (note): this class will eventually be changed from using AsyncTask to
-	 * using Handlers and messages to perform background operations.
+	// Sort Comparator
+	@SuppressWarnings("rawtypes")
+	private static final Comparator alph = new Comparator<String>() {
+		@Override
+		public int compare(String arg0, String arg1) {
+			return arg0.toLowerCase().compareTo(arg1.toLowerCase());
+		}
+	};
+
+	@SuppressWarnings("rawtypes")
+	private final Comparator size = new Comparator<String>() {
+		@Override
+		public int compare(String arg0, String arg1) {
+			String dir = mPathStack.peek();
+			Long first = new File(dir + "/" + arg0).length();
+			Long second = new File(dir + "/" + arg1).length();
+
+			return first.compareTo(second);
+		}
+	};
+
+	@SuppressWarnings("rawtypes")
+	private final Comparator type = new Comparator<String>() {
+		@Override
+		public int compare(String arg0, String arg1) {
+			String ext = null;
+			String ext2 = null;
+			int ret;
+
+			try {
+				ext = arg0.substring(arg0.lastIndexOf(".") + 1, arg0.length())
+						.toLowerCase();
+				ext2 = arg1.substring(arg1.lastIndexOf(".") + 1, arg1.length())
+						.toLowerCase();
+
+			} catch (IndexOutOfBoundsException e) {
+				return 0;
+			}
+			ret = ext.compareTo(ext2);
+
+			if (ret == 0)
+				return arg0.toLowerCase().compareTo(arg1.toLowerCase());
+
+			return ret;
+		}
+	};
+
+	/*
+	 * (non-Javadoc) this function will take the string from the top of the
+	 * directory stack and list all files/folders that are in it and return that
+	 * list so it can be displayed. Since this function is called every time we
+	 * need to update the the list of files to be shown to the user, this is
+	 * where we do our sorting (by type, alphabetical, etc).
 	 */
-	private class BackgroundWork extends
-			AsyncTask<String, Void, ArrayList<String>> {
-		public ProgressDialog pr_dialog;
-		private int type;
-		private int copy_rtn;
+	@SuppressWarnings("unchecked")
+	private ArrayList<String> populate_list() {
 
-		private BackgroundWork(int type) {
-			this.type = type;
-		}
+		mDirContent = new ArrayList<String>();
 
-		// This will show a Dialog while Action is running in Background
-		@Override
-		protected void onPreExecute() {
+		if (!mDirContent.isEmpty())
+			mDirContent.clear();
 
-			switch (type) {
-			case COPY_TYPE:
-				pr_dialog = ProgressDialog.show(mContext, "", "Copying");
-				pr_dialog.setCancelable(false);
-				break;
-			}
-		}
+		final File file = new File(mPathStack.peek());
 
-		// Background thread here
-		@Override
-		protected ArrayList<String> doInBackground(String... params) {
+		if (file.exists() && file.canRead()) {
+			String[] list = file.list();
+			int len = list.length;
 
-			switch (type) {
-			case COPY_TYPE:
-				int len = params.length;
+			// add files/folder to ArrayList depending on hidden status
+			for (int i = 0; i < len; i++) {
+				if (!mShowHiddenFiles) {
+					if (list[i].toString().charAt(0) != '.')
+						mDirContent.add(list[i]);
 
-				if (mMultiSelectData != null && !mMultiSelectData.isEmpty()) {
-					for (int i = 1; i < len; i++) {
-						copy_rtn = FileUtils.copyToDirectory(params[i],
-								params[0]);
-
-						if (delete_after_copy)
-							FileUtils.deleteTarget(params[i]);
-					}
 				} else {
-					copy_rtn = FileUtils.copyToDirectory(params[0], params[1]);
-
-					if (delete_after_copy)
-						FileUtils.deleteTarget(params[0]);
+					mDirContent.add(list[i]);
 				}
-				return null;
 			}
-			return null;
-		}
 
-		// This is called when the background thread is finished.
-		@Override
-		protected void onPostExecute(final ArrayList<String> file) {
-			switch (type) {
-			case COPY_TYPE:
-				if (mMultiSelectData != null && !mMultiSelectData.isEmpty()) {
-					multi_select_flag = false;
-					mMultiSelectData.clear();
+			switch (mSortType) {
+			case SORT_ALPHA:
+				Object[] tt = mDirContent.toArray();
+				mDirContent.clear();
+
+				Arrays.sort(tt, alph);
+
+				for (Object a : tt) {
+					mDirContent.add((String) a);
 				}
+				break;
 
-				if (delete_after_copy) {
-					Toast.makeText(mContext, R.string.movesuccsess,
-							Toast.LENGTH_SHORT).show();
+			case SORT_SIZE:
+				int index = 0;
+				Object[] size_ar = mDirContent.toArray();
+				String dir = mPathStack.peek();
+
+				Arrays.sort(size_ar, size);
+
+				mDirContent.clear();
+				for (Object a : size_ar) {
+					if (new File(dir + "/" + (String) a).isDirectory())
+						mDirContent.add(index++, (String) a);
+					else
+						mDirContent.add((String) a);
 				}
+				break;
 
-				else if (copy_rtn == 0)
-					Toast.makeText(mContext, R.string.copysuccsess,
-							Toast.LENGTH_SHORT).show();
-				else
-					Toast.makeText(mContext, R.string.copyfail,
-							Toast.LENGTH_SHORT).show();
+			case SORT_TYPE:
+				int dirindex = 0;
+				Object[] type_ar = mDirContent.toArray();
+				String current = mPathStack.peek();
 
-				delete_after_copy = false;
-				pr_dialog.dismiss();
-				updateDirectory(mFileMag.getNextDir(mFileMag.getCurrentDir(),
-						true));
+				Arrays.sort(type_ar, type);
+				mDirContent.clear();
+
+				for (Object a : type_ar) {
+					if (new File(current + "/" + (String) a).isDirectory())
+						mDirContent.add(dirindex++, (String) a);
+					else
+						mDirContent.add((String) a);
+				}
 				break;
 			}
-		}
-	}
-
-	// Choose Directory Option
-	public void opendir(String path) {
-		if (multi_select_flag) {
-			mDelegate.killMultiSelect(true);
-			Toast.makeText(mContext, R.string.multioff, Toast.LENGTH_SHORT)
-					.show();
-		}
-
-		updateDirectory(mFileMag.setHomeDir(path));
-	}
-
-	// Multiselect Delete Action
-	public void multiselect() {
-		if (multi_select_flag) {
-			mDelegate.killMultiSelect(true);
 
 		} else {
-			multi_select_flag = true;
 		}
-	}
-
-	public void multicopy() {
-		if (mMultiSelectData == null || mMultiSelectData.isEmpty()) {
-			mDelegate.killMultiSelect(true);
-		}
-		delete_after_copy = false;
-		mDelegate.killMultiSelect(false);
-		updateDirectory(mFileMag.getNextDir(mFileMag.getCurrentDir(), true));
-	}
-
-	public void multimove() {
-		if (mMultiSelectData == null || mMultiSelectData.isEmpty()) {
-			mDelegate.killMultiSelect(true);
-		}
-		delete_after_copy = true;
-		mDelegate.killMultiSelect(false);
-		updateDirectory(mFileMag.getNextDir(mFileMag.getCurrentDir(), true));
+		return mDirContent;
 	}
 }

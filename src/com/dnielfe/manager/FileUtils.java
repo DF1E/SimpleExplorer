@@ -2,6 +2,7 @@ package com.dnielfe.manager;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,6 +13,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
 
+import com.stericson.RootTools.RootTools;
+
+import android.app.Application;
 import android.util.Log;
 
 public class FileUtils {
@@ -19,11 +23,6 @@ public class FileUtils {
 	private static final int BUFFER = 2048;
 	private long mDirSize = 0;
 
-	/**
-	 * 
-	 * @param path
-	 * @return
-	 */
 	public long getDirSize(String path) {
 		get_dir_size(new File(path));
 
@@ -159,6 +158,11 @@ public class FileUtils {
 			for (int i = 0; i < len; i++)
 				copyToDirectory(old + "/" + files[i], dir);
 
+		} else if (old_file.isFile() && !temp_dir.canWrite()) {
+			if (RootTools.isAccessGiven()) {
+				RootTools.copyFile(old, newDir, true, true);
+			}
+
 		} else if (!temp_dir.canWrite())
 			return -1;
 
@@ -289,6 +293,12 @@ public class FileUtils {
 				if (target.delete())
 					return 0;
 		}
+
+		else if (!target.delete() && target.exists()) {
+			if (RootTools.isAccessGiven()) {
+				RootTools.deleteFileOrDirectory(path, true);
+			}
+		}
 		return -1;
 	}
 
@@ -336,6 +346,41 @@ public class FileUtils {
 						search_file(check.getAbsolutePath(), fileName, n);
 				}
 			}
+		}
+	}
+
+	public static class ProgressbarClass extends Application {
+
+		public static int totalMemory(File dir) {
+			long longTotal = dir.getTotalSpace() / 1048576;
+			int Total = (int) longTotal;
+			return Total;
+		}
+
+		public static int freeMemory(File dir) {
+			long longFree = (dir.getTotalSpace() - dir.getFreeSpace()) / 1048576;
+			int Free = (int) longFree;
+			return Free;
+		}
+	}
+
+	// rename file with root
+	public static int renameRootTarget(String path, String oldname, String name)
+			throws IOException, InterruptedException {
+
+		if (name.length() < 1)
+			return -1;
+		else {
+			Process process = Runtime.getRuntime().exec("su");
+			DataOutputStream out = new DataOutputStream(
+					process.getOutputStream());
+			out.writeBytes("mount -o remount rw /\n");
+			out.writeBytes("cd" + path + "\n");
+			out.writeBytes("mv" + oldname + name + "\n");
+			out.writeBytes("exit\n");
+			out.flush();
+			process.waitFor();
+			return 0;
 		}
 	}
 }

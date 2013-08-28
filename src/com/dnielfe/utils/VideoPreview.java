@@ -103,21 +103,4 @@ public enum VideoPreview {
 
 		return mBitmap;
 	}
-
-	public void loadVideoBitmap(final String url, final ImageView imageView) {
-		imageViews.put(imageView, url);
-		File file = new File(url);
-
-		Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(
-				file.getAbsolutePath(), MediaStore.Video.Thumbnails.MICRO_KIND);
-
-		// check in UI thread, so no concurrency issues
-		if (bitmap != null) {
-			Log.d(null, "Item loaded from cache: " + url);
-			imageView.setImageBitmap(bitmap);
-		} else {
-			imageView.setImageBitmap(placeholder);
-			queueJob(url, imageView);
-		}
-	}
 }
