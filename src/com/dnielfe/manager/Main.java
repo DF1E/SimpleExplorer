@@ -897,21 +897,9 @@ public final class Main extends ListActivity {
 										getString(R.string.filewasrenamed),
 										Toast.LENGTH_LONG).show();
 							} else {
-								if (RootTools.isAccessGiven()) {
-									try {
-										FileUtils.renameRootTarget(
-												mHandler.getCurrentDir(),
-												mSelectedListItem, newname);
-									} catch (IOException e) {
-										e.printStackTrace();
-									} catch (InterruptedException e) {
-										e.printStackTrace();
-									}
-								} else {
-									Toast.makeText(getBaseContext(),
-											getString(R.string.error),
-											Toast.LENGTH_SHORT).show();
-								}
+								Toast.makeText(getBaseContext(),
+										getString(R.string.error),
+										Toast.LENGTH_SHORT).show();
 							}
 							dialog.dismiss();
 							String temp = mHandler.getCurrentDir();

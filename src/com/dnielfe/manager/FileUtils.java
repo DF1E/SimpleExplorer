@@ -363,24 +363,4 @@ public class FileUtils {
 			return Free;
 		}
 	}
-
-	// rename file with root
-	public static int renameRootTarget(String path, String oldname, String name)
-			throws IOException, InterruptedException {
-
-		if (name.length() < 1)
-			return -1;
-		else {
-			Process process = Runtime.getRuntime().exec("su");
-			DataOutputStream out = new DataOutputStream(
-					process.getOutputStream());
-			out.writeBytes("mount -o remount rw /\n");
-			out.writeBytes("cd" + path + "\n");
-			out.writeBytes("mv" + oldname + name + "\n");
-			out.writeBytes("exit\n");
-			out.flush();
-			process.waitFor();
-			return 0;
-		}
-	}
 }
