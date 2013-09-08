@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import android.util.Log;
 
 /**
  * 
@@ -28,10 +27,8 @@ public class Decompress {
 		try {
 
 			File fSourceZip = new File(_zipFile);
-			String zipPath = _zipFile.substring(0, _zipFile.length() - 4);
 			// File temp = new File(zipPath);
 			// temp.mkdir();
-			Log.v("Decompress", zipPath + " created");
 
 			/*
 			 * Extract entries while creating required sub-directories
@@ -50,7 +47,6 @@ public class Decompress {
 				if (entry.isDirectory()) {
 					continue;
 				} else {
-					Log.v("Decompress", "Unzipping " + entry.getName());
 
 					/*
 					 * Get the InputStream for current entry of the zip file
@@ -86,7 +82,6 @@ public class Decompress {
 				}
 			}
 		} catch (IOException ioe) {
-			Log.e("Decompress", "unzip", ioe);
 		}
 	}
 }

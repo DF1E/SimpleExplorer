@@ -63,7 +63,7 @@
                 android:layout_gravity="right|center_vertical"
                 android:ellipsize="end"
                 android:gravity="left"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:textIsSelectable="false" />
         </LinearLayout>
 
@@ -95,7 +95,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/sizelayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -121,11 +120,33 @@
                 android:maxLines="1"
                 android:textIsSelectable="false"
                 android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp" >
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="@color/gray" />
+                android:id="@+id/perm_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:minWidth="120dp"
+                android:text="@string/permissions" />
+
+            <TextView
+                android:id="@+id/permission1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textIsSelectable="false" />
         </LinearLayout>
     </LinearLayout>
 

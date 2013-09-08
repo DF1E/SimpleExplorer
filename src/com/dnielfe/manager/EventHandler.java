@@ -1,5 +1,6 @@
 package com.dnielfe.manager;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ import java.util.Stack;
 
 import com.dnielfe.utils.ImagePreview;
 import com.dnielfe.utils.VideoPreview;
-
 import android.os.Environment;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -401,7 +401,10 @@ public class EventHandler {
 						|| sub_ext.equalsIgnoreCase("3ga")
 						|| sub_ext.equalsIgnoreCase("m4a")
 						|| sub_ext.equalsIgnoreCase("caf")
+						|| sub_ext.equalsIgnoreCase("ogg")
 						|| sub_ext.equalsIgnoreCase("m4p")
+						|| sub_ext.equalsIgnoreCase("aac")
+						|| sub_ext.equalsIgnoreCase("wav")
 						|| sub_ext.equalsIgnoreCase("amr")) {
 
 					mViewHolder.icon.setImageResource(R.drawable.music);
@@ -431,7 +434,9 @@ public class EventHandler {
 
 				} else if (sub_ext.equalsIgnoreCase("zip")
 						|| sub_ext.equalsIgnoreCase("gzip")
-						|| sub_ext.equalsIgnoreCase("tar")
+						|| sub_ext.equalsIgnoreCase("bzip2")
+						|| sub_ext.equalsIgnoreCase("7z")
+						|| sub_ext.equalsIgnoreCase("ar")
 						|| sub_ext.equalsIgnoreCase("gz")) {
 
 					mViewHolder.icon.setImageResource(R.drawable.zip);
@@ -442,7 +447,6 @@ public class EventHandler {
 						|| sub_ext.equalsIgnoreCase("mov")
 						|| sub_ext.equalsIgnoreCase("avi")
 						|| sub_ext.equalsIgnoreCase("mpg")
-						|| sub_ext.equalsIgnoreCase("ogg")
 						|| sub_ext.equalsIgnoreCase("flv")
 						|| sub_ext.equalsIgnoreCase("mp4")) {
 
@@ -478,13 +482,14 @@ public class EventHandler {
 						|| sub_ext.equalsIgnoreCase("htm")
 						|| sub_ext.equalsIgnoreCase("php")) {
 
-					mViewHolder.icon.setImageResource(R.drawable.html32);
+					mViewHolder.icon.setImageResource(R.drawable.html);
 
 				} else if (sub_ext.equalsIgnoreCase("xml")) {
 					mViewHolder.icon.setImageResource(R.drawable.xml32);
 
-				} else if (sub_ext.equalsIgnoreCase("conf")) {
-					mViewHolder.icon.setImageResource(R.drawable.config32);
+				} else if (sub_ext.equalsIgnoreCase("conf")
+						|| sub_ext.equalsIgnoreCase("prop")) {
+					mViewHolder.icon.setImageResource(R.drawable.config);
 
 				} else if (sub_ext.equalsIgnoreCase("apk")) {
 					mViewHolder.icon.setImageResource(R.drawable.appicon);
@@ -492,8 +497,14 @@ public class EventHandler {
 				} else if (sub_ext.equalsIgnoreCase("jar")) {
 					mViewHolder.icon.setImageResource(R.drawable.jar32);
 
+				} else if (sub_ext.equalsIgnoreCase("txt")) {
+					mViewHolder.icon.setImageResource(R.drawable.text1);
+
+				} else if (sub_ext.equalsIgnoreCase("tar")) {
+					mViewHolder.icon.setImageResource(R.drawable.tar);
+
 				} else {
-					mViewHolder.icon.setImageResource(R.drawable.text);
+					mViewHolder.icon.setImageResource(R.drawable.blanc);
 				}
 
 			} else if (file != null && file.isDirectory()) {
@@ -634,6 +645,7 @@ public class EventHandler {
 				}
 			}
 
+			// Set SortType
 			switch (mSortType) {
 			case SORT_ALPHA:
 				Object[] tt = mDirContent.toArray();
@@ -678,8 +690,85 @@ public class EventHandler {
 				}
 				break;
 			}
-
 		} else {
+
+			BufferedReader reader = null;
+			ArrayList<File> fileList = new ArrayList<File>();
+
+			try {
+				reader = LinuxShell
+						.execute("IFS='\n';CURDIR='"
+								+ LinuxShell.getCmdPath(file.getAbsolutePath())
+								+ "';for i in `ls $CURDIR`; do if [ -d $CURDIR/$i ]; then echo \"d $CURDIR/$i\";else echo \"f $CURDIR/$i\"; fi; done");
+				if (reader == null)
+					return null;
+
+				File f;
+				String line;
+				while ((line = reader.readLine()) != null) {
+					f = new File(line.substring(2));
+					if (line.startsWith("d")) {
+						fileList.add(f);
+					} else {
+						fileList.add(f);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			mDirContent = new ArrayList<String>();
+
+			for (File f : fileList)
+				mDirContent.add(f.getName());
+
+			fileList = null;
+
+			// Set SortType
+			switch (mSortType) {
+			case SORT_ALPHA:
+				Object[] tt = mDirContent.toArray();
+				mDirContent.clear();
+
+				Arrays.sort(tt, alph);
+
+				for (Object a : tt) {
+					mDirContent.add((String) a);
+				}
+				break;
+
+			case SORT_SIZE:
+				int index = 0;
+				Object[] size_ar = mDirContent.toArray();
+				String dir = mPathStack.peek();
+
+				Arrays.sort(size_ar, size);
+
+				mDirContent.clear();
+				for (Object a : size_ar) {
+					if (new File(dir + "/" + (String) a).isDirectory())
+						mDirContent.add(index++, (String) a);
+					else
+						mDirContent.add((String) a);
+				}
+				break;
+
+			case SORT_TYPE:
+				int dirindex = 0;
+				Object[] type_ar = mDirContent.toArray();
+				String current = mPathStack.peek();
+
+				Arrays.sort(type_ar, type);
+				mDirContent.clear();
+
+				for (Object a : type_ar) {
+					if (new File(current + "/" + (String) a).isDirectory())
+						mDirContent.add(dirindex++, (String) a);
+					else
+						mDirContent.add((String) a);
+				}
+				break;
+			}
 		}
 		return mDirContent;
 	}

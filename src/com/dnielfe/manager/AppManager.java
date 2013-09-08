@@ -18,7 +18,6 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -30,7 +29,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,7 +53,8 @@ public class AppManager extends ListActivity {
 	private static final String STAR_STATES = "mylist:star_states";
 	private boolean[] mStarStates = null;
 
-	private static String BACKUP_LOC;
+	private static String BACKUP_LOC = Environment
+			.getExternalStorageDirectory().getPath() + "/Simple Explorer/Apps/";
 	private static final int SET_PROGRESS = 0x00;
 	private static final int FINISH_PROGRESS = 0x01;
 	private static final int FLAG_UPDATED_SYS_APP = 0x80;
@@ -76,9 +75,8 @@ public class AppManager extends ListActivity {
 	private static final int ID_MARKET = 6;
 
 	private static final int BUFFER = 1024;
-	private static final String root = Environment
-			.getExternalStorageDirectory().getPath();
 	private static ArrayList<ApplicationInfo> multiSelectData = null;
+
 	private MenuItem mMenuItem;
 
 	// Our handler object that will update the GUI from our background thread.
@@ -102,9 +100,6 @@ public class AppManager extends ListActivity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SharedPreferences getPrefs = PreferenceManager
-				.getDefaultSharedPreferences(getBaseContext());
-		BACKUP_LOC = getPrefs.getString("backupFolder", root + "/savedApps/");
 
 		initializeDrawbale();
 		setContentView(R.layout.appmanager);
@@ -120,17 +115,22 @@ public class AppManager extends ListActivity {
 		new AsyncTask<String[], Long, Long>() {
 
 			@Override
-			protected Long doInBackground(String[]... params) {
-				get_downloaded_apps();
-				return null;
-			}
-
-			@Override
 			protected void onPreExecute() {
 				ActionBar actionBar = getActionBar();
 				actionBar.setSubtitle(getString(R.string.loading));
 				actionBar.show();
 				getOverflowMenu();
+			}
+
+			@Override
+			protected Long doInBackground(String[]... params) {
+				File dir = new File(BACKUP_LOC);
+
+				if (!dir.exists())
+					dir.mkdirs();
+
+				get_downloaded_apps();
+				return null;
 			}
 
 			@Override
@@ -361,7 +361,7 @@ public class AppManager extends ListActivity {
 			BufferedInputStream mBuffIn;
 			BufferedOutputStream mBuffOut;
 
-			int read = 0;
+			int read;
 			File mDir = new File(BACKUP_LOC);
 			byte[] mData;
 
@@ -459,7 +459,7 @@ public class AppManager extends ListActivity {
 			BufferedOutputStream mBuffOut;
 			Message msg;
 			int len = mDataSource.size();
-			int read = 0;
+			int read;
 
 			for (int i = 0; i < len; i++) {
 				ApplicationInfo info = mDataSource.get(i);
@@ -757,7 +757,7 @@ public class AppManager extends ListActivity {
 				Toast.makeText(AppManager.this,
 						getString(R.string.appsdeleted), Toast.LENGTH_SHORT)
 						.show();
-				
+
 				dialog.cancel();
 			}
 		}.execute();

@@ -1,4 +1,14 @@
 Changelog:
+v1.8.1	Created a Folder for all Actions(unzip / untar /saved Apps)
+		Multi Tar Files
+		Untar tar archives
+		Removed Folder Shortcut
+		New Icons
+		Root: Rename Directorys and Files
+		Root: Create Directory and Files
+		Root: Access to all Folders
+		fixes
+		If you are on older version please reinstall App!
 v1.8	Update Storage Banner
 		Choosing File with another App
 		Video Preview
@@ -13,9 +23,9 @@ v1.7.4	New Unzip Method
 		small fixes
 		much small updates
 v1.7.3	added default directory option
-		added forumlink in preferences
+		added ForumLink in preferences
 		speed up image preview loading
-		AppManager:	delete saved apps
+		AppManager:	delete saved Apps
 		AppManager: create shortcut on home
 		FolderInfo update
 		improved search
@@ -28,7 +38,7 @@ v1.7.1	Added App Manager
 v1.7	Changes on Actionbar
 		Added Icon for Bookmarks
 		Improved Details Dialog
-		Infodialog on first start
+		InfoDialog on first start
 v1.6	Added ViewMode option
 		remove old stuff
 		some small changes

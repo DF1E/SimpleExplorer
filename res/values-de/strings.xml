@@ -13,10 +13,10 @@
     <string name="sorrycouldntfindahtmlviewver">Kein HTML Viewer vorhanden</string>
     <string name="sorrycouldnt">konnte nicht</string>
     <string name="toopen"> zum öffnen </string>
-    <string name="extracthere">Hier Extrahieren</string>
+    <string name="extract">Extrahieren</string>
+    <string name="extractto">Extrahieren nach</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dies kann nicht rückgängig gemacht werden!"</string>
     <string name="cancel">Abbrechen</string>
-    <string name="youdonthavepermissiontounzip">Du hast keine Berechtigungen zum entpacken!</string>
     <string name="newfolderwasnotcreated">Neuer Ordner wurde nicht erstellt</string>
     <string name="multiselectisoffnow">Multiselect ist deaktiviert</string>
     <string name="pressbackagaintoquit">Erneut klicken um das Programm zu beenden</string>
@@ -25,7 +25,6 @@
     <string name="delete">Löschen</string>
     <string name="move">Verschieben</string>
     <string name="moving">Verschiebe</string>
-    <string name="attach">Teilen</string>
     <string name="Numberoffolders">Anzahl der Ordner:</string>
     <string name="Numberoffiles">Anzahl der Daten:</string>
     <string name="LastModified">Zuletzt Geändert:</string>
@@ -35,15 +34,15 @@
     <string name="multizip">Verpacken</string>
     <string name="calcinfo">Berechne Daten</string>
     <string name="createnewfolder">Neuer Ordner</string>
-    <string name="sdcard">SD Karte</string>
     <string name="files">" Dateien"</string>
     <string name="folders">"" Ordner "</string>
     <string name="created">" erstellt"</string>
+    <string name="filecreated">Datei wurde erstellt</string>
     <string name="options">Optionen</string>
     <string name="desc">desc</string>
     <string name="of">" von "</string>
     <string name="ok">OK</string>
-    <string name="cantreadfolderduetopermissions">Kann wegen fehlender Zugriffsrechte nicht gelesen werden</string>
+    <string name="cantreadfolder">Kann wegen fehlender Zugriffsrechte nicht gelesen werden</string>
     <string name="folderinfo">Ordner Informationen</string>
     <string name="details">Details</string>
     <string name="folderwasrenamed">Ordner wurde umbenannt</string>
@@ -53,9 +52,10 @@
     <string name="setpath">Verzeichnis</string>
     <string name="fname">Name:</string>
     <string name="fdirectory">Verzeichnis:</string>
-    <string name="newfile">Neue Textdatei</string>
+    <string name="newfile">Neue Datei</string>
     <string name="hiddenfiles">Versteckte Dateien</string>
     <string name="showpreview">Bildvorschau</string>
+    <string name="showbar">Speichernutzung anzeigen</string>
     <string name="multioff">Mehrfachauswahl deaktiviert</string>
     <string name="size">Größe:</string>
     <string name="size1">Größe</string>
@@ -119,7 +119,11 @@
     <string name="freespace">Freier Speicher:</string>
     <string name="zipping">Verpacken</string>
     <string name="unzipping">Entpacken</string>
+    <string name="untar">Tar Datei entpacken</string>
     <string name="deleting">Löschen</string>
     <string name="copiedtoclipboard">in die Zwischenablage kopiert</string>
+    <string name="paste">Kopieren</string>
+    <string name="packing">Verpacken</string>
+    <string name="permissions">Berechtigungen:</string>
 
 </resources>

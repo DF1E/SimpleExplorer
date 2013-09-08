@@ -18,8 +18,8 @@ public class Bookmarks extends ContentProvider implements BaseColumns {
 	public static final String TB_NAME = "bookmarks";
 	public static final String NAME = "name";
 	public static final String PATH = "path";
-	public static final String CHECKED = "checked"; // Only because of multiple
-													// choice delete dialog
+	// Only because of multiple choice delete dialog
+	public static final String CHECKED = "checked";
 	public static final String PROVIDER_NAME = "com.dnielfe.manager.bookmarks";
 	public static final Uri CONTENT_URI = Uri.parse("content://"
 			+ PROVIDER_NAME);
@@ -142,7 +142,7 @@ public class Bookmarks extends ContentProvider implements BaseColumns {
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {
-		int count = 0;
+		int count;
 		switch (uriMatcher.match(uri)) {
 		case BOOKMARKS:
 			count = db.update(TB_NAME, values, selection, selectionArgs);
@@ -163,5 +163,4 @@ public class Bookmarks extends ContentProvider implements BaseColumns {
 		getContext().getContentResolver().notifyChange(uri, null);
 		return count;
 	}
-
 }

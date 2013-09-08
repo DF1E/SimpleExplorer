@@ -49,7 +49,7 @@ public class DirectoryInfo extends Activity {
 		mDirLabel = (TextView) findViewById(R.id.dirs_label);
 		mFileLabel = (TextView) findViewById(R.id.files_label);
 		mTimeLabel = (TextView) findViewById(R.id.time_stamp);
-		mUsedLabel = (TextView) findViewById(R.id.total_size);
+		mUsedLabel = (TextView) findViewById(R.id.permission1);
 		mFreeLabel = (TextView) findViewById(R.id.freespace);
 		mAvaibleLabel = (TextView) findViewById(R.id.avaible_size);
 
@@ -155,8 +155,15 @@ public class DirectoryInfo extends Activity {
 			mFileLabel.setText(mFileCount + getString(R.string.files));
 			mTimeLabel.setText(sdf1.format(dir.lastModified()));
 			mUsedLabel.setText(mDisplaySize);
-			mFreeLabel.setText(mFreeSpace);
-			mAvaibleLabel.setText(avaible);
+
+			if (dir.getAbsolutePath().equals("/")
+					|| dir.getAbsolutePath().equals("/storage")) {
+				mFreeLabel.setText("---");
+				mAvaibleLabel.setText("---");
+			} else {
+				mFreeLabel.setText(mFreeSpace);
+				mAvaibleLabel.setText(avaible);
+			}
 
 			dialog.cancel();
 		}

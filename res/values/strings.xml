@@ -13,7 +13,8 @@
     <string name="sorrycouldntfindahtmlviewver">Sorry couldnt find a HTML Viewer</string>
     <string name="sorrycouldnt">Sorry couldnt</string>
     <string name="toopen">" to open "</string>
-    <string name="extracthere">Extract here</string>
+    <string name="extract">Extract</string>
+    <string name="extractto">Extract to</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"This cannot be undone"</string>
     <string name="cancel">Cancel</string>
     <string name="newfolderwasnotcreated">New Folder was not created</string>
@@ -24,7 +25,6 @@
     <string name="delete">Delete</string>
     <string name="move">Move</string>
     <string name="moving">Moving</string>
-    <string name="attach">Share</string>
     <string name="Numberoffolders">Number of Folders:</string>
     <string name="Numberoffiles">Number of Files:</string>
     <string name="LastModified">Last Modified:</string>
@@ -37,18 +37,18 @@
     <string name="files">" Files"</string>
     <string name="folders">" Folders "</string>
     <string name="created">" created"</string>
+    <string name="filecreated">File was created</string>
     <string name="options">Options</string>
     <string name="desc">desc</string>
     <string name="of">" of "</string>
     <string name="ok">OK</string>
-    <string name="cantreadfolderduetopermissions">Can not read folder due to permissions</string>
+    <string name="cantreadfolder">Can not read folder due to permissions</string>
     <string name="details">Details</string>
     <string name="folderwasrenamed">Folder was renamed</string>
     <string name="foundfiles">Found</string>
     <string name="multis">Multiselect</string>
     <string name="folderinfo">Folder Info</string>
     <string name="filewasrenamed">File was renamed</string>
-    <string name="setpath">Directory</string>
     <string name="fname">Name:</string>
     <string name="fdirectory">Path:</string>
     <string name="newfile">New File</string>
@@ -70,7 +70,6 @@
     <string name="copyfail">Copy failed!</string>
     <string name="AvaibleSize">Total Size:</string>
     <string name="openas">Open as</string>
-    <string name="openwith">Open with</string>
     <string name="text">Text</string>
     <string name="image">Image</string>
     <string name="video">Video</string>
@@ -117,7 +116,10 @@
     <string name="freespace">Free Space:</string>
     <string name="zipping">Zipping</string>
     <string name="unzipping">Unzipping</string>
+    <string name="untar">Unpack Tar file</string>
     <string name="deleting">Deleting</string>
     <string name="copiedtoclipboard">copied to Clipboard</string>
-
-</resources>
+    <string name="paste">Paste</string>
+    <string name="packing">Packing</string>
+    <string name="permissions">Persmissions:</string>
+</resources>
