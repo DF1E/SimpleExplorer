@@ -28,6 +28,7 @@ public class FileUtils {
 
 	private static final int BUFFER = 2048;
 	private long mDirSize = 0;
+	private static EventHandler mHandler;
 
 	// Inspired by org.apache.commons.io.FileUtils.isSymlink()
 	private static boolean isSymlink(File file) throws IOException {
@@ -199,6 +200,7 @@ public class FileUtils {
 
 		} else if (old_file.isFile() && !temp_dir.canWrite()) {
 			if (LinuxShell.isRoot()) {
+				RootTools.remount(mHandler.getCurrentDir(), "rw");
 				RootTools.copyFile(old, newDir, true, true);
 			}
 
@@ -448,12 +450,11 @@ public class FileUtils {
 			return -1;
 
 		try {
+			RootTools.remount(path, "rw");
 			LinuxShell.execute("mkdir " + dir.getAbsolutePath());
 			return 0;
 		} catch (Exception e) {
-			RootTools.remount(path, "rw");
-			createRootdir(dir, path);
-			return 0;
+			return -1;
 		}
 	}
 
@@ -467,11 +468,10 @@ public class FileUtils {
 			return;
 
 		try {
+			RootTools.remount(cdir, "rw");
 			LinuxShell.execute("touch " + dir.getAbsolutePath());
 			return;
 		} catch (Exception e) {
-			RootTools.remount(cdir, "rw");
-			createRootFile(cdir, name);
 			return;
 		}
 	}
@@ -489,14 +489,13 @@ public class FileUtils {
 			return -1;
 
 		try {
+			RootTools.remount(path, "rw");
 			LinuxShell.execute("mv " + file.getAbsolutePath() + " "
 					+ newf.getAbsolutePath());
 
 			return 0;
 		} catch (Exception e) {
-			RootTools.remount(path, "rw");
-			renameRootTarget(path, oldname, name);
-			return 0;
+			return -1;
 		}
 	}
 
@@ -504,6 +503,7 @@ public class FileUtils {
 	public static void DeleteFileRoot(String path, String dir) {
 
 		try {
+			RootTools.remount(path, "rw");
 			if (new File(path).isDirectory()) {
 				LinuxShell.execute("rm -f -r " + path);
 
@@ -512,8 +512,6 @@ public class FileUtils {
 			}
 
 		} catch (Exception e) {
-			RootTools.remount(dir, "rw");
-			DeleteFileRoot(path, dir);
 		}
 	}
 }

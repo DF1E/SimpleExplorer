@@ -340,7 +340,7 @@ public class AppManager extends ListActivity {
 	}
 
 	@Override
-	protected void onListItemClick(ListView l, View v, final int position,
+	protected void onListItemClick(ListView lv, View v, final int position,
 			long id) {
 		ViewHolder viewHolder = (ViewHolder) v.getTag();
 

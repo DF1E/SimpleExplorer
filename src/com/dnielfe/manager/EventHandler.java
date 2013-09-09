@@ -208,24 +208,24 @@ public class EventHandler {
 	}
 
 	// This will return a string of the current home path
-	public ArrayList<String> setHomeDir(String name) {
+	public ArrayList<String> setHomeDir(String path) {
 		// This will eventually be placed as a settings item
 		mPathStack.clear();
 		mPathStack.push("/");
-		mPathStack.push(name);
+		mPathStack.push(path);
 
 		return populate_list();
 	}
 
 	// This will return to the previous Directory
-	public ArrayList<String> getPreviousDir() {
-		int size = mPathStack.size();
+	public ArrayList<String> getPreviousDir(String path) {
 
-		if (size >= 2)
-			mPathStack.pop();
+		File file = new File(path);
+		String parent = file.getParent();
 
-		else if (size == 0)
-			mPathStack.push("/");
+		mPathStack.clear();
+		mPathStack.push("/");
+		mPathStack.push(parent);
 
 		return populate_list();
 	}

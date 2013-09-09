@@ -499,6 +499,7 @@ public final class Main extends ListActivity {
 
 						if (!mUseBackKey)
 							mUseBackKey = true;
+
 					} else {
 						Toast.makeText(this,
 								getString(R.string.cantreadfolder),
@@ -1172,7 +1173,6 @@ public final class Main extends ListActivity {
 
 							new BackgroundWork(DELETE_TYPE).execute(mHandler
 									.getCurrentDir() + "/" + mSelectedListItem);
-							displayFreeSpace();
 						}
 					});
 			AlertDialog alert_d = builder.create();
@@ -1847,7 +1847,12 @@ public final class Main extends ListActivity {
 				}
 
 				pr_dialog.dismiss();
-				displayFreeSpace();
+
+				try {
+					displayFreeSpace();
+				} catch (Exception e) {
+
+				}
 				mHandler.updateDirectory(mHandler.getNextDir(
 						mHandler.getCurrentDir(), true));
 				break;
@@ -1918,7 +1923,7 @@ public final class Main extends ListActivity {
 		if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
 				&& !current.equals("/")) {
 
-			mHandler.updateDirectory(mHandler.getPreviousDir());
+			mHandler.updateDirectory(mHandler.getPreviousDir(current));
 			setDirectoryButtons();
 			listview();
 			return true;
