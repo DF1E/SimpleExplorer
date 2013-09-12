@@ -19,6 +19,7 @@ import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
 import org.apache.commons.compress.utils.IOUtils;
 
+import com.dnielfe.utils.LinuxShell;
 import com.stericson.RootTools.RootTools;
 
 import android.app.Application;
@@ -160,6 +161,9 @@ public class FileUtils {
 			String file_name = old
 					.substring(old.lastIndexOf("/"), old.length());
 			File cp_file = new File(newDir + file_name);
+
+			if (cp_file.exists())
+				return -2;
 
 			try {
 

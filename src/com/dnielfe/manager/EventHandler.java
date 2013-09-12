@@ -2,6 +2,8 @@ package com.dnielfe.manager;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -514,6 +516,7 @@ public class EventHandler {
 					mViewHolder.icon.setImageResource(R.drawable.folder);
 			}
 
+			// Shows the size of File
 			if (file.isFile()) {
 				double size = file.length();
 				if (size > GB)
@@ -534,6 +537,7 @@ public class EventHandler {
 					mViewHolder.bottomView.setText(getDisplay_size());
 
 			} else {
+				// Shows the number of Files
 				String s = mContext.getString(R.string.files);
 				if (file.isHidden())
 					mViewHolder.bottomView.setText(num_items + s);
@@ -692,37 +696,21 @@ public class EventHandler {
 			}
 		} else {
 
-			BufferedReader reader = null;
-			ArrayList<File> fileList = new ArrayList<File>();
-
-			try {
-				reader = LinuxShell
-						.execute("IFS='\n';CURDIR='"
-								+ LinuxShell.getCmdPath(file.getAbsolutePath())
-								+ "';for i in `ls $CURDIR`; do if [ -d $CURDIR/$i ]; then echo \"d $CURDIR/$i\";else echo \"f $CURDIR/$i\"; fi; done");
-				if (reader == null)
-					return null;
-
-				File f;
-				String line;
-				while ((line = reader.readLine()) != null) {
-					f = new File(line.substring(2));
-					if (line.startsWith("d")) {
-						fileList.add(f);
-					} else {
-						fileList.add(f);
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
 			mDirContent = new ArrayList<String>();
 
-			for (File f : fileList)
-				mDirContent.add(f.getName());
-
-			fileList = null;
+			try {
+				Process p = Runtime.getRuntime().exec(
+						new String[] { "su", "-c",
+								"ls \"" + file.getAbsolutePath() + "\"" });
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						p.getInputStream()));
+				String line;
+				while ((line = in.readLine()) != null) {
+					mDirContent.add(line);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 			// Set SortType
 			switch (mSortType) {

@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -58,8 +59,6 @@ public class AppManager extends ListActivity {
 	private static final int SET_PROGRESS = 0x00;
 	private static final int FINISH_PROGRESS = 0x01;
 	private static final int FLAG_UPDATED_SYS_APP = 0x80;
-	private static final String[] Q = new String[] { "B", "KB", "MB", "GB",
-			"TB", "PB", "EB" };
 
 	private static ArrayList<ApplicationInfo> mAppList = null;
 	private static PackageManager mPackMag = null;
@@ -74,7 +73,7 @@ public class AppManager extends ListActivity {
 	private static final int ID_SEND = 5;
 	private static final int ID_MARKET = 6;
 
-	private static final int BUFFER = 1024;
+	private static final int BUFFER = 2048;
 	private static ArrayList<ApplicationInfo> multiSelectData = null;
 
 	private MenuItem mMenuItem;
@@ -298,14 +297,6 @@ public class AppManager extends ListActivity {
 		return false;
 	}
 
-	@SuppressWarnings("unused")
-	private Intent createShareIntent() {
-		final Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setType("text/plain");
-		intent.putExtra(Intent.EXTRA_TEXT, "Shared from the ActionBar widget.");
-		return Intent.createChooser(intent, "Share");
-	}
-
 	public void refreshList() {
 		mAppList.clear();
 		get_downloaded_apps();
@@ -423,6 +414,10 @@ public class AppManager extends ListActivity {
 
 				mAppList.add(appInfo);
 		}
+
+		// Sorting ListView showing Installed Applications
+		Collections.sort(mAppList, new ApplicationInfo.DisplayNameComparator(
+				mPackMag));
 	}
 
 	/*
@@ -440,7 +435,7 @@ public class AppManager extends ListActivity {
 			mDataSource = data;
 			mData = new byte[BUFFER];
 
-			// create dir if needed
+			// create directory if needed
 			File d = new File(BACKUP_LOC);
 			if (!d.exists()) {
 				d.mkdir();
@@ -498,6 +493,8 @@ public class AppManager extends ListActivity {
 	}
 
 	public String getAsString(long bytes) {
+		String[] Q = new String[] { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
+
 		for (int i = 6; i > 0; i--) {
 			double step = Math.pow(1024, i);
 			if (bytes > step)

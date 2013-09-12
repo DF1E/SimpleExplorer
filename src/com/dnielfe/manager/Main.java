@@ -27,6 +27,7 @@ import com.dnielfe.manager.FileUtils.ProgressbarClass;
 import com.dnielfe.utils.Bookmarks;
 import com.dnielfe.utils.Compress;
 import com.dnielfe.utils.Decompress;
+import com.dnielfe.utils.LinuxShell;
 import com.dnielfe.utils.SearchSuggestions;
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -1889,6 +1890,11 @@ public final class Main extends ListActivity {
 				else if (copy_rtn == 0)
 					Toast.makeText(Main.this, R.string.copysuccsess,
 							Toast.LENGTH_SHORT).show();
+
+				else if (copy_rtn == -2)
+					Toast.makeText(Main.this, R.string.fileexists,
+							Toast.LENGTH_SHORT).show();
+
 				else
 					Toast.makeText(Main.this, R.string.copyfail,
 							Toast.LENGTH_SHORT).show();
