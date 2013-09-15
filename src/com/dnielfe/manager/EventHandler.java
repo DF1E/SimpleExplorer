@@ -12,8 +12,12 @@ import java.util.Stack;
 
 import com.dnielfe.utils.ImagePreview;
 import com.dnielfe.utils.VideoPreview;
+
 import android.os.Environment;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -52,6 +56,8 @@ public class EventHandler {
 	private ArrayList<String> mDataSource;
 	private Stack<String> mPathStack;
 	private ArrayList<String> mDirContent;
+
+	private PackageInfo pInfo;
 
 	/**
 	 * Creates an EventHandler object. This object is used to communicate most
@@ -496,6 +502,19 @@ public class EventHandler {
 				} else if (sub_ext.equalsIgnoreCase("apk")) {
 					mViewHolder.icon.setImageResource(R.drawable.appicon);
 
+					if (thumbnail == true && file.length() != 0) {
+						try {
+							Drawable icon = getApkDrawable(file);
+							mViewHolder.icon.setImageDrawable(icon);
+
+						} catch (Exception e) {
+							mViewHolder.icon
+									.setImageResource(R.drawable.appicon);
+						}
+					} else {
+						mViewHolder.icon.setImageResource(R.drawable.appicon);
+					}
+
 				} else if (sub_ext.equalsIgnoreCase("jar")) {
 					mViewHolder.icon.setImageResource(R.drawable.jar32);
 
@@ -759,5 +778,29 @@ public class EventHandler {
 			}
 		}
 		return mDirContent;
+	}
+
+	private Drawable getApkDrawable(File file) {
+		Drawable ab = null;
+
+		PackageManager pm = mContext.getPackageManager();
+
+		String path = file.getPath();
+		pInfo = pm.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES);
+		if (pInfo != null) {
+			ApplicationInfo aInfo = pInfo.applicationInfo;
+
+			aInfo.sourceDir = path;
+			aInfo.publicSourceDir = path;
+
+			ab = aInfo.loadIcon(pm);
+
+			return ab;
+
+		} else {
+			Drawable icon = mContext.getResources().getDrawable(
+					R.drawable.appicon);
+			return icon;
+		}
 	}
 }

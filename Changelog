@@ -1,10 +1,13 @@
 Changelog:
-v1.8.1	Created a Folder for all Actions(unzip /untar /saved Apps)
+v1.8.2	Show Icons of Apps on SDcard
+		Added Folder shortcuts (now you can add as much you want)
+v1.8.1	Added Portuguese Brazil language
+		Created a Folder for all Actions(unzip /untar /saved Apps)
 		Multi Tar Files
 		Untar tar archives
 		Removed Folder Shortcut (Will be added later)
 		New Icons
-		Root: Rename Directorys and Files
+		Root: Rename Directory and Files
 		Root: Create Directory and Files
 		Root: Access to all Folders
 		fixes

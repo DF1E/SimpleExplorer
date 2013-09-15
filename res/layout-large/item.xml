@@ -43,6 +43,7 @@
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/bottom_view"
             android:layout_toRightOf="@id/row_image"
+            android:background="@null"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:paddingBottom="5dp"

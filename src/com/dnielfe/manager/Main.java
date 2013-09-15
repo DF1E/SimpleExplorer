@@ -81,6 +81,7 @@ public final class Main extends ListActivity {
 	public static final String PREF_DIR = "defaultdir";
 	public static final String PREF_SEARCH = "enablesearchsuggestions";
 
+	private static final int D_MENU_SHORTCUT = 3;
 	private static final int D_MENU_BOOKMARK = 4;
 	private static final int F_MENU_OPENAS = 5;
 	private static final int D_MENU_DELETE = 6;
@@ -107,6 +108,8 @@ public final class Main extends ListActivity {
 	private static final int UNTAR_TYPE = 36;
 	private static final int MULTITAR_TYPE = 37;
 
+	private static final String EXTRA_SHORTCUT = "shortcut_path";
+
 	private static EventHandler mHandler;
 	private static EventHandler.TableRow mTable;
 
@@ -128,6 +131,7 @@ public final class Main extends ListActivity {
 			.getPath() + "/Simple Explorer";
 	private MenuItem mMenuItem;
 	private ProgressBar statusBar;
+	private String defaultdir;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -140,8 +144,6 @@ public final class Main extends ListActivity {
 		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, true);
 		String value = mSettings.getString("sort", "1");
 		String viewmode = mSettings.getString("viewmode", "1");
-		String defaultdir = mSettings.getString("defaultdir", Environment
-				.getExternalStorageDirectory().getPath());
 
 		int sort = Integer.parseInt(value);
 		int viewm = Integer.parseInt(viewmode);
@@ -185,13 +187,26 @@ public final class Main extends ListActivity {
 
 		Intent intent = getIntent();
 
-		// If an other App want to choose a File you do it with this action
+		// If an other Application want to choose a File you do it with this
+		// action
 		if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)) {
 			mReturnIntent = true;
 
 		} else if (intent.getAction().equals(ACTION_WIDGET)) {
 			mHandler.updateDirectory(mHandler.getNextDir(intent.getExtras()
 					.getString("folder"), true));
+		}
+
+		try {
+			String shortcut = getIntent().getStringExtra(EXTRA_SHORTCUT);
+			File dir = new File(shortcut);
+
+			if (dir.exists() && dir.isDirectory())
+				defaultdir = shortcut;
+
+		} catch (Exception e) {
+			defaultdir = mSettings.getString("defaultdir", Environment
+					.getExternalStorageDirectory().getPath());
 		}
 
 		File dir = new File(defaultdir);
@@ -245,7 +260,7 @@ public final class Main extends ListActivity {
 		finish();
 	}
 
-	// check if sdcard is avaible
+	// check if SDcard is avaible
 	private void checkEnvironment() {
 
 		File f = null;
@@ -855,7 +870,8 @@ public final class Main extends ListActivity {
 									}
 								}
 							} else {
-								Toast.makeText(Main.this, R.string.error,
+								Toast.makeText(Main.this,
+										getString(R.string.error),
 										Toast.LENGTH_SHORT).show();
 							}
 						}
@@ -1050,7 +1066,8 @@ public final class Main extends ListActivity {
 								+ File.separator + name);
 
 						if (file.exists())
-							Toast.makeText(Main.this, R.string.error,
+							Toast.makeText(Main.this,
+									getString(R.string.error),
 									Toast.LENGTH_SHORT).show();
 
 						try {
@@ -1103,6 +1120,7 @@ public final class Main extends ListActivity {
 			menu.add(0, D_MENU_ZIP, 0, getString(R.string.zipfolder));
 			menu.add(0, D_MENU_PASTE, 0, getString(R.string.pasteintofolder))
 					.setEnabled(mHoldingFile || multi_data);
+			menu.add(0, D_MENU_SHORTCUT, 0, getString(R.string.shortcut));
 			menu.add(0, D_MENU_BOOKMARK, 0, getString(R.string.createbookmark));
 			menu.add(0, D_MENU_DETAILS, 0, getString(R.string.details));
 
@@ -1124,6 +1142,7 @@ public final class Main extends ListActivity {
 	public boolean onContextItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
+
 		case F_MENU_OPENAS:
 			openaction();
 			return true;
@@ -1150,7 +1169,8 @@ public final class Main extends ListActivity {
 							Toast.LENGTH_SHORT).show();
 				}
 			} catch (Exception e) {
-				Toast.makeText(Main.this, "Error", Toast.LENGTH_SHORT).show();
+				Toast.makeText(Main.this, R.string.error, Toast.LENGTH_SHORT)
+						.show();
 			}
 			return true;
 
@@ -1307,8 +1327,41 @@ public final class Main extends ListActivity {
 
 			new BackgroundWork(ZIP_TYPE).execute(zipPath);
 			return true;
+		case D_MENU_SHORTCUT:
+			String path = mHandler.getCurrentDir() + "/" + mSelectedListItem;
+			createShortcut(path, mSelectedListItem);
+			return true;
 		}
 		return false;
+	}
+
+	private void createShortcut(String path, String name) {
+
+		try {
+			// Create the intent that will handle the shortcut
+			Intent shortcutIntent = new Intent(Main.this, Main.class);
+			shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+			shortcutIntent.putExtra(Main.EXTRA_SHORTCUT, path);
+
+			// The intent to send to broadcast for register the shortcut intent
+			Intent intent = new Intent();
+			intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+			intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
+			intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+					Intent.ShortcutIconResource.fromContext(Main.this,
+							R.drawable.ic_launcher));
+			intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+			this.sendBroadcast(intent);
+
+			Toast.makeText(Main.this, getString(R.string.shortcutcreated),
+					Toast.LENGTH_SHORT).show();
+
+		} catch (Exception e) {
+			Toast.makeText(Main.this, getString(R.string.error),
+					Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	private void displayFreeSpace() {

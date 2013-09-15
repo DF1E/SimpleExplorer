@@ -28,5 +28,4 @@ public class CheckBoxActivity extends CheckBox {
 		}
 		super.setPressed(pressed);
 	}
-
 }
