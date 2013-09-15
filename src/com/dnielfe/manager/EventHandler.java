@@ -720,12 +720,20 @@ public class EventHandler {
 			try {
 				Process p = Runtime.getRuntime().exec(
 						new String[] { "su", "-c",
-								"ls \"" + file.getAbsolutePath() + "\"" });
+								"ls -a \"" + file.getAbsolutePath() + "\"" });
 				BufferedReader in = new BufferedReader(new InputStreamReader(
 						p.getInputStream()));
 				String line;
 				while ((line = in.readLine()) != null) {
-					mDirContent.add(line);
+
+					if (!mShowHiddenFiles) {
+						if (line.toString().charAt(0) != '.')
+							mDirContent.add(line);
+
+					} else {
+						mDirContent.add(line);
+					}
+
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
