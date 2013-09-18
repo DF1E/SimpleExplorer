@@ -516,6 +516,7 @@ public class FileUtils {
 			}
 
 		} catch (Exception e) {
+			return;
 		}
 	}
 }

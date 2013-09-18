@@ -47,13 +47,10 @@
     <string name="file">File</string>
     <string name="filecreated">File was created</string>
     <string name="fileexists">File already exists</string>
-    <string name="filenotfound">File not found</string>
     <string name="files">" Files"</string>
     <string name="filewasrenamed">File was renamed</string>
     <string name="fname">Name:</string>
-    <string name="folderinfo">Folder Info</string>
     <string name="folders">" Folders "</string>
-    <string name="folderwasrenamed">Folder was renamed</string>
     <string name="foundfiles">Found</string>
     <string name="freespace">Free Space:</string>
     <string name="hiddenfiles">Hidden Files</string>
@@ -68,7 +65,6 @@
     <string name="moving">Moving</string>
     <string name="multioff">Multiselect disabled</string>
     <string name="multis">Multiselect</string>
-    <string name="multiselectisoffnow">Multiselect is off now</string>
     <string name="multizip">Zip</string>
     <string name="music">Music</string>
     <string name="name">Name</string>

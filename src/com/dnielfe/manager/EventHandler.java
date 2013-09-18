@@ -13,6 +13,7 @@ import java.util.Stack;
 import com.dnielfe.utils.ImagePreview;
 import com.dnielfe.utils.VideoPreview;
 
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -113,14 +114,13 @@ public class EventHandler {
 	/**
 	 * Set this true and thumbnails will be used as the icon for image files.
 	 * False will show a default image.
-	 * 
-	 * @param show
 	 */
+
 	public void setShowThumbnails(boolean show) {
 		thumbnail = show;
 	}
 
-	// Get Viewmode from Main Activity
+	// Get ViewMode from Main Activity
 	public void setViewMode(int mode) {
 		viewmode = mode;
 	}
@@ -136,11 +136,11 @@ public class EventHandler {
 
 	/**
 	 * Indicates whether the user wants to select multiple files or folders at a
-	 * time. <br>
-	 * <br>
+	 * time.
+	 * 
 	 * false by default
 	 * 
-	 * @return true if the user has turned on multi selection
+	 * @return true if the user has turned on multi-selection
 	 */
 	public boolean isMultiSelected() {
 		return multi_select_flag;
@@ -238,6 +238,8 @@ public class EventHandler {
 		return populate_list();
 	}
 
+	// Get next Directory
+	// return with list
 	public ArrayList<String> getNextDir(String path, boolean isFullPath) {
 		int size = mPathStack.size();
 
@@ -269,6 +271,7 @@ public class EventHandler {
 		return fileCount;
 	}
 
+	// Calculate number of files in directory
 	private static void calculateFileCount(File file) {
 		if (!file.isDirectory()) {
 			fileCount++;
@@ -353,7 +356,7 @@ public class EventHandler {
 			final ViewHolder mViewHolder;
 			int num_items = 0;
 			String temp = getCurrentDir();
-			File file = new File(temp + "/" + mDataSource.get(position));
+			final File file = new File(temp + "/" + mDataSource.get(position));
 			String[] list = file.list();
 
 			if (list != null)
@@ -503,14 +506,28 @@ public class EventHandler {
 					mViewHolder.icon.setImageResource(R.drawable.appicon);
 
 					if (thumbnail == true && file.length() != 0) {
-						try {
-							Drawable icon = getApkDrawable(file);
-							mViewHolder.icon.setImageDrawable(icon);
 
-						} catch (Exception e) {
-							mViewHolder.icon
-									.setImageResource(R.drawable.appicon);
-						}
+						new AsyncTask<String[], Long, Long>() {
+							Drawable icon;
+
+							@Override
+							protected void onPreExecute() {
+								icon = mContext.getResources().getDrawable(
+										R.drawable.bitmap);
+							}
+
+							@Override
+							protected Long doInBackground(String[]... params) {
+								icon = getApkDrawable(file);
+								return null;
+							}
+
+							@Override
+							protected void onPostExecute(Long result) {
+								mViewHolder.icon.setImageDrawable(icon);
+							}
+						}.execute();
+
 					} else {
 						mViewHolder.icon.setImageResource(R.drawable.appicon);
 					}
@@ -788,6 +805,7 @@ public class EventHandler {
 		return mDirContent;
 	}
 
+	// Show AppIcons of stored apps in ListView
 	private Drawable getApkDrawable(File file) {
 		Drawable ab = null;
 
@@ -802,7 +820,6 @@ public class EventHandler {
 			aInfo.publicSourceDir = path;
 
 			ab = aInfo.loadIcon(pm);
-
 			return ab;
 
 		} else {

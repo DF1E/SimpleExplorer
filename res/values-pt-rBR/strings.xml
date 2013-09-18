@@ -6,7 +6,6 @@
     <string name="appmanager">Gerenciar App</string>
     <string name="apps">"Apps"</string>
     <string name="appsdeleted">Apps removido do Cartão SD</string>
-    <string name="attach">Ação</string>
     <string name="AvaibleSize">Tamanho Total:</string>
     <string name="backedup">"backup"</string>
     <string name="backup">Backup</string>
@@ -18,7 +17,7 @@
     <string name="calcinfo">Calculando Informação</string>
     <string name="cancel">Cancelar</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">Isso não pode ser desfeito</string>
-    <string name="cantreadfolderduetopermissions">Não consegue ler pastas devido as permissões</string>
+    <string name="cantreadfolder">Não consegue ler pastas devido as permissões</string>
     <string name="choosefiles">Selecionar Arquivos</string>
     <string name="copiedtoclipboard">Copiados para o clipboard</string>
     <string name="copy">Copiar</string>
@@ -42,7 +41,6 @@
     <string name="dir_info">Informação da Pasta</string>
     <string name="enablesearchsuggestions">Sugestões de Pesquisa</string>
     <string name="error">Erro</string>
-    <string name="extracthere">Extrair aqui</string>
     <string name="fdirectory">Caminho:</string>
     <string name="file">Arquivo</string>
     <string name="fileexists">Arquivo já existe</string>
@@ -80,7 +78,6 @@
     <string name="of">"de"</string>
     <string name="ok">OK</string>
     <string name="openas">Abrir como</string>
-    <string name="openwith">Abrir com</string>
     <string name="options">"Opções"</string>
     <string name="pasteintofolder">Colar na Pasta</string>
     <string name="playstore">Play Store</string>
@@ -91,7 +88,6 @@
     <string name="searchprefs">Preferências de pesquisa</string>
     <string name="searchtext">Pesquisar</string>
     <string name="selectall">Selecionar Todos</string>
-    <string name="setpath">Diretório</string>
     <string name="settings">Configuração</string>
     <string name="share">Ação</string>
     <string name="shortcut">Criar Atalho</string>

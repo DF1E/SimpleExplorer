@@ -47,13 +47,10 @@
     <string name="file">Datei</string>
     <string name="filecreated">Datei wurde erstellt</string>
     <string name="fileexists">Datei existiert bereits</string>
-    <string name="filenotfound">Datei nicht gefunden</string>
     <string name="files">" Dateien"</string>
     <string name="filewasrenamed">Umbenennen erfolgreich</string>
     <string name="fname">Name:</string>
-    <string name="folderinfo">Ordner Informationen</string>
     <string name="folders">"" Ordner "</string>
-    <string name="folderwasrenamed">Ordner wurde umbenannt</string>
     <string name="foundfiles">Gefunden</string>
     <string name="freespace">Freier Speicher:</string>
     <string name="hiddenfiles">Versteckte Dateien</string>
@@ -68,7 +65,6 @@
     <string name="moving">Verschiebe</string>
     <string name="multioff">Mehrfachauswahl deaktiviert</string>
     <string name="multis">Mehrfach-Auswahl</string>
-    <string name="multiselectisoffnow">Multiselect ist deaktiviert</string>
     <string name="multizip">Verpacken</string>
     <string name="music">Musik</string>
     <string name="name">Name</string>
@@ -81,7 +77,6 @@
     <string name="of">" von "</string>
     <string name="ok">OK</string>
     <string name="openas">Öffnen als</string>
-    <string name="openwith">Öffnen mit</string>
     <string name="options">Optionen</string>
     <string name="packing">Verpacken</string>
     <string name="paste">Kopieren</string>
@@ -95,12 +90,10 @@
     <string name="searchprefs">Sucheinstellungen</string>
     <string name="searchtext">Suchbegriff eingeben</string>
     <string name="selectall">Alle auswählen</string>
-    <string name="setpath">Verzeichnis</string>
     <string name="settings">Einstellungen</string>
     <string name="share">Teilen</string>
     <string name="shortcut">Verknüpfung erstellen</string>
     <string name="shortcutcreated">Verknüpfung erstellt</string>
-    <string name="showbar">Speichernutzung anzeigen</string>
     <string name="showpreview">Bildvorschau</string>
     <string name="simple">Einfache Liste</string>
     <string name="singlebackup">Einzel Backup</string>

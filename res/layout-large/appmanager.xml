@@ -18,19 +18,13 @@
         android:scrollbarStyle="outsideOverlay"
         android:smoothScrollbar="true" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/backup_button_all"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal" >
-
-        <Button
-            android:id="@+id/backup_button_all"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttonline"
-            android:onClick="onClick"
-            android:text="@string/backup" />
-    </LinearLayout>
+        android:background="@drawable/buttonline"
+        android:onClick="onClick"
+        android:text="@string/backup" />
 
 </LinearLayout>
