@@ -1,3 +1,22 @@
+/*
+ * Copyright (C) 2013 Simple Explorer
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA  02110-1301, USA.
+ */
+
 package com.dnielfe.manager;
 
 import java.io.File;
@@ -80,7 +99,6 @@ public class DirectoryInfo extends Activity {
 			dialog.setCancelable(true);
 		}
 
-		@SuppressWarnings("deprecation")
 		protected Long doInBackground(String... vals) {
 			FileUtils flmg = new FileUtils();
 			File dir = new File(vals[0]);
@@ -101,26 +119,23 @@ public class DirectoryInfo extends Activity {
 			if (vals[0].equals("/")) {
 				StatFs fss = new StatFs(Environment.getRootDirectory()
 						.getPath());
-				size = fss.getAvailableBlocks() * (fss.getBlockSize() / KB);
-
-				mDisplaySize = (size > GB) ? String.format("%.2f GB",
-						(double) size / MG) : String.format("%.2f MB",
-						(double) size / KB);
+				size = fss.getAvailableBlocksLong() * fss.getBlockSizeLong();
 
 			} else {
 				size = flmg.getDirSize(vals[0]);
-
-				if (size > GB)
-					mDisplaySize = String.format("%.2f GB", (double) size / GB);
-				else if (size < GB && size > MG)
-					mDisplaySize = String.format("%.2f MB", (double) size / MG);
-				else if (size < MG && size > KB)
-					mDisplaySize = String.format("%.2f KB", (double) size / KB);
-				else
-					mDisplaySize = String.format("%.2f B", (double) size);
 			}
 
-			// get free space on SDcard
+			// get used space of FileSystem
+			if (size > GB)
+				mDisplaySize = String.format("%.2f GB", (double) size / GB);
+			else if (size < GB && size > MG)
+				mDisplaySize = String.format("%.2f MB", (double) size / MG);
+			else if (size < MG && size > KB)
+				mDisplaySize = String.format("%.2f KB", (double) size / KB);
+			else
+				mDisplaySize = String.format("%.2f B", (double) size);
+
+			// get free space of FileSystem
 			if (freespace > GB)
 				mFreeSpace = String.format("%.2f GB", (double) freespace / GB);
 			else if (freespace < GB && freespace > MG)
@@ -130,7 +145,7 @@ public class DirectoryInfo extends Activity {
 			else
 				mFreeSpace = String.format("%.2f B", (double) freespace);
 
-			// get total size of SDcard
+			// get total size of FileSystem
 			if (test > GB)
 				mAvaibleSize = String.format("%.2f GB", (double) test / GB);
 			else if (test < GB && test > MG)
@@ -149,7 +164,6 @@ public class DirectoryInfo extends Activity {
 			String avaible = String.valueOf(mAvaibleSize);
 			SimpleDateFormat sdf1 = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
-			mNameLabel.setText(dir.getName());
 			mPathLabel.setText(dir.getAbsolutePath());
 			mDirLabel.setText(mDirCount + getString(R.string.folders));
 			mFileLabel.setText(mFileCount + getString(R.string.files));
@@ -160,9 +174,11 @@ public class DirectoryInfo extends Activity {
 					|| dir.getAbsolutePath().equals("/storage")) {
 				mFreeLabel.setText("---");
 				mAvaibleLabel.setText("---");
+				mNameLabel.setText("/");
 			} else {
 				mFreeLabel.setText(mFreeSpace);
 				mAvaibleLabel.setText(avaible);
+				mNameLabel.setText(dir.getName());
 			}
 
 			dialog.cancel();

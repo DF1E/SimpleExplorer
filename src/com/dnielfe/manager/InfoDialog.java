@@ -95,28 +95,19 @@ public class InfoDialog extends Activity {
 				mDisplaySize = "---";
 
 			if (file3.isFile()) {
-				double size = file3.length();
-				if (size > GB)
-					mDisplaySize = String.format("%.2f GB", (double) size / GB);
-				else if (size < GB && size > MG)
-					mDisplaySize = String.format("%.2f MB", (double) size / MG);
-				else if (size < MG && size > KB)
-					mDisplaySize = String.format("%.2f KB", (double) size / KB);
-				else
-					mDisplaySize = String.format("%.2f B", (double) size);
-
+				size = file3.length();
 			} else {
 				size = flmg.getDirSize(vals[0]);
-
-				if (size > GB)
-					mDisplaySize = String.format("%.2f GB", (double) size / GB);
-				else if (size < GB && size > MG)
-					mDisplaySize = String.format("%.2f MB", (double) size / MG);
-				else if (size < MG && size > KB)
-					mDisplaySize = String.format("%.2f KB", (double) size / KB);
-				else
-					mDisplaySize = String.format("%.2f B", (double) size);
 			}
+
+			if (size > GB)
+				mDisplaySize = String.format("%.2f GB", (double) size / GB);
+			else if (size < GB && size > MG)
+				mDisplaySize = String.format("%.2f MB", (double) size / MG);
+			else if (size < MG && size > KB)
+				mDisplaySize = String.format("%.2f KB", (double) size / KB);
+			else
+				mDisplaySize = String.format("%.2f B", (double) size);
 
 			return size;
 		}
@@ -137,6 +128,7 @@ public class InfoDialog extends Activity {
 		per += file.isDirectory() ? "d" : "-";
 		per += file.canRead() ? "r" : "-";
 		per += file.canWrite() ? "w" : "-";
+		per += file.canExecute() ? "x" : "-";
 
 		return per;
 	}

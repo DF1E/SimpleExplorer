@@ -44,13 +44,10 @@
     <string name="fdirectory">Caminho:</string>
     <string name="file">Arquivo</string>
     <string name="fileexists">Arquivo já existe</string>
-    <string name="filenotfound">Arquivo não encontrado</string>
     <string name="files">"Arquivos"</string>
     <string name="filewasrenamed">Arquivo renomeado</string>
     <string name="fname">Nome:</string>
-    <string name="folderinfo">Informação de Pasta</string>
     <string name="folders">"Pastas"</string>
-    <string name="folderwasrenamed">Pasta foi renomeada</string>
     <string name="foundfiles">Encontrado</string>
     <string name="freespace">Espaço Livre:</string>
     <string name="hiddenfiles">Arquivos Ocultos</string>
@@ -65,7 +62,6 @@
     <string name="moving">Movendo</string>
     <string name="multioff">Multi Seleção desativado</string>
     <string name="multis">Multi Seleção</string>
-    <string name="multiselectisoffnow">Multi seleção está off agora</string>
     <string name="multizip">Zip</string>
     <string name="music">Música</string>
     <string name="name">Nome</string>

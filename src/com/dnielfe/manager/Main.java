@@ -73,8 +73,9 @@ import android.widget.ViewFlipper;
 public final class Main extends ListActivity {
 
 	public static final String ACTION_WIDGET = "com.dnielfe.manager.Main.ACTION_WIDGET";
+	public static final String EXTRA_SHORTCUT = "shortcut_path";
 
-	private static final String PREF_HIDDEN = "displayhiddenfiles";
+	public static final String PREF_HIDDEN = "displayhiddenfiles";
 	public static final String PREF_PREVIEW = "showpreview";
 	public static final String PREFS_SORT = "sort";
 	public static final String PREFS_VIEW = "viewmode";
@@ -108,8 +109,6 @@ public final class Main extends ListActivity {
 	private static final int UNTAR_TYPE = 36;
 	private static final int MULTITAR_TYPE = 37;
 
-	private static final String EXTRA_SHORTCUT = "shortcut_path";
-
 	private static EventHandler mHandler;
 	private static EventHandler.TableRow mTable;
 
@@ -118,20 +117,21 @@ public final class Main extends ListActivity {
 	private boolean mUseBackKey = true;
 	private boolean delete_after_copy = false;
 
-	private SharedPreferences mSettings;
-	private LinearLayout mDirectoryButtons;
-	public ActionMode mActionMode;
 	private int directorytextsize = 15;
 
-	static String mCopiedTarget;
-	static String mSelectedListItem;
-	private String display_size;
+	public ActionMode mActionMode;
+
+	private static String mCopiedTarget;
+	private static String mSelectedListItem;
 	private static String[] multidata;
 	private static String appdir = Environment.getExternalStorageDirectory()
 			.getPath() + "/Simple Explorer";
+
+	private SharedPreferences mSettings;
+	private LinearLayout mDirectoryButtons;
+	private String display_size, defaultdir;
 	private MenuItem mMenuItem;
 	private ProgressBar statusBar;
-	private String defaultdir;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -627,7 +627,8 @@ public final class Main extends ListActivity {
 												zipPath, unZipPath);
 										break;
 									case 1:
-										extractzipto(zipPath, unZipPath);
+										extractzipto(zipPath,
+												mHandler.getCurrentDir());
 										break;
 									}
 								}
@@ -638,7 +639,7 @@ public final class Main extends ListActivity {
 				}
 			}
 
-			// GZIP File
+			// TAR File
 			else if (item_ext.equalsIgnoreCase(".tar")) {
 
 				if (file.exists()) {
@@ -668,7 +669,8 @@ public final class Main extends ListActivity {
 													.execute(zipPath, unZipPath);
 											break;
 										case 1:
-											extracttarto(zipPath, unZipPath);
+											extracttarto(zipPath,
+													mHandler.getCurrentDir());
 											break;
 										}
 									}
@@ -1629,7 +1631,7 @@ public final class Main extends ListActivity {
 		final EditText inputf = new EditText(this);
 		inputf.setText(unZipPath);
 
-		alertf.setTitle(getString(R.string.zipping));
+		alertf.setTitle(getString(R.string.unzipping));
 		alertf.setView(inputf);
 
 		alertf.setPositiveButton(getString(R.string.ok),
@@ -1665,7 +1667,7 @@ public final class Main extends ListActivity {
 		final EditText inputf = new EditText(this);
 		inputf.setText(unZipPath);
 
-		alertf.setTitle(getString(R.string.zipping));
+		alertf.setTitle(getString(R.string.untar));
 		alertf.setView(inputf);
 
 		alertf.setPositiveButton(getString(R.string.ok),
@@ -1698,8 +1700,10 @@ public final class Main extends ListActivity {
 	// search
 	// delete
 	// multizip
-	// unzip
+	// unzip file
 	// ZIP Folder
+	// untar file
+	// multitar
 	private class BackgroundWork extends
 			AsyncTask<String, Void, ArrayList<String>> {
 		public ProgressDialog pr_dialog;
@@ -1719,27 +1723,22 @@ public final class Main extends ListActivity {
 			case SEARCH_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.search));
-				pr_dialog.setCancelable(true);
 				break;
 			case DELETE_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.deleting));
-				pr_dialog.setCancelable(false);
 				break;
 			case MULTIZIP_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.zipping));
-				pr_dialog.setCancelable(false);
 				break;
 			case UNZIP_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.unzipping));
-				pr_dialog.setCancelable(false);
 				break;
 			case ZIP_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.zipping));
-				pr_dialog.setCancelable(false);
 				break;
 			case COPY_TYPE:
 				if (delete_after_copy) {
@@ -1749,17 +1748,14 @@ public final class Main extends ListActivity {
 					pr_dialog = ProgressDialog.show(Main.this, "",
 							getString(R.string.copying));
 				}
-				pr_dialog.setCancelable(false);
 				break;
 			case UNTAR_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.untar));
-				pr_dialog.setCancelable(false);
 				break;
 			case MULTITAR_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.packing));
-				pr_dialog.setCancelable(false);
 				break;
 			}
 		}

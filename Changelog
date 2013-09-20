@@ -1,6 +1,8 @@
 Changelog:
 v1.8.2	Show Icons of Apps on SDcard
 		Added Folder shortcuts (now you can add as much you want)
+		Icon for .rar files
+		Optimize Code
 v1.8.1	Added Portuguese Brazil language
 		Created a Folder for all Actions(unzip /untar /saved Apps)
 		Multi Tar Files
@@ -48,3 +50,4 @@ v1.6	Added ViewMode option
 v1.5	Added Bookmarks
 		Added Sort Option
 		Some New Icons
+v1.4	First public version

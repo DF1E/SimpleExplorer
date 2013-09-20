@@ -1,3 +1,22 @@
+/*
+ * Copyright (C) 2013 Simple Explorer
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA  02110-1301, USA.
+ */
+
 package com.dnielfe.manager;
 
 import java.io.BufferedReader;
@@ -125,6 +144,7 @@ public class EventHandler {
 		viewmode = mode;
 	}
 
+	// Get Sort Type Int-number from Main
 	public void setSortType(int type) {
 		mSortType = type;
 	}
@@ -388,10 +408,11 @@ public class EventHandler {
 				mViewHolder = (ViewHolder) convertView.getTag();
 			}
 
-			if (viewmode > 0)
+			if (viewmode > 0) {
 				mViewHolder.dateview.setVisibility(TextView.VISIBLE);
-			else
+			} else {
 				mViewHolder.dateview.setVisibility(TextView.GONE);
+			}
 
 			if (positions != null && positions.contains(position))
 				mViewHolder.mSelect.setVisibility(ImageView.VISIBLE);
@@ -442,6 +463,12 @@ public class EventHandler {
 					} else {
 						mViewHolder.icon.setImageResource(R.drawable.image);
 					}
+
+				} else if (sub_ext.equalsIgnoreCase("rar")) {
+					mViewHolder.icon.setImageResource(R.drawable.rar);
+
+				} else if (sub_ext.equalsIgnoreCase("tar")) {
+					mViewHolder.icon.setImageResource(R.drawable.tar);
 
 				} else if (sub_ext.equalsIgnoreCase("zip")
 						|| sub_ext.equalsIgnoreCase("gzip")
@@ -538,9 +565,6 @@ public class EventHandler {
 				} else if (sub_ext.equalsIgnoreCase("txt")) {
 					mViewHolder.icon.setImageResource(R.drawable.text1);
 
-				} else if (sub_ext.equalsIgnoreCase("tar")) {
-					mViewHolder.icon.setImageResource(R.drawable.tar);
-
 				} else {
 					mViewHolder.icon.setImageResource(R.drawable.blanc);
 				}
@@ -606,7 +630,7 @@ public class EventHandler {
 		}
 	}
 
-	// Sort Comparator
+	// Sort Comparator sort by alphabet
 	@SuppressWarnings("rawtypes")
 	private static final Comparator alph = new Comparator<String>() {
 		@Override
@@ -615,6 +639,7 @@ public class EventHandler {
 		}
 	};
 
+	// Sort Comparator sort by size
 	@SuppressWarnings("rawtypes")
 	private final Comparator size = new Comparator<String>() {
 		@Override
@@ -627,6 +652,7 @@ public class EventHandler {
 		}
 	};
 
+	// Sort Comparator sort by type
 	@SuppressWarnings("rawtypes")
 	private final Comparator type = new Comparator<String>() {
 		@Override
@@ -660,6 +686,7 @@ public class EventHandler {
 	 * need to update the the list of files to be shown to the user, this is
 	 * where we do our sorting (by type, alphabetical, etc).
 	 */
+
 	@SuppressWarnings("unchecked")
 	private ArrayList<String> populate_list() {
 
@@ -685,53 +712,7 @@ public class EventHandler {
 				}
 			}
 
-			// Set SortType
-			switch (mSortType) {
-			case SORT_ALPHA:
-				Object[] tt = mDirContent.toArray();
-				mDirContent.clear();
-
-				Arrays.sort(tt, alph);
-
-				for (Object a : tt) {
-					mDirContent.add((String) a);
-				}
-				break;
-
-			case SORT_SIZE:
-				int index = 0;
-				Object[] size_ar = mDirContent.toArray();
-				String dir = mPathStack.peek();
-
-				Arrays.sort(size_ar, size);
-
-				mDirContent.clear();
-				for (Object a : size_ar) {
-					if (new File(dir + "/" + (String) a).isDirectory())
-						mDirContent.add(index++, (String) a);
-					else
-						mDirContent.add((String) a);
-				}
-				break;
-
-			case SORT_TYPE:
-				int dirindex = 0;
-				Object[] type_ar = mDirContent.toArray();
-				String current = mPathStack.peek();
-
-				Arrays.sort(type_ar, type);
-				mDirContent.clear();
-
-				for (Object a : type_ar) {
-					if (new File(current + "/" + (String) a).isDirectory())
-						mDirContent.add(dirindex++, (String) a);
-					else
-						mDirContent.add((String) a);
-				}
-				break;
-			}
 		} else {
-
 			mDirContent = new ArrayList<String>();
 
 			try {
@@ -755,52 +736,53 @@ public class EventHandler {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
 
-			// Set SortType
-			switch (mSortType) {
-			case SORT_ALPHA:
-				Object[] tt = mDirContent.toArray();
-				mDirContent.clear();
+		// Set SortType
+		switch (mSortType) {
 
-				Arrays.sort(tt, alph);
+		case SORT_ALPHA:
+			Object[] tt = mDirContent.toArray();
+			mDirContent.clear();
 
-				for (Object a : tt) {
-					mDirContent.add((String) a);
-				}
-				break;
+			Arrays.sort(tt, alph);
 
-			case SORT_SIZE:
-				int index = 0;
-				Object[] size_ar = mDirContent.toArray();
-				String dir = mPathStack.peek();
-
-				Arrays.sort(size_ar, size);
-
-				mDirContent.clear();
-				for (Object a : size_ar) {
-					if (new File(dir + "/" + (String) a).isDirectory())
-						mDirContent.add(index++, (String) a);
-					else
-						mDirContent.add((String) a);
-				}
-				break;
-
-			case SORT_TYPE:
-				int dirindex = 0;
-				Object[] type_ar = mDirContent.toArray();
-				String current = mPathStack.peek();
-
-				Arrays.sort(type_ar, type);
-				mDirContent.clear();
-
-				for (Object a : type_ar) {
-					if (new File(current + "/" + (String) a).isDirectory())
-						mDirContent.add(dirindex++, (String) a);
-					else
-						mDirContent.add((String) a);
-				}
-				break;
+			for (Object a : tt) {
+				mDirContent.add((String) a);
 			}
+			break;
+
+		case SORT_SIZE:
+			int index = 0;
+			Object[] size_ar = mDirContent.toArray();
+			String dir = mPathStack.peek();
+
+			Arrays.sort(size_ar, size);
+
+			mDirContent.clear();
+			for (Object a : size_ar) {
+				if (new File(dir + "/" + (String) a).isDirectory())
+					mDirContent.add(index++, (String) a);
+				else
+					mDirContent.add((String) a);
+			}
+			break;
+
+		case SORT_TYPE:
+			int dirindex = 0;
+			Object[] type_ar = mDirContent.toArray();
+			String current = mPathStack.peek();
+
+			Arrays.sort(type_ar, type);
+			mDirContent.clear();
+
+			for (Object a : type_ar) {
+				if (new File(current + "/" + (String) a).isDirectory())
+					mDirContent.add(dirindex++, (String) a);
+				else
+					mDirContent.add((String) a);
+			}
+			break;
 		}
 		return mDirContent;
 	}

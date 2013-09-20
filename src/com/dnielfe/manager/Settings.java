@@ -1,3 +1,22 @@
+/*
+ * Copyright (C) 2013 Simple Explorer
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA  02110-1301, USA.
+ */
+
 package com.dnielfe.manager;
 
 import java.util.LinkedList;
@@ -12,8 +31,6 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,14 +40,8 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class Settings extends PreferenceActivity implements
-		OnSharedPreferenceChangeListener {
+public class Settings extends PreferenceActivity {
 
-	public static final String PREFS_DISPLAYHIDDENFILES = "displayhiddenfiles";
-	public static final String PREFS_PREVIEW = "showpreview";
-	public static final String PREFS_SEARCH = "enablesearchsuggestions";
-	public static final String PREFS_SORT = "sort";
-	public static final String PREFS_VIEW = "viewmode";
 	private static final int DIALOG_DELETE_BOOKMARKS = 1;
 	private Cursor deleteBookmarksCursor;
 	private List<Uri> bookmarksToDelete = new LinkedList<Uri>();
@@ -45,8 +56,6 @@ public class Settings extends PreferenceActivity implements
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		addPreferencesFromResource(R.xml.preferences);
-		getPreferenceScreen().getSharedPreferences()
-				.registerOnSharedPreferenceChangeListener(this);
 
 		Preference editBookmarks = findPreference("editbookmarks");
 		editBookmarks
@@ -84,11 +93,6 @@ public class Settings extends PreferenceActivity implements
 			return true;
 		}
 		return false;
-	}
-
-	@Override
-	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-			String key) {
 	}
 
 	@SuppressWarnings("deprecation")
