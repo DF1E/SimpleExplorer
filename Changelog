@@ -1,5 +1,13 @@
 Changelog:
-v1.8.2	Show Icons of Apps on SDcard
+v1.8.3	Updated languages
+		New languages:
+		- italy
+		- polish
+		- turkish
+		- bosnian
+		- dutch
+		- spanish
+v1.8.2	Show App Icons on SDcard
 		Added Folder shortcuts (now you can add as much you want)
 		Icon for .rar files
 		Optimize Code

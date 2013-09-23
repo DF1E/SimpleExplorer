@@ -687,7 +687,6 @@ public class EventHandler {
 	 * where we do our sorting (by type, alphabetical, etc).
 	 */
 
-	@SuppressWarnings("unchecked")
 	private ArrayList<String> populate_list() {
 
 		mDirContent = new ArrayList<String>();
@@ -731,63 +730,18 @@ public class EventHandler {
 					} else {
 						mDirContent.add(line);
 					}
-
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 
-		// Set SortType
-		switch (mSortType) {
+		sortType(mDirContent);
 
-		case SORT_ALPHA:
-			Object[] tt = mDirContent.toArray();
-			mDirContent.clear();
-
-			Arrays.sort(tt, alph);
-
-			for (Object a : tt) {
-				mDirContent.add((String) a);
-			}
-			break;
-
-		case SORT_SIZE:
-			int index = 0;
-			Object[] size_ar = mDirContent.toArray();
-			String dir = mPathStack.peek();
-
-			Arrays.sort(size_ar, size);
-
-			mDirContent.clear();
-			for (Object a : size_ar) {
-				if (new File(dir + "/" + (String) a).isDirectory())
-					mDirContent.add(index++, (String) a);
-				else
-					mDirContent.add((String) a);
-			}
-			break;
-
-		case SORT_TYPE:
-			int dirindex = 0;
-			Object[] type_ar = mDirContent.toArray();
-			String current = mPathStack.peek();
-
-			Arrays.sort(type_ar, type);
-			mDirContent.clear();
-
-			for (Object a : type_ar) {
-				if (new File(current + "/" + (String) a).isDirectory())
-					mDirContent.add(dirindex++, (String) a);
-				else
-					mDirContent.add((String) a);
-			}
-			break;
-		}
 		return mDirContent;
 	}
 
-	// Show AppIcons of stored apps in ListView
+	// Show AppIcons of stored Apps in ListView
 	private Drawable getApkDrawable(File file) {
 		Drawable ab = null;
 
@@ -809,5 +763,57 @@ public class EventHandler {
 					R.drawable.appicon);
 			return icon;
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private ArrayList<String> sortType(ArrayList<String> content) {
+		// Set SortType
+		switch (mSortType) {
+
+		case SORT_ALPHA:
+			Object[] tt = content.toArray();
+			content.clear();
+
+			Arrays.sort(tt, alph);
+
+			for (Object a : tt) {
+				content.add((String) a);
+			}
+			break;
+
+		case SORT_SIZE:
+			int index = 0;
+			Object[] size_ar = content.toArray();
+			String dir = mPathStack.peek();
+
+			Arrays.sort(size_ar, size);
+
+			content.clear();
+			for (Object a : size_ar) {
+				if (new File(dir + "/" + (String) a).isDirectory())
+					content.add(index++, (String) a);
+				else
+					content.add((String) a);
+			}
+			break;
+
+		case SORT_TYPE:
+			int dirindex = 0;
+			Object[] type_ar = content.toArray();
+			String current = mPathStack.peek();
+
+			Arrays.sort(type_ar, type);
+			content.clear();
+
+			for (Object a : type_ar) {
+				if (new File(current + "/" + (String) a).isDirectory())
+					content.add(dirindex++, (String) a);
+				else
+					content.add((String) a);
+			}
+			break;
+		}
+
+		return content;
 	}
 }
