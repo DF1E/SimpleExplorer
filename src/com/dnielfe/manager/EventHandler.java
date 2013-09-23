@@ -77,8 +77,6 @@ public class EventHandler {
 	private Stack<String> mPathStack;
 	private ArrayList<String> mDirContent;
 
-	private PackageInfo pInfo;
-
 	/**
 	 * Creates an EventHandler object. This object is used to communicate most
 	 * work from the Main activity to the FileManager class.
@@ -743,21 +741,19 @@ public class EventHandler {
 
 	// Show AppIcons of stored Apps in ListView
 	private Drawable getApkDrawable(File file) {
-		Drawable ab = null;
+		final String filepath = file.getAbsolutePath();
 
 		PackageManager pm = mContext.getPackageManager();
+		PackageInfo packageInfo = pm.getPackageArchiveInfo(filepath,
+				PackageManager.GET_ACTIVITIES);
+		
+		if (packageInfo != null) {
 
-		String path = file.getPath();
-		pInfo = pm.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES);
-		if (pInfo != null) {
-			ApplicationInfo aInfo = pInfo.applicationInfo;
+			final ApplicationInfo appInfo = packageInfo.applicationInfo;
+			appInfo.sourceDir = filepath;
+			appInfo.publicSourceDir = filepath;
 
-			aInfo.sourceDir = path;
-			aInfo.publicSourceDir = path;
-
-			ab = aInfo.loadIcon(pm);
-			return ab;
-
+			return pm.getDrawable(appInfo.packageName, appInfo.icon, appInfo);
 		} else {
 			Drawable icon = mContext.getResources().getDrawable(
 					R.drawable.appicon);

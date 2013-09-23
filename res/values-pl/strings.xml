@@ -27,7 +27,7 @@
     <string name="create">Utwórz</string>
     <string name="createbookmark">Stwórz zakładkę</string>
     <string name="created">" stworzone"</string>
-    <string name="createmsg">Set point before the text to create hidden folder.</string>
+    <string name="createmsg">Wpisz kropkę przed nazwą folderu, aby go ukryć</string>
     <string name="createnewfolder">Utwórz nowy folder</string>
     <string name="defaultdir">Domyślny katalog</string>
     <string name="delete">Usuń</string>

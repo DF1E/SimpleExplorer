@@ -47,13 +47,10 @@
     <string name="file">Fajl</string>
     <string name="filecreated">Fajl kreiran</string>
     <string name="fileexists">Fajl ve� postoji</string>
-    <string name="filenotfound">Fajl nije prona�en</string>
     <string name="files">" Fajlovi"</string>
     <string name="filewasrenamed">Fajl preimenovan</string>
     <string name="fname">Naziv:</string>
-    <string name="folderinfo">Informacije Foldera</string>
     <string name="folders">" Folderi "</string>
-    <string name="folderwasrenamed">Folder preimenovan</string>
     <string name="foundfiles">Prona�en</string>
     <string name="freespace">Slobodan prostor:</string>
     <string name="hiddenfiles">Skriveni Fajlovi</string>
@@ -68,7 +65,6 @@
     <string name="moving">Premje�tanje</string>
     <string name="multioff">Vi�estruka selekcija uga�ena</string>
     <string name="multis">Vi�estruka selekcija</string>
-    <string name="multiselectisoffnow">Vi�estruka selekcija je sada uga�ena</string>
     <string name="multizip">Zip</string>
     <string name="music">Muzika</string>
     <string name="name">Ime</string>
