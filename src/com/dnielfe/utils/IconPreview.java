@@ -16,14 +16,16 @@ import java.util.concurrent.Executors;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 
-import android.util.Log;
 import android.widget.ImageView;
 
-public enum ImagePreview {
+public enum IconPreview {
 	INSTANCE;
+	private String type = "image";
 
 	private final ConcurrentMap<String, Bitmap> cache;
 	private final ExecutorService pool;
@@ -31,13 +33,17 @@ public enum ImagePreview {
 			.synchronizedMap(new ConcurrentHashMap<ImageView, String>());
 	private Bitmap placeholder;
 
-	ImagePreview() {
+	IconPreview() {
 		cache = new ConcurrentHashMap<String, Bitmap>();
 		pool = Executors.newFixedThreadPool(5);
 	}
 
 	public void setPlaceholder(Bitmap bmp) {
 		placeholder = bmp;
+	}
+
+	public void setType(String type1) {
+		type = type1;
 	}
 
 	public Bitmap getBitmapFromCache(String url) {
@@ -59,7 +65,7 @@ public enum ImagePreview {
 						imageView.setImageBitmap((Bitmap) msg.obj);
 					} else {
 						imageView.setImageBitmap(placeholder);
-						Log.d(null, "fail " + url);
+						// Fail
 					}
 				}
 			}
@@ -70,7 +76,6 @@ public enum ImagePreview {
 				final Bitmap bmp = getPreview(url);
 				Message message = Message.obtain();
 				message.obj = bmp;
-				Log.d(null, "Item downloaded: " + url);
 
 				handler.sendMessage(message);
 			}
@@ -83,7 +88,7 @@ public enum ImagePreview {
 
 		// check in UI thread, so no concurrency issues
 		if (bitmap != null) {
-			Log.d(null, "Item loaded from cache: " + url);
+			// Item loaded from cache
 			imageView.setImageBitmap(bitmap);
 		} else {
 			imageView.setImageBitmap(placeholder);
@@ -96,43 +101,61 @@ public enum ImagePreview {
 	}
 
 	private Bitmap getPreview(String url) {
-		File image = new File(url);
+		Bitmap mBitmap = null;
+		InputStream photoStream = null;
+		File path = new File(url);
 		int size = 72;
 
-		InputStream photoStream = null;
-		Bitmap mBitmap = null;
-		try {
-			photoStream = new FileInputStream(image);
-			BitmapFactory.Options opts = new BitmapFactory.Options();
-			opts.inJustDecodeBounds = true;
-			opts.inSampleSize = 1;
+		if (type.contentEquals("image")) {
 
-			mBitmap = BitmapFactory.decodeStream(photoStream, null, opts);
-			if (opts.outWidth > opts.outHeight && opts.outWidth > size) {
-				opts.inSampleSize = opts.outWidth / size;
-			} else if (opts.outWidth < opts.outHeight && opts.outHeight > size) {
-				opts.inSampleSize = opts.outHeight / size;
-			}
-			if (opts.inSampleSize < 1) {
+			try {
+				photoStream = new FileInputStream(path);
+				BitmapFactory.Options opts = new BitmapFactory.Options();
+				opts.inJustDecodeBounds = true;
 				opts.inSampleSize = 1;
-			}
-			opts.inJustDecodeBounds = false;
-			photoStream.close();
-			photoStream = new FileInputStream(image);
-			mBitmap = BitmapFactory.decodeStream(photoStream, null, opts);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (photoStream != null) {
-				try {
-					photoStream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+
+				mBitmap = BitmapFactory.decodeStream(photoStream, null, opts);
+				if (opts.outWidth > opts.outHeight && opts.outWidth > size) {
+					opts.inSampleSize = opts.outWidth / size;
+				} else if (opts.outWidth < opts.outHeight
+						&& opts.outHeight > size) {
+					opts.inSampleSize = opts.outHeight / size;
+				}
+				if (opts.inSampleSize < 1) {
+					opts.inSampleSize = 1;
+				}
+				opts.inJustDecodeBounds = false;
+				photoStream.close();
+				photoStream = new FileInputStream(path);
+				mBitmap = BitmapFactory.decodeStream(photoStream, null, opts);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (photoStream != null) {
+					try {
+						photoStream.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
-		}
-		cache.put(url, mBitmap);
+			cache.put(url, mBitmap);
 
-		return mBitmap;
+			return mBitmap;
+
+		} else if (type.contentEquals("video")) {
+
+			mBitmap = ThumbnailUtils.createVideoThumbnail(
+					path.getAbsolutePath(),
+					MediaStore.Images.Thumbnails.MICRO_KIND);
+
+			cache.put(url, mBitmap);
+
+			return mBitmap;
+
+		} else {
+			return null;
+		}
 	}
 }

@@ -47,13 +47,10 @@
     <string name="file">Archivo</string>
     <string name="filecreated">Archivo fue creado</string>
     <string name="fileexists">Archivo ya existe</string>
-    <string name="filenotfound">Archivo no pudo ser localizado.</string>
     <string name="files">" Archivos"</string>
     <string name="filewasrenamed">Archivo fue renombrado.</string>
     <string name="fname">Nombre:</string>
-    <string name="folderinfo">Información de carpeta</string>
     <string name="folders">" Carpetas "</string>
-    <string name="folderwasrenamed">Carpeta fue renombrado.</string>
     <string name="foundfiles">Localizado</string>
     <string name="freespace">Espacio libre:</string>
     <string name="hiddenfiles">Archivos ocultados</string>
@@ -68,7 +65,6 @@
     <string name="moving">Moviendo...</string>
     <string name="multioff">Multi seleccionar estar impedido.</string>
     <string name="multis">Multi seleccionar</string>
-    <string name="multiselectisoffnow">Multi seleccionar se apagó.</string>
     <string name="multizip">Zip</string>
     <string name="music">Música</string>
     <string name="name">Nombre</string>

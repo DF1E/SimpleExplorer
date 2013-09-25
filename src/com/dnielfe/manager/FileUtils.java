@@ -48,7 +48,6 @@ public class FileUtils {
 
 	private static final int BUFFER = 2048;
 	private long mDirSize = 0;
-	private static EventHandler mHandler;
 
 	// Inspired by org.apache.commons.io.FileUtils.isSymlink()
 	private static boolean isSymlink(File file) throws IOException {
@@ -222,10 +221,12 @@ public class FileUtils {
 				copyToDirectory(old + "/" + files[i], dir);
 
 		} else if (old_file.isFile() && !temp_dir.canWrite()) {
-			if (LinuxShell.isRoot()) {
-				RootTools.remount(mHandler.getCurrentDir(), "rw");
-				RootTools.copyFile(old, newDir, true, true);
-			}
+			int root = moveCopyRoot(old, newDir);
+
+			if (root == 0)
+				return 0;
+			else
+				return -1;
 
 		} else if (!temp_dir.canWrite())
 			return -1;
@@ -464,6 +465,23 @@ public class FileUtils {
 		aos.close();
 		out.close();
 		return;
+	}
+
+	// Move or Copy with Root Access using RootTools library
+	private static int moveCopyRoot(String old, String newDir) {
+
+		try {
+			if (LinuxShell.isRoot()) {
+				RootTools.remount(newDir, "rw");
+				RootTools.copyFile(old, newDir, true, true);
+				return 0;
+			} else {
+				return -1;
+			}
+
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	// Create Directory with root

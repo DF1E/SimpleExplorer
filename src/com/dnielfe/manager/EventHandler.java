@@ -29,9 +29,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Stack;
 
-import com.dnielfe.utils.ImagePreview;
-import com.dnielfe.utils.VideoPreview;
-
+import com.dnielfe.utils.IconPreview;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.content.Context;
@@ -452,30 +450,16 @@ public class EventHandler {
 						Drawable icon = mContext.getResources().getDrawable(
 								R.drawable.bitmap);
 						Bitmap bitmap = ((BitmapDrawable) icon).getBitmap();
-						ImagePreview.INSTANCE.setPlaceholder(bitmap);
+						IconPreview.INSTANCE.setPlaceholder(bitmap);
 						mViewHolder.icon.setTag(file.getAbsolutePath());
+						IconPreview.INSTANCE.setType("image");
 
-						ImagePreview.INSTANCE.loadBitmap(
-								file.getAbsolutePath(), mViewHolder.icon);
+						IconPreview.INSTANCE.loadBitmap(file.getAbsolutePath(),
+								mViewHolder.icon);
 
 					} else {
 						mViewHolder.icon.setImageResource(R.drawable.image);
 					}
-
-				} else if (sub_ext.equalsIgnoreCase("rar")) {
-					mViewHolder.icon.setImageResource(R.drawable.rar);
-
-				} else if (sub_ext.equalsIgnoreCase("tar")) {
-					mViewHolder.icon.setImageResource(R.drawable.tar);
-
-				} else if (sub_ext.equalsIgnoreCase("zip")
-						|| sub_ext.equalsIgnoreCase("gzip")
-						|| sub_ext.equalsIgnoreCase("bzip2")
-						|| sub_ext.equalsIgnoreCase("7z")
-						|| sub_ext.equalsIgnoreCase("ar")
-						|| sub_ext.equalsIgnoreCase("gz")) {
-
-					mViewHolder.icon.setImageResource(R.drawable.zip);
 
 				} else if (sub_ext.equalsIgnoreCase("m4v")
 						|| sub_ext.equalsIgnoreCase("wmv")
@@ -490,14 +474,30 @@ public class EventHandler {
 						Drawable icon = mContext.getResources().getDrawable(
 								R.drawable.bitmap);
 						Bitmap bitmap = ((BitmapDrawable) icon).getBitmap();
-						VideoPreview.INSTANCE.setPlaceholder(bitmap);
+						IconPreview.INSTANCE.setPlaceholder(bitmap);
 						mViewHolder.icon.setTag(file.getAbsolutePath());
+						IconPreview.INSTANCE.setType("video");
 
-						VideoPreview.INSTANCE.loadBitmap(
-								file.getAbsolutePath(), mViewHolder.icon);
+						IconPreview.INSTANCE.loadBitmap(file.getAbsolutePath(),
+								mViewHolder.icon);
 					} else {
 						mViewHolder.icon.setImageResource(R.drawable.movies);
 					}
+
+				} else if (sub_ext.equalsIgnoreCase("zip")
+						|| sub_ext.equalsIgnoreCase("gzip")
+						|| sub_ext.equalsIgnoreCase("bzip2")
+						|| sub_ext.equalsIgnoreCase("7z")
+						|| sub_ext.equalsIgnoreCase("ar")
+						|| sub_ext.equalsIgnoreCase("gz")) {
+
+					mViewHolder.icon.setImageResource(R.drawable.zip);
+
+				} else if (sub_ext.equalsIgnoreCase("rar")) {
+					mViewHolder.icon.setImageResource(R.drawable.rar);
+
+				} else if (sub_ext.equalsIgnoreCase("tar")) {
+					mViewHolder.icon.setImageResource(R.drawable.tar);
 
 				} else if (sub_ext.equalsIgnoreCase("doc")
 						|| sub_ext.equalsIgnoreCase("docx")) {
@@ -544,6 +544,11 @@ public class EventHandler {
 							@Override
 							protected Long doInBackground(String[]... params) {
 								icon = getApkDrawable(file);
+
+								if (icon == null) {
+									icon = mContext.getResources().getDrawable(
+											R.drawable.appicon);
+								}
 								return null;
 							}
 
@@ -578,16 +583,16 @@ public class EventHandler {
 			if (file.isFile()) {
 				double size = file.length();
 				if (size > GB)
-					setDisplay_size(String.format("%.2f GB ", (double) size
-							/ GB));
+					setDisplay_size(String
+							.format("%.2f GB", (double) size / GB));
 				else if (size < GB && size > MG)
-					setDisplay_size(String.format("%.2f MB ", (double) size
-							/ MG));
+					setDisplay_size(String
+							.format("%.2f MB", (double) size / MG));
 				else if (size < MG && size > KB)
-					setDisplay_size(String.format("%.2f KB ", (double) size
-							/ KB));
+					setDisplay_size(String
+							.format("%.2f KB", (double) size / KB));
 				else
-					setDisplay_size(String.format("%.2f B ", (double) size));
+					setDisplay_size(String.format("%.2f B", (double) size));
 
 				if (file.isHidden())
 					mViewHolder.bottomView.setText(getDisplay_size());
@@ -746,7 +751,7 @@ public class EventHandler {
 		PackageManager pm = mContext.getPackageManager();
 		PackageInfo packageInfo = pm.getPackageArchiveInfo(filepath,
 				PackageManager.GET_ACTIVITIES);
-		
+
 		if (packageInfo != null) {
 
 			final ApplicationInfo appInfo = packageInfo.applicationInfo;

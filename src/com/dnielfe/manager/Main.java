@@ -1067,27 +1067,35 @@ public final class Main extends ListActivity {
 						File file = new File(mHandler.getCurrentDir()
 								+ File.separator + name);
 
-						if (file.exists())
+						if (file.exists()) {
 							Toast.makeText(Main.this,
-									getString(R.string.error),
+									getString(R.string.fileexists),
 									Toast.LENGTH_SHORT).show();
+						} else {
+							try {
+								if (name.length() >= 1) {
+									file.createNewFile();
 
-						try {
-							file.createNewFile();
-							Toast.makeText(Main.this, R.string.filecreated,
-									Toast.LENGTH_SHORT).show();
-						} catch (Exception e) {
-							if (LinuxShell.isRoot()) {
-								FileUtils.createRootFile(
-										mHandler.getCurrentDir(), name);
-							} else {
-								Toast.makeText(Main.this, R.string.error,
-										Toast.LENGTH_SHORT).show();
+									Toast.makeText(Main.this,
+											R.string.filecreated,
+											Toast.LENGTH_SHORT).show();
+								} else {
+									Toast.makeText(Main.this, R.string.error,
+											Toast.LENGTH_SHORT).show();
+								}
+							} catch (Exception e) {
+								if (LinuxShell.isRoot()) {
+									FileUtils.createRootFile(
+											mHandler.getCurrentDir(), name);
+								} else {
+									Toast.makeText(Main.this, R.string.error,
+											Toast.LENGTH_SHORT).show();
+								}
 							}
-						}
 
-						mHandler.updateDirectory(mHandler.getNextDir(
-								mHandler.getCurrentDir(), true));
+							mHandler.updateDirectory(mHandler.getNextDir(
+									mHandler.getCurrentDir(), true));
+						}
 					}
 				});
 
@@ -1950,9 +1958,14 @@ public final class Main extends ListActivity {
 
 				delete_after_copy = false;
 				pr_dialog.dismiss();
-				displayFreeSpace();
 				mHandler.updateDirectory(mHandler.getNextDir(
 						mHandler.getCurrentDir(), true));
+
+				try {
+					displayFreeSpace();
+				} catch (Exception e) {
+
+				}
 				break;
 			case UNTAR_TYPE:
 				pr_dialog.dismiss();
@@ -1987,6 +2000,10 @@ public final class Main extends ListActivity {
 				&& current.equals("/")) {
 			Toast.makeText(Main.this, getString(R.string.pressbackagaintoquit),
 					Toast.LENGTH_SHORT).show();
+
+			// Stop holding file for move/copy
+			mHoldingFile = false;
+			mMenuItem.setVisible(false);
 
 			mUseBackKey = false;
 			setDirectoryButtons();
