@@ -1,6 +1,6 @@
 Bugs:
-- App crashes if defaultdir path is "/"
-- can't copy/move to directory which root
+
+- can't copy/move to directory which needs root
 - files and folders in /data or other directory's witch need root are not correctly shown
 - Search does not work at all
 - If you choose "Move" and immediately inserted into the same folder, the file is simply

@@ -138,6 +138,8 @@ public final class Main extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 
+		checkEnvironment();
+
 		// read settings
 		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
@@ -183,12 +185,9 @@ public final class Main extends ListActivity {
 		Intent intent3 = getIntent();
 		SearchIntent(intent3);
 
-		checkEnvironment();
-
 		Intent intent = getIntent();
 
-		// If an other Application want to choose a File you do it with this
-		// action
+		// If other Apps want to choose a File you do it with this action
 		if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)) {
 			mReturnIntent = true;
 
@@ -212,10 +211,9 @@ public final class Main extends ListActivity {
 		File dir = new File(defaultdir);
 
 		if (dir.exists() && dir.isDirectory())
-			mHandler.opendir(defaultdir);
+			mHandler.opendir(dir.getAbsolutePath());
 
-		setDirectoryButtons();
-		displayFreeSpace();
+		listView(false);
 	}
 
 	@Override
@@ -262,10 +260,10 @@ public final class Main extends ListActivity {
 
 	// check if SDcard is avaible
 	private void checkEnvironment() {
-
 		File f = null;
 		boolean sdCardExist = Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED);
+
 		if (sdCardExist) {
 			f = Environment.getExternalStorageDirectory();
 			if (f != null) {
@@ -367,11 +365,24 @@ public final class Main extends ListActivity {
 
 	}
 
-	// get ListView
-	public void listview() {
+	// get ListView options
+	public void listView(boolean toTop) {
 		ListView listview = this.getListView();
-		// go to top of ListView
-		listview.setSelection(0);
+
+		if (toTop) {
+			// go to top of ListView
+			listview.setSelection(0);
+		}
+
+		// Update the Buttons showing the path
+		setDirectoryButtons();
+
+		try {
+			// try to display free space in progresBar
+			displayFreeSpace();
+		} catch (Exception e) {
+
+		}
 	}
 
 	private File currentDirectory() {
@@ -428,11 +439,8 @@ public final class Main extends ListActivity {
 					String dir1 = (String) view.getTag();
 
 					mHandler.updateDirectory(mHandler.setHomeDir(dir1));
-					setDirectoryButtons();
-					try {
-						displayFreeSpace();
-					} catch (Exception e) {
-					}
+
+					listView(true);
 				}
 			});
 
@@ -490,13 +498,8 @@ public final class Main extends ListActivity {
 			if (file.isDirectory()) {
 				if (file.canRead()) {
 					mHandler.updateDirectory(mHandler.getNextDir(item, false));
-					setDirectoryButtons();
-					listview();
 
-					try {
-						displayFreeSpace();
-					} catch (Exception e) {
-					}
+					listView(true);
 
 					if (!mUseBackKey)
 						mUseBackKey = true;
@@ -505,13 +508,8 @@ public final class Main extends ListActivity {
 					if (LinuxShell.isRoot()) {
 						mHandler.updateDirectory(mHandler.getNextDir(item,
 								false));
-						setDirectoryButtons();
-						listview();
 
-						try {
-							displayFreeSpace();
-						} catch (Exception e) {
-						}
+						listView(true);
 
 						if (!mUseBackKey)
 							mUseBackKey = true;
@@ -860,9 +858,8 @@ public final class Main extends ListActivity {
 								if (file != null) {
 									if (file.isDirectory()) {
 										mHandler.opendir(path);
-										setDirectoryButtons();
-										displayFreeSpace();
-										listview();
+
+										listView(true);
 									} else {
 										Intent i1 = new Intent();
 										i1.setAction(android.content.Intent.ACTION_VIEW);
@@ -1375,7 +1372,6 @@ public final class Main extends ListActivity {
 	}
 
 	private void displayFreeSpace() {
-
 		statusBar = (ProgressBar) findViewById(R.id.progressBar);
 		File dir1 = new File(mHandler.getCurrentDir());
 		int total;
@@ -1992,8 +1988,8 @@ public final class Main extends ListActivity {
 				&& !current.equals("/")) {
 
 			mHandler.updateDirectory(mHandler.getPreviousDir(current));
-			setDirectoryButtons();
-			listview();
+
+			listView(true);
 			return true;
 
 		} else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey

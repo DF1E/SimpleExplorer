@@ -1,7 +1,10 @@
 Changelog:
-v1.8.4 	Fixes bug if you create a File
-		Updated languages
-		Added Russian language
+v1.8.4 	fixed crash when default directory is "/"
+		fixed bug when you create a File
+		support multiwindow
+		changed UI in Preferences
+		updated languages
+		added Russian language
 v1.8.3	Updated languages
 		New languages:
 		- italy

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="@string/uisettings" >
+    <PreferenceScreen android:title="@string/uisettings" >
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="displayhiddenfiles"
@@ -23,8 +23,8 @@
             android:entryValues="@array/viewvalues"
             android:key="viewmode"
             android:title="@string/viewmode" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/searchprefs" >
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/searchprefs" >
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="enablesearchsuggestions"
@@ -35,8 +35,8 @@
             android:dependency="enablesearchsuggestions"
             android:key="clearsearch"
             android:title="@string/deletesearchsuggestions" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/advancedsettings" >
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/advancedsettings" >
         <EditTextPreference
             android:dialogTitle="@string/defaultdir"
             android:key="defaultdir"
@@ -45,8 +45,7 @@
         <Preference
             android:key="editbookmarks"
             android:title="@string/bookmark" />
-    </PreferenceCategory>
-
+    </PreferenceScreen>
     <PreferenceScreen android:title="@string/xdaforum" >
         <intent
             android:action="android.intent.action.VIEW"
