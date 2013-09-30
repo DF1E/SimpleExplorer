@@ -1,7 +1,7 @@
 Changelog:
 v1.8.4 	fixed crash when default directory is "/"
 		fixed bug when you create a File
-		support multiwindow
+		support multiwindow (tested on a galaxy s3)
 		changed UI in Preferences
 		updated languages
 		added Russian language
