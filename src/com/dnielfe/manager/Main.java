@@ -1436,6 +1436,10 @@ public final class Main extends ListActivity {
 					mTable.addMultiPosition(i, file.getPath(), false);
 				}
 				return true;
+			case R.id.actionrmall:
+
+				mTable.killMultiSelect(true, false);
+				return true;
 			default:
 				return false;
 			}
@@ -1445,7 +1449,7 @@ public final class Main extends ListActivity {
 		public void onDestroyActionMode(ActionMode arg0) {
 			mActionMode = null;
 			if (mHandler.isMultiSelected()) {
-				mTable.killMultiSelect(true);
+				mTable.killMultiSelect(true, true);
 			}
 		}
 	};
@@ -1468,14 +1472,9 @@ public final class Main extends ListActivity {
 		mail_int.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
 		mHandler.mContext.startActivity(Intent.createChooser(mail_int,
 				getString(R.string.share)));
-		mHandler.mDelegate.killMultiSelect(true);
 	}
 
 	private void multidelete() {
-		if (mHandler.mMultiSelectData == null
-				|| mHandler.mMultiSelectData.isEmpty()) {
-			mHandler.mDelegate.killMultiSelect(true);
-		}
 
 		final String[] data = new String[mHandler.mMultiSelectData.size()];
 		int at = 0;
@@ -1495,14 +1494,12 @@ public final class Main extends ListActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						new BackgroundWork(DELETE_TYPE).execute(data);
-						mHandler.mDelegate.killMultiSelect(true);
 					}
 				});
 		builder.setNegativeButton((R.string.cancel),
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						mHandler.mDelegate.killMultiSelect(true);
 						dialog.cancel();
 					}
 				});
@@ -1544,23 +1541,13 @@ public final class Main extends ListActivity {
 	}
 
 	public void multicopy() {
-		if (mHandler.mMultiSelectData == null
-				|| mHandler.mMultiSelectData.isEmpty()) {
-			mTable.killMultiSelect(true);
-		}
 		delete_after_copy = false;
-		mTable.killMultiSelect(false);
 		mHandler.updateDirectory(mHandler.getNextDir(mHandler.getCurrentDir(),
 				true));
 	}
 
 	public void multimove() {
-		if (mHandler.mMultiSelectData == null
-				|| mHandler.mMultiSelectData.isEmpty()) {
-			mTable.killMultiSelect(true);
-		}
 		delete_after_copy = true;
-		mTable.killMultiSelect(false);
 		mHandler.updateDirectory(mHandler.getNextDir(mHandler.getCurrentDir(),
 				true));
 	}
@@ -1682,6 +1669,7 @@ public final class Main extends ListActivity {
 		// This will show a Dialog while Action is running in Background
 		@Override
 		protected void onPreExecute() {
+			mTable.killMultiSelect(true, true);
 
 			switch (type) {
 			case SEARCH_TYPE:

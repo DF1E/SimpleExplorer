@@ -1,7 +1,7 @@
 Changelog:
 v1.8.5	fixed moving file bug
 		improved opening files for bookmarks
-		multiselect all option
+		multi select/unselect all files option
 v1.8.4 	fixed crash when default directory is "/"
 		fixed bug when you create a File
 		support multiwindow (tested on a galaxy s3)
@@ -37,7 +37,7 @@ v1.8	Update Storage Banner
 		Root delete, move, copy Files
 		UI updates
 		Folder Shortcut on Homescreen (only 1)
-v1.7.5 Details update
+v1.7.5	Details update
 		copy path to clipboard when directory button longclick
 		bug fixes and corrections
 v1.7.4	New Unzip Method

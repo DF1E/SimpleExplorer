@@ -208,7 +208,7 @@ public class EventHandler {
 	// Choose Directory Option
 	public void opendir(String path) {
 		if (multi_select_flag) {
-			mDelegate.killMultiSelect(true);
+			mDelegate.killMultiSelect(true, true);
 			Toast.makeText(mContext, R.string.multioff, Toast.LENGTH_SHORT)
 					.show();
 		}
@@ -219,7 +219,7 @@ public class EventHandler {
 	// multi-select
 	public void multiselect() {
 		if (multi_select_flag) {
-			mDelegate.killMultiSelect(true);
+			mDelegate.killMultiSelect(true, true);
 
 		} else {
 			multi_select_flag = true;
@@ -357,8 +357,9 @@ public class EventHandler {
 		 *            usually be the only one to pass false, so we can later
 		 *            paste it to another folder.
 		 */
-		public void killMultiSelect(boolean clearData) {
-			multi_select_flag = false;
+		public void killMultiSelect(boolean clearData, boolean disable) {
+			if (disable)
+				multi_select_flag = false;
 
 			if (positions != null && !positions.isEmpty())
 				positions.clear();
