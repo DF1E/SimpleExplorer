@@ -41,8 +41,11 @@
     <string name="dir_info">Informação da Pasta</string>
     <string name="enablesearchsuggestions">Sugestões de Pesquisa</string>
     <string name="error">Erro</string>
+    <string name="extract">Extract</string>
+    <string name="extractto">Extract to</string>
     <string name="fdirectory">Caminho:</string>
     <string name="file">Arquivo</string>
+    <string name="filecreated">File was created.</string>
     <string name="fileexists">Arquivo já existe</string>
     <string name="files">"Arquivos"</string>
     <string name="filewasrenamed">Arquivo renomeado</string>
@@ -76,7 +79,10 @@
     <string name="ok">OK</string>
     <string name="openas">Abrir como</string>
     <string name="options">"Opções"</string>
+    <string name="packing">Packing</string>
+    <string name="paste">Paste</string>
     <string name="pasteintofolder">Colar na Pasta</string>
+    <string name="permissions">Persmissions:</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Pressione novamente para sair</string>
     <string name="rename">Renomear</string>
@@ -105,6 +111,7 @@
     <string name="uisettings">Ver Configurações</string>
     <string name="uninstallapp">Desinstalar App</string>
     <string name="unselectall">Desmarcar Todos</string>
+    <string name="untar">Extract tar</string>
     <string name="unzipping">Descompactando</string>
     <string name="used">Usado:</string>
     <string name="version">"Versão"</string>

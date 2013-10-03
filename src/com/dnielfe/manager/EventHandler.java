@@ -399,8 +399,8 @@ public class EventHandler {
 				mViewHolder.mSelect = (ImageView) convertView
 						.findViewById(R.id.multiselect_icon);
 
-				mViewHolder.icon.getLayoutParams().height = 65;
-				mViewHolder.icon.getLayoutParams().width = 65;
+				mViewHolder.icon.getLayoutParams().height = 75;
+				mViewHolder.icon.getLayoutParams().width = 75;
 
 				convertView.setTag(mViewHolder);
 

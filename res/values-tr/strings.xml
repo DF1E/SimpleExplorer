@@ -47,13 +47,10 @@
     <string name="file">Dosya</string>
     <string name="filecreated">Dosya oluşturuldu</string>
     <string name="fileexists">Dosya zaten var</string>
-    <string name="filenotfound">Dosya bulunamadı</string>
     <string name="files">" Dosya"</string>
     <string name="filewasrenamed">Dosya yeniden adlandırıldı</string>
     <string name="fname">Ad:</string>
-    <string name="folderinfo">Klasör Bilgisi</string>
     <string name="folders">" Klasör "</string>
-    <string name="folderwasrenamed">Klasör yeniden adlandırıldı</string>
     <string name="foundfiles">Bulundu</string>
     <string name="freespace">Boş Alan:</string>
     <string name="hiddenfiles">Gizli Dosyalar</string>
@@ -69,7 +66,6 @@
     <string name="moving">Taşınıyor</string>
     <string name="multioff">Çokluseçim kapatıldı</string>
     <string name="multis">Çokluseçim</string>
-    <string name="multiselectisoffnow">Çokluseçim şu anda kapalı</string>
     <string name="multizip">Zip</string>
     <string name="music">Müzik</string>
     <string name="name">Ad</string>

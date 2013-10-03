@@ -21,7 +21,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:background="@null"
-        android:paddingBottom="3dp"
+        android:paddingBottom="5dp"
         android:paddingTop="4dp" >
 
         <ImageView
@@ -32,9 +32,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:contentDescription="@string/desc"
-            android:focusable="false"
-            android:paddingBottom="1dp"
-            android:paddingTop="1dp" />
+            android:focusable="false" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -46,8 +44,8 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingBottom="4.5dp"
-            android:paddingLeft="5dp" >
+            android:paddingBottom="4dp"
+            android:paddingLeft="4dp" >
 
             <TextView
                 android:id="@+id/top_view"

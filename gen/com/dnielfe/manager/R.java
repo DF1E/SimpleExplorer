@@ -194,13 +194,10 @@ public final class R {
         public static final int file=0x7f08002b;
         public static final int filecreated=0x7f08002c;
         public static final int fileexists=0x7f08002d;
-        public static final int filenotfound=0x7f080077;
         public static final int files=0x7f08002e;
         public static final int filewasrenamed=0x7f08002f;
         public static final int fname=0x7f080030;
-        public static final int folderinfo=0x7f080078;
         public static final int folders=0x7f080031;
-        public static final int folderwasrenamed=0x7f080079;
         public static final int foundfiles=0x7f080032;
         public static final int freespace=0x7f080033;
         public static final int hiddenfiles=0x7f080034;
@@ -215,7 +212,6 @@ public final class R {
         public static final int moving=0x7f08003e;
         public static final int multioff=0x7f08003f;
         public static final int multis=0x7f080040;
-        public static final int multiselectisoffnow=0x7f08007a;
         public static final int multizip=0x7f080041;
         public static final int music=0x7f080042;
         public static final int name=0x7f080043;
