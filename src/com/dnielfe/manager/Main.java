@@ -179,7 +179,7 @@ public final class Main extends ListActivity {
 		mHandler.setListAdapter(mTable);
 		setListAdapter(mTable);
 
-		// register context menu for our list view
+		// register context menu for our ListView
 		registerForContextMenu(getListView());
 
 		Intent intent3 = getIntent();
@@ -480,21 +480,14 @@ public final class Main extends ListActivity {
 		final String item = mHandler.getData(position);
 		boolean multiSelect = mHandler.isMultiSelected();
 		final File file = new File(mHandler.getCurrentDir() + "/" + item);
-		String item_ext = null;
-
-		try {
-			item_ext = item.substring(item.lastIndexOf("."), item.length());
-
-		} catch (IndexOutOfBoundsException e) {
-			item_ext = "";
-		}
 
 		// If the user has multi-select on, we just need to record the file not
 		// make an intent for it.
 		if (multiSelect) {
-			mTable.addMultiPosition(position, file.getPath());
+			mTable.addMultiPosition(position, file.getPath(), true);
 
 		} else {
+
 			if (file.isDirectory()) {
 				if (file.canRead()) {
 					mHandler.updateDirectory(mHandler.getNextDir(item, false));
@@ -520,86 +513,135 @@ public final class Main extends ListActivity {
 								Toast.LENGTH_SHORT).show();
 					}
 				}
+			} else {
+				listItemAction(file, item);
 			}
+		}
+	}
 
-			// music file selected--add more audio formats
-			else if (item_ext.equalsIgnoreCase(".mp3")
-					|| item_ext.equalsIgnoreCase(".m4a")
-					|| item_ext.equalsIgnoreCase(".aiff")
-					|| item_ext.equalsIgnoreCase(".wma")
-					|| item_ext.equalsIgnoreCase(".caf")
-					|| item_ext.equalsIgnoreCase(".flac")
-					|| item_ext.equalsIgnoreCase(".ogg")
-					|| item_ext.equalsIgnoreCase(".m4p")
-					|| item_ext.equalsIgnoreCase(".amr")
-					|| item_ext.equalsIgnoreCase(".aac")
-					|| item_ext.equalsIgnoreCase(".wav")) {
+	private void listItemAction(File file, String item) {
+		String item_ext = null;
 
+		try {
+			item_ext = item.substring(item.lastIndexOf("."), item.length());
+
+		} catch (IndexOutOfBoundsException e) {
+			item_ext = "";
+		}
+
+		// music file selected--add more audio formats
+		if (item_ext.equalsIgnoreCase(".mp3")
+				|| item_ext.equalsIgnoreCase(".m4a")
+				|| item_ext.equalsIgnoreCase(".aiff")
+				|| item_ext.equalsIgnoreCase(".wma")
+				|| item_ext.equalsIgnoreCase(".caf")
+				|| item_ext.equalsIgnoreCase(".flac")
+				|| item_ext.equalsIgnoreCase(".ogg")
+				|| item_ext.equalsIgnoreCase(".m4p")
+				|| item_ext.equalsIgnoreCase(".amr")
+				|| item_ext.equalsIgnoreCase(".aac")
+				|| item_ext.equalsIgnoreCase(".wav")) {
+
+			if (mReturnIntent) {
+				returnIntentResults(file);
+			} else {
+				Intent i = new Intent();
+				i.setAction(android.content.Intent.ACTION_VIEW);
+				i.setDataAndType(Uri.fromFile(file), "audio/*");
+				startActivity(i);
+			}
+		}
+
+		// photo file selected
+		else if (item_ext.equalsIgnoreCase(".jpeg")
+				|| item_ext.equalsIgnoreCase(".jpg")
+				|| item_ext.equalsIgnoreCase(".png")
+				|| item_ext.equalsIgnoreCase(".gif")
+				|| item_ext.equalsIgnoreCase(".raw")
+				|| item_ext.equalsIgnoreCase(".psd")
+				|| item_ext.equalsIgnoreCase(".bmp")
+				|| item_ext.equalsIgnoreCase(".tiff")
+				|| item_ext.equalsIgnoreCase(".tif")) {
+
+			if (file.exists()) {
 				if (mReturnIntent) {
 					returnIntentResults(file);
+
 				} else {
-					Intent i = new Intent();
-					i.setAction(android.content.Intent.ACTION_VIEW);
-					i.setDataAndType(Uri.fromFile(file), "audio/*");
-					startActivity(i);
+					Intent picIntent = new Intent();
+					picIntent.setAction(android.content.Intent.ACTION_VIEW);
+					picIntent.setDataAndType(Uri.fromFile(file), "image/*");
+					startActivity(picIntent);
 				}
 			}
+		}
 
-			// photo file selected
-			else if (item_ext.equalsIgnoreCase(".jpeg")
-					|| item_ext.equalsIgnoreCase(".jpg")
-					|| item_ext.equalsIgnoreCase(".png")
-					|| item_ext.equalsIgnoreCase(".gif")
-					|| item_ext.equalsIgnoreCase(".raw")
-					|| item_ext.equalsIgnoreCase(".psd")
-					|| item_ext.equalsIgnoreCase(".bmp")
-					|| item_ext.equalsIgnoreCase(".tiff")
-					|| item_ext.equalsIgnoreCase(".tif")) {
+		// video file selected--add more video formats
+		else if (item_ext.equalsIgnoreCase(".m4v")
+				|| item_ext.equalsIgnoreCase(".3gp")
+				|| item_ext.equalsIgnoreCase(".wmv")
+				|| item_ext.equalsIgnoreCase(".mp4")
+				|| item_ext.equalsIgnoreCase(".mpeg")
+				|| item_ext.equalsIgnoreCase(".mpg")
+				|| item_ext.equalsIgnoreCase(".rm")
+				|| item_ext.equalsIgnoreCase(".mov")
+				|| item_ext.equalsIgnoreCase(".avi")
+				|| item_ext.equalsIgnoreCase(".flv")
+				|| item_ext.equalsIgnoreCase(".ogg")) {
 
-				if (file.exists()) {
-					if (mReturnIntent) {
-						returnIntentResults(file);
+			if (file.exists()) {
+				if (mReturnIntent) {
+					returnIntentResults(file);
 
-					} else {
-						Intent picIntent = new Intent();
-						picIntent.setAction(android.content.Intent.ACTION_VIEW);
-						picIntent.setDataAndType(Uri.fromFile(file), "image/*");
-						startActivity(picIntent);
+				} else {
+					Intent movieIntent = new Intent();
+					movieIntent.setAction(android.content.Intent.ACTION_VIEW);
+					movieIntent.setDataAndType(Uri.fromFile(file), "video/*");
+					startActivity(movieIntent);
+				}
+			}
+		}
+
+		// ZIP file
+		else if (item_ext.equalsIgnoreCase(".zip")) {
+
+			if (mReturnIntent) {
+				returnIntentResults(file);
+
+			} else {
+				final String zipPath = mHandler.getCurrentDir() + "/" + item;
+				final String unZipPath = appdir + "/" + file.getName();
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				AlertDialog alert;
+				CharSequence[] option = { getString(R.string.extract),
+						getString(R.string.extractto) };
+
+				builder.setTitle(file.getName());
+				builder.setItems(option, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface dialog, int which) {
+						switch (which) {
+						case 0:
+							new BackgroundWork(UNZIP_TYPE).execute(zipPath,
+									unZipPath);
+							break;
+						case 1:
+							extractzipto(zipPath, mHandler.getCurrentDir());
+							break;
+						}
 					}
-				}
+				});
+
+				alert = builder.create();
+				alert.show();
 			}
+		}
 
-			// video file selected--add more video formats
-			else if (item_ext.equalsIgnoreCase(".m4v")
-					|| item_ext.equalsIgnoreCase(".3gp")
-					|| item_ext.equalsIgnoreCase(".wmv")
-					|| item_ext.equalsIgnoreCase(".mp4")
-					|| item_ext.equalsIgnoreCase(".mpeg")
-					|| item_ext.equalsIgnoreCase(".mpg")
-					|| item_ext.equalsIgnoreCase(".rm")
-					|| item_ext.equalsIgnoreCase(".mov")
-					|| item_ext.equalsIgnoreCase(".avi")
-					|| item_ext.equalsIgnoreCase(".flv")
-					|| item_ext.equalsIgnoreCase(".ogg")) {
+		// TAR File
+		else if (item_ext.equalsIgnoreCase(".tar")) {
 
-				if (file.exists()) {
-					if (mReturnIntent) {
-						returnIntentResults(file);
-
-					} else {
-						Intent movieIntent = new Intent();
-						movieIntent
-								.setAction(android.content.Intent.ACTION_VIEW);
-						movieIntent.setDataAndType(Uri.fromFile(file),
-								"video/*");
-						startActivity(movieIntent);
-					}
-				}
-			}
-
-			// ZIP file
-			else if (item_ext.equalsIgnoreCase(".zip")) {
-
+			if (file.exists()) {
 				if (mReturnIntent) {
 					returnIntentResults(file);
 
@@ -621,11 +663,11 @@ public final class Main extends ListActivity {
 										int which) {
 									switch (which) {
 									case 0:
-										new BackgroundWork(UNZIP_TYPE).execute(
+										new BackgroundWork(UNTAR_TYPE).execute(
 												zipPath, unZipPath);
 										break;
 									case 1:
-										extractzipto(zipPath,
+										extracttarto(zipPath,
 												mHandler.getCurrentDir());
 										break;
 									}
@@ -636,181 +678,135 @@ public final class Main extends ListActivity {
 					alert.show();
 				}
 			}
+		}
 
-			// TAR File
-			else if (item_ext.equalsIgnoreCase(".tar")) {
+		// other archive packages
+		else if (item_ext.equalsIgnoreCase(".rar")
+				|| item_ext.equalsIgnoreCase(".gzip")
+				|| item_ext.equalsIgnoreCase(".tar.gz")
+				|| item_ext.equalsIgnoreCase(".gz")) {
 
-				if (file.exists()) {
-					if (mReturnIntent) {
-						returnIntentResults(file);
+			if (mReturnIntent) {
+				returnIntentResults(file);
 
-					} else {
-						final String zipPath = mHandler.getCurrentDir() + "/"
-								+ item;
-						final String unZipPath = appdir + "/" + file.getName();
-
-						AlertDialog.Builder builder = new AlertDialog.Builder(
-								this);
-						AlertDialog alert;
-						CharSequence[] option = { getString(R.string.extract),
-								getString(R.string.extractto) };
-
-						builder.setTitle(file.getName());
-						builder.setItems(option,
-								new DialogInterface.OnClickListener() {
-
-									public void onClick(DialogInterface dialog,
-											int which) {
-										switch (which) {
-										case 0:
-											new BackgroundWork(UNTAR_TYPE)
-													.execute(zipPath, unZipPath);
-											break;
-										case 1:
-											extracttarto(zipPath,
-													mHandler.getCurrentDir());
-											break;
-										}
-									}
-								});
-
-						alert = builder.create();
-						alert.show();
-					}
-				}
+			} else {
 			}
+		}
 
-			// other archive packages
-			else if (item_ext.equalsIgnoreCase(".rar")
-					|| item_ext.equalsIgnoreCase(".gzip")
-					|| item_ext.equalsIgnoreCase(".tar.gz")
-					|| item_ext.equalsIgnoreCase(".gz")) {
+		// PDF file selected
+		else if (item_ext.equalsIgnoreCase(".pdf")) {
 
+			if (file.exists()) {
 				if (mReturnIntent) {
 					returnIntentResults(file);
 
 				} else {
-				}
-			}
+					Intent pdfIntent = new Intent();
+					pdfIntent.setAction(android.content.Intent.ACTION_VIEW);
+					pdfIntent.setDataAndType(Uri.fromFile(file),
+							"application/pdf");
 
-			// PDF file selected
-			else if (item_ext.equalsIgnoreCase(".pdf")) {
-
-				if (file.exists()) {
-					if (mReturnIntent) {
-						returnIntentResults(file);
-
-					} else {
-						Intent pdfIntent = new Intent();
-						pdfIntent.setAction(android.content.Intent.ACTION_VIEW);
-						pdfIntent.setDataAndType(Uri.fromFile(file),
-								"application/pdf");
-
-						try {
-							startActivity(pdfIntent);
-						} catch (ActivityNotFoundException e) {
-							Toast.makeText(
-									this,
-									getString(R.string.sorrycouldntfindapdfviewver),
-									Toast.LENGTH_SHORT).show();
-						}
+					try {
+						startActivity(pdfIntent);
+					} catch (ActivityNotFoundException e) {
+						Toast.makeText(
+								this,
+								getString(R.string.sorrycouldntfindapdfviewver),
+								Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
+		}
 
-			// Android Application file
-			else if (item_ext.equalsIgnoreCase(".apk")) {
+		// Android Application file
+		else if (item_ext.equalsIgnoreCase(".apk")) {
 
-				if (file.exists()) {
-					if (mReturnIntent) {
-						returnIntentResults(file);
+			if (file.exists()) {
+				if (mReturnIntent) {
+					returnIntentResults(file);
 
-					} else {
-						Intent apkIntent = new Intent();
-						apkIntent.setAction(android.content.Intent.ACTION_VIEW);
-						apkIntent.setDataAndType(Uri.fromFile(file),
-								"application/vnd.android.package-archive");
-						startActivity(apkIntent);
+				} else {
+					Intent apkIntent = new Intent();
+					apkIntent.setAction(android.content.Intent.ACTION_VIEW);
+					apkIntent.setDataAndType(Uri.fromFile(file),
+							"application/vnd.android.package-archive");
+					startActivity(apkIntent);
+				}
+			}
+		}
+
+		// HTML file
+		else if (item_ext.equalsIgnoreCase(".html")
+				|| item_ext.equalsIgnoreCase(".htm")
+				|| item_ext.equalsIgnoreCase(".php")
+				|| item_ext.equalsIgnoreCase(".xml")) {
+
+			if (file.exists()) {
+				if (mReturnIntent) {
+					returnIntentResults(file);
+
+				} else {
+					Intent htmlIntent = new Intent();
+					htmlIntent.setAction(android.content.Intent.ACTION_VIEW);
+					htmlIntent.setDataAndType(Uri.fromFile(file), "text/html");
+
+					try {
+						startActivity(htmlIntent);
+					} catch (ActivityNotFoundException e) {
+						Toast.makeText(
+								this,
+								getString(R.string.sorrycouldntfindahtmlviewver),
+								Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
+		}
 
-			// HTML file
-			else if (item_ext.equalsIgnoreCase(".html")
-					|| item_ext.equalsIgnoreCase(".htm")
-					|| item_ext.equalsIgnoreCase(".php")
-					|| item_ext.equalsIgnoreCase(".xml")) {
+		// Text file
+		else if (item_ext.equalsIgnoreCase(".txt")
+				|| item_ext.equalsIgnoreCase(".doc")
+				|| item_ext.equalsIgnoreCase(".csv")
+				|| item_ext.equalsIgnoreCase(".rtf")
+				|| item_ext.equalsIgnoreCase(".text")) {
 
-				if (file.exists()) {
-					if (mReturnIntent) {
-						returnIntentResults(file);
+			if (file.exists()) {
+				if (mReturnIntent) {
+					returnIntentResults(file);
 
-					} else {
-						Intent htmlIntent = new Intent();
-						htmlIntent
-								.setAction(android.content.Intent.ACTION_VIEW);
-						htmlIntent.setDataAndType(Uri.fromFile(file),
-								"text/html");
+				} else {
+					Intent txtIntent = new Intent();
+					txtIntent.setAction(android.content.Intent.ACTION_VIEW);
+					txtIntent.setDataAndType(Uri.fromFile(file), "text/plain");
 
-						try {
-							startActivity(htmlIntent);
-						} catch (ActivityNotFoundException e) {
-							Toast.makeText(
-									this,
-									getString(R.string.sorrycouldntfindahtmlviewver),
-									Toast.LENGTH_SHORT).show();
-						}
+					try {
+						startActivity(txtIntent);
+					} catch (ActivityNotFoundException e) {
+						txtIntent.setType("text/*");
+						startActivity(txtIntent);
 					}
 				}
 			}
+		}
 
-			// Text file
-			else if (item_ext.equalsIgnoreCase(".txt")
-					|| item_ext.equalsIgnoreCase(".doc")
-					|| item_ext.equalsIgnoreCase(".csv")
-					|| item_ext.equalsIgnoreCase(".rtf")
-					|| item_ext.equalsIgnoreCase(".text")) {
+		else {
+			if (file.exists()) {
+				if (mReturnIntent) {
+					returnIntentResults(file);
 
-				if (file.exists()) {
-					if (mReturnIntent) {
-						returnIntentResults(file);
+				} else {
+					Intent generic = new Intent();
+					generic.setAction(android.content.Intent.ACTION_VIEW);
+					generic.setDataAndType(Uri.fromFile(file), "text/plain");
 
-					} else {
-						Intent txtIntent = new Intent();
-						txtIntent.setAction(android.content.Intent.ACTION_VIEW);
-						txtIntent.setDataAndType(Uri.fromFile(file),
-								"text/plain");
-
-						try {
-							startActivity(txtIntent);
-						} catch (ActivityNotFoundException e) {
-							txtIntent.setType("text/*");
-							startActivity(txtIntent);
-						}
-					}
-				}
-			}
-
-			else {
-				if (file.exists()) {
-					if (mReturnIntent) {
-						returnIntentResults(file);
-
-					} else {
-						Intent generic = new Intent();
-						generic.setAction(android.content.Intent.ACTION_VIEW);
-						generic.setDataAndType(Uri.fromFile(file), "text/plain");
-
-						try {
-							startActivity(generic);
-						} catch (ActivityNotFoundException e) {
-							Toast.makeText(
-									this,
-									getString(R.string.sorrycouldnt)
-											+ getString(R.string.toopen)
-											+ file.getName(),
-									Toast.LENGTH_SHORT).show();
-						}
+					try {
+						startActivity(generic);
+					} catch (ActivityNotFoundException e) {
+						Toast.makeText(
+								this,
+								getString(R.string.sorrycouldnt)
+										+ getString(R.string.toopen)
+										+ file.getName(), Toast.LENGTH_SHORT)
+								.show();
 					}
 				}
 			}
@@ -861,11 +857,7 @@ public final class Main extends ListActivity {
 
 										listView(true);
 									} else {
-										Intent i1 = new Intent();
-										i1.setAction(android.content.Intent.ACTION_VIEW);
-										i1.setDataAndType(Uri.fromFile(file),
-												"*/*");
-										startActivity(i1);
+										listItemAction(file, path);
 									}
 								}
 							} else {
@@ -989,9 +981,8 @@ public final class Main extends ListActivity {
 				null);
 	}
 
-	private void openaction() {
-		final File file = new File(mHandler.getCurrentDir() + "/"
-				+ mSelectedListItem);
+	private void openaction(final File file) {
+
 		final CharSequence[] openAsOperations = { getString(R.string.text),
 				getString(R.string.image), getString(R.string.video),
 				getString(R.string.music), getString(R.string.file) };
@@ -1147,26 +1138,26 @@ public final class Main extends ListActivity {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
+		final File file = new File(mHandler.getCurrentDir() + "/"
+				+ mSelectedListItem);
 
 		switch (item.getItemId()) {
 
 		case F_MENU_OPENAS:
-			openaction();
+			openaction(file);
 			return true;
 
 		case D_MENU_BOOKMARK:
 		case F_MENU_BOOKMARK:
 			try {
-				File files = new File(mHandler.getCurrentDir() + "/"
-						+ mSelectedListItem);
-				String path = files.getAbsolutePath();
+				String path = file.getAbsolutePath();
 				@SuppressWarnings("deprecation")
 				Cursor query = managedQuery(Bookmarks.CONTENT_URI,
 						new String[] { Bookmarks._ID }, Bookmarks.PATH + "=?",
 						new String[] { path }, null);
 				if (!query.moveToFirst()) {
 					ContentValues values = new ContentValues();
-					values.put(Bookmarks.NAME, files.getName());
+					values.put(Bookmarks.NAME, file.getName());
 					values.put(Bookmarks.PATH, path);
 					getContentResolver().insert(Bookmarks.CONTENT_URI, values);
 					Toast.makeText(Main.this, R.string.bookmarkadded,
@@ -1199,8 +1190,8 @@ public final class Main extends ListActivity {
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 
-							new BackgroundWork(DELETE_TYPE).execute(mHandler
-									.getCurrentDir() + "/" + mSelectedListItem);
+							new BackgroundWork(DELETE_TYPE).execute(file
+									.getPath());
 						}
 					});
 			AlertDialog alert_d = builder.create();
@@ -1211,8 +1202,7 @@ public final class Main extends ListActivity {
 		case F_MENU_DETAILS:
 			// This will open a new Class wich shows Details of file/folder
 			Intent info = new Intent(Main.this, InfoDialog.class);
-			info.putExtra("FILE_NAME", mHandler.getCurrentDir() + "/"
-					+ mSelectedListItem);
+			info.putExtra("FILE_NAME", file.getPath());
 			Main.this.startActivity(info);
 			return true;
 
@@ -1236,8 +1226,7 @@ public final class Main extends ListActivity {
 							if (inputf.getText().length() < 1)
 								dialog.dismiss();
 
-							if (FileUtils.renameTarget(mHandler.getCurrentDir()
-									+ "/" + mSelectedListItem, newname) == 0) {
+							if (FileUtils.renameTarget(file.getPath(), newname) == 0) {
 								Toast.makeText(Main.this,
 										getString(R.string.filewasrenamed),
 										Toast.LENGTH_LONG).show();
@@ -1271,16 +1260,12 @@ public final class Main extends ListActivity {
 			return true;
 
 		case F_MENU_ATTACH:
-
-			File sharefile = new File(mHandler.getCurrentDir() + "/"
-					+ mSelectedListItem);
-
 			try {
 				Intent i = new Intent(Intent.ACTION_SEND);
 				i.setType("text/plain");
 				i.putExtra(Intent.EXTRA_SUBJECT, mSelectedListItem);
 				i.putExtra(Intent.EXTRA_BCC, "");
-				i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(sharefile));
+				i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 				startActivity(Intent
 						.createChooser(i, getString(R.string.share)));
 			} catch (Exception e) {
@@ -1296,7 +1281,7 @@ public final class Main extends ListActivity {
 			mHoldingFile = true;
 			mMenuItem.setVisible(true);
 
-			mCopiedTarget = mHandler.getCurrentDir() + "/" + mSelectedListItem;
+			mCopiedTarget = file.getPath();
 			return true;
 
 		case F_MENU_COPY:
@@ -1306,21 +1291,18 @@ public final class Main extends ListActivity {
 			mHoldingFile = true;
 			mMenuItem.setVisible(true);
 
-			mCopiedTarget = mHandler.getCurrentDir() + "/" + mSelectedListItem;
-
+			mCopiedTarget = file.getPath();
 			return true;
 
 		case D_MENU_PASTE:
 			boolean multi_select = mHandler.hasMultiSelectData();
 
 			if (multi_select) {
-				copyFileMultiSelect(mHandler.getCurrentDir() + "/"
-						+ mSelectedListItem);
+				copyFileMultiSelect(file.getPath());
 
 			} else if (mHoldingFile && mCopiedTarget.length() > 1) {
 
-				String[] data = { mCopiedTarget,
-						mHandler.getCurrentDir() + "/" + mSelectedListItem };
+				String[] data = { mCopiedTarget, file.getPath() };
 
 				new BackgroundWork(COPY_TYPE).execute(data);
 			}
@@ -1330,45 +1312,14 @@ public final class Main extends ListActivity {
 			return true;
 
 		case D_MENU_ZIP:
-			String zipPath = mHandler.getCurrentDir() + "/" + mSelectedListItem;
-
-			new BackgroundWork(ZIP_TYPE).execute(zipPath);
+			new BackgroundWork(ZIP_TYPE).execute(file.getPath());
 			return true;
+
 		case D_MENU_SHORTCUT:
-			String path = mHandler.getCurrentDir() + "/" + mSelectedListItem;
-			createShortcut(path, mSelectedListItem);
+			FileUtils.createShortcut(this, file.getPath(), mSelectedListItem);
 			return true;
 		}
 		return false;
-	}
-
-	private void createShortcut(String path, String name) {
-
-		try {
-			// Create the intent that will handle the shortcut
-			Intent shortcutIntent = new Intent(Main.this, Main.class);
-			shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-			shortcutIntent.putExtra(Main.EXTRA_SHORTCUT, path);
-
-			// The intent to send to broadcast for register the shortcut intent
-			Intent intent = new Intent();
-			intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-			intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
-			intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-					Intent.ShortcutIconResource.fromContext(Main.this,
-							R.drawable.ic_launcher));
-			intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
-			this.sendBroadcast(intent);
-
-			Toast.makeText(Main.this, getString(R.string.shortcutcreated),
-					Toast.LENGTH_SHORT).show();
-
-		} catch (Exception e) {
-			Toast.makeText(Main.this, getString(R.string.error),
-					Toast.LENGTH_SHORT).show();
-		}
 	}
 
 	private void displayFreeSpace() {
@@ -1474,6 +1425,15 @@ public final class Main extends ListActivity {
 				} catch (Exception e) {
 					Toast.makeText(Main.this, getString(R.string.choosefiles),
 							Toast.LENGTH_SHORT).show();
+				}
+				return true;
+			case R.id.actionall:
+				for (int i = 0; i < mHandler.mDataSource.size(); i++) {
+					File file = new File(mHandler.getCurrentDir() + "/"
+							+ mHandler.mDataSource.get(i));
+
+					// mTable.addMultiPosition(int, string);
+					mTable.addMultiPosition(i, file.getPath(), false);
 				}
 				return true;
 			default:
@@ -1710,7 +1670,7 @@ public final class Main extends ListActivity {
 	// multitar
 	private class BackgroundWork extends
 			AsyncTask<String, Void, ArrayList<String>> {
-		public ProgressDialog pr_dialog;
+		public ProgressDialog pr_dialog = null;
 		private String file_name;
 		private int type;
 		private int copy_rtn;
@@ -1727,22 +1687,27 @@ public final class Main extends ListActivity {
 			case SEARCH_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.search));
+				pr_dialog.setCanceledOnTouchOutside(true);
 				break;
 			case DELETE_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.deleting));
+				pr_dialog.setCancelable(true);
 				break;
 			case MULTIZIP_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.zipping));
+				pr_dialog.setCancelable(true);
 				break;
 			case UNZIP_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.unzipping));
+				pr_dialog.setCancelable(true);
 				break;
 			case ZIP_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.zipping));
+				pr_dialog.setCancelable(true);
 				break;
 			case COPY_TYPE:
 				if (delete_after_copy) {
@@ -1752,14 +1717,17 @@ public final class Main extends ListActivity {
 					pr_dialog = ProgressDialog.show(Main.this, "",
 							getString(R.string.copying));
 				}
+				pr_dialog.setCancelable(true);
 				break;
 			case UNTAR_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.untar));
+				pr_dialog.setCancelable(true);
 				break;
 			case MULTITAR_TYPE:
 				pr_dialog = ProgressDialog.show(Main.this, "",
 						getString(R.string.packing));
+				pr_dialog.setCancelable(true);
 				break;
 			}
 		}
@@ -1818,13 +1786,15 @@ public final class Main extends ListActivity {
 								params[0]);
 
 						if (delete_after_copy)
-							FileUtils.deleteTarget(params[i], dir1);
+							if (copy_rtn != -2)
+								FileUtils.deleteTarget(params[i], dir1);
 					}
 				} else {
 					copy_rtn = FileUtils.copyToDirectory(params[0], params[1]);
 
 					if (delete_after_copy)
-						FileUtils.deleteTarget(params[0], dir1);
+						if (copy_rtn != -2)
+							FileUtils.deleteTarget(params[0], dir1);
 				}
 				return null;
 			case UNTAR_TYPE:
@@ -1935,10 +1905,13 @@ public final class Main extends ListActivity {
 					mHandler.mMultiSelectData.clear();
 				}
 
-				if (delete_after_copy) {
+				if (copy_rtn == -2 & delete_after_copy)
+					Toast.makeText(Main.this, R.string.movefail,
+							Toast.LENGTH_SHORT).show();
+
+				else if (delete_after_copy)
 					Toast.makeText(Main.this, R.string.movesuccsess,
 							Toast.LENGTH_SHORT).show();
-				}
 
 				else if (copy_rtn == 0)
 					Toast.makeText(Main.this, R.string.copysuccsess,

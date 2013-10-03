@@ -1,4 +1,7 @@
 Changelog:
+v1.8.5	fixed moving file bug
+		improved opening files for bookmarks
+		multiselect all option
 v1.8.4 	fixed crash when default directory is "/"
 		fixed bug when you create a File
 		support multiwindow (tested on a galaxy s3)

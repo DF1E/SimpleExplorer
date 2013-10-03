@@ -61,6 +61,7 @@
     <string name="loading">Caricamento..</string>
     <string name="manage">Gestisci</string>
     <string name="move">Sposta</string>
+    <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">spostato con successo</string>
     <string name="moving">Spostamento</string>
     <string name="multioff">Selezione multipla disattivata</string>

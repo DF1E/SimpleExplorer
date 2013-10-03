@@ -1,8 +1,5 @@
 Bugs:
 
-- can't copy/move to directory which needs root
-- files and folders in /data or other directory's witch need root are not correctly shown
-- Search does not work at all
-- If you choose "Move" and immediately inserted into the same folder, the file is simply
-  deleted without warning that the file already exists. In this case, 
-  a message that is copied successfully, but it is not true
+- can't copy/move to directory which needs root (you can copy when name have no spaces for example helloworld)
+- files and folders in /data or other directorys witch need root are not correctly shown
+- Search does not work at all (only on SD Cards)

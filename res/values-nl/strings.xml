@@ -61,6 +61,7 @@
     <string name="loading">Bezig met laden</string>
     <string name="manage">Beheer</string>
     <string name="move">Verplaatsen</string>
+    <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">succesvol verplaatst</string>
     <string name="moving">Bezig met verplaatsen</string>
     <string name="multioff">Multiselectie uitgeschakeld</string>

@@ -61,6 +61,7 @@
     <string name="loading">Загрузка</string>
     <string name="manage">О приложении</string>
     <string name="move">Вырезать</string>
+    <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Перемещено успешно.</string>
     <string name="moving">Перемещение</string>
     <string name="multioff">Множественный выбор отключен.</string>

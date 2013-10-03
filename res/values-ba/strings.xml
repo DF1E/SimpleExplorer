@@ -61,6 +61,7 @@
     <string name="loading">U�itavanje..</string>
     <string name="manage">Upravljanje</string>
     <string name="move">Premjesti</string>
+    <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">premje�tanje uspje�no</string>
     <string name="moving">Premje�tanje</string>
     <string name="multioff">Vi�estruka selekcija uga�ena</string>

@@ -64,6 +64,7 @@
     <string name="loading">Yükleniyor..</string>
     <string name="manage">Yönet</string>
     <string name="move">Taşı</string>
+    <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Başarıyla taşındı</string>
     <string name="moving">Taşınıyor</string>
     <string name="multioff">Çokluseçim kapatıldı</string>

@@ -61,6 +61,7 @@
     <string name="loading">Ładowanie..</string>
     <string name="manage">Zarządzaj</string>
     <string name="move">Przenieś</string>
+    <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">przeniesiono pomyślnie</string>
     <string name="moving">Przenoszenie</string>
     <string name="multioff">Wielokrotny wybór wyłączony</string>

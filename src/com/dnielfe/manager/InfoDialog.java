@@ -85,6 +85,7 @@ public class InfoDialog extends Activity {
 
 		protected void onPreExecute() {
 			mNameLabel.setText(file3.getName());
+			mPathLabel.setText(file3.getAbsolutePath());
 		}
 
 		protected Long doInBackground(String... vals) {
@@ -115,7 +116,6 @@ public class InfoDialog extends Activity {
 		protected void onPostExecute(Long result) {
 			SimpleDateFormat sdf1 = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
-			mPathLabel.setText(file3.getAbsolutePath());
 			mTimeLabel.setText(sdf1.format(file3.lastModified()));
 			mSizeLabel.setText(mDisplaySize);
 			mPermissionLabel.setText(mPermissions);

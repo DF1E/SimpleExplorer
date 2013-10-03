@@ -58,6 +58,7 @@
     <string name="loading">Carregando..</string>
     <string name="manage">Gerenciar</string>
     <string name="move">Mover</string>
+    <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Movido com êxito</string>
     <string name="moving">Movendo</string>
     <string name="multioff">Multi Seleção desativado</string>

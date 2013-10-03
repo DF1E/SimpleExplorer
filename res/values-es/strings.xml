@@ -61,6 +61,7 @@
     <string name="loading">Cargando...</string>
     <string name="manage">Administrar</string>
     <string name="move">Mover</string>
+    <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Movida fue exitosa.</string>
     <string name="moving">Moviendo...</string>
     <string name="multioff">Multi seleccionar estar impedido.</string>

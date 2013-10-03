@@ -21,11 +21,14 @@ package com.dnielfe.manager;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
@@ -42,7 +45,9 @@ import com.dnielfe.utils.LinuxShell;
 import com.stericson.RootTools.RootTools;
 
 import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 public class FileUtils {
 
@@ -399,6 +404,35 @@ public class FileUtils {
 		}
 	}
 
+	public static void createShortcut(Main main, String path, String name) {
+
+		try {
+			// Create the intent that will handle the shortcut
+			Intent shortcutIntent = new Intent(main, Main.class);
+			shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+			shortcutIntent.putExtra(Main.EXTRA_SHORTCUT, path);
+
+			// The intent to send to broadcast for register the shortcut intent
+			Intent intent = new Intent();
+			intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+			intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
+			intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+					Intent.ShortcutIconResource.fromContext(main,
+							R.drawable.ic_launcher));
+			intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+			main.sendBroadcast(intent);
+
+			Toast.makeText(main, main.getString(R.string.shortcutcreated),
+					Toast.LENGTH_SHORT).show();
+
+		} catch (Exception e) {
+			Toast.makeText(main, main.getString(R.string.error),
+					Toast.LENGTH_SHORT).show();
+		}
+	}
+
 	// UnTar Files
 	static void unTar(final File inputFile, final File outputDir)
 			throws IOException {
@@ -467,12 +501,58 @@ public class FileUtils {
 		return;
 	}
 
+	// Check if system is mounted
+	private static boolean readReadWriteFile() {
+		File mountFile = new File("/proc/mounts");
+		StringBuilder procData = new StringBuilder();
+		if (mountFile.exists()) {
+			try {
+				FileInputStream fis = new FileInputStream(mountFile.toString());
+				DataInputStream dis = new DataInputStream(fis);
+				BufferedReader br = new BufferedReader(new InputStreamReader(
+						dis));
+				String data;
+				while ((data = br.readLine()) != null) {
+					procData.append(data + "\n");
+				}
+
+				br.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+			if (procData.toString() != null) {
+				String[] tmp = procData.toString().split("\n");
+				for (int x = 0; x < tmp.length; x++) {
+					// Kept simple here on purpose different devices have
+					// different blocks
+					if (tmp[x].contains("/dev/block")
+							&& tmp[x].contains("/system")) {
+						if (tmp[x].contains("rw")) {
+							// system is rw
+							return true;
+						} else if (tmp[x].contains("ro")) {
+							// system is ro
+							return false;
+						} else {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	// Move or Copy with Root Access using RootTools library
 	private static int moveCopyRoot(String old, String newDir) {
 
 		try {
 			if (LinuxShell.isRoot()) {
-				RootTools.remount(newDir, "rw");
+				if (!readReadWriteFile()) {
+					RootTools.remount(newDir, "rw");
+				}
+
 				RootTools.copyFile(old, newDir, true, true);
 				return 0;
 			} else {
@@ -491,7 +571,9 @@ public class FileUtils {
 			return -1;
 
 		try {
-			RootTools.remount(path, "rw");
+			if (!readReadWriteFile()) {
+				RootTools.remount(path, "rw");
+			}
 			LinuxShell.execute("mkdir " + dir.getAbsolutePath());
 			return 0;
 		} catch (Exception e) {
@@ -509,7 +591,9 @@ public class FileUtils {
 			return;
 
 		try {
-			RootTools.remount(cdir, "rw");
+			if (!readReadWriteFile()) {
+				RootTools.remount(cdir, "rw");
+			}
 			LinuxShell.execute("touch " + dir.getAbsolutePath());
 			return;
 		} catch (Exception e) {
@@ -530,7 +614,9 @@ public class FileUtils {
 			return -1;
 
 		try {
-			RootTools.remount(path, "rw");
+			if (!readReadWriteFile()) {
+				RootTools.remount(path, "rw");
+			}
 			LinuxShell.execute("mv " + file.getAbsolutePath() + " "
 					+ newf.getAbsolutePath());
 
@@ -544,7 +630,9 @@ public class FileUtils {
 	public static void DeleteFileRoot(String path, String dir) {
 
 		try {
-			RootTools.remount(path, "rw");
+			if (!readReadWriteFile()) {
+				RootTools.remount(path, "rw");
+			}
 			if (new File(path).isDirectory()) {
 				LinuxShell.execute("rm -f -r " + path);
 

@@ -71,7 +71,7 @@ public class EventHandler {
 	private int mSortType = SORT_TYPE;
 
 	public ArrayList<String> mMultiSelectData;
-	private ArrayList<String> mDataSource;
+	public ArrayList<String> mDataSource;
 	private Stack<String> mPathStack;
 	private ArrayList<String> mDirContent;
 
@@ -140,7 +140,7 @@ public class EventHandler {
 		viewmode = mode;
 	}
 
-	// Get Sort Type Int-number from Main
+	// Get Sort Type int-number from Main
 	public void setSortType(int type) {
 		mSortType = type;
 	}
@@ -321,7 +321,7 @@ public class EventHandler {
 			super(mContext, R.layout.item, mDataSource);
 		}
 
-		public void addMultiPosition(int index, String path) {
+		public void addMultiPosition(int index, String path, boolean remove) {
 			if (positions == null)
 				positions = new ArrayList<Integer>();
 
@@ -330,11 +330,14 @@ public class EventHandler {
 				add_multiSelect_file(path);
 
 			} else if (mMultiSelectData.contains(path)) {
-				if (positions.contains(index))
-					positions.remove(new Integer(index));
+				if (remove) {
+					if (positions.contains(index))
+						positions.remove(new Integer(index));
 
-				mMultiSelectData.remove(path);
+					mMultiSelectData.remove(path);
+				} else {
 
+				}
 			} else {
 				positions.add(index);
 				add_multiSelect_file(path);
@@ -715,7 +718,6 @@ public class EventHandler {
 			}
 
 		} else {
-			mDirContent = new ArrayList<String>();
 
 			try {
 				Process p = Runtime.getRuntime().exec(

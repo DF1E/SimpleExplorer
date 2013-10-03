@@ -148,7 +148,7 @@ public enum IconPreview {
 
 			mBitmap = ThumbnailUtils.createVideoThumbnail(
 					path.getAbsolutePath(),
-					MediaStore.Images.Thumbnails.MICRO_KIND);
+					MediaStore.Video.Thumbnails.MICRO_KIND);
 
 			cache.put(url, mBitmap);
 

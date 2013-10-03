@@ -61,6 +61,7 @@
     <string name="loading">Lade..</string>
     <string name="manage">Verwalten</string>
     <string name="move">Verschieben</string>
+    <string name="movefail">Verschieben fehlgeschlagen</string>
     <string name="movesuccsess">Verschieben erfolgreich</string>
     <string name="moving">Verschiebe</string>
     <string name="multioff">Mehrfachauswahl deaktiviert</string>
