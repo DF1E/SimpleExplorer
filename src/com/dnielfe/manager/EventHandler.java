@@ -28,8 +28,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Stack;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.dnielfe.utils.IconPreview;
+
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.content.Context;
@@ -92,6 +94,8 @@ public class EventHandler {
 
 		mDataSource = new ArrayList<String>(setHomeDir(Environment
 				.getExternalStorageDirectory().getPath()));
+
+		initializeDrawbale();
 	}
 
 	/**
@@ -112,6 +116,8 @@ public class EventHandler {
 		mPathStack.push(mPathStack.peek());
 
 		mDataSource = new ArrayList<String>(getNextDir(location, true));
+
+		initializeDrawbale();
 	}
 
 	/**
@@ -488,6 +494,49 @@ public class EventHandler {
 						mViewHolder.icon.setImageResource(R.drawable.movies);
 					}
 
+				} else if (sub_ext.equalsIgnoreCase("apk")) {
+					mViewHolder.icon.setImageResource(R.drawable.appicon);
+
+					if (thumbnail == true && file.length() != 0) {
+
+						new AsyncTask<String[], Long, Long>() {
+							Drawable icon;
+
+							@Override
+							protected void onPreExecute() {
+								icon = mContext.getResources().getDrawable(
+										R.drawable.bitmap);
+							}
+
+							@Override
+							protected Long doInBackground(String[]... params) {
+								icon = getDrawableFromCache(file.getPath());
+
+								if (icon != null) {
+									return null;
+								} else {
+									icon = getApkDrawable(file);
+								}
+
+								if (icon == null) {
+									icon = mContext.getResources().getDrawable(
+											R.drawable.appicon);
+								}
+
+								AppIconManager.cache.put(file.getPath(), icon);
+								return null;
+							}
+
+							@Override
+							protected void onPostExecute(Long result) {
+								mViewHolder.icon.setImageDrawable(icon);
+							}
+						}.execute();
+
+					} else {
+						mViewHolder.icon.setImageResource(R.drawable.appicon);
+					}
+
 				} else if (sub_ext.equalsIgnoreCase("zip")
 						|| sub_ext.equalsIgnoreCase("gzip")
 						|| sub_ext.equalsIgnoreCase("bzip2")
@@ -531,41 +580,6 @@ public class EventHandler {
 						|| sub_ext.equalsIgnoreCase("prop")) {
 					mViewHolder.icon.setImageResource(R.drawable.config);
 
-				} else if (sub_ext.equalsIgnoreCase("apk")) {
-					mViewHolder.icon.setImageResource(R.drawable.appicon);
-
-					if (thumbnail == true && file.length() != 0) {
-
-						new AsyncTask<String[], Long, Long>() {
-							Drawable icon;
-
-							@Override
-							protected void onPreExecute() {
-								icon = mContext.getResources().getDrawable(
-										R.drawable.bitmap);
-							}
-
-							@Override
-							protected Long doInBackground(String[]... params) {
-								icon = getApkDrawable(file);
-
-								if (icon == null) {
-									icon = mContext.getResources().getDrawable(
-											R.drawable.appicon);
-								}
-								return null;
-							}
-
-							@Override
-							protected void onPostExecute(Long result) {
-								mViewHolder.icon.setImageDrawable(icon);
-							}
-						}.execute();
-
-					} else {
-						mViewHolder.icon.setImageResource(R.drawable.appicon);
-					}
-
 				} else if (sub_ext.equalsIgnoreCase("jar")) {
 					mViewHolder.icon.setImageResource(R.drawable.jar32);
 
@@ -604,7 +618,7 @@ public class EventHandler {
 					mViewHolder.bottomView.setText(getDisplay_size());
 
 			} else {
-				// Shows the number of Files
+				// Shows the number of Files in Folder
 				String s = mContext.getString(R.string.files);
 				if (file.isHidden())
 					mViewHolder.bottomView.setText(num_items + s);
@@ -635,6 +649,21 @@ public class EventHandler {
 		public void setDisplay_size(String display_size) {
 			this.display_size = display_size;
 		}
+	}
+
+	private static class AppIconManager {
+		private static ConcurrentHashMap<String, Drawable> cache;
+	}
+
+	private void initializeDrawbale() {
+		AppIconManager.cache = new ConcurrentHashMap<String, Drawable>();
+	}
+
+	private Drawable getDrawableFromCache(String url) {
+		if (AppIconManager.cache.containsKey(url)) {
+			return AppIconManager.cache.get(url);
+		}
+		return null;
 	}
 
 	// Sort Comparator sort by alphabet
