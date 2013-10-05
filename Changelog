@@ -1,5 +1,6 @@
 Changelog:
 v1.8.5	fixed moving file bug
+		appicon caching
 		improved opening files for bookmarks
 		multi select/unselect all files option
 v1.8.4 	fixed crash when default directory is "/"

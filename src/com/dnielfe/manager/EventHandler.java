@@ -62,7 +62,7 @@ public class EventHandler {
 	private static final int SORT_TYPE = 1;
 	private static final int SORT_SIZE = 2;
 
-	final Context mContext;
+	private final Context mContext;
 	private static int fileCount = 0;
 	TableRow mDelegate;
 	boolean multi_select_flag = false;

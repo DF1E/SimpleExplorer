@@ -128,10 +128,12 @@ public final class Main extends ListActivity {
 			.getPath() + "/Simple Explorer";
 
 	private SharedPreferences mSettings;
-	private LinearLayout mDirectoryButtons;
 	private String display_size, defaultdir;
+
+	private LinearLayout mDirectoryButtons;
 	private MenuItem mMenuItem;
-	private ProgressBar statusBar;
+	private ProgressBar mSpaceBar;
+	private ViewFlipper mFlipper;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -340,28 +342,28 @@ public final class Main extends ListActivity {
 	}
 
 	private void nextflip() {
-		final ViewFlipper page = (ViewFlipper) findViewById(R.id.flipper);
+		mFlipper = (ViewFlipper) findViewById(R.id.flipper);
 		final Animation animFlipInForeward = AnimationUtils.loadAnimation(this,
 				R.anim.left_in);
 		final Animation animFlipOutForeward = AnimationUtils.loadAnimation(
 				this, R.anim.left_out);
 
-		page.setInAnimation(animFlipInForeward);
-		page.setOutAnimation(animFlipOutForeward);
-		page.showNext();
+		mFlipper.setInAnimation(animFlipInForeward);
+		mFlipper.setOutAnimation(animFlipOutForeward);
+		mFlipper.showNext();
 
 	}
 
 	private void backflip() {
-		final ViewFlipper page = (ViewFlipper) findViewById(R.id.flipper);
+		mFlipper = (ViewFlipper) findViewById(R.id.flipper);
 		final Animation animFlipInBackward = AnimationUtils.loadAnimation(this,
 				R.anim.right_in);
 		final Animation animFlipOutBackward = AnimationUtils.loadAnimation(
 				this, R.anim.right_out);
 
-		page.setInAnimation(animFlipInBackward);
-		page.setOutAnimation(animFlipOutBackward);
-		page.showNext();
+		mFlipper.setInAnimation(animFlipInBackward);
+		mFlipper.setOutAnimation(animFlipOutBackward);
+		mFlipper.showNext();
 
 	}
 
@@ -487,7 +489,6 @@ public final class Main extends ListActivity {
 			mTable.addMultiPosition(position, file.getPath(), true);
 
 		} else {
-
 			if (file.isDirectory()) {
 				if (file.canRead()) {
 					mHandler.updateDirectory(mHandler.getNextDir(item, false));
@@ -1323,12 +1324,12 @@ public final class Main extends ListActivity {
 	}
 
 	private void displayFreeSpace() {
-		statusBar = (ProgressBar) findViewById(R.id.progressBar);
+		mSpaceBar = (ProgressBar) findViewById(R.id.progressBar);
 		File dir1 = new File(mHandler.getCurrentDir());
 		int total;
 		int free;
 
-		if (statusBar == null)
+		if (mSpaceBar == null)
 			return;
 
 		if (!dir1.canRead())
@@ -1338,11 +1339,11 @@ public final class Main extends ListActivity {
 		free = ProgressbarClass.freeMemory(dir1);
 
 		if (free / total > 0.5) {
-			statusBar.setVisibility(View.GONE);
+			mSpaceBar.setVisibility(View.GONE);
 		} else {
-			statusBar.setVisibility(View.VISIBLE);
-			statusBar.setMax(total);
-			statusBar.setProgress(free);
+			mSpaceBar.setVisibility(View.VISIBLE);
+			mSpaceBar.setMax(total);
+			mSpaceBar.setProgress(free);
 		}
 	}
 
@@ -1470,8 +1471,7 @@ public final class Main extends ListActivity {
 		mail_int.putExtra(Intent.EXTRA_BCC, "");
 		mail_int.putExtra(Intent.EXTRA_SUBJECT, " ");
 		mail_int.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
-		mHandler.mContext.startActivity(Intent.createChooser(mail_int,
-				getString(R.string.share)));
+		startActivity(Intent.createChooser(mail_int, getString(R.string.share)));
 	}
 
 	private void multidelete() {
@@ -1541,13 +1541,23 @@ public final class Main extends ListActivity {
 	}
 
 	public void multicopy() {
+		if (mHandler.mMultiSelectData == null
+				|| mHandler.mMultiSelectData.isEmpty()) {
+			mTable.killMultiSelect(true, true);
+		}
 		delete_after_copy = false;
+		mTable.killMultiSelect(false, true);
 		mHandler.updateDirectory(mHandler.getNextDir(mHandler.getCurrentDir(),
 				true));
 	}
 
 	public void multimove() {
+		if (mHandler.mMultiSelectData == null
+				|| mHandler.mMultiSelectData.isEmpty()) {
+			mTable.killMultiSelect(true, true);
+		}
 		delete_after_copy = true;
+		mTable.killMultiSelect(false, true);
 		mHandler.updateDirectory(mHandler.getNextDir(mHandler.getCurrentDir(),
 				true));
 	}
@@ -1669,7 +1679,6 @@ public final class Main extends ListActivity {
 		// This will show a Dialog while Action is running in Background
 		@Override
 		protected void onPreExecute() {
-			mTable.killMultiSelect(true, true);
 
 			switch (type) {
 			case SEARCH_TYPE:
@@ -1852,39 +1861,16 @@ public final class Main extends ListActivity {
 				pr_dialog.dismiss();
 				break;
 			case DELETE_TYPE:
-				if (mHandler.mMultiSelectData != null
-						&& !mHandler.mMultiSelectData.isEmpty()) {
-					mHandler.mMultiSelectData.clear();
-					mHandler.multi_select_flag = false;
-				}
-
 				pr_dialog.dismiss();
-
-				try {
-					displayFreeSpace();
-				} catch (Exception e) {
-
-				}
-				mHandler.updateDirectory(mHandler.getNextDir(
-						mHandler.getCurrentDir(), true));
 				break;
 			case MULTIZIP_TYPE:
 				pr_dialog.dismiss();
-				displayFreeSpace();
-				mHandler.updateDirectory(mHandler.getNextDir(
-						mHandler.getCurrentDir(), true));
 				break;
 			case UNZIP_TYPE:
 				pr_dialog.dismiss();
-				displayFreeSpace();
-				mHandler.updateDirectory(mHandler.getNextDir(
-						mHandler.getCurrentDir(), true));
 				break;
 			case ZIP_TYPE:
 				pr_dialog.dismiss();
-				displayFreeSpace();
-				mHandler.updateDirectory(mHandler.getNextDir(
-						mHandler.getCurrentDir(), true));
 				break;
 			case COPY_TYPE:
 				if (mHandler.mMultiSelectData != null
@@ -1915,28 +1901,25 @@ public final class Main extends ListActivity {
 
 				delete_after_copy = false;
 				pr_dialog.dismiss();
-				mHandler.updateDirectory(mHandler.getNextDir(
-						mHandler.getCurrentDir(), true));
-
-				try {
-					displayFreeSpace();
-				} catch (Exception e) {
-
-				}
 				break;
 			case UNTAR_TYPE:
 				pr_dialog.dismiss();
-				displayFreeSpace();
-				mHandler.updateDirectory(mHandler.getNextDir(
-						mHandler.getCurrentDir(), true));
 				break;
 			case MULTITAR_TYPE:
 				pr_dialog.dismiss();
-				displayFreeSpace();
-				mHandler.updateDirectory(mHandler.getNextDir(
-						mHandler.getCurrentDir(), true));
 				break;
 			}
+
+			if (mHandler.mMultiSelectData != null
+					&& !mHandler.mMultiSelectData.isEmpty()) {
+				mTable.killMultiSelect(true, true);
+				mHandler.multi_select_flag = false;
+			}
+
+			mHandler.updateDirectory(mHandler.getNextDir(
+					mHandler.getCurrentDir(), true));
+
+			listView(false);
 		}
 	}
 
