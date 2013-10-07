@@ -309,10 +309,9 @@ public class EventHandler {
 	}
 
 	/**
-	 * A nested class to handle displaying a custom view in the ListView that is
+	 * A needed class to handle displaying a custom view in the ListView that is
 	 * used in the Main activity. If any icons are to be added, they must be
-	 * implemented in the getView method. This class is instantiated once in
-	 * Main and has no reason to be instantiated again.
+	 * implemented in the getView method.
 	 */
 
 	public class TableRow extends ArrayAdapter<String> {
@@ -352,15 +351,15 @@ public class EventHandler {
 		}
 
 		/**
-		 * This will turn off multi-select and hide the multi-select buttons at
-		 * the bottom of the view.
 		 * 
 		 * @param clearData
 		 *            if this is true any files/folders the user selected for
 		 *            multi-select will be cleared. If false, the data will be
-		 *            kept for later use. Note: multi-select copy and move will
-		 *            usually be the only one to pass false, so we can later
-		 *            paste it to another folder.
+		 *            kept for later use.
+		 * 
+		 * @param disable
+		 *            if this is true multiselect will be disabled
+		 * 
 		 */
 		public void killMultiSelect(boolean clearData, boolean disable) {
 			if (disable)
@@ -494,7 +493,6 @@ public class EventHandler {
 					}
 
 				} else if (sub_ext.equalsIgnoreCase("apk")) {
-					mViewHolder.icon.setImageResource(R.drawable.appicon);
 
 					if (thumbnail == true && file.length() != 0) {
 
@@ -599,22 +597,21 @@ public class EventHandler {
 			// Shows the size of File
 			if (file.isFile()) {
 				double size = file.length();
+				display_size = null;
+
 				if (size > GB)
-					setDisplay_size(String
-							.format("%.2f GB", (double) size / GB));
+					display_size = String.format("%.2f GB", (double) size / GB);
 				else if (size < GB && size > MG)
-					setDisplay_size(String
-							.format("%.2f MB", (double) size / MG));
+					display_size = String.format("%.2f MB", (double) size / MG);
 				else if (size < MG && size > KB)
-					setDisplay_size(String
-							.format("%.2f KB", (double) size / KB));
+					display_size = String.format("%.2f KB", (double) size / KB);
 				else
-					setDisplay_size(String.format("%.2f B", (double) size));
+					display_size = String.format("%.2f B", (double) size);
 
 				if (file.isHidden())
-					mViewHolder.bottomView.setText(getDisplay_size());
+					mViewHolder.bottomView.setText(display_size);
 				else
-					mViewHolder.bottomView.setText(getDisplay_size());
+					mViewHolder.bottomView.setText(display_size);
 
 			} else {
 				// Shows the number of Files in Folder
@@ -639,14 +636,6 @@ public class EventHandler {
 				mMultiSelectData = new ArrayList<String>();
 
 			mMultiSelectData.add(src);
-		}
-
-		public String getDisplay_size() {
-			return display_size;
-		}
-
-		public void setDisplay_size(String display_size) {
-			this.display_size = display_size;
 		}
 	}
 
@@ -770,7 +759,7 @@ public class EventHandler {
 			}
 		}
 
-		sortType(mDirContent);
+		sortType(mDirContent, file.getPath());
 
 		return mDirContent;
 	}
@@ -798,7 +787,7 @@ public class EventHandler {
 	}
 
 	@SuppressWarnings("unchecked")
-	private ArrayList<String> sortType(ArrayList<String> content) {
+	private ArrayList<String> sortType(ArrayList<String> content, String current) {
 		// Set SortType
 		switch (mSortType) {
 
@@ -816,13 +805,12 @@ public class EventHandler {
 		case SORT_SIZE:
 			int index = 0;
 			Object[] size_ar = content.toArray();
-			String dir = mPathStack.peek();
 
 			Arrays.sort(size_ar, size);
 
 			content.clear();
 			for (Object a : size_ar) {
-				if (new File(dir + "/" + (String) a).isDirectory())
+				if (new File(current + "/" + (String) a).isDirectory())
 					content.add(index++, (String) a);
 				else
 					content.add((String) a);
@@ -832,7 +820,6 @@ public class EventHandler {
 		case SORT_TYPE:
 			int dirindex = 0;
 			Object[] type_ar = content.toArray();
-			String current = mPathStack.peek();
 
 			Arrays.sort(type_ar, type);
 			content.clear();

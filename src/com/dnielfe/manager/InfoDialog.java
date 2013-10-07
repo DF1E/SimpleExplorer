@@ -74,7 +74,7 @@ public class InfoDialog extends Activity {
 		new BackgroundWork().execute(infopath);
 	}
 
-	private class BackgroundWork extends AsyncTask<String, Void, Long> {
+	private class BackgroundWork extends AsyncTask<String, Void, String> {
 		final int KB = 1024;
 		final int MG = KB * KB;
 		final int GB = MG * KB;
@@ -88,12 +88,14 @@ public class InfoDialog extends Activity {
 			mPathLabel.setText(file3.getAbsolutePath());
 		}
 
-		protected Long doInBackground(String... vals) {
+		protected String doInBackground(String... vals) {
 
 			mPermissions = getFilePermissions(file3);
 
-			if (!file3.canRead())
+			if (!file3.canRead()) {
 				mDisplaySize = "---";
+				return mDisplaySize;
+			}
 
 			if (file3.isFile()) {
 				size = file3.length();
@@ -110,14 +112,14 @@ public class InfoDialog extends Activity {
 			else
 				mDisplaySize = String.format("%.2f B", (double) size);
 
-			return size;
+			return mDisplaySize;
 		}
 
-		protected void onPostExecute(Long result) {
+		protected void onPostExecute(String result) {
 			SimpleDateFormat sdf1 = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
 			mTimeLabel.setText(sdf1.format(file3.lastModified()));
-			mSizeLabel.setText(mDisplaySize);
+			mSizeLabel.setText(result);
 			mPermissionLabel.setText(mPermissions);
 		}
 	}
