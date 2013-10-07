@@ -14,7 +14,7 @@
     <string name="bookmark">Marcadores</string>
     <string name="bookmarkadded">Marcador agregado.</string>
     <string name="bookmarkexist">Marcador ya existe!</string>
-    <string name="calcinfo">Calculando información...</string>
+    <string name="calcinfo">Calculando información</string>
     <string name="cancel">Cancelar</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Esto no se puede desechar!"</string>
     <string name="cantreadfolder">No so puede leer la carpeta debido a permisos.</string>
@@ -22,7 +22,7 @@
     <string name="copiedtoclipboard">Copiado al portapapeles</string>
     <string name="copy">Copiar</string>
     <string name="copyfail">Copia fracaso!</string>
-    <string name="copying">Copiando...</string>
+    <string name="copying">Copiando</string>
     <string name="copysuccsess">Copia fue exitosa.</string>
     <string name="create">Crear</string>
     <string name="createbookmark">Crear marcador</string>
@@ -34,7 +34,7 @@
     <string name="deleteapps">Borrar Apps</string>
     <string name="deleteappsmsg">Aplicaciónes guardadas serán borrada de la tarjeta SD!</string>
     <string name="deletesearchsuggestions">Borrar sugerencias</string>
-    <string name="deleting">Borrando...</string>
+    <string name="deleting">Borrando</string>
     <string name="desc">Descendente</string>
     <string name="detailed">Detallado</string>
     <string name="details">Detalles</string>
@@ -58,12 +58,12 @@
     <string name="itcouldntbefound">No pudo ser localizado.</string>
     <string name="LastModified">Último modificado:</string>
     <string name="launch">Lanzar</string>
-    <string name="loading">Cargando...</string>
+    <string name="loading">Cargando</string>
     <string name="manage">Administrar</string>
     <string name="move">Mover</string>
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Movida fue exitosa.</string>
-    <string name="moving">Moviendo...</string>
+    <string name="moving">Moviendo</string>
     <string name="multioff">Multi seleccionar estar impedido.</string>
     <string name="multis">Multi seleccionar</string>
     <string name="multizip">Zip</string>
@@ -112,13 +112,13 @@
     <string name="uninstallapp">Desinstalar aplicación</string>
     <string name="unselectall">Deseleccionar todo</string>
     <string name="untar">Extractar archivos de Tar</string>
-    <string name="unzipping">Extractando...</string>
+    <string name="unzipping">Extractando</string>
     <string name="used">Usado:</string>
     <string name="version">"Versión "</string>
     <string name="video">Vídeo</string>
     <string name="viewmode">Modo de ver</string>
     <string name="xdaforum">Foro de XDA</string>
     <string name="zipfolder">Comprimir carpeta</string>
-    <string name="zipping">Comprimiendo...</string>
+    <string name="zipping">Comprimiendo</string>
 
 </resources>

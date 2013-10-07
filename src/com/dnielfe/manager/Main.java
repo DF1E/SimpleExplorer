@@ -128,7 +128,7 @@ public final class Main extends ListActivity {
 			.getPath() + "/Simple Explorer";
 
 	private SharedPreferences mSettings;
-	private String display_size, defaultdir;
+	private String defaultdir;
 
 	private LinearLayout mDirectoryButtons;
 	private MenuItem mMenuItem;
@@ -142,26 +142,15 @@ public final class Main extends ListActivity {
 
 		checkEnvironment();
 
-		// read settings
-		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
-		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, true);
-		String value = mSettings.getString("sort", "1");
-		String viewmode = mSettings.getString("viewmode", "1");
-
-		int sort = Integer.parseInt(value);
-		int viewm = Integer.parseInt(viewmode);
-
 		if (savedInstanceState != null)
 			mHandler = new EventHandler(Main.this,
 					savedInstanceState.getString("location"));
 		else
 			mHandler = new EventHandler(Main.this);
 
-		mHandler.setShowHiddenFiles(hidden);
-		mHandler.setSortType(sort);
-		mHandler.setViewMode(viewm);
-		mHandler.setShowThumbnails(thumb);
+		// read settings
+		loadPreferences();
+
 		mTable = mHandler.new TableRow();
 
 		// ActionBar Settings
@@ -222,19 +211,7 @@ public final class Main extends ListActivity {
 	protected void onResume() {
 		super.onResume();
 
-		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
-		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, true);
-		String value = mSettings.getString("sort", "1");
-		String viewmode = mSettings.getString("viewmode", "1");
-
-		int sort = Integer.parseInt(value);
-		int viewm = Integer.parseInt(viewmode);
-
-		mHandler.setShowHiddenFiles(hidden);
-		mHandler.setSortType(sort);
-		mHandler.setViewMode(viewm);
-		mHandler.setShowThumbnails(thumb);
+		loadPreferences();
 
 		// refresh
 		mHandler.opendir(mHandler.getCurrentDir());
@@ -258,6 +235,23 @@ public final class Main extends ListActivity {
 		ret.setData(Uri.fromFile(data));
 		setResult(RESULT_OK, ret);
 		finish();
+	}
+
+	// loading shared preferences
+	private void loadPreferences() {
+		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
+		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, true);
+		String value = mSettings.getString("sort", "1");
+		String viewmode = mSettings.getString("viewmode", "1");
+
+		int sort = Integer.parseInt(value);
+		int viewm = Integer.parseInt(viewmode);
+
+		mHandler.setShowHiddenFiles(hidden);
+		mHandler.setSortType(sort);
+		mHandler.setViewMode(viewm);
+		mHandler.setShowThumbnails(thumb);
 	}
 
 	// check if SDcard is avaible
@@ -351,7 +345,6 @@ public final class Main extends ListActivity {
 		mFlipper.setInAnimation(animFlipInForeward);
 		mFlipper.setOutAnimation(animFlipOutForeward);
 		mFlipper.showNext();
-
 	}
 
 	private void backflip() {
@@ -364,11 +357,10 @@ public final class Main extends ListActivity {
 		mFlipper.setInAnimation(animFlipInBackward);
 		mFlipper.setOutAnimation(animFlipOutBackward);
 		mFlipper.showNext();
-
 	}
 
 	// get ListView options
-	public void listView(boolean toTop) {
+	private void listView(boolean toTop) {
 		ListView listview = this.getListView();
 
 		if (toTop) {
@@ -387,17 +379,15 @@ public final class Main extends ListActivity {
 		}
 	}
 
-	private File currentDirectory() {
-		return new File(mHandler.getCurrentDir());
-	}
-
-	public void setDirectoryButtons() {
+	// set directory buttons showing path
+	private void setDirectoryButtons() {
+		File currentDirectory = new File(mHandler.getCurrentDir());
 
 		HorizontalScrollView scrolltext = (HorizontalScrollView) findViewById(R.id.scroll_text);
 		mDirectoryButtons = (LinearLayout) findViewById(R.id.directory_buttons);
 		mDirectoryButtons.removeAllViews();
 
-		String[] parts = currentDirectory().getAbsolutePath().split("/");
+		String[] parts = currentDirectory.getAbsolutePath().split("/");
 
 		int WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT;
 		int MATCH_PARENT = FrameLayout.LayoutParams.MATCH_PARENT;
@@ -1347,14 +1337,6 @@ public final class Main extends ListActivity {
 		}
 	}
 
-	public void setDisplay_size(String display_size) {
-		this.display_size = display_size;
-	}
-
-	public String getDisplay_size() {
-		return display_size;
-	}
-
 	// this will start when multiButton is clicked
 	public ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
@@ -1377,57 +1359,34 @@ public final class Main extends ListActivity {
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			switch (item.getItemId()) {
+
 			case R.id.actiondelete:
-				try {
-					multidelete();
-					mode.finish();
-				} catch (Exception e) {
-					Toast.makeText(Main.this, getString(R.string.choosefiles),
-							Toast.LENGTH_SHORT).show();
-					mode.finish();
-				}
+				multidelete();
+				mode.finish();
 				return true;
+
 			case R.id.actionshare:
-				try {
-					multishare();
-					mode.finish();
-				} catch (Exception e) {
-					Toast.makeText(Main.this, getString(R.string.choosefiles),
-							Toast.LENGTH_SHORT).show();
-					mode.finish();
-				}
+				multishare();
+				mode.finish();
 				return true;
+
 			case R.id.actioncopy:
-				try {
-					multicopy();
-					mMenuItem.setVisible(true);
-					mode.finish();
-				} catch (Exception e) {
-					Toast.makeText(Main.this, getString(R.string.choosefiles),
-							Toast.LENGTH_SHORT).show();
-					mode.finish();
-				}
+				multicopy();
+				mMenuItem.setVisible(true);
+				mode.finish();
 				return true;
+
 			case R.id.actionmove:
-				try {
-					multimove();
-					mMenuItem.setVisible(true);
-					mode.finish();
-				} catch (Exception e) {
-					Toast.makeText(Main.this, getString(R.string.choosefiles),
-							Toast.LENGTH_SHORT).show();
-					mode.finish();
-				}
+				multimove();
+				mMenuItem.setVisible(true);
+				mode.finish();
 				return true;
+
 			case R.id.actionzip:
-				try {
-					multizipfiles();
-					mode.finish();
-				} catch (Exception e) {
-					Toast.makeText(Main.this, getString(R.string.choosefiles),
-							Toast.LENGTH_SHORT).show();
-				}
+				multizipfiles();
+				mode.finish();
 				return true;
+
 			case R.id.actionall:
 				for (int i = 0; i < mHandler.mDataSource.size(); i++) {
 					File file = new File(mHandler.getCurrentDir() + "/"
@@ -1437,8 +1396,8 @@ public final class Main extends ListActivity {
 					mTable.addMultiPosition(i, file.getPath(), false);
 				}
 				return true;
-			case R.id.actionrmall:
 
+			case R.id.actionrmall:
 				mTable.killMultiSelect(true, false);
 				return true;
 			default:

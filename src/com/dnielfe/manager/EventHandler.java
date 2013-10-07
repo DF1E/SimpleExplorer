@@ -75,7 +75,6 @@ public class EventHandler {
 	public ArrayList<String> mMultiSelectData;
 	public ArrayList<String> mDataSource;
 	private Stack<String> mPathStack;
-	private ArrayList<String> mDirContent;
 
 	/**
 	 * Creates an EventHandler object. This object is used to communicate most
@@ -725,7 +724,7 @@ public class EventHandler {
 
 	private ArrayList<String> populate_list() {
 
-		mDirContent = new ArrayList<String>();
+		ArrayList<String> mDirContent = new ArrayList<String>();
 
 		if (!mDirContent.isEmpty())
 			mDirContent.clear();

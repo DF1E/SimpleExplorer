@@ -42,7 +42,7 @@
     <string name="enablesearchsuggestions">Хранить историю поиска</string>
     <string name="error">Ошибка</string>
     <string name="extract">Распаковать</string>
-    <string name="extractto">Распаковать в...</string>
+    <string name="extractto">Распаковать в</string>
     <string name="fdirectory">Расположение:</string>
     <string name="file">Файл</string>
     <string name="filecreated">Файл создан.</string>
@@ -77,7 +77,7 @@
     <string name="Numberoffolders">Содержит папок:</string>
     <string name="of">" из "</string>
     <string name="ok">OK</string>
-    <string name="openas">Открыть как...</string>
+    <string name="openas">Открыть как</string>
     <string name="options">Действия</string>
     <string name="packing">Упаковка</string>
     <string name="paste">Вставить</string>

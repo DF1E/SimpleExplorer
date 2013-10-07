@@ -122,7 +122,7 @@ public class InfoDialog extends Activity {
 		}
 	}
 
-	public static String getFilePermissions(File file) {
+	private static String getFilePermissions(File file) {
 		String per = "";
 
 		per += file.isDirectory() ? "d" : "-";
