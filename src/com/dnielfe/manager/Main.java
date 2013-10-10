@@ -142,11 +142,7 @@ public final class Main extends ListActivity {
 
 		checkEnvironment();
 
-		if (savedInstanceState != null)
-			mHandler = new EventHandler(Main.this,
-					savedInstanceState.getString("location"));
-		else
-			mHandler = new EventHandler(Main.this);
+		mHandler = new EventHandler(Main.this);
 
 		// read settings
 		loadPreferences();
@@ -197,6 +193,10 @@ public final class Main extends ListActivity {
 		} catch (Exception e) {
 			defaultdir = mSettings.getString("defaultdir", Environment
 					.getExternalStorageDirectory().getPath());
+		}
+
+		if (savedInstanceState != null) {
+			defaultdir = savedInstanceState.getString("location");
 		}
 
 		File dir = new File(defaultdir);

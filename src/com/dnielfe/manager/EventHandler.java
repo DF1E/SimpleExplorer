@@ -33,7 +33,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.dnielfe.utils.IconPreview;
 
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -64,7 +63,7 @@ public class EventHandler {
 
 	private final Context mContext;
 	private static int fileCount = 0;
-	TableRow mDelegate;
+	TableRow mTable;
 	boolean multi_select_flag = false;
 
 	private boolean thumbnail = true;
@@ -87,34 +86,7 @@ public class EventHandler {
 		mContext = context;
 
 		mPathStack = new Stack<String>();
-
-		mPathStack.push("/");
-		mPathStack.push(mPathStack.peek());
-
-		mDataSource = new ArrayList<String>(setHomeDir(Environment
-				.getExternalStorageDirectory().getPath()));
-
-		initializeDrawbale();
-	}
-
-	/**
-	 * This constructor is called if the user has changed the screen orientation
-	 * and does not want the directory to be reset to home.
-	 * 
-	 * @param context
-	 *            The context of the main activity e.g Main
-	 * @param location
-	 *            The first directory to display to the user
-	 */
-	public EventHandler(Context context, String location) {
-		mContext = context;
-
-		mPathStack = new Stack<String>();
-
-		mPathStack.push("/");
-		mPathStack.push(mPathStack.peek());
-
-		mDataSource = new ArrayList<String>(getNextDir(location, true));
+		mDataSource = new ArrayList<String>();
 
 		initializeDrawbale();
 	}
@@ -128,7 +100,7 @@ public class EventHandler {
 	 *            The TableRow object
 	 */
 	public void setListAdapter(TableRow adapter) {
-		mDelegate = adapter;
+		mTable = adapter;
 	}
 
 	/**
@@ -207,13 +179,13 @@ public class EventHandler {
 		for (String data : content)
 			mDataSource.add(data);
 
-		mDelegate.notifyDataSetChanged();
+		mTable.notifyDataSetChanged();
 	}
 
 	// Choose Directory Option
 	public void opendir(String path) {
 		if (multi_select_flag) {
-			mDelegate.killMultiSelect(true, true);
+			mTable.killMultiSelect(true, true);
 			Toast.makeText(mContext, R.string.multioff, Toast.LENGTH_SHORT)
 					.show();
 		}
@@ -224,7 +196,7 @@ public class EventHandler {
 	// multi-select
 	public void multiselect() {
 		if (multi_select_flag) {
-			mDelegate.killMultiSelect(true, true);
+			mTable.killMultiSelect(true, true);
 
 		} else {
 			multi_select_flag = true;
