@@ -1,4 +1,6 @@
 Changelog:
+v1.8.5	fixed rotation bug
+		updated Russian language
 v1.8.5	fixed moving file bug
 		appicon caching
 		improved opening files for bookmarks

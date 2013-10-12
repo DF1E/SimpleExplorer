@@ -169,34 +169,33 @@ public final class Main extends ListActivity {
 		// register context menu for our ListView
 		registerForContextMenu(getListView());
 
-		Intent intent3 = getIntent();
-		SearchIntent(intent3);
-
-		Intent intent = getIntent();
-
-		// If other Apps want to choose a File you do it with this action
-		if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)) {
-			mReturnIntent = true;
-
-		} else if (intent.getAction().equals(ACTION_WIDGET)) {
-			mHandler.updateDirectory(mHandler.getNextDir(intent.getExtras()
-					.getString("folder"), true));
-		}
-
-		try {
-			String shortcut = getIntent().getStringExtra(EXTRA_SHORTCUT);
-			File dir = new File(shortcut);
-
-			if (dir.exists() && dir.isDirectory())
-				defaultdir = shortcut;
-
-		} catch (Exception e) {
-			defaultdir = mSettings.getString("defaultdir", Environment
-					.getExternalStorageDirectory().getPath());
-		}
+		SearchIntent(getIntent());
 
 		if (savedInstanceState != null) {
+			// get directory when you rotate your phone
 			defaultdir = savedInstanceState.getString("location");
+		} else {
+			// If other Apps want to choose a file you do it with this action
+			if (getIntent().getAction().equals(Intent.ACTION_GET_CONTENT)) {
+				mReturnIntent = true;
+
+			} else if (getIntent().getAction().equals(ACTION_WIDGET)) {
+				mHandler.updateDirectory(mHandler.getNextDir(getIntent()
+						.getExtras().getString("folder"), true));
+			}
+
+			try {
+				String shortcut = getIntent().getStringExtra(EXTRA_SHORTCUT);
+				File dir = new File(shortcut);
+
+				if (dir.exists() && dir.isDirectory())
+					defaultdir = shortcut;
+
+			} catch (Exception e) {
+				// get default directory from preferences
+				defaultdir = mSettings.getString("defaultdir", Environment
+						.getExternalStorageDirectory().getPath());
+			}
 		}
 
 		File dir = new File(defaultdir);

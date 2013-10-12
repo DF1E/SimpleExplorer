@@ -14,7 +14,6 @@
         android:longClickable="true"
         android:paddingLeft="3dp"
         android:paddingRight="3dp"
-        android:scrollbarStyle="outsideOverlay"
         android:smoothScrollbar="true" />
 
 </LinearLayout>
