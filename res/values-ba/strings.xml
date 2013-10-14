@@ -39,6 +39,8 @@
     <string name="detailed">Detaljno</string>
     <string name="details">Detalji</string>
     <string name="dir_info">Informacije Foldera</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
     <string name="enablesearchsuggestions">Prijedlozi potrage</string>
     <string name="error">Gre�ka</string>
     <string name="extract">Ekstrahiranje</string>
@@ -54,6 +56,7 @@
     <string name="foundfiles">Prona�en</string>
     <string name="freespace">Slobodan prostor:</string>
     <string name="hiddenfiles">Skriveni Fajlovi</string>
+    <string name="home">Home</string>
     <string name="image">Slika</string>
     <string name="itcouldntbefound">Nije prona�eno</string>
     <string name="LastModified">Zadnji put modificirano:</string>
@@ -64,7 +67,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">premje�tanje uspje�no</string>
     <string name="moving">Premje�tanje</string>
-    <string name="multioff">Vi�estruka selekcija uga�ena</string>
     <string name="multis">Vi�estruka selekcija</string>
     <string name="multizip">Zip</string>
     <string name="music">Muzika</string>
@@ -111,7 +113,6 @@
     <string name="uisettings">Postavke pregleda</string>
     <string name="uninstallapp">Deinstaliraj Aplikaciju</string>
     <string name="unselectall">Isklju�i sve</string>
-    <string name="untar">Raspakiraj Tar fajl</string>
     <string name="unzipping">Raspakiranje</string>
     <string name="used">Iskori�teno:</string>
     <string name="version">"Verzija "</string>

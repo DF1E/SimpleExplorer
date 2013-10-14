@@ -1,107 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/flipper"
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_text"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:orientation="vertical" >
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="top" >
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/open"
-            android:fillViewport="true"
-            android:indeterminateBehavior="repeat" />
-
-        <HorizontalScrollView
-            android:id="@+id/scroll_text"
+        <LinearLayout
+            android:id="@+id/directory_buttons"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/open"
-            android:fillViewport="true"
-            android:scrollbars="none" >
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="top" >
-
-                <LinearLayout
-                    android:id="@+id/directory_buttons"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:longClickable="true"
-                    android:orientation="horizontal" >
-                </LinearLayout>
-            </FrameLayout>
-        </HorizontalScrollView>
-
-        <ImageButton
-            android:id="@+id/open"
-            android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/buttonopen"
-            android:contentDescription="@null"
-            android:onClick="onButtonClick" />
-    </RelativeLayout>
+            android:gravity="top"
+            android:longClickable="true"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:orientation="horizontal" >
-
-        <ImageButton
-            android:id="@+id/appmanager"
-            style="?android:attr/actionButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/desc"
-            android:onClick="onButtonClick"
-            android:src="@drawable/save" />
-
-        <ImageButton
-            android:id="@+id/folderinfo"
-            style="?android:attr/actionButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/desc"
-            android:onClick="onButtonClick"
-            android:src="@drawable/info1" />
-
-        <ImageButton
-            android:id="@+id/settings"
-            style="?android:attr/actionButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/desc"
-            android:onClick="onButtonClick"
-            android:src="@drawable/settings" />
-
-        <ImageButton
-            android:id="@+id/close"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/buttonclose"
-            android:contentDescription="@null"
-            android:onClick="onButtonClick" />
-    </LinearLayout>
-
-</ViewFlipper>
+</HorizontalScrollView>

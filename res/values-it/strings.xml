@@ -39,6 +39,8 @@
     <string name="detailed">Dettagliata</string>
     <string name="details">Dettagli</string>
     <string name="dir_info">Informazioni Cartella</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
     <string name="enablesearchsuggestions">Suggerimenti Ricerca</string>
     <string name="error">Errore</string>
     <string name="extract">Estrai</string>
@@ -54,6 +56,7 @@
     <string name="foundfiles">Trovato</string>
     <string name="freespace">Spazio libero:</string>
     <string name="hiddenfiles">File Nascosti</string>
+    <string name="home">Home</string>
     <string name="image">Immagine</string>
     <string name="itcouldntbefound">Non è stato possibile trovare niente</string>
     <string name="LastModified">Ultima Modifica:</string>
@@ -64,7 +67,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">spostato con successo</string>
     <string name="moving">Spostamento</string>
-    <string name="multioff">Selezione multipla disattivata</string>
     <string name="multis">Selezione multipla</string>
     <string name="multizip">Comprimi</string>
     <string name="music">Musica</string>
@@ -111,7 +113,6 @@
     <string name="uisettings">Impostazioni Vista</string>
     <string name="uninstallapp">Disinstalla App</string>
     <string name="unselectall">Deseleziona Tutto</string>
-    <string name="untar">Scomprimi file Tar</string>
     <string name="unzipping">Scomprimendo</string>
     <string name="used">Usati:</string>
     <string name="version">"Versione "</string>

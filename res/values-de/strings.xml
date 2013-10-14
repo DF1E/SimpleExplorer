@@ -39,6 +39,8 @@
     <string name="detailed">Detaillierte Liste</string>
     <string name="details">Details</string>
     <string name="dir_info">Ordner Informationen</string>
+    <string name="drawer_open">Drawer öffnen</string>
+    <string name="drawer_close">Drawer schließen</string>
     <string name="enablesearchsuggestions">Suchvorschläge</string>
     <string name="error">Error</string>
     <string name="extract">Extrahieren</string>
@@ -54,6 +56,7 @@
     <string name="foundfiles">Gefunden</string>
     <string name="freespace">Freier Speicher:</string>
     <string name="hiddenfiles">Versteckte Dateien</string>
+    <string name="home">Start</string>
     <string name="image">Bild</string>
     <string name="itcouldntbefound">Die Sucheingabe konnte nicht gefunden werden</string>
     <string name="LastModified">Zuletzt Geändert:</string>
@@ -64,7 +67,6 @@
     <string name="movefail">Verschieben fehlgeschlagen</string>
     <string name="movesuccsess">Verschieben erfolgreich</string>
     <string name="moving">Verschiebe</string>
-    <string name="multioff">Mehrfachauswahl deaktiviert</string>
     <string name="multis">Mehrfach-Auswahl</string>
     <string name="multizip">Verpacken</string>
     <string name="music">Musik</string>
@@ -80,7 +82,7 @@
     <string name="openas">Öffnen als</string>
     <string name="options">Optionen</string>
     <string name="packing">Verpacken</string>
-    <string name="paste">Kopieren</string>
+    <string name="paste">Einfügen</string>
     <string name="pasteintofolder">In Ordner kopieren/ verschieben</string>
     <string name="permissions">Berechtigungen:</string>
     <string name="playstore">Playstore</string>
@@ -111,7 +113,6 @@
     <string name="uisettings">Oberfläche</string>
     <string name="uninstallapp">Deinstallieren</string>
     <string name="unselectall">Alle abwählen</string>
-    <string name="untar">Tar Datei entpacken</string>
     <string name="unzipping">Entpacken</string>
     <string name="used">Verwendet:</string>
     <string name="version">"Version "</string>

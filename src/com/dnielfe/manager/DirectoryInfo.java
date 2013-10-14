@@ -22,6 +22,8 @@ package com.dnielfe.manager;
 import java.io.File;
 import java.text.SimpleDateFormat;
 
+import com.dnielfe.manager.FileUtils.ProgressbarClass;
+
 import android.os.Bundle;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -32,6 +34,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class DirectoryInfo extends Activity {
@@ -41,6 +45,7 @@ public class DirectoryInfo extends Activity {
 	private String mPathName;
 	private TextView mNameLabel, mPathLabel, mDirLabel, mFileLabel, mTimeLabel,
 			mUsedLabel, mAvaibleLabel, mFreeLabel;
+	private ProgressBar mSpaceBar;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -71,6 +76,7 @@ public class DirectoryInfo extends Activity {
 		mUsedLabel = (TextView) findViewById(R.id.permission1);
 		mFreeLabel = (TextView) findViewById(R.id.freespace);
 		mAvaibleLabel = (TextView) findViewById(R.id.avaible_size);
+		mSpaceBar = (ProgressBar) findViewById(R.id.progressBar);
 
 		new BackgroundWork().execute(mPathName);
 	}
@@ -104,6 +110,13 @@ public class DirectoryInfo extends Activity {
 			File dir = new File(vals[0]);
 			long size = 0;
 			int len = 0;
+
+			try {
+				// try to display free space in progresBar
+				displayFreeSpace();
+			} catch (Exception e) {
+
+			}
 
 			File[] list = dir.listFiles();
 			if (list != null)
@@ -182,6 +195,26 @@ public class DirectoryInfo extends Activity {
 			}
 
 			dialog.cancel();
+		}
+	}
+
+	private void displayFreeSpace() {
+		mSpaceBar = (ProgressBar) findViewById(R.id.progressBar);
+		File dir1 = new File(mPathName);
+		int total;
+		int free;
+
+		if (mSpaceBar == null) {
+			mSpaceBar.setVisibility(View.GONE);
+		} else if (!dir1.canRead()) {
+			mSpaceBar.setVisibility(View.GONE);
+		} else {
+			total = ProgressbarClass.totalMemory(dir1);
+			free = ProgressbarClass.freeMemory(dir1);
+
+			mSpaceBar.setVisibility(View.VISIBLE);
+			mSpaceBar.setMax(total);
+			mSpaceBar.setProgress(free);
 		}
 	}
 

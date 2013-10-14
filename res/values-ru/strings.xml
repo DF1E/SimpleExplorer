@@ -39,6 +39,8 @@
     <string name="detailed">Подробный</string>
     <string name="details">Свойства</string>
     <string name="dir_info">Свойства папки</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
     <string name="enablesearchsuggestions">Хранить историю поиска</string>
     <string name="error">Ошибка</string>
     <string name="extract">Распаковать</string>
@@ -54,6 +56,7 @@
     <string name="foundfiles">Найдено</string>
     <string name="freespace">Свободно:</string>
     <string name="hiddenfiles">Скрытые файлы</string>
+    <string name="home">Home</string>
     <string name="image">Изображение</string>
     <string name="itcouldntbefound">Ничего не найдено!</string>
     <string name="LastModified">Изменён:</string>
@@ -64,7 +67,6 @@
     <string name="movefail">Перемещение не удалось!</string>
     <string name="movesuccsess">Перемещено успешно.</string>
     <string name="moving">Перемещение</string>
-    <string name="multioff">Множественный выбор отключен.</string>
     <string name="multis">Множественный выбор</string>
     <string name="multizip">Сжать в архив...</string>
     <string name="music">Аудио</string>
@@ -111,7 +113,6 @@
     <string name="uisettings">Отображение</string>
     <string name="uninstallapp">Удалить приложение</string>
     <string name="unselectall">Отменить выбор</string>
-    <string name="untar">Распаковка TAR-архива</string>
     <string name="unzipping">Распаковка ZIP-архива</string>
     <string name="used">Занято:</string>
     <string name="version">"Версия "</string>

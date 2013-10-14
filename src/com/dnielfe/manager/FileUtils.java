@@ -29,17 +29,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
-
-import org.apache.commons.compress.archivers.ArchiveStreamFactory;
-import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
-import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
-import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
-import org.apache.commons.compress.utils.IOUtils;
 
 import com.dnielfe.utils.LinuxShell;
 import com.stericson.RootTools.RootTools;
@@ -431,74 +424,6 @@ public class FileUtils {
 			Toast.makeText(main, main.getString(R.string.error),
 					Toast.LENGTH_SHORT).show();
 		}
-	}
-
-	// UnTar Files
-	static void unTar(final File inputFile, final File outputDir)
-			throws IOException {
-
-		FileInputStream fin = new FileInputStream(inputFile);
-		BufferedInputStream in = new BufferedInputStream(fin);
-		TarArchiveInputStream tarIn = new TarArchiveInputStream(in);
-		TarArchiveEntry entry1 = null;
-
-		/** Read the tar entries using the getNextEntry method **/
-		while ((entry1 = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
-
-			/** If the entry is a directory, create the directory. **/
-			if (entry1.isDirectory()) {
-				File f = new File(entry1.getName());
-				f.mkdirs();
-			}
-			/**
-			 * 
-			 * If the entry is a file,write the decompressed file to the disk
-			 * 
-			 * and close destination stream.
-			 **/
-			else {
-				int count;
-				byte data[] = new byte[BUFFER];
-
-				FileOutputStream fos = new FileOutputStream(outputDir + "/"
-						+ entry1.getName());
-				BufferedOutputStream dest = new BufferedOutputStream(fos,
-						BUFFER);
-
-				while ((count = tarIn.read(data, 0, BUFFER)) != -1) {
-					dest.write(data, 0, count);
-				}
-				dest.close();
-			}
-		}
-
-		/** Close the input stream **/
-		tarIn.close();
-	}
-
-	// filePaths = multi-selected Files
-	// dir = path + name
-	static void tarFiles(final String[] filePaths, final String dir)
-			throws Exception {
-
-		File tarFile = new File(dir);
-		OutputStream out = new FileOutputStream(tarFile);
-
-		TarArchiveOutputStream aos = (TarArchiveOutputStream) new ArchiveStreamFactory()
-				.createArchiveOutputStream("tar", out);
-
-		for (String filePath : filePaths) {
-			File file = new File(filePath);
-			TarArchiveEntry entry = new TarArchiveEntry(file);
-			entry.setSize(file.length());
-			aos.putArchiveEntry(entry);
-			IOUtils.copy(new FileInputStream(file), aos);
-			aos.closeArchiveEntry();
-		}
-		aos.finish();
-		aos.close();
-		out.close();
-		return;
 	}
 
 	// Check if system is mounted

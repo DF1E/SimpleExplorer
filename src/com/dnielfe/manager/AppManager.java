@@ -96,6 +96,7 @@ public class AppManager extends ListActivity {
 	private static final int BUFFER = 2048;
 	private static ArrayList<ApplicationInfo> multiSelectData = null;
 
+	private ActionBar actionBar;
 	private MenuItem mMenuItem;
 
 	// Our handler object that will update the GUI from our background thread.
@@ -131,11 +132,12 @@ public class AppManager extends ListActivity {
 		mPackMag = getPackageManager();
 		registerForContextMenu(getListView());
 
+		actionBar = getActionBar();
+
 		new AsyncTask<String[], Long, Long>() {
 
 			@Override
 			protected void onPreExecute() {
-				ActionBar actionBar = getActionBar();
 				actionBar.setSubtitle(getString(R.string.loading));
 				actionBar.show();
 				getOverflowMenu();
@@ -173,18 +175,16 @@ public class AppManager extends ListActivity {
 			}
 		}.execute();
 
-		ActionBar actionBar = getActionBar();
 		actionBar.show();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	public void updateactionbar() {
-		ActionBar actionBar = getActionBar();
 		actionBar.setSubtitle(mAppList.size() + getString(R.string.apps));
 		actionBar.show();
 	}
 
-	// with this you get the 3 dot menu button
+	// get the 3 dot menu button
 	private void getOverflowMenu() {
 
 		try {
@@ -321,6 +321,7 @@ public class AppManager extends ListActivity {
 		mAppList.clear();
 		get_downloaded_apps();
 		setListAdapter(new TableView());
+		updateactionbar();
 	}
 
 	public void onClick(View view) {

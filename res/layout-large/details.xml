@@ -8,161 +8,154 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp"
-        android:paddingBottom="6dp"
-        android:paddingTop="6dp" >
+        android:padding="5dp" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="4dp"
-            android:paddingTop="4dp" >
+            android:layout_gravity="left"
+            android:padding="2dp"
+            android:text="@string/fname"
+            android:textColor="@color/gray"
+            android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:minWidth="160dp"
-                android:text="@string/fname"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/name_label"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:ellipsize="end"
-                android:gravity="left"
-                android:maxLines="1"
-                android:textColor="?android:attr/textColorPrimaryDisableOnly"
-                android:textIsSelectable="false"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/name_label"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="4dp"
-            android:paddingTop="4dp" >
-
-            <TextView
-                android:id="@+id/path"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:minWidth="160dp"
-                android:text="@string/fdirectory"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/path_label"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:ellipsize="end"
-                android:gravity="left"
-                android:maxLines="1"
-                android:textIsSelectable="false"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="4dp"
-            android:paddingTop="4dp" >
-
-            <TextView
-                android:id="@+id/third_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:gravity="left"
-                android:minWidth="160dp"
-                android:text="@string/LastModified"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/time_stamp"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:ellipsize="end"
-                android:gravity="left"
-                android:maxLines="1"
-                android:textIsSelectable="false"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="4dp"
-            android:paddingTop="4dp" >
-
-            <TextView
-                android:id="@+id/fourth_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:gravity="left"
-                android:minWidth="160dp"
-                android:text="@string/size"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/total_size"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:ellipsize="end"
-                android:gravity="left"
-                android:maxLines="1"
-                android:textIsSelectable="false"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="4dp"
-            android:paddingTop="4dp" >
-
-            <TextView
-                android:id="@+id/perm_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:gravity="left"
-                android:minWidth="160dp"
-                android:text="@string/permissions"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/permission1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:ellipsize="end"
-                android:gravity="left"
-                android:maxLines="1"
-                android:textIsSelectable="false"
-                android:textSize="18sp" />
-        </LinearLayout>
+            android:layout_gravity="right|center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="2dp"
+            android:textColor="?android:attr/textColorPrimaryDisableOnly"
+            android:textIsSelectable="false"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0.1dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:padding="2dp"
+            android:text="@string/fdirectory"
+            android:textColor="@color/gray"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/path_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:ellipsize="end"
+            android:paddingLeft="2dp"
+            android:singleLine="true"
+            android:textIsSelectable="false"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/third_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:gravity="left"
+            android:padding="2dp"
+            android:text="@string/LastModified"
+            android:textColor="@color/gray"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/time_stamp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="2dp"
+            android:textIsSelectable="false"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/fourth_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:gravity="left"
+            android:padding="2dp"
+            android:text="@string/size"
+            android:textColor="@color/gray"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/total_size"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="2dp"
+            android:textIsSelectable="false"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/perm_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:gravity="left"
+            android:padding="2dp"
+            android:text="@string/permissions"
+            android:textColor="@color/gray"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/permission1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="2dp"
+            android:textIsSelectable="false"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
         android:background="@color/gray" />
 
     <Button
@@ -170,7 +163,6 @@
         style="?android:attr/actionButtonStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ok"
-        android:textSize="18sp" />
+        android:text="@string/ok" />
 
 </LinearLayout>

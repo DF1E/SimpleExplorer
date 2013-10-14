@@ -39,6 +39,8 @@
     <string name="detailed">Gedetailleerd</string>
     <string name="details">Details</string>
     <string name="dir_info">Map Informatie</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
     <string name="enablesearchsuggestions">Zoek Suggesties</string>
     <string name="error">Fout</string>
     <string name="extract">Uitpakken</string>
@@ -54,6 +56,7 @@
     <string name="foundfiles">Gevonden</string>
     <string name="freespace">Vrije Ruimte:</string>
     <string name="hiddenfiles">Verborgen bestanden</string>
+    <string name="home">Home</string>
     <string name="image">Afbeelding</string>
     <string name="itcouldntbefound">Kon niet gevonden worden</string>
     <string name="LastModified">Laatst Gewijzigd:</string>
@@ -64,7 +67,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">succesvol verplaatst</string>
     <string name="moving">Bezig met verplaatsen</string>
-    <string name="multioff">Multiselectie uitgeschakeld</string>
     <string name="multis">Multiselectie</string>
     <string name="multizip">Zip</string>
     <string name="music">Muziek</string>
@@ -111,7 +113,6 @@
     <string name="uisettings">Bekijk Instellingen</string>
     <string name="uninstallapp">Verwijder App</string>
     <string name="unselectall">Deselecteer Alles</string>
-    <string name="untar">Uitpakken Tar bestand</string>
     <string name="unzipping">Uitpakken</string>
     <string name="used">Gebruikt:</string>
     <string name="version">"Versie "</string>

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/myMain"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="80dp"
     android:descendantFocusability="blocksDescendants"
     android:padding="4dp" >
 
@@ -12,8 +12,7 @@
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/desc"
-        android:padding="2dp" />
+        android:contentDescription="@string/desc" />
 
     <com.dnielfe.utils.CheckBoxActivity
         android:id="@+id/select_icon"
@@ -25,13 +24,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/select_icon"
         android:layout_toRightOf="@id/icon"
         android:background="@null"
         android:orientation="vertical"
-        android:paddingLeft="4dp" >
+        android:paddingLeft="6dp" >
 
         <TextView
             android:id="@+id/app_name"

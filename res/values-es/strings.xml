@@ -39,6 +39,8 @@
     <string name="detailed">Detallado</string>
     <string name="details">Detalles</string>
     <string name="dir_info">Información de carpeta</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
     <string name="enablesearchsuggestions">Sugerencias de búsqueda</string>
     <string name="error">Error</string>
     <string name="extract">Extraer</string>
@@ -54,6 +56,7 @@
     <string name="foundfiles">Localizado</string>
     <string name="freespace">Espacio libre:</string>
     <string name="hiddenfiles">Archivos ocultados</string>
+    <string name="home">Home</string>
     <string name="image">Imagen</string>
     <string name="itcouldntbefound">No pudo ser localizado.</string>
     <string name="LastModified">Último modificado:</string>
@@ -64,7 +67,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Movida fue exitosa.</string>
     <string name="moving">Moviendo</string>
-    <string name="multioff">Multi seleccionar estar impedido.</string>
     <string name="multis">Multi seleccionar</string>
     <string name="multizip">Zip</string>
     <string name="music">Música</string>
@@ -111,7 +113,6 @@
     <string name="uisettings">Ver ajustes</string>
     <string name="uninstallapp">Desinstalar aplicación</string>
     <string name="unselectall">Deseleccionar todo</string>
-    <string name="untar">Extractar archivos de Tar</string>
     <string name="unzipping">Extractando</string>
     <string name="used">Usado:</string>
     <string name="version">"Versión "</string>

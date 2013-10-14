@@ -2,7 +2,7 @@
 <resources>
 
     <color name="gray">#aaa</color>
-    <color name="HoloBlue">#33B5E5</color>
+    <color name="light">#F0F0F0</color>
     <color name="transparent">#000000FF</color>
 
 </resources>

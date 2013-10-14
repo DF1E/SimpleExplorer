@@ -39,6 +39,8 @@
     <string name="detailed">Szczegółowy</string>
     <string name="details">Szczegóły</string>
     <string name="dir_info">Informacje o katalogu</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
     <string name="enablesearchsuggestions">Sugestie wyszukiwania</string>
     <string name="error">Błąd</string>
     <string name="extract">Wypakuj</string>
@@ -54,6 +56,7 @@
     <string name="foundfiles">Wyszukaj pliki</string>
     <string name="freespace">Dostępna przestrzeń:</string>
     <string name="hiddenfiles">Ukryte pliki</string>
+    <string name="home">Home</string>
     <string name="image">Obraz</string>
     <string name="itcouldntbefound">Nie zostało znalezione</string>
     <string name="LastModified">Ostatnia modyfikacja:</string>
@@ -64,7 +67,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">przeniesiono pomyślnie</string>
     <string name="moving">Przenoszenie</string>
-    <string name="multioff">Wielokrotny wybór wyłączony</string>
     <string name="multis">Wielokrotny wybór</string>
     <string name="multizip">Spakuj</string>
     <string name="music">Muzyka</string>
@@ -111,7 +113,6 @@
     <string name="uisettings">Otwórz ustawienia</string>
     <string name="uninstallapp">Odinstaluj aplikację</string>
     <string name="unselectall">Usuń zaznacznie</string>
-    <string name="untar">Wypakuj plik .tar</string>
     <string name="unzipping">Wypakowywanie</string>
     <string name="used">Zajmowana przestrzeń:</string>
     <string name="version">"Wersja "</string>

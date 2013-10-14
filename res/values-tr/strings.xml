@@ -39,6 +39,8 @@
     <string name="detailed">Ayrıntılı</string>
     <string name="details">Ayrıntılar</string>
     <string name="dir_info">Klasör Bilgisi</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
     <string name="enablesearchsuggestions">Arama Önerileri</string>
     <string name="error">Hata</string>
     <string name="extract">Çıkart</string>
@@ -54,6 +56,7 @@
     <string name="foundfiles">Bulundu</string>
     <string name="freespace">Boş Alan:</string>
     <string name="hiddenfiles">Gizli Dosyalar</string>
+    <string name="home">Home</string>
     <string name="image">Resim</string>
     <string name="itcouldntbefound">Bulunamadı</string>
     <string name="LastModified">Son değişiklik:</string>
@@ -64,7 +67,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Başarıyla taşındı</string>
     <string name="moving">Taşınıyor</string>
-    <string name="multioff">Çokluseçim kapatıldı</string>
     <string name="multis">Çokluseçim</string>
     <string name="multizip">Zip</string>
     <string name="music">Müzik</string>
@@ -111,7 +113,6 @@
     <string name="uisettings">Ayarları göster</string>
     <string name="uninstallapp">Uygulamayı kaldır</string>
     <string name="unselectall">Hiçbirini seçme</string>
-    <string name="untar">Tar dosyasını aç</string>
     <string name="unzipping">Açılıyor</string>
     <string name="used">Kullanılan:</string>
     <string name="version">"Sürüm "</string>

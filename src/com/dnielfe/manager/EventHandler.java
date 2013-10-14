@@ -46,7 +46,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * This class is responsible for handling the information that is displayed from
@@ -180,17 +179,6 @@ public class EventHandler {
 			mDataSource.add(data);
 
 		mTable.notifyDataSetChanged();
-	}
-
-	// Choose Directory Option
-	public void opendir(String path) {
-		if (multi_select_flag) {
-			mTable.killMultiSelect(true, true);
-			Toast.makeText(mContext, R.string.multioff, Toast.LENGTH_SHORT)
-					.show();
-		}
-
-		updateDirectory(setHomeDir(path));
 	}
 
 	// multi-select
