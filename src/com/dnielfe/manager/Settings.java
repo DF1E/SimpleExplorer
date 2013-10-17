@@ -26,6 +26,7 @@ import com.dnielfe.utils.Bookmarks;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -101,7 +102,7 @@ public class Settings extends PreferenceActivity {
 		switch (id) {
 		case DIALOG_DELETE_BOOKMARKS:
 			deleteBookmarksCursor = getBookmarksCursor();
-			AlertDialog dialog = new AlertDialog.Builder(this)
+			Builder dialog = new AlertDialog.Builder(this)
 					.setTitle(R.string.bookmark)
 					.setMultiChoiceItems(deleteBookmarksCursor,
 							Bookmarks.CHECKED, Bookmarks.NAME,
@@ -158,10 +159,10 @@ public class Settings extends PreferenceActivity {
 										int item) {
 									restartBookmarksChecked();
 								}
-							}).create();
-			return dialog;
+							});
+			return dialog.create();
 		}
-		return super.onCreateDialog(id);
+		return null;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -174,10 +175,10 @@ public class Settings extends PreferenceActivity {
 		bookmarksToDelete.clear();
 	}
 
-	@SuppressWarnings("deprecation")
 	private Cursor getBookmarksCursor() {
-		return managedQuery(Bookmarks.CONTENT_URI, new String[] {
-				Bookmarks._ID, Bookmarks.NAME, Bookmarks.PATH,
-				Bookmarks.CHECKED }, null, null, null);
+		return getContentResolver().query(
+				Bookmarks.CONTENT_URI,
+				new String[] { Bookmarks._ID, Bookmarks.NAME, Bookmarks.PATH,
+						Bookmarks.CHECKED }, null, null, null);
 	}
 }

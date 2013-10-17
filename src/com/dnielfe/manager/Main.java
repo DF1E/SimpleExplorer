@@ -108,6 +108,11 @@ public final class Main extends ListActivity {
 	private static final int ZIP_TYPE = 34;
 	private static final int COPY_TYPE = 35;
 
+	private static final int directorytextsize = 16;
+	private static final String searchdirectory = "/storage/";
+	private static final String appdir = Environment
+			.getExternalStorageDirectory().getPath() + "/Simple Explorer";
+
 	private static EventHandler mHandler;
 	private static EventHandler.TableRow mTable;
 
@@ -116,21 +121,15 @@ public final class Main extends ListActivity {
 	private boolean mUseBackKey = true;
 	private boolean delete_after_copy = false;
 
-	private int directorytextsize = 16;
-
 	public ActionMode mActionMode;
 
 	private static String mCopiedTarget;
 	private static String mSelectedListItem;
 	private static String[] multidata;
 	private static String[] drawerTitles;
-	private static String searchdirectory = "/storage/";
-	private static String appdir = Environment.getExternalStorageDirectory()
-			.getPath() + "/Simple Explorer";
 
 	private SharedPreferences mSettings;
 	private String defaultdir;
-
 	private View actionView;
 	private LinearLayout mDirectoryButtons, mDrawer;
 	private MenuItem mMenuItemPaste;
@@ -267,20 +266,18 @@ public final class Main extends ListActivity {
 
 				switch (position) {
 				case 0:
-					mHandler.updateDirectory(mHandler.setHomeDir(defaultdir));
-					listView(true);
-					mDrawerLayout.closeDrawer(mDrawer);
-					break;
-				case 1:
+					// FolderInfo
 					Intent info = new Intent(Main.this, DirectoryInfo.class);
 					info.putExtra("PATH_NAME", mHandler.getCurrentDir());
 					Main.this.startActivity(info);
 					break;
-				case 2:
+				case 1:
+					// AppManager
 					Intent intent1 = new Intent(Main.this, AppManager.class);
 					startActivity(intent1);
 					break;
-				case 3:
+				case 2:
+					// Preferences
 					Intent intent2 = new Intent(Main.this, Settings.class);
 					startActivity(intent2);
 					break;
@@ -837,11 +834,11 @@ public final class Main extends ListActivity {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	private Cursor getBookmarks() {
-		return managedQuery(Bookmarks.CONTENT_URI, new String[] {
-				Bookmarks._ID, Bookmarks.NAME, Bookmarks.PATH, }, null, null,
-				null);
+		return getContentResolver()
+				.query(Bookmarks.CONTENT_URI,
+						new String[] { Bookmarks._ID, Bookmarks.NAME,
+								Bookmarks.PATH, }, null, null, null);
 	}
 
 	private void openaction(final File file) {
@@ -1014,10 +1011,9 @@ public final class Main extends ListActivity {
 		case F_MENU_BOOKMARK:
 			try {
 				String path = file.getAbsolutePath();
-				@SuppressWarnings("deprecation")
-				Cursor query = managedQuery(Bookmarks.CONTENT_URI,
-						new String[] { Bookmarks._ID }, Bookmarks.PATH + "=?",
-						new String[] { path }, null);
+				Cursor query = getContentResolver().query(
+						Bookmarks.CONTENT_URI, new String[] { Bookmarks._ID },
+						Bookmarks.PATH + "=?", new String[] { path }, null);
 				if (!query.moveToFirst()) {
 					ContentValues values = new ContentValues();
 					values.put(Bookmarks.NAME, file.getName());

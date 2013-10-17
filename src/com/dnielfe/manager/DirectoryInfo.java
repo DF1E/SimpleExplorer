@@ -183,11 +183,14 @@ public class DirectoryInfo extends Activity {
 			mTimeLabel.setText(sdf1.format(dir.lastModified()));
 			mUsedLabel.setText(mDisplaySize);
 
-			if (dir.getAbsolutePath().equals("/")
-					|| dir.getAbsolutePath().equals("/storage")) {
+			if (dir.getAbsolutePath().equals("/")) {
+				mNameLabel.setText("/");
 				mFreeLabel.setText("---");
 				mAvaibleLabel.setText("---");
-				mNameLabel.setText("/");
+			} else if (!dir.canRead() || !dir.canWrite()) {
+				mNameLabel.setText(mFreeSpace);
+				mFreeLabel.setText("---");
+				mAvaibleLabel.setText("---");
 			} else {
 				mFreeLabel.setText(mFreeSpace);
 				mAvaibleLabel.setText(avaible);

@@ -73,7 +73,7 @@ public class AppManager extends ListActivity {
 	private static final String STAR_STATES = "mylist:star_states";
 	private boolean[] mStarStates = null;
 
-	private static String BACKUP_LOC = Environment
+	private static final String BACKUP_LOC = Environment
 			.getExternalStorageDirectory().getPath() + "/Simple Explorer/Apps/";
 
 	private static ArrayList<ApplicationInfo> mAppList = null;

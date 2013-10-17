@@ -1,9 +1,9 @@
 Changelog:
-v1.9	ui changes (+ added navigation drawer)
-		fixed rotation bug
-		minor fixes
+v1.9	fixed rotation bug
+		added navigation drawer and other ui changes
 		removed tar option because of many bugs
 		updated Russian language
+		minor fixes
 		maybe forgot something
 v1.8.5	fixed moving file bug
 		appicon caching
