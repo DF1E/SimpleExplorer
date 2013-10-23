@@ -188,13 +188,13 @@ public class DirectoryInfo extends Activity {
 				mFreeLabel.setText("---");
 				mAvaibleLabel.setText("---");
 			} else if (!dir.canRead() || !dir.canWrite()) {
-				mNameLabel.setText(mFreeSpace);
+				mNameLabel.setText(dir.getName());
 				mFreeLabel.setText("---");
 				mAvaibleLabel.setText("---");
 			} else {
+				mNameLabel.setText(dir.getName());
 				mFreeLabel.setText(mFreeSpace);
 				mAvaibleLabel.setText(avaible);
-				mNameLabel.setText(dir.getName());
 			}
 
 			dialog.cancel();
