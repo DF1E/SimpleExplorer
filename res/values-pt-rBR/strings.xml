@@ -33,7 +33,6 @@
     <string name="delete">Deletar</string>
     <string name="deleteapps">Deletar Apps</string>
     <string name="deleteappsmsg">Apps salvos serão excluídos do Cartão SD!</string>
-    <string name="deletesearchsuggestions">Excluir Sugestões</string>
     <string name="deleting">Deletando</string>
     <string name="desc">desc</string>
     <string name="detailed">Detalhado</string>
@@ -41,7 +40,6 @@
     <string name="dir_info">Informação da Pasta</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="enablesearchsuggestions">Sugestões de Pesquisa</string>
     <string name="error">Erro</string>
     <string name="extract">Extract</string>
     <string name="extractto">Extract to</string>
@@ -89,7 +87,6 @@
     <string name="rename">Renomear</string>
     <string name="sdcardnotfound">Não foi possível encontrar o cartão SD!</string>
     <string name="search">Pesquisar</string>
-    <string name="searchprefs">Preferências de pesquisa</string>
     <string name="searchtext">Pesquisar</string>
     <string name="selectall">Selecionar Todos</string>
     <string name="settings">Configuração</string>
@@ -105,7 +102,6 @@
     <string name="sorrycouldntfindahtmlviewver">Desculpe, não consegui encontrar um visualizador de HTML</string>
     <string name="sorrycouldntfindapdfviewver">Desculpe, não consegui encontrar um visualizador de PDF</string>
     <string name="sort">Tipo</string>
-    <string name="suggestionscleared">Sugestões de pesquisa apuradas</string>
     <string name="text">Texto</string>
     <string name="toopen">"para abrir"</string>
     <string name="type">Tipo</string>

@@ -33,7 +33,6 @@
     <string name="delete">Verwijderen</string>
     <string name="deleteapps">Verwijder Apps</string>
     <string name="deleteappsmsg">De op de SD kaart opgeslagen apps zullen verwijderd worden!</string>
-    <string name="deletesearchsuggestions">Verwijder Suggesties</string>
     <string name="deleting">Bezig met verwijderen</string>
     <string name="desc">desc</string>
     <string name="detailed">Gedetailleerd</string>
@@ -41,7 +40,6 @@
     <string name="dir_info">Map Informatie</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="enablesearchsuggestions">Zoek Suggesties</string>
     <string name="error">Fout</string>
     <string name="extract">Uitpakken</string>
     <string name="extractto">Uitpakken naar</string>
@@ -89,7 +87,6 @@
     <string name="rename">Hernoem</string>
     <string name="sdcardnotfound">Kon SD kaart niet vinden!</string>
     <string name="search">Zoeken</string>
-    <string name="searchprefs">Zoek Voorkeuren</string>
     <string name="searchtext">Zoeken</string>
     <string name="selectall">Selecteer Alles</string>
     <string name="settings">Instellingen</string>
@@ -105,7 +102,6 @@
     <string name="sorrycouldntfindahtmlviewver">Sorry kon geen app vinden voor het bekijken HTML bestanden</string>
     <string name="sorrycouldntfindapdfviewver">Sorry kon geen app vinden voor het bekijken van PDF bestanden</string>
     <string name="sort">Sorteer</string>
-    <string name="suggestionscleared">Zoek suggesties verwijderd</string>
     <string name="text">Tekst</string>
     <string name="toopen">" om te openen "</string>
     <string name="type">Type</string>

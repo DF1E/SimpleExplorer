@@ -32,10 +32,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class InfoDialog extends Activity {
+
+	private static File file3;
 	private String infopath;
 	private TextView mNameLabel, mPathLabel, mTimeLabel, mSizeLabel,
 			mPermissionLabel;
-	private File file3;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,17 +81,15 @@ public class InfoDialog extends Activity {
 		final int GB = MG * KB;
 		long size = 0;
 		private String mDisplaySize;
-		private String mPermissions;
 		FileUtils flmg = new FileUtils();
 
 		protected void onPreExecute() {
 			mNameLabel.setText(file3.getName());
 			mPathLabel.setText(file3.getAbsolutePath());
+			mPermissionLabel.setText(getFilePermissions(file3));
 		}
 
 		protected String doInBackground(String... vals) {
-
-			mPermissions = getFilePermissions(file3);
 
 			if (!file3.canRead()) {
 				mDisplaySize = "---";
@@ -120,7 +119,6 @@ public class InfoDialog extends Activity {
 
 			mTimeLabel.setText(sdf1.format(file3.lastModified()));
 			mSizeLabel.setText(result);
-			mPermissionLabel.setText(mPermissions);
 		}
 	}
 

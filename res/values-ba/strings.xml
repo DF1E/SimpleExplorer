@@ -33,7 +33,6 @@
     <string name="delete">Izbri�i</string>
     <string name="deleteapps">Izbri�i aplikacije</string>
     <string name="deleteappsmsg">Pohranjene aplikacije �e biti izbrisane sa SD Kartice!</string>
-    <string name="deletesearchsuggestions">Izbri�i prijedloge</string>
     <string name="deleting">Brisanje</string>
     <string name="desc">desc</string>
     <string name="detailed">Detaljno</string>
@@ -41,7 +40,6 @@
     <string name="dir_info">Informacije Foldera</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="enablesearchsuggestions">Prijedlozi potrage</string>
     <string name="error">Gre�ka</string>
     <string name="extract">Ekstrahiranje</string>
     <string name="extractto">Ekstrahiraj u</string>
@@ -89,7 +87,6 @@
     <string name="rename">Preimenuj</string>
     <string name="sdcardnotfound">SD Kartica nije prona�ena!</string>
     <string name="search">Tra�i</string>
-    <string name="searchprefs">Postavke Pretra�ivanja</string>
     <string name="searchtext">Tra�i</string>
     <string name="selectall">Ozna�i Sve</string>
     <string name="settings">Postavke</string>
@@ -105,7 +102,6 @@
     <string name="sorrycouldntfindahtmlviewver">�ao mi, nije prona�en HTML �ita�</string>
     <string name="sorrycouldntfindapdfviewver">�ao mi, nije prona�en PDF �ita�</string>
     <string name="sort">Sortirati</string>
-    <string name="suggestionscleared">Prijedlozi pretrage o�i��eni</string>
     <string name="text">Tekst</string>
     <string name="toopen">" za otvaranje "</string>
     <string name="type">Tip</string>

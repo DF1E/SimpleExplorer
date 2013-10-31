@@ -1,4 +1,8 @@
 Changelog:
+v1.9.1	fixed bugs
+		small ui changes
+		removed search suggestions - never used it
+		search in current directory
 v1.9	fixed rotation bug
 		added navigation drawer and other ui changes
 		removed tar option because of many bugs

@@ -7,7 +7,7 @@
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -75,10 +75,6 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:name="com.dnielfe.utils.SearchSuggestions"
-            android:authorities="com.dnielfe.manager"
-            android:exported="false" />
         <provider
             android:name="com.dnielfe.utils.Bookmarks"
             android:authorities="com.dnielfe.manager.bookmarks"

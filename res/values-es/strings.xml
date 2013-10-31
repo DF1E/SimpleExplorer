@@ -33,7 +33,6 @@
     <string name="delete">Borrar</string>
     <string name="deleteapps">Borrar Apps</string>
     <string name="deleteappsmsg">Aplicaciónes guardadas serán borrada de la tarjeta SD!</string>
-    <string name="deletesearchsuggestions">Borrar sugerencias</string>
     <string name="deleting">Borrando</string>
     <string name="desc">Descendente</string>
     <string name="detailed">Detallado</string>
@@ -41,7 +40,6 @@
     <string name="dir_info">Información de carpeta</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="enablesearchsuggestions">Sugerencias de búsqueda</string>
     <string name="error">Error</string>
     <string name="extract">Extraer</string>
     <string name="extractto">Extraer a</string>
@@ -89,7 +87,6 @@
     <string name="rename">Renombrar</string>
     <string name="sdcardnotfound">Tarjeta de SD no pudo ser localizada!</string>
     <string name="search">Buscar</string>
-    <string name="searchprefs">Preferencias de búsqueda</string>
     <string name="searchtext">Buscar</string>
     <string name="selectall">Selccionar todo</string>
     <string name="settings">Ajustes</string>
@@ -105,7 +102,6 @@
     <string name="sorrycouldntfindahtmlviewver">Lo arrepiento no podía encontrar un mirador de HTML.</string>
     <string name="sorrycouldntfindapdfviewver">Lo arrepiento no podía encontrar un mirador de PDF.</string>
     <string name="sort">Ordenar</string>
-    <string name="suggestionscleared"> Las sugerencias de búsqueda se borraron.</string>
     <string name="text">Texto</string>
     <string name="toopen">" Para abrir "</string>
     <string name="type">Tipo</string>

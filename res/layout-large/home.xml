@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <!-- Main content view -->
+
     <ListView
         android:id="@+id/android:list"
         android:layout_width="fill_parent"
@@ -11,14 +13,14 @@
         android:drawSelectorOnTop="true"
         android:fastScrollEnabled="true"
         android:longClickable="true"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
         android:scrollbarStyle="outsideOverlay"
         android:smoothScrollbar="true" />
 
+    <!-- Navigation drawer -->
+
     <LinearLayout
         android:id="@+id/left_drawer"
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/light"

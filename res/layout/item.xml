@@ -22,66 +22,59 @@
         android:layout_alignParentTop="true"
         android:background="@null"
         android:paddingBottom="4dp"
+        android:paddingRight="4dp"
         android:paddingTop="4dp" >
 
         <ImageView
             android:id="@+id/row_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:contentDescription="@string/desc" />
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/desc"
+            android:padding="1dp" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_alignParentBottom="true"
+        <TextView
+            android:id="@+id/top_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/bottom_view"
             android:layout_toRightOf="@id/row_image"
-            android:background="@null"
+            android:ellipsize="end"
             android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingBottom="4dp"
-            android:paddingLeft="4dp" >
+            android:paddingLeft="2dp"
+            android:singleLine="true"
+            android:textAllCaps="false"
+            android:textIsSelectable="false"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/top_view"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:singleLine="true"
-                android:textAllCaps="false"
-                android:textIsSelectable="false"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/dateview"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1.5"
-                android:ellipsize="end"
-                android:gravity="top"
-                android:singleLine="true"
-                android:textAllCaps="false"
-                android:textColor="@color/gray"
-                android:textIsSelectable="false"
-                android:textSize="12sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/dateview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/top_view"
+            android:layout_toLeftOf="@+id/bottom_view"
+            android:layout_toRightOf="@id/row_image"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:paddingLeft="2dp"
+            android:paddingTop="1dp"
+            android:singleLine="true"
+            android:textAllCaps="false"
+            android:textColor="@color/gray"
+            android:textIsSelectable="false"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/bottom_view"
             android:layout_width="70dp"
             android:layout_height="fill_parent"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:ellipsize="end"
             android:gravity="right|center_vertical"
-            android:paddingRight="1dp"
             android:singleLine="true"
             android:textColor="@color/gray"
             android:textIsSelectable="false"

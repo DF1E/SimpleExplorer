@@ -27,7 +27,7 @@ import com.dnielfe.utils.Compress;
 import com.dnielfe.utils.Decompress;
 import com.dnielfe.utils.DrawerListAdapter;
 import com.dnielfe.utils.LinuxShell;
-import com.dnielfe.utils.SearchSuggestions;
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -46,7 +46,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.provider.SearchRecentSuggestions;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -81,7 +80,6 @@ public final class Main extends ListActivity {
 	public static final String PREFS_SORT = "sort";
 	public static final String PREFS_VIEW = "viewmode";
 	public static final String PREF_DIR = "defaultdir";
-	public static final String PREF_SEARCH = "enablesearchsuggestions";
 
 	private static final int D_MENU_SHORTCUT = 3;
 	private static final int D_MENU_BOOKMARK = 4;
@@ -109,7 +107,6 @@ public final class Main extends ListActivity {
 	private static final int COPY_TYPE = 35;
 
 	private static final int directorytextsize = 16;
-	private static final String searchdirectory = "/storage/";
 	private static final String appdir = Environment
 			.getExternalStorageDirectory().getPath() + "/Simple Explorer";
 
@@ -130,7 +127,7 @@ public final class Main extends ListActivity {
 
 	private SharedPreferences mSettings;
 	private String defaultdir;
-	private View actionView;
+	private View mActionView;
 	private LinearLayout mDirectoryButtons, mDrawer;
 	private MenuItem mMenuItemPaste;
 	private DrawerLayout mDrawerLayout;
@@ -148,7 +145,6 @@ public final class Main extends ListActivity {
 
 		mHandler = new EventHandler(Main.this);
 
-		// read settings
 		loadPreferences();
 
 		mTable = mHandler.new TableRow();
@@ -198,7 +194,7 @@ public final class Main extends ListActivity {
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 
 		loadPreferences();
@@ -232,26 +228,31 @@ public final class Main extends ListActivity {
 		// Prepare ActionBar
 		mActionBar = getActionBar();
 		mActionBar.setDisplayShowCustomEnabled(true);
-		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.setHomeButtonEnabled(true);
+		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.setDisplayShowTitleEnabled(false);
 
 		// ActionBar Layout
 		LayoutInflater inflator = (LayoutInflater) this
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		actionView = inflator.inflate(R.layout.actionbar, null);
-		mActionBar.setCustomView(actionView);
+		mActionView = inflator.inflate(R.layout.actionbar, null);
+		mActionBar.setCustomView(mActionView);
 		mActionBar.show();
 
 		// Add Navigation Drawer to ActionBar
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, R.string.drawer_open,
 				R.string.drawer_close) {
+
+			@Override
 			public void onDrawerClosed(View view) {
+				mActionBar.getCustomView().setVisibility(View.VISIBLE);
 				invalidateOptionsMenu();
 			}
 
+			@Override
 			public void onDrawerOpened(View drawerView) {
+				mActionBar.getCustomView().setVisibility(View.GONE);
 				invalidateOptionsMenu();
 			}
 		};
@@ -264,26 +265,30 @@ public final class Main extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				switch (position) {
-				case 0:
-					// FolderInfo
-					Intent info = new Intent(Main.this, DirectoryInfo.class);
-					info.putExtra("PATH_NAME", mHandler.getCurrentDir());
-					Main.this.startActivity(info);
-					break;
-				case 1:
-					// AppManager
-					Intent intent1 = new Intent(Main.this, AppManager.class);
-					startActivity(intent1);
-					break;
-				case 2:
-					// Preferences
-					Intent intent2 = new Intent(Main.this, Settings.class);
-					startActivity(intent2);
-					break;
-				}
+				selectItem(position);
 			}
 		});
+	}
+
+	private void selectItem(int position) {
+		switch (position) {
+		case 0:
+			// FolderInfo
+			Intent info = new Intent(Main.this, DirectoryInfo.class);
+			info.putExtra("PATH_NAME", mHandler.getCurrentDir());
+			Main.this.startActivity(info);
+			break;
+		case 1:
+			// AppManager
+			Intent intent1 = new Intent(Main.this, AppManager.class);
+			startActivity(intent1);
+			break;
+		case 2:
+			// Preferences
+			Intent intent2 = new Intent(Main.this, Settings.class);
+			startActivity(intent2);
+			break;
+		}
 	}
 
 	@Override
@@ -346,26 +351,12 @@ public final class Main extends ListActivity {
 	private void SearchIntent(Intent intent) {
 		setIntent(intent);
 
-		boolean searchsuggestion = mSettings.getBoolean(PREF_SEARCH, false);
-
-		// search action
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
 
 			if (query.length() > 0) {
+				// start search in background
 				new BackgroundWork(SEARCH_TYPE).execute(query);
-
-				if (searchsuggestion == true) {
-					SearchRecentSuggestions suggestions = new SearchRecentSuggestions(
-							this, SearchSuggestions.AUTHORITY,
-							SearchSuggestions.MODE);
-					suggestions.saveRecentQuery(query, null);
-				} else {
-					SearchRecentSuggestions suggestions = new SearchRecentSuggestions(
-							this, SearchSuggestions.AUTHORITY,
-							SearchSuggestions.MODE);
-					suggestions.clearHistory();
-				}
 			}
 		}
 	}
@@ -524,7 +515,7 @@ public final class Main extends ListActivity {
 			item_ext = "";
 		}
 
-		// music file selected--add more audio formats
+		// music file selected
 		if (item_ext.equalsIgnoreCase(".mp3")
 				|| item_ext.equalsIgnoreCase(".m4a")
 				|| item_ext.equalsIgnoreCase(".aiff")
@@ -571,7 +562,7 @@ public final class Main extends ListActivity {
 			}
 		}
 
-		// video file selected--add more video formats
+		// video file selected
 		else if (item_ext.equalsIgnoreCase(".m4v")
 				|| item_ext.equalsIgnoreCase(".3gp")
 				|| item_ext.equalsIgnoreCase(".wmv")
@@ -782,6 +773,7 @@ public final class Main extends ListActivity {
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawer);
+
 		menu.findItem(R.id.paste).setVisible(mHoldingFile);
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -1119,9 +1111,42 @@ public final class Main extends ListActivity {
 			return true;
 
 		case F_MENU_ATTACH:
+			String item_ext = null;
+
+			item_ext = mSelectedListItem.substring(
+					mSelectedListItem.lastIndexOf("."),
+					mSelectedListItem.length());
+
 			try {
 				Intent i = new Intent(Intent.ACTION_SEND);
-				i.setType("text/plain");
+
+				if (item_ext.equalsIgnoreCase(".mp3")
+						|| item_ext.equalsIgnoreCase(".m4a")
+						|| item_ext.equalsIgnoreCase(".aiff")
+						|| item_ext.equalsIgnoreCase(".wma")
+						|| item_ext.equalsIgnoreCase(".caf")) {
+					i.setType("audio/*");
+				} else if (item_ext.equalsIgnoreCase(".3gp")
+						|| item_ext.equalsIgnoreCase(".wmv")
+						|| item_ext.equalsIgnoreCase(".mp4")
+						|| item_ext.equalsIgnoreCase(".mpeg")
+						|| item_ext.equalsIgnoreCase(".mpg")
+						|| item_ext.equalsIgnoreCase(".mov")
+						|| item_ext.equalsIgnoreCase(".avi")
+						|| item_ext.equalsIgnoreCase(".ogg")) {
+					i.setType("video/*");
+				} else if (item_ext.equalsIgnoreCase(".jpg")
+						|| item_ext.equalsIgnoreCase(".jpeg")
+						|| item_ext.equalsIgnoreCase(".png")
+						|| item_ext.equalsIgnoreCase(".gif")
+						|| item_ext.equalsIgnoreCase(".raw")
+						|| item_ext.equalsIgnoreCase(".psd")
+						|| item_ext.equalsIgnoreCase(".bmp")) {
+					i.setType("image/*");
+				} else if (item_ext.equalsIgnoreCase(".apk")) {
+					i.setType("application/vnd.android.package-archive");
+				}
+
 				i.putExtra(Intent.EXTRA_SUBJECT, mSelectedListItem);
 				i.putExtra(Intent.EXTRA_BCC, "");
 				i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
@@ -1181,6 +1206,7 @@ public final class Main extends ListActivity {
 		return false;
 	}
 
+	// Show a Dialog with your bookmarks
 	private void bookmarkDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -1595,7 +1621,7 @@ public final class Main extends ListActivity {
 				file_name = params[0];
 
 				ArrayList<String> found = FileUtils.searchInDirectory(
-						searchdirectory, file_name);
+						mHandler.getCurrentDir(), file_name);
 				return found;
 			case DELETE_TYPE:
 				int size = params.length;
@@ -1664,7 +1690,6 @@ public final class Main extends ListActivity {
 				if (len == 0) {
 					Toast.makeText(Main.this, R.string.itcouldntbefound,
 							Toast.LENGTH_SHORT).show();
-
 				} else {
 					names = new CharSequence[len];
 

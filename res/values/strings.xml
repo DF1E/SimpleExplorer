@@ -33,7 +33,6 @@
     <string name="delete">Delete</string>
     <string name="deleteapps">Delete Apps</string>
     <string name="deleteappsmsg">Saved Apps will be deleted from SD Card!</string>
-    <string name="deletesearchsuggestions">Delete suggestions</string>
     <string name="deleting">Deleting</string>
     <string name="desc">desc</string>
     <string name="detailed">Detailed</string>
@@ -41,7 +40,6 @@
     <string name="dir_info">Folder information</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="enablesearchsuggestions">Search suggestions</string>
     <string name="error">Error</string>
     <string name="extract">Extract</string>
     <string name="extractto">Extract to</string>
@@ -89,7 +87,6 @@
     <string name="rename">Rename</string>
     <string name="sdcardnotfound">Couldnt find SD card!</string>
     <string name="search">Search</string>
-    <string name="searchprefs">Search preferences</string>
     <string name="searchtext">Search</string>
     <string name="selectall">Select all</string>
     <string name="settings">Settings</string>
@@ -105,7 +102,6 @@
     <string name="sorrycouldntfindahtmlviewver">Sorry couldnt find a HTML Viewer.</string>
     <string name="sorrycouldntfindapdfviewver">Sorry couldnt find a PDF Viewer.</string>
     <string name="sort">Sort</string>
-    <string name="suggestionscleared">Search suggestions cleared.</string>
     <string name="text">Text</string>
     <string name="toopen">" to open "</string>
     <string name="type">Type</string>

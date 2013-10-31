@@ -33,7 +33,6 @@
     <string name="delete">Удалить</string>
     <string name="deleteapps">Удалить рез. копии</string>
     <string name="deleteappsmsg">Резервные копии приложений будут удалены!</string>
-    <string name="deletesearchsuggestions">Удалить историю поиска</string>
     <string name="deleting">Удаление</string>
     <string name="desc">desc</string>
     <string name="detailed">Подробный</string>
@@ -41,7 +40,6 @@
     <string name="dir_info">Свойства папки</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="enablesearchsuggestions">Хранить историю поиска</string>
     <string name="error">Ошибка</string>
     <string name="extract">Распаковать</string>
     <string name="extractto">Распаковать в...</string>
@@ -89,7 +87,6 @@
     <string name="rename">Переименовать</string>
     <string name="sdcardnotfound">SD-карта не найдена!</string>
     <string name="search">Поиск</string>
-    <string name="searchprefs">Поиск</string>
     <string name="searchtext">"Что ищем?"</string>
     <string name="selectall">Выбрать всё</string>
     <string name="settings">Настройки</string>
@@ -105,7 +102,6 @@
     <string name="sorrycouldntfindahtmlviewver">Извините, HTML Viewer не найден.</string>
     <string name="sorrycouldntfindapdfviewver">Извините, PDF Viewer не найден.</string>
     <string name="sort">Сортировка</string>
-    <string name="suggestionscleared">История поисковых запросов очищена.</string>
     <string name="text">Текст</string>
     <string name="toopen">" открыть "</string>
     <string name="type">По типу</string>

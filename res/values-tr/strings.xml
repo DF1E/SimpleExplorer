@@ -33,7 +33,6 @@
     <string name="delete">Sil</string>
     <string name="deleteapps">Uygulamaları sil</string>
     <string name="deleteappsmsg">Kaydedilmiş uygulamalar SD Karttan silinecek!</string>
-    <string name="deletesearchsuggestions">Arama geçmişini sil</string>
     <string name="deleting">Siliniyor</string>
     <string name="desc">azalan</string>
     <string name="detailed">Ayrıntılı</string>
@@ -41,7 +40,6 @@
     <string name="dir_info">Klasör Bilgisi</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="enablesearchsuggestions">Arama Önerileri</string>
     <string name="error">Hata</string>
     <string name="extract">Çıkart</string>
     <string name="extractto">Buraya çıkart</string>
@@ -89,7 +87,6 @@
     <string name="rename">Yeniden adlandır</string>
     <string name="sdcardnotfound">SD Kart bulunamıyor!</string>
     <string name="search">Arama</string>
-    <string name="searchprefs">Arama Tercihleri</string>
     <string name="searchtext">Ara</string>
     <string name="selectall">Tümünü seç</string>
     <string name="settings">Ayarlar</string>
@@ -105,7 +102,6 @@
     <string name="sorrycouldntfindahtmlviewver">Bir HTML göstericisi bulunamadı</string>
     <string name="sorrycouldntfindapdfviewver">Bir PDF göstericisi bulunamadı</string>
     <string name="sort">Sırala</string>
-    <string name="suggestionscleared">Arama geçmişi temizlendi</string>
     <string name="text">Metin</string>
     <string name="toopen">" açmak "</string>
     <string name="type">Tür</string>

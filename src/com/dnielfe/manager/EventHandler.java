@@ -203,7 +203,7 @@ public class EventHandler {
 		mPathStack.push("/");
 		mPathStack.push(path);
 
-		return populate_list();
+		return update_list();
 	}
 
 	// This will return to the previous Directory
@@ -216,7 +216,7 @@ public class EventHandler {
 		mPathStack.push("/");
 		mPathStack.push(parent);
 
-		return populate_list();
+		return update_list();
 	}
 
 	// Get next Directory
@@ -235,7 +235,7 @@ public class EventHandler {
 			mPathStack.push(path);
 		}
 
-		return populate_list();
+		return update_list();
 	}
 
 	private static class ViewHolder {
@@ -460,12 +460,6 @@ public class EventHandler {
 							Drawable icon;
 
 							@Override
-							protected void onPreExecute() {
-								icon = mContext.getResources().getDrawable(
-										R.drawable.bitmap);
-							}
-
-							@Override
 							protected Long doInBackground(String[]... params) {
 								icon = getDrawableFromCache(file.getPath());
 
@@ -671,7 +665,7 @@ public class EventHandler {
 	 * where we do our sorting (by type, alphabetical, etc).
 	 */
 
-	private ArrayList<String> populate_list() {
+	private ArrayList<String> update_list() {
 
 		ArrayList<String> mDirContent = new ArrayList<String>();
 
@@ -703,13 +697,13 @@ public class EventHandler {
 								"ls -a \"" + file.getAbsolutePath() + "\"" });
 				BufferedReader in = new BufferedReader(new InputStreamReader(
 						p.getInputStream()));
+
 				String line;
 				while ((line = in.readLine()) != null) {
 
 					if (!mShowHiddenFiles) {
 						if (line.toString().charAt(0) != '.')
 							mDirContent.add(line);
-
 					} else {
 						mDirContent.add(line);
 					}

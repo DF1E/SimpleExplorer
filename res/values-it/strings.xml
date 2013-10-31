@@ -33,7 +33,6 @@
     <string name="delete">Elimina</string>
     <string name="deleteapps">Elimina Apps</string>
     <string name="deleteappsmsg">Le App salvate verranno eliminate dalla scheda SD!</string>
-    <string name="deletesearchsuggestions">Elimina Suggerimenti</string>
     <string name="deleting">Eliminazione in corso</string>
     <string name="desc">decr</string>
     <string name="detailed">Dettagliata</string>
@@ -41,7 +40,6 @@
     <string name="dir_info">Informazioni Cartella</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="enablesearchsuggestions">Suggerimenti Ricerca</string>
     <string name="error">Errore</string>
     <string name="extract">Estrai</string>
     <string name="extractto">Estrai in</string>
@@ -89,7 +87,6 @@
     <string name="rename">Rinomina</string>
     <string name="sdcardnotfound">Impossibile trovare la Scheda SD!</string>
     <string name="search">Cerca</string>
-    <string name="searchprefs">Preferenze Ricerche</string>
     <string name="searchtext">Cerca</string>
     <string name="selectall">Seleziona Tutto</string>
     <string name="settings">Impostazioni</string>
@@ -105,7 +102,6 @@
     <string name="sorrycouldntfindahtmlviewver">Spiacente impossibile trovare un Visualizzatore HTML</string>
     <string name="sorrycouldntfindapdfviewver">Spiacente impossibile trovare un Lettore PDF</string>
     <string name="sort">Ordina</string>
-    <string name="suggestionscleared">Suggerimenti di ricerca cancellati</string>
     <string name="text">Testo</string>
     <string name="toopen">" per aprire "</string>
     <string name="type">Tipo</string>
