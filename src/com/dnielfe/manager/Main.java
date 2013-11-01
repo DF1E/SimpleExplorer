@@ -363,11 +363,10 @@ public final class Main extends ListActivity {
 
 	// get ListView options
 	private void listView(boolean toTop) {
-		ListView listview = this.getListView();
 
 		if (toTop) {
 			// go to top of ListView
-			listview.setSelection(0);
+			getListView().setSelection(0);
 		}
 
 		// Update the Buttons showing the path
@@ -596,7 +595,7 @@ public final class Main extends ListActivity {
 
 			} else {
 				final String zipPath = mHandler.getCurrentDir() + "/" + item;
-				final String unZipPath = appdir + "/" + file.getName();
+				final String unZipPath = appdir + "/" + item;
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 				AlertDialog alert;
@@ -1631,8 +1630,7 @@ public final class Main extends ListActivity {
 
 				return null;
 			case MULTIZIP_TYPE:
-				final String zipfile = mHandler.getCurrentDir() + "/"
-						+ "zipfile.zip";
+				final String zipfile = params[0] + "/" + "zipfile.zip";
 
 				final Compress compress = new Compress(multidata, zipfile);
 

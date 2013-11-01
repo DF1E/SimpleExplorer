@@ -17,6 +17,7 @@ import java.util.zip.ZipFile;
 public class Decompress {
 	private String _zipFile;
 	private String _location;
+	private int mBuffer = 2048;
 
 	public Decompress(String zipFile, String location) {
 		_zipFile = zipFile;
@@ -58,7 +59,7 @@ public class Decompress {
 							zipFile.getInputStream(entry));
 
 					int b;
-					byte buffer[] = new byte[1024];
+					byte buffer[] = new byte[mBuffer];
 
 					/*
 					 * read the current entry from the zip file, extract it and
@@ -67,7 +68,7 @@ public class Decompress {
 					FileOutputStream fos = new FileOutputStream(
 							destinationFilePath);
 					BufferedOutputStream bos = new BufferedOutputStream(fos,
-							1024);
+							mBuffer);
 
 					while ((b = bis.read(buffer, 0, 1024)) != -1) {
 						bos.write(buffer, 0, b);
@@ -81,7 +82,11 @@ public class Decompress {
 					bis.close();
 				}
 			}
+
+			zipFile.close();
+
 		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 	}
 }

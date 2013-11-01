@@ -153,7 +153,7 @@ public class EventHandler {
 	 * will return the data in the ArrayList that holds the dir contents.
 	 * 
 	 * @param position
-	 *            the indext of the arraylist holding the dir content
+	 *            the index of the arraylist holding the dir content
 	 * @return the data in the ArrayList at position (position)
 	 */
 	public String getData(int position) {
