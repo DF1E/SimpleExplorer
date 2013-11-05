@@ -1,84 +1,119 @@
 Changelog:
-v1.9.1	fixed many bugs
-		small ui changes
-		improved zip/unzip files
-		removed search suggestions - never used it
-		search in current directory
-v1.9	fixed rotation bug
-		added navigation drawer and other ui changes
-		removed tar option because of many bugs
-		updated Russian language
-		minor fixes
-		maybe forgot something
-v1.8.5	fixed moving file bug
-		appicon caching
-		improved opening files for bookmarks
-		cleaning code
-		minor ui changes
-		multi select/unselect all files option
-v1.8.4 	fixed crash when default directory is "/"
-		fixed bug when you create a File
-		support multiwindow (tested on a galaxy s3)
-		changed UI in Preferences
-		updated languages
-		added Russian language
-v1.8.3	Updated languages
-		New languages:
-		- italy
-		- polish
-		- turkish
-		- bosnian
-		- dutch
-		- spanish
-v1.8.2	Show App Icons on SDcard
-		Added Folder shortcuts (now you can add as much you want)
-		Icon for .rar files
-		Optimize Code
-v1.8.1	Added Portuguese Brazil language
-		Created a Folder for all Actions(unzip /untar /saved Apps)
-		Multi Tar Files
-		Untar tar archives
-		Removed Folder Shortcut (Will be added later)
-		New Icons
-		Root: Rename Directory and Files
-		Root: Create Directory and Files
-		Root: Access to all Folders
-		fixes
-		If you are on older version please reinstall App!!!
-v1.8	Update Storage Banner
-		Choosing File with another App
-		Video Preview
-		Root delete, move, copy Files
-		UI updates
-		Folder Shortcut on Homescreen (only 1)
-v1.7.5	Details update
-		copy path to clipboard when directory button longclick
-		bug fixes and corrections
-v1.7.4	New Unzip Method
-		multizip files option
-		small fixes
-		much small updates
-v1.7.3	added default directory option
-		added ForumLink in preferences
-		speed up image preview loading
-		AppManager:	delete saved Apps
-		AppManager: create shortcut on home
-		FolderInfo update
-		improved search
-		improved layout for xhdpi devices
-v1.7.2	Bug Fixes (new folder, rename folder, move/copy)
-		Open Zip with other Apps Options
-		load preferences changes
-v1.7.1	Added App Manager
-		small changes
-v1.7	Changes on Actionbar
-		Added Icon for Bookmarks
-		Improved Details Dialog
-		InfoDialog on first start
-v1.6	Added ViewMode option
-		remove old stuff
-		some small changes
-v1.5	Added Bookmarks
-		Added Sort Option
-		Some New Icons
-v1.4	First public version
+
+v1.9.1
+fixed many bugs
+small ui changes
+improved zip/unzip files
+added slovakian language
+removed search suggestions - never used it
+search in current directory
+
+v1.9
+fixed rotation bug
+added navigation drawer and other ui changes
+removed tar option because of many bugs
+updated Russian language
+minor fixes
+maybe forgot something
+
+v1.8.5
+fixed moving file bug
+appicon caching
+improved opening files for bookmarks
+cleaning code
+minor ui changes
+multi select/unselect all files option
+
+v1.8.4
+fixed crash when default directory is "/"
+fixed bug when you create a File
+support multiwindow on touchwiz(tested on a galaxy s3)
+changed UI in Preferences
+updated languages
+added Russian language
+
+v1.8.3
+Updated languages
+New languages:
+- italy
+- polish
+- turkish
+- bosnian
+- dutch
+- spanish
+
+v1.8.2
+Show App Icons on SDcard
+Added Folder shortcuts (now you can add as much you want)
+Icon for .rar files
+Optimize Code
+
+v1.8.1
+Added Portuguese Brazil language
+Created a Folder for all Actions(unzip /untar /saved Apps)
+Multi Tar Files
+Untar tar archives
+Removed Folder Shortcut (Will be added later)
+New Icons
+Root: Rename Directory and Files
+Root: Create Directory and Files
+Root: Access to all Folders
+fixes
+If you are on older version please reinstall App!!!
+
+v1.8
+Update Storage Banner
+Choosing File with another App
+Video Preview
+Root delete, move, copy Files
+UI updates
+Folder Shortcut on Homescreen (only 1)
+
+v1.7.5
+Details update
+copy path to clipboard when directory button longclick
+bug fixes and corrections
+
+v1.7.4
+New Unzip Method
+multizip files option
+small fixes
+much small updates
+
+v1.7.3
+added default directory option
+added ForumLink in preferences
+speed up image preview loading
+AppManager:	delete saved Apps
+AppManager: create shortcut on home
+FolderInfo update
+improved search
+improved layout for xhdpi devices
+
+v1.7.2
+Bug Fixes (new folder, rename folder, move/copy)
+Open Zip with other Apps Options
+load preferences changes
+
+v1.7.1
+Added App Manager
+small changes
+
+v1.7
+Changes on Actionbar
+Added Icon for Bookmarks
+Improved Details Dialog
+InfoDialog on first start
+
+v1.6
+Added ViewMode option
+remove old stuff
+some small changes
+
+v1.5
+Added Bookmarks
+Added Sort Option
+Some New Icons
+
+v1.4
+First public version

@@ -19,8 +19,9 @@ public final class R {
     }
     public static final class color {
         public static final int gray=0x7f060000;
+        public static final int holoblue=0x7f060002;
         public static final int light=0x7f060001;
-        public static final int transparent=0x7f060002;
+        public static final int transparent=0x7f060003;
     }
     public static final class drawable {
         public static final int actionpaste=0x7f020000;
@@ -90,9 +91,9 @@ public final class R {
         public static final int freespace=0x7f0a001d;
         public static final int icon=0x7f0a0006;
         public static final int installdate=0x7f0a000a;
+        public static final int item_layout=0x7f0a0023;
         public static final int left_drawer=0x7f0a0021;
         public static final int multis=0x7f0a0035;
-        public static final int multiselect_icon=0x7f0a0023;
         public static final int myMain=0x7f0a0005;
         public static final int name=0x7f0a000b;
         public static final int name_label=0x7f0a000c;

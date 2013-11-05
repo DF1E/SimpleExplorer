@@ -246,13 +246,15 @@ public final class Main extends ListActivity {
 
 			@Override
 			public void onDrawerClosed(View view) {
-				mActionBar.getCustomView().setVisibility(View.VISIBLE);
+				mActionBar.setDisplayShowTitleEnabled(false);
+				mActionBar.setCustomView(mActionView);
 				invalidateOptionsMenu();
 			}
 
 			@Override
 			public void onDrawerOpened(View drawerView) {
-				mActionBar.getCustomView().setVisibility(View.GONE);
+				mActionBar.setDisplayShowTitleEnabled(true);
+				mActionBar.setCustomView(null);
 				invalidateOptionsMenu();
 			}
 		};
@@ -338,7 +340,7 @@ public final class Main extends ListActivity {
 			// nothing
 		} else {
 			Toast.makeText(Main.this, getString(R.string.sdcardnotfound),
-					Toast.LENGTH_LONG).show();
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 

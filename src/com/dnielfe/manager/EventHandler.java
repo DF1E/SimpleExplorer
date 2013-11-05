@@ -38,6 +38,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -243,7 +245,9 @@ public class EventHandler {
 		TextView bottomView;
 		TextView dateview;
 		ImageView icon;
-		ImageView mSelect; // multi-select check mark icon
+
+		// multi-select check mark icon
+		RelativeLayout mLayout;
 	}
 
 	public static int getFileCount(File file) {
@@ -360,8 +364,8 @@ public class EventHandler {
 						.findViewById(R.id.dateview);
 				mViewHolder.icon = (ImageView) convertView
 						.findViewById(R.id.row_image);
-				mViewHolder.mSelect = (ImageView) convertView
-						.findViewById(R.id.multiselect_icon);
+				mViewHolder.mLayout = (RelativeLayout) convertView
+						.findViewById(R.id.item_layout);
 
 				mViewHolder.icon.getLayoutParams().height = 75;
 				mViewHolder.icon.getLayoutParams().width = 75;
@@ -378,10 +382,11 @@ public class EventHandler {
 				mViewHolder.dateview.setVisibility(TextView.GONE);
 			}
 
+			// Change Background Color of an Item if it is multi-selected
 			if (positions != null && positions.contains(position))
-				mViewHolder.mSelect.setVisibility(ImageView.VISIBLE);
+				mViewHolder.mLayout.setBackgroundResource(R.color.holoblue);
 			else
-				mViewHolder.mSelect.setVisibility(ImageView.GONE);
+				mViewHolder.mLayout.setBackgroundResource(Color.TRANSPARENT);
 
 			if (file != null && file.isFile()) {
 				String ext = file.toString();
