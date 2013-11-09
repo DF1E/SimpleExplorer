@@ -33,7 +33,6 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
-import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -147,6 +146,7 @@ public final class Main extends ListActivity {
 
 		loadPreferences();
 
+		// new ArrayAdapter
 		mTable = mHandler.new TableRow();
 
 		// Set List Adapter
@@ -162,7 +162,7 @@ public final class Main extends ListActivity {
 			// get directory when you rotate your phone
 			defaultdir = savedInstanceState.getString("location");
 		} else {
-			// If other Apps want to choose a file you do it with this action
+			// If other apps want to choose a file you do it with this action
 			if (getIntent().getAction().equals(Intent.ACTION_GET_CONTENT)) {
 				mReturnIntent = true;
 
@@ -199,7 +199,7 @@ public final class Main extends ListActivity {
 
 		loadPreferences();
 
-		// refresh
+		// refresh directory
 		mHandler.updateDirectory(mHandler.setHomeDir(mHandler.getCurrentDir()));
 	}
 
@@ -679,18 +679,9 @@ public final class Main extends ListActivity {
 					returnIntentResults(file);
 
 				} else {
-					Intent htmlIntent = new Intent();
-					htmlIntent.setAction(android.content.Intent.ACTION_VIEW);
+					Intent htmlIntent = new Intent(Intent.ACTION_VIEW);
 					htmlIntent.setDataAndType(Uri.fromFile(file), "text/html");
-
-					try {
-						startActivity(htmlIntent);
-					} catch (ActivityNotFoundException e) {
-						Toast.makeText(
-								this,
-								getString(R.string.sorrycouldntfindahtmlviewver),
-								Toast.LENGTH_SHORT).show();
-					}
+					startActivity(htmlIntent);
 				}
 			}
 		}
@@ -707,16 +698,9 @@ public final class Main extends ListActivity {
 					returnIntentResults(file);
 
 				} else {
-					Intent txtIntent = new Intent();
-					txtIntent.setAction(android.content.Intent.ACTION_VIEW);
+					Intent txtIntent = new Intent(Intent.ACTION_VIEW);
 					txtIntent.setDataAndType(Uri.fromFile(file), "text/plain");
-
-					try {
-						startActivity(txtIntent);
-					} catch (ActivityNotFoundException e) {
-						txtIntent.setType("text/*");
-						startActivity(txtIntent);
-					}
+					startActivity(txtIntent);
 				}
 			}
 		}
@@ -727,20 +711,9 @@ public final class Main extends ListActivity {
 					returnIntentResults(file);
 
 				} else {
-					Intent generic = new Intent();
-					generic.setAction(android.content.Intent.ACTION_VIEW);
+					Intent generic = new Intent(Intent.ACTION_VIEW);
 					generic.setDataAndType(Uri.fromFile(file), "text/plain");
-
-					try {
-						startActivity(generic);
-					} catch (ActivityNotFoundException e) {
-						Toast.makeText(
-								this,
-								getString(R.string.sorrycouldnt)
-										+ getString(R.string.toopen)
-										+ file.getName(), Toast.LENGTH_SHORT)
-								.show();
-					}
+					startActivity(generic);
 				}
 			}
 		}
@@ -835,41 +808,33 @@ public final class Main extends ListActivity {
 
 						switch (item) {
 						case 0:
-							Intent txtIntent = new Intent();
-							txtIntent
-									.setAction(android.content.Intent.ACTION_VIEW);
+							Intent txtIntent = new Intent(Intent.ACTION_VIEW);
 							txtIntent.setDataAndType(Uri.fromFile(file),
 									"text/plain");
 							startActivity(txtIntent);
 							break;
 						case 1:
-							Intent imageIntent = new Intent();
-							imageIntent
-									.setAction(android.content.Intent.ACTION_VIEW);
+							Intent imageIntent = new Intent(Intent.ACTION_VIEW);
 							imageIntent.setDataAndType(Uri.fromFile(file),
 									"image/*");
 							startActivity(imageIntent);
 							break;
 
 						case 2:
-							Intent movieIntent = new Intent();
-							movieIntent
-									.setAction(android.content.Intent.ACTION_VIEW);
+							Intent movieIntent = new Intent(Intent.ACTION_VIEW);
 							movieIntent.setDataAndType(Uri.fromFile(file),
 									"image/*");
 							startActivity(movieIntent);
 							break;
 						case 3:
 
-							Intent i = new Intent();
-							i.setAction(android.content.Intent.ACTION_VIEW);
+							Intent i = new Intent(Intent.ACTION_VIEW);
 							i.setDataAndType(Uri.fromFile(file), "audio/*");
 							startActivity(i);
 							break;
 
 						case 4:
-							Intent i1 = new Intent();
-							i1.setAction(android.content.Intent.ACTION_VIEW);
+							Intent i1 = new Intent(Intent.ACTION_VIEW);
 							i1.setDataAndType(Uri.fromFile(file), "*/*");
 							startActivity(i1);
 							break;
@@ -1380,7 +1345,6 @@ public final class Main extends ListActivity {
 					File file = new File(mHandler.getCurrentDir() + "/"
 							+ mHandler.mDataSource.get(i));
 
-					// mTable.addMultiPosition(int, string);
 					mTable.addMultiPosition(i, file.getPath(), false);
 				}
 				return true;
@@ -1402,7 +1366,7 @@ public final class Main extends ListActivity {
 		}
 	};
 
-	// multiactions
+	// share multiple files
 	private void multishare() {
 		ArrayList<Uri> uris = new ArrayList<Uri>();
 		int length = mHandler.mMultiSelectData.size();
@@ -1421,6 +1385,7 @@ public final class Main extends ListActivity {
 		startActivity(Intent.createChooser(mail_int, getString(R.string.share)));
 	}
 
+	// delete multiple files
 	private void multidelete() {
 		final String[] data = new String[mHandler.mMultiSelectData.size()];
 		int at = 0;
@@ -1452,6 +1417,7 @@ public final class Main extends ListActivity {
 		builder.create().show();
 	}
 
+	// zip multiple files
 	private void multizipfiles() {
 		final String[] data = new String[mHandler.mMultiSelectData.size()];
 		int at = 0;
@@ -1477,6 +1443,7 @@ public final class Main extends ListActivity {
 				true));
 	}
 
+	// move multiple files
 	private void multimove() {
 		if (mHandler.mMultiSelectData == null
 				|| mHandler.mMultiSelectData.isEmpty()) {
@@ -1488,6 +1455,7 @@ public final class Main extends ListActivity {
 				true));
 	}
 
+	// copy multiple files
 	private void copyFileMultiSelect(String newLocation) {
 		String[] data;
 		int index = 1;
@@ -1783,7 +1751,6 @@ public final class Main extends ListActivity {
 			mMenuItemPaste.setVisible(false);
 
 			mUseBackKey = false;
-			setDirectoryButtons();
 			return false;
 
 		} else if (keycode == KeyEvent.KEYCODE_BACK && !mUseBackKey
