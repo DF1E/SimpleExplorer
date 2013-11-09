@@ -532,8 +532,7 @@ public final class Main extends ListActivity {
 			if (mReturnIntent) {
 				returnIntentResults(file);
 			} else {
-				Intent i = new Intent();
-				i.setAction(android.content.Intent.ACTION_VIEW);
+				Intent i = new Intent(Intent.ACTION_VIEW);
 				i.setDataAndType(Uri.fromFile(file), "audio/*");
 				startActivity(i);
 			}
@@ -555,8 +554,7 @@ public final class Main extends ListActivity {
 					returnIntentResults(file);
 
 				} else {
-					Intent picIntent = new Intent();
-					picIntent.setAction(android.content.Intent.ACTION_VIEW);
+					Intent picIntent = new Intent(Intent.ACTION_VIEW);
 					picIntent.setDataAndType(Uri.fromFile(file), "image/*");
 					startActivity(picIntent);
 				}
@@ -581,8 +579,7 @@ public final class Main extends ListActivity {
 					returnIntentResults(file);
 
 				} else {
-					Intent movieIntent = new Intent();
-					movieIntent.setAction(android.content.Intent.ACTION_VIEW);
+					Intent movieIntent = new Intent(Intent.ACTION_VIEW);
 					movieIntent.setDataAndType(Uri.fromFile(file), "video/*");
 					startActivity(movieIntent);
 				}
@@ -647,19 +644,10 @@ public final class Main extends ListActivity {
 					returnIntentResults(file);
 
 				} else {
-					Intent pdfIntent = new Intent();
-					pdfIntent.setAction(android.content.Intent.ACTION_VIEW);
+					Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
 					pdfIntent.setDataAndType(Uri.fromFile(file),
 							"application/pdf");
-
-					try {
-						startActivity(pdfIntent);
-					} catch (ActivityNotFoundException e) {
-						Toast.makeText(
-								this,
-								getString(R.string.sorrycouldntfindapdfviewver),
-								Toast.LENGTH_SHORT).show();
-					}
+					startActivity(pdfIntent);
 				}
 			}
 		}
@@ -672,8 +660,7 @@ public final class Main extends ListActivity {
 					returnIntentResults(file);
 
 				} else {
-					Intent apkIntent = new Intent();
-					apkIntent.setAction(android.content.Intent.ACTION_VIEW);
+					Intent apkIntent = new Intent(Intent.ACTION_VIEW);
 					apkIntent.setDataAndType(Uri.fromFile(file),
 							"application/vnd.android.package-archive");
 					startActivity(apkIntent);
