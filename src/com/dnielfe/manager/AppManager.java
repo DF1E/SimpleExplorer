@@ -112,6 +112,8 @@ public class AppManager extends ListActivity {
 				Toast.makeText(AppManager.this,
 						getString(R.string.backupcomplete), Toast.LENGTH_SHORT)
 						.show();
+				
+				unselectAll();
 				break;
 			}
 		}
@@ -693,17 +695,20 @@ public class AppManager extends ListActivity {
 				refreshList();
 				mMenuItem.setTitle(getString(R.string.unselectall));
 			} else {
-
-				for (int i = 0; i < mAppList.size(); i++) {
-					mStarStates[i] = false;
-					multiSelectData.remove(mAppList.get(i));
-				}
-				refreshList();
-				mMenuItem.setTitle(getString(R.string.selectall));
+				unselectAll();
 			}
 			break;
 		}
 		return false;
+	}
+
+	private void unselectAll() {
+		for (int i = 0; i < mAppList.size(); i++) {
+			mStarStates[i] = false;
+			multiSelectData.remove(mAppList.get(i));
+		}
+		refreshList();
+		mMenuItem.setTitle(getString(R.string.selectall));
 	}
 
 	private void createshortcut() {
