@@ -1066,9 +1066,13 @@ public final class Main extends ListActivity {
 		case F_MENU_ATTACH:
 			String item_ext = null;
 
-			item_ext = mSelectedListItem.substring(
-					mSelectedListItem.lastIndexOf("."),
-					mSelectedListItem.length());
+			try {
+			item_ext = mSelectedListItem.substring(mSelectedListItem.lastIndexOf("."),mSelectedListItem.length());
+			}
+			catch (Exception e){
+				item_ext=".empty";
+			}
+
 
 			try {
 				Intent i = new Intent(Intent.ACTION_SEND);
