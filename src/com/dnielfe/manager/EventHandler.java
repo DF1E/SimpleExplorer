@@ -367,9 +367,6 @@ public class EventHandler {
 				mViewHolder.mLayout = (RelativeLayout) convertView
 						.findViewById(R.id.item_layout);
 
-				mViewHolder.icon.getLayoutParams().height = 75;
-				mViewHolder.icon.getLayoutParams().width = 75;
-
 				convertView.setTag(mViewHolder);
 
 			} else {
@@ -539,7 +536,9 @@ public class EventHandler {
 				} else if (sub_ext.equalsIgnoreCase("jar")) {
 					mViewHolder.icon.setImageResource(R.drawable.jar32);
 
-				} else if (sub_ext.equalsIgnoreCase("txt")) {
+				} else if (sub_ext.equalsIgnoreCase("txt")
+						|| sub_ext.equalsIgnoreCase("asc")
+						|| sub_ext.equalsIgnoreCase("csv")) {
 					mViewHolder.icon.setImageResource(R.drawable.text1);
 
 				} else {

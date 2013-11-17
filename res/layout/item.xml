@@ -5,15 +5,14 @@
     android:layout_height="53dp"
     android:layout_alignParentBottom="true"
     android:layout_alignParentTop="true"
-    android:background="@null"
     android:paddingBottom="4dp"
     android:paddingRight="4dp"
     android:paddingTop="4dp" >
 
     <ImageView
         android:id="@+id/row_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/desc"

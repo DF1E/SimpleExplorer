@@ -142,7 +142,7 @@ public final class Main extends ListActivity {
 		checkEnvironment();
 		setupDrawer();
 
-		mHandler = new EventHandler(Main.this);
+		mHandler = new EventHandler(this);
 
 		loadPreferences();
 
@@ -177,11 +177,12 @@ public final class Main extends ListActivity {
 
 				if (dir.exists() && dir.isDirectory())
 					defaultdir = shortcut;
+				else
+					// you need to call it when shortcut-dir not exists
+					getDefaultDir();
 
 			} catch (Exception e) {
-				// get default directory from preferences
-				defaultdir = mSettings.getString("defaultdir", Environment
-						.getExternalStorageDirectory().getPath());
+				getDefaultDir();
 			}
 		}
 
@@ -207,6 +208,12 @@ public final class Main extends ListActivity {
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putString("location", mHandler.getCurrentDir());
 		super.onSaveInstanceState(outState);
+	}
+
+	private void getDefaultDir() {
+		// get default directory from preferences
+		defaultdir = mSettings.getString("defaultdir", Environment
+				.getExternalStorageDirectory().getPath());
 	}
 
 	private void setupDrawer() {
@@ -538,7 +545,7 @@ public final class Main extends ListActivity {
 			}
 		}
 
-		// photo file selected
+		// imgae file selected
 		else if (item_ext.equalsIgnoreCase(".jpeg")
 				|| item_ext.equalsIgnoreCase(".jpg")
 				|| item_ext.equalsIgnoreCase(".png")
@@ -688,8 +695,10 @@ public final class Main extends ListActivity {
 
 		// Text file
 		else if (item_ext.equalsIgnoreCase(".txt")
+				|| item_ext.equalsIgnoreCase(".asc")
 				|| item_ext.equalsIgnoreCase(".doc")
 				|| item_ext.equalsIgnoreCase(".csv")
+				|| item_ext.equalsIgnoreCase(".prop")
 				|| item_ext.equalsIgnoreCase(".rtf")
 				|| item_ext.equalsIgnoreCase(".text")) {
 
@@ -712,7 +721,7 @@ public final class Main extends ListActivity {
 
 				} else {
 					Intent generic = new Intent(Intent.ACTION_VIEW);
-					generic.setDataAndType(Uri.fromFile(file), "text/plain");
+					generic.setDataAndType(Uri.fromFile(file), "*/*");
 					startActivity(generic);
 				}
 			}
@@ -1067,12 +1076,12 @@ public final class Main extends ListActivity {
 			String item_ext = null;
 
 			try {
-			item_ext = mSelectedListItem.substring(mSelectedListItem.lastIndexOf("."),mSelectedListItem.length());
+				item_ext = mSelectedListItem.substring(
+						mSelectedListItem.lastIndexOf("."),
+						mSelectedListItem.length());
+			} catch (Exception e) {
+				item_ext = ".empty";
 			}
-			catch (Exception e){
-				item_ext=".empty";
-			}
-
 
 			try {
 				Intent i = new Intent(Intent.ACTION_SEND);
@@ -1102,6 +1111,8 @@ public final class Main extends ListActivity {
 					i.setType("image/*");
 				} else if (item_ext.equalsIgnoreCase(".apk")) {
 					i.setType("application/vnd.android.package-archive");
+				} else if (item_ext.equalsIgnoreCase(".empty")) {
+					i.setType("*/*");
 				}
 
 				i.putExtra(Intent.EXTRA_SUBJECT, mSelectedListItem);
