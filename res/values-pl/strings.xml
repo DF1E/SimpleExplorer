@@ -98,7 +98,6 @@
     <string name="singlebackup">Zarchiwizuj pojedynczy plik</string>
     <string name="size">Zajmowana przestrzeń:</string>
     <string name="size1">Rozmiar</string>
-    <string name="sorrycouldnt">Niestety, nie można wykonać</string>
     <string name="sorrycouldntfindahtmlviewver">Nie można znaleźć przeglądarki plików HTML</string>
     <string name="sorrycouldntfindapdfviewver">Nie można znaleźć przeglądarki plików PDF</string>
     <string name="sort">Sortuj</string>
