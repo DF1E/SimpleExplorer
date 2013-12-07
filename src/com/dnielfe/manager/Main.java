@@ -220,6 +220,8 @@ public final class Main extends ListActivity {
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.drawer_list);
 		mDrawer = (LinearLayout) findViewById(R.id.left_drawer);
+
+		// Set shadow of navigation drawer
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
 
@@ -991,7 +993,6 @@ public final class Main extends ListActivity {
 			builder.setTitle(mSelectedListItem);
 			builder.setIcon(R.drawable.warning);
 			builder.setMessage(getString(R.string.cannotbeundoneareyousureyouwanttodelete));
-			builder.setCancelable(false);
 
 			builder.setNegativeButton(getString(R.string.cancel),
 					new DialogInterface.OnClickListener() {
@@ -1180,7 +1181,6 @@ public final class Main extends ListActivity {
 
 		final Cursor bookmarksCursor = getBookmarks();
 
-		builder.setCancelable(true);
 		builder.setTitle(R.string.bookmark);
 		builder.setCursor(bookmarksCursor,
 				new DialogInterface.OnClickListener() {
@@ -1217,7 +1217,6 @@ public final class Main extends ListActivity {
 				getString(R.string.newd), };
 
 		AlertDialog.Builder builder3 = new AlertDialog.Builder(Main.this);
-		builder3.setCancelable(true);
 		builder3.setItems(create, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int itemz) {
 				switch (itemz) {
@@ -1235,7 +1234,6 @@ public final class Main extends ListActivity {
 					alert.setTitle(getString(R.string.createnewfolder));
 					alert.setMessage(R.string.createmsg);
 					alert.setView(input);
-					alert.setCancelable(true);
 					alert.setPositiveButton(getString(R.string.ok),
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
@@ -1393,7 +1391,7 @@ public final class Main extends ListActivity {
 
 		Intent mail_int = new Intent();
 		mail_int.setAction(android.content.Intent.ACTION_SEND_MULTIPLE);
-		mail_int.setType("text/plain");
+		mail_int.setType("*/*");
 		mail_int.putExtra(Intent.EXTRA_BCC, "");
 		mail_int.putExtra(Intent.EXTRA_SUBJECT, " ");
 		mail_int.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
@@ -1414,7 +1412,6 @@ public final class Main extends ListActivity {
 		builder.setTitle(getString(R.string.delete) + " ("
 				+ String.valueOf(size) + ")");
 		builder.setMessage(R.string.cannotbeundoneareyousureyouwanttodelete);
-		builder.setCancelable(true);
 		builder.setPositiveButton((R.string.delete),
 				new DialogInterface.OnClickListener() {
 					@Override

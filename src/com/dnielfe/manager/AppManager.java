@@ -112,7 +112,7 @@ public class AppManager extends ListActivity {
 				Toast.makeText(AppManager.this,
 						getString(R.string.backupcomplete), Toast.LENGTH_SHORT)
 						.show();
-				
+
 				unselectAll();
 				break;
 			}
@@ -735,7 +735,6 @@ public class AppManager extends ListActivity {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.deleteapps);
 		builder.setMessage(R.string.deleteappsmsg);
-		builder.setCancelable(true);
 		builder.setPositiveButton((R.string.ok),
 				new DialogInterface.OnClickListener() {
 					@Override
