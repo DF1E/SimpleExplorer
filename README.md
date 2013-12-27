@@ -17,3 +17,6 @@ muamers - bosnian
 kaizokan - dutch
 lexaleon - russian
 pylerSM - slovakian
+
+
+Discussion Thread: http://forum.xda-developers.com/showthread.php?t=2330864
