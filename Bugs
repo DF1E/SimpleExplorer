@@ -2,4 +2,3 @@ Bugs:
 
 - can't copy/move to directory which needs root (you can copy when name have no spaces for example helloworld)
 - files and folders in /data or other directory witch need root are not correctly shown
-- Search does not work at all (only on SD Cards)
