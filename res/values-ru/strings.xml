@@ -17,6 +17,7 @@
     <string name="calcinfo">Вычисление</string>
     <string name="cancel">Отмена</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Вы уверены? Это необратимо!"</string>
+    <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Не удается прочитать папку из-за прав доступа!</string>
     <string name="choosefiles">Выберите файлы</string>
     <string name="copiedtoclipboard">Скопировано в буфер обмена.</string>

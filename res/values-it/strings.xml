@@ -17,6 +17,7 @@
     <string name="calcinfo">Elaborando le informazioni</string>
     <string name="cancel">Annulla</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Questa operazione non può essere annullata"</string>
+    <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Impossibile accedere alla cartella per mancanza di permessi</string>
     <string name="choosefiles">Seleziona i file!</string>
     <string name="copiedtoclipboard">copiato negli Appunti</string>

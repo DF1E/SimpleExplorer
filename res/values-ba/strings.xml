@@ -17,6 +17,7 @@
     <string name="calcinfo">Kalkulacija Informacije</string>
     <string name="cancel">Otka�i</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Ovo ne mo�e biti poni�teno zbog dozvole"</string>
+    <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Onemogu�eno �itanje foldera zbog dozvole</string>
     <string name="choosefiles">Odabir Datoteke!</string>
     <string name="copiedtoclipboard">Kopirano u Prijenosnik</string>

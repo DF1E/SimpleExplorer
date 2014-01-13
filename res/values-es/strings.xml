@@ -17,6 +17,7 @@
     <string name="calcinfo">Calculando información</string>
     <string name="cancel">Cancelar</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Esto no se puede desechar!"</string>
+    <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">No so puede leer la carpeta debido a permisos.</string>
     <string name="choosefiles">Seleccionar archivos!</string>
     <string name="copiedtoclipboard">Copiado al portapapeles</string>

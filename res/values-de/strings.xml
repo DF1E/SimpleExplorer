@@ -17,6 +17,7 @@
     <string name="calcinfo">Berechne Daten</string>
     <string name="cancel">Abbrechen</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dies kann nicht rückgängig gemacht werden!"</string>
+    <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Kann wegen fehlender Zugriffsrechte nicht gelesen werden</string>
     <string name="choosefiles">Wähle Dateien aus!</string>
     <string name="copiedtoclipboard">in die Zwischenablage kopiert</string>

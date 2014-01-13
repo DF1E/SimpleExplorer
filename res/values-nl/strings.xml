@@ -17,6 +17,7 @@
     <string name="calcinfo">Informatie berekenen</string>
     <string name="cancel">Annuleer</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dit kan niet ongedaan gemaakt worden"</string>
+    <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Folder kan niet gelezen worden wegens machtigingen</string>
     <string name="choosefiles">Selecteer bestanden!</string>
     <string name="copiedtoclipboard">gekopieerd naar Klembord</string>

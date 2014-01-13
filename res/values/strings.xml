@@ -17,7 +17,8 @@
     <string name="calcinfo">Calculating information</string>
     <string name="cancel">Cancel</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"This cannot be undone!"</string>
-    <string name="cantreadfolder">Cannot read folder due to permissions.</string>
+    <string name="cantopenfile">Cannot open this file</string>
+    <string name="cantreadfolder">Cannot read folder due to permissions</string>
     <string name="choosefiles">Select files</string>
     <string name="copiedtoclipboard">Copied to clipboard.</string>
     <string name="copy">Copy</string>

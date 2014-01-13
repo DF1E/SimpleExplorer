@@ -17,6 +17,7 @@
     <string name="calcinfo">Hesaplama Bilgisi</string>
     <string name="cancel">İptal</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Bu işlem geri alınamaz"</string>
+    <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Yetkisizlik nedeniyle klasör okunamıyor</string>
     <string name="choosefiles">Dosyaları Seç!</string>
     <string name="copiedtoclipboard">Panoya kopyalandı</string>

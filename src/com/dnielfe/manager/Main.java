@@ -517,6 +517,7 @@ public final class Main extends ListActivity {
 
 	private void listItemAction(File file, String item) {
 		String item_ext = null;
+		Intent openIntent = new Intent(Intent.ACTION_VIEW);
 
 		try {
 			item_ext = item.substring(item.lastIndexOf("."), item.length());
@@ -541,9 +542,13 @@ public final class Main extends ListActivity {
 			if (mReturnIntent) {
 				returnIntentResults(file);
 			} else {
-				Intent i = new Intent(Intent.ACTION_VIEW);
-				i.setDataAndType(Uri.fromFile(file), "audio/*");
-				startActivity(i);
+				try {
+					openIntent.setDataAndType(Uri.fromFile(file), "audio/*");
+					startActivity(openIntent);
+				} catch (Exception e) {
+					Toast.makeText(Main.this, getString(R.string.cantopenfile),
+							Toast.LENGTH_SHORT).show();
+				}
 			}
 		}
 
@@ -561,11 +566,16 @@ public final class Main extends ListActivity {
 			if (file.exists()) {
 				if (mReturnIntent) {
 					returnIntentResults(file);
-
 				} else {
-					Intent picIntent = new Intent(Intent.ACTION_VIEW);
-					picIntent.setDataAndType(Uri.fromFile(file), "image/*");
-					startActivity(picIntent);
+					try {
+						openIntent
+								.setDataAndType(Uri.fromFile(file), "image/*");
+						startActivity(openIntent);
+					} catch (Exception e) {
+						Toast.makeText(Main.this,
+								getString(R.string.cantopenfile),
+								Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 		}
@@ -586,11 +596,16 @@ public final class Main extends ListActivity {
 			if (file.exists()) {
 				if (mReturnIntent) {
 					returnIntentResults(file);
-
 				} else {
-					Intent movieIntent = new Intent(Intent.ACTION_VIEW);
-					movieIntent.setDataAndType(Uri.fromFile(file), "video/*");
-					startActivity(movieIntent);
+					try {
+						openIntent
+								.setDataAndType(Uri.fromFile(file), "video/*");
+						startActivity(openIntent);
+					} catch (Exception e) {
+						Toast.makeText(Main.this,
+								getString(R.string.cantopenfile),
+								Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 		}
@@ -640,8 +655,8 @@ public final class Main extends ListActivity {
 
 			if (mReturnIntent) {
 				returnIntentResults(file);
-
 			} else {
+				// nothing - need to add more features
 			}
 		}
 
@@ -651,12 +666,16 @@ public final class Main extends ListActivity {
 			if (file.exists()) {
 				if (mReturnIntent) {
 					returnIntentResults(file);
-
 				} else {
-					Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-					pdfIntent.setDataAndType(Uri.fromFile(file),
-							"application/pdf");
-					startActivity(pdfIntent);
+					try {
+						openIntent.setDataAndType(Uri.fromFile(file),
+								"application/pdf");
+						startActivity(openIntent);
+					} catch (Exception e) {
+						Toast.makeText(Main.this,
+								getString(R.string.cantopenfile),
+								Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 		}
@@ -667,12 +686,16 @@ public final class Main extends ListActivity {
 			if (file.exists()) {
 				if (mReturnIntent) {
 					returnIntentResults(file);
-
 				} else {
-					Intent apkIntent = new Intent(Intent.ACTION_VIEW);
-					apkIntent.setDataAndType(Uri.fromFile(file),
-							"application/vnd.android.package-archive");
-					startActivity(apkIntent);
+					try {
+						openIntent.setDataAndType(Uri.fromFile(file),
+								"application/vnd.android.package-archive");
+						startActivity(openIntent);
+					} catch (Exception e) {
+						Toast.makeText(Main.this,
+								getString(R.string.cantopenfile),
+								Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 		}
@@ -686,11 +709,16 @@ public final class Main extends ListActivity {
 			if (file.exists()) {
 				if (mReturnIntent) {
 					returnIntentResults(file);
-
 				} else {
-					Intent htmlIntent = new Intent(Intent.ACTION_VIEW);
-					htmlIntent.setDataAndType(Uri.fromFile(file), "text/html");
-					startActivity(htmlIntent);
+					try {
+						openIntent.setDataAndType(Uri.fromFile(file),
+								"text/html");
+						startActivity(openIntent);
+					} catch (Exception e) {
+						Toast.makeText(Main.this,
+								getString(R.string.cantopenfile),
+								Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 		}
@@ -707,11 +735,16 @@ public final class Main extends ListActivity {
 			if (file.exists()) {
 				if (mReturnIntent) {
 					returnIntentResults(file);
-
 				} else {
-					Intent txtIntent = new Intent(Intent.ACTION_VIEW);
-					txtIntent.setDataAndType(Uri.fromFile(file), "text/plain");
-					startActivity(txtIntent);
+					try {
+						openIntent.setDataAndType(Uri.fromFile(file),
+								"text/plain");
+						startActivity(openIntent);
+					} catch (Exception e) {
+						Toast.makeText(Main.this,
+								getString(R.string.cantopenfile),
+								Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 		}
@@ -720,11 +753,15 @@ public final class Main extends ListActivity {
 			if (file.exists()) {
 				if (mReturnIntent) {
 					returnIntentResults(file);
-
 				} else {
-					Intent generic = new Intent(Intent.ACTION_VIEW);
-					generic.setDataAndType(Uri.fromFile(file), "*/*");
-					startActivity(generic);
+					try {
+						openIntent.setDataAndType(Uri.fromFile(file), "*/*");
+						startActivity(openIntent);
+					} catch (Exception e) {
+						Toast.makeText(Main.this,
+								getString(R.string.cantopenfile),
+								Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 		}

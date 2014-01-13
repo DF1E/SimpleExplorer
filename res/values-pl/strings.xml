@@ -17,6 +17,7 @@
     <string name="calcinfo">Przeliczanie informacji</string>
     <string name="cancel">Anuluj</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Operacja nie może być cofnięta"</string>
+    <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Nie można wczytać ze względu na brak zezwoleń</string>
     <string name="choosefiles">Wybierz pliki!</string>
     <string name="copiedtoclipboard">skopiowano do schowka</string>

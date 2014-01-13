@@ -17,6 +17,7 @@
     <string name="calcinfo">Výpočet informácií</string>
     <string name="cancel">Zrušiť</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Túto akciu nie je možné vrátiť!"</string>
+    <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Nemožno čítať priečinok kvôli oprávneniam.</string>
     <string name="choosefiles">Vyberte súbory</string>
     <string name="copiedtoclipboard">Skopírované do schránky.</string>
