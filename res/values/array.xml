@@ -23,6 +23,7 @@
         <item>@string/dir_info</item>
         <item>@string/appmanager</item>
         <item>@string/settings</item>
+        <item>@string/exit</item>
     </string-array>
 
 </resources>

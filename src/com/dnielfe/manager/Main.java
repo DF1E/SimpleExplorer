@@ -299,6 +299,9 @@ public final class Main extends ListActivity {
 			Intent intent2 = new Intent(Main.this, Settings.class);
 			startActivity(intent2);
 			break;
+		case 3:
+			// exit
+			finish();
 		}
 	}
 

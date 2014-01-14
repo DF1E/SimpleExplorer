@@ -42,6 +42,7 @@
     <string name="drawer_open">Drawer öffnen</string>
     <string name="drawer_close">Drawer schließen</string>
     <string name="error">Error</string>
+    <string name="exit">Beenden</string>
     <string name="extract">Extrahieren</string>
     <string name="extractto">Extrahieren nach</string>
     <string name="fdirectory">Verzeichnis:</string>

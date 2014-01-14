@@ -42,6 +42,7 @@
     <string name="drawer_open">Otvoriť navigačnú ponuku</string>
     <string name="drawer_close">Zatvoriť navigačnú ponuku</string>
     <string name="error">Chyba</string>
+    <string name="exit">Exit</string>
     <string name="extract">Rozbaliť</string>
     <string name="extractto">Rozbaliť do</string>
     <string name="fdirectory">Umiestnenie:</string>

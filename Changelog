@@ -1,6 +1,9 @@
 Changelog:
 
 v1.9.2
+get default date format from system
+fixed crash when the file cannot be open
+added exit button in drawer
 update roottools lib
 
 v1.9.1
