@@ -62,6 +62,7 @@
     <string name="launch">Launch</string>
     <string name="loading">Loading</string>
     <string name="manage">Manage</string>
+    <string name="md5">MD5:</string>
     <string name="move">Move</string>
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Successfully moved.</string>

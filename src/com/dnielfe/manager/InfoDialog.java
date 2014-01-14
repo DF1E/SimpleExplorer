@@ -19,6 +19,8 @@
 
 package com.dnielfe.manager;
 
+import com.dnielfe.utils.MD5Checksum;
+
 import java.io.File;
 import java.text.DateFormat;
 import android.os.Bundle;
@@ -35,7 +37,7 @@ public class InfoDialog extends Activity {
 	private static File file3;
 	private String infopath;
 	private TextView mNameLabel, mPathLabel, mTimeLabel, mSizeLabel,
-			mPermissionLabel;
+			mPermissionLabel, mMD5Label;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,6 +63,7 @@ public class InfoDialog extends Activity {
 		mTimeLabel = (TextView) findViewById(R.id.time_stamp);
 		mSizeLabel = (TextView) findViewById(R.id.total_size);
 		mPermissionLabel = (TextView) findViewById(R.id.permission1);
+		mMD5Label = (TextView) findViewById(R.id.md5_summary);
 
 		// Set up Button
 		Button button1 = (Button) findViewById(R.id.quit);
@@ -118,6 +121,16 @@ public class InfoDialog extends Activity {
 					.getDateFormat(getApplicationContext());
 			DateFormat timeFormat = android.text.format.DateFormat
 					.getTimeFormat(getApplicationContext());
+			
+			if (file3.isFile()) {
+				try {
+					mMD5Label.setText(MD5Checksum.getMD5Checksum(file3.getPath()));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				mMD5Label.setText("-");
+			}
 
 			mTimeLabel.setText(dateFormat.format(file3.lastModified()) + " "
 					+ timeFormat.format(file3.lastModified()));
