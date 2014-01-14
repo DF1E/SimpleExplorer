@@ -20,8 +20,7 @@
 package com.dnielfe.manager;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-
+import java.text.DateFormat;
 import com.dnielfe.manager.FileUtils.ProgressbarClass;
 
 import android.os.Bundle;
@@ -175,12 +174,17 @@ public class DirectoryInfo extends Activity {
 			File dir = new File(mPathName);
 
 			String avaible = String.valueOf(mAvaibleSize);
-			SimpleDateFormat sdf1 = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+
+			DateFormat dateFormat = android.text.format.DateFormat
+					.getDateFormat(getApplicationContext());
+			DateFormat timeFormat = android.text.format.DateFormat
+					.getTimeFormat(getApplicationContext());
 
 			mPathLabel.setText(dir.getAbsolutePath());
 			mDirLabel.setText(mDirCount + getString(R.string.folders));
 			mFileLabel.setText(mFileCount + getString(R.string.files));
-			mTimeLabel.setText(sdf1.format(dir.lastModified()));
+			mTimeLabel.setText(dateFormat.format(dir.lastModified()) + " "
+					+ timeFormat.format(dir.lastModified()));
 			mUsedLabel.setText(mDisplaySize);
 
 			if (dir.getAbsolutePath().equals("/")) {

@@ -23,7 +23,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -580,11 +580,15 @@ public class EventHandler {
 					mViewHolder.bottomView.setText(num_items + s);
 			}
 
-			SimpleDateFormat sdf1 = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+			DateFormat dateFormat = android.text.format.DateFormat
+					.getDateFormat(mContext);
+			DateFormat timeFormat = android.text.format.DateFormat
+					.getTimeFormat(mContext);
 
 			mViewHolder.topView.setText(file.getName());
 
-			mViewHolder.dateview.setText(sdf1.format(file.lastModified()));
+			mViewHolder.dateview.setText(dateFormat.format(file.lastModified())
+					+ " " + timeFormat.format(file.lastModified()));
 
 			return convertView;
 		}

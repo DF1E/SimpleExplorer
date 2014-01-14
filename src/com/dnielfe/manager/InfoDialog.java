@@ -20,8 +20,7 @@
 package com.dnielfe.manager;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-
+import java.text.DateFormat;
 import android.os.Bundle;
 import android.os.AsyncTask;
 import android.content.Intent;
@@ -115,9 +114,13 @@ public class InfoDialog extends Activity {
 		}
 
 		protected void onPostExecute(String result) {
-			SimpleDateFormat sdf1 = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+			DateFormat dateFormat = android.text.format.DateFormat
+					.getDateFormat(getApplicationContext());
+			DateFormat timeFormat = android.text.format.DateFormat
+					.getTimeFormat(getApplicationContext());
 
-			mTimeLabel.setText(sdf1.format(file3.lastModified()));
+			mTimeLabel.setText(dateFormat.format(file3.lastModified()) + " "
+					+ timeFormat.format(file3.lastModified()));
 			mSizeLabel.setText(result);
 		}
 	}
