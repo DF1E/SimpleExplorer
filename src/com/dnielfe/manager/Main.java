@@ -809,7 +809,11 @@ public final class Main extends ListActivity {
 			return true;
 		case R.id.multis:
 			mHandler.multiselect();
-			startActionMode(mActionModeCallback);
+
+			if (mActionMode == null)
+				mActionMode = startActionMode(new MultiController());
+			else
+				mActionMode.finish();
 			return true;
 
 		case R.id.search:
@@ -1324,7 +1328,7 @@ public final class Main extends ListActivity {
 	}
 
 	// this will start when multiButton is clicked
-	public ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+	public class MultiController implements ActionMode.Callback {
 
 		// Called when the action mode is created; startActionMode() was called
 		@Override
