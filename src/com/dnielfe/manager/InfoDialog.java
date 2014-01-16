@@ -89,6 +89,9 @@ public class InfoDialog extends Activity {
 			mNameLabel.setText(file3.getName());
 			mPathLabel.setText(file3.getAbsolutePath());
 			mPermissionLabel.setText(getFilePermissions(file3));
+			mTimeLabel.setText("...");
+			mSizeLabel.setText("...");
+			mMD5Label.setText("...");
 		}
 
 		protected String doInBackground(String... vals) {
