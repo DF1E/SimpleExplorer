@@ -401,10 +401,9 @@ public final class Main extends ListActivity {
 		int MATCH_PARENT = FrameLayout.LayoutParams.MATCH_PARENT;
 
 		// Add home button separately
-		Button bt = new Button(this);
+		Button bt = new Button(this, null, android.R.attr.borderlessButtonStyle);
 		bt.setText("/");
 		bt.setTextSize(directorytextsize);
-		bt.setBackgroundResource(R.drawable.buttonaction);
 		bt.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT,
 				WRAP_CONTENT, Gravity.CENTER_VERTICAL));
 		bt.setOnClickListener(new View.OnClickListener() {
@@ -427,10 +426,11 @@ public final class Main extends ListActivity {
 			fv1.setBackground(getResources().getDrawable(R.drawable.listmore));
 			fv1.setLayoutParams(new FrameLayout.LayoutParams(WRAP_CONTENT,
 					MATCH_PARENT, Gravity.CENTER_VERTICAL));
-			Button b = new Button(this);
+
+			Button b = new Button(this, null,
+					android.R.attr.borderlessButtonStyle);
 			b.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT,
 					WRAP_CONTENT, Gravity.CENTER_VERTICAL));
-			b.setBackgroundResource(R.drawable.buttonaction);
 			b.setText(parts[i]);
 			b.setTextSize(directorytextsize);
 			b.setTag(dir);
