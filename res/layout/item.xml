@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_layout"
     android:layout_width="fill_parent"
-    android:layout_height="54dp"
+    android:layout_height="@dimen/item_height"
     android:layout_alignParentBottom="true"
     android:layout_alignParentTop="true"
     android:paddingBottom="4dp"
@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/row_image"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
+        android:layout_width="@dimen/item_height"
+        android:layout_height="@dimen/item_height"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/desc"
