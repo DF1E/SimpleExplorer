@@ -20,10 +20,6 @@
 package com.dnielfe.utils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import java.util.Collections;
 
 import java.util.Map;
@@ -33,8 +29,16 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.dnielfe.manager.preview.MimeTypes;
+
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.os.Handler;
 import android.os.Message;
@@ -44,12 +48,12 @@ import android.widget.ImageView;
 
 public enum IconPreview {
 	INSTANCE;
-	private String type = "image";
 
 	private final ConcurrentMap<String, Bitmap> cache;
 	private final ExecutorService pool;
 	private Map<ImageView, String> imageViews = Collections
 			.synchronizedMap(new ConcurrentHashMap<ImageView, String>());
+	private static PackageManager packageManager;
 	private Bitmap placeholder;
 
 	IconPreview() {
@@ -61,10 +65,6 @@ public enum IconPreview {
 		placeholder = bmp;
 	}
 
-	public void setType(String type1) {
-		type = type1;
-	}
-
 	public Bitmap getBitmapFromCache(String url) {
 		if (cache.containsKey(url)) {
 			return cache.get(url);
@@ -73,13 +73,13 @@ public enum IconPreview {
 		return null;
 	}
 
-	public void queueJob(final String url, final ImageView imageView) {
+	public void queueJob(final File uri, final ImageView imageView) {
 		/* Create handler in UI thread. */
 		final Handler handler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				String tag = imageViews.get(imageView);
-				if (tag != null && tag.equals(url)) {
+				if (tag != null && tag.equals(uri.getAbsolutePath())) {
 					if (msg.obj != null) {
 						imageView.setImageBitmap((Bitmap) msg.obj);
 					} else {
@@ -92,7 +92,7 @@ public enum IconPreview {
 
 		pool.submit(new Runnable() {
 			public void run() {
-				final Bitmap bmp = getPreview(url);
+				final Bitmap bmp = getPreview(uri);
 				Message message = Message.obtain();
 				message.obj = bmp;
 
@@ -101,9 +101,9 @@ public enum IconPreview {
 		});
 	}
 
-	public void loadBitmap(final String url, final ImageView imageView) {
-		imageViews.put(imageView, url);
-		Bitmap bitmap = getBitmapFromCache(url);
+	public void loadBitmap(final File file, final ImageView imageView) {
+		imageViews.put(imageView, file.getAbsolutePath());
+		Bitmap bitmap = getBitmapFromCache(file.getAbsolutePath());
 
 		// check in UI thread, so no concurrency issues
 		if (bitmap != null) {
@@ -111,7 +111,23 @@ public enum IconPreview {
 			imageView.setImageBitmap(bitmap);
 		} else {
 			imageView.setImageBitmap(placeholder);
-			queueJob(url, imageView);
+			queueJob(file, imageView);
+		}
+	}
+
+	public void loadApk(final File file1, final ImageView imageView,
+			final Context context) {
+		packageManager = context.getPackageManager();
+		imageViews.put(imageView, file1.getAbsolutePath());
+		Bitmap bitmap = getBitmapFromCache(file1.getAbsolutePath());
+
+		// check in UI thread, so no concurrency issues
+		if (bitmap != null) {
+			// Item loaded from cache
+			imageView.setImageBitmap(bitmap);
+		} else {
+			imageView.setImageBitmap(placeholder);
+			queueJob(file1, imageView);
 		}
 	}
 
@@ -119,62 +135,60 @@ public enum IconPreview {
 		cache.clear();
 	}
 
-	private Bitmap getPreview(String url) {
+	private Bitmap getPreview(File file) {
+		final boolean isImage = MimeTypes.isPicture(file);
+		final boolean isVideo = MimeTypes.isVideo(file);
+		final boolean isApk = file.getName().endsWith(".apk");
 		Bitmap mBitmap = null;
-		InputStream photoStream = null;
-		File path = new File(url);
+		String path = file.getAbsolutePath();
 		int size = 72;
 
-		if (type.contentEquals("image")) {
+		if (isImage) {
 
-			try {
-				photoStream = new FileInputStream(path);
-				BitmapFactory.Options opts = new BitmapFactory.Options();
-				opts.inJustDecodeBounds = true;
-				opts.inSampleSize = 1;
+			BitmapFactory.Options o = new BitmapFactory.Options();
+			o.inJustDecodeBounds = true;
 
-				mBitmap = BitmapFactory.decodeStream(photoStream, null, opts);
-				if (opts.outWidth > opts.outHeight && opts.outWidth > size) {
-					opts.inSampleSize = opts.outWidth / size;
-				} else if (opts.outWidth < opts.outHeight
-						&& opts.outHeight > size) {
-					opts.inSampleSize = opts.outHeight / size;
-				}
-				if (opts.inSampleSize < 1) {
-					opts.inSampleSize = 1;
-				}
-				opts.inJustDecodeBounds = false;
-				photoStream.close();
-				photoStream = new FileInputStream(path);
-				mBitmap = BitmapFactory.decodeStream(photoStream, null, opts);
+			BitmapFactory.decodeFile(path, o);
+			o.inJustDecodeBounds = false;
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (photoStream != null) {
-					try {
-						photoStream.close();
-					} catch (IOException e) {
-						e.printStackTrace();
+			if (o.outWidth != -1 && o.outHeight != -1) {
+				final int originalSize = (o.outHeight > o.outWidth) ? o.outWidth
+						: o.outHeight;
+				o.inSampleSize = originalSize / size;
+			}
+
+			mBitmap = BitmapFactory.decodeFile(path, o);
+
+			cache.put(path, mBitmap);
+			return mBitmap;
+
+		} else if (isVideo) {
+
+			mBitmap = ThumbnailUtils.createVideoThumbnail(path,
+					MediaStore.Video.Thumbnails.MICRO_KIND);
+
+			cache.put(path, mBitmap);
+			return mBitmap;
+
+		} else if (isApk) {
+			final PackageInfo packageInfo = packageManager
+					.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES);
+
+			if (packageInfo != null) {
+				final ApplicationInfo appInfo = packageInfo.applicationInfo;
+
+				if (appInfo != null) {
+					appInfo.sourceDir = path;
+					appInfo.publicSourceDir = path;
+					final Drawable icon = appInfo.loadIcon(packageManager);
+
+					if (icon != null) {
+						mBitmap = ((BitmapDrawable) icon).getBitmap();
 					}
 				}
 			}
-			cache.put(url, mBitmap);
-
 			return mBitmap;
-
-		} else if (type.contentEquals("video")) {
-
-			mBitmap = ThumbnailUtils.createVideoThumbnail(
-					path.getAbsolutePath(),
-					MediaStore.Video.Thumbnails.MICRO_KIND);
-
-			cache.put(url, mBitmap);
-
-			return mBitmap;
-
-		} else {
-			return null;
 		}
+		return null;
 	}
 }

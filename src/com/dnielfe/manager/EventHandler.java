@@ -28,18 +28,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Stack;
-import java.util.concurrent.ConcurrentHashMap;
+import org.apache.commons.io.FilenameUtils;
+import org.jetbrains.annotations.NotNull;
 
+import com.dnielfe.manager.preview.DrawableLruCache;
+import com.dnielfe.manager.preview.MimeTypes;
+import com.dnielfe.manager.preview.ThemeUtils;
 import com.dnielfe.utils.IconPreview;
 
-import android.os.AsyncTask;
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
+import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +61,10 @@ public class EventHandler {
 	private static final int SORT_TYPE = 1;
 	private static final int SORT_SIZE = 2;
 
+	private static DrawableLruCache<Integer> mDrawableLruCache;
+	private static DrawableLruCache<String> mMimeTypeIconCache;
 	private final Context mContext;
+	private final Resources mResources;
 	private static int fileCount = 0;
 	TableRow mTable;
 	boolean multi_select_flag = false;
@@ -84,12 +86,11 @@ public class EventHandler {
 	 *            The context of the main activity e.g Main
 	 */
 	public EventHandler(Context context) {
-		mContext = context;
+		this.mContext = context;
+		this.mResources = context.getResources();
 
 		mPathStack = new Stack<String>();
 		mDataSource = new ArrayList<String>();
-
-		initializeDrawbale();
 	}
 
 	/**
@@ -108,7 +109,6 @@ public class EventHandler {
 	 * Set this true and thumbnails will be used as the icon for image files.
 	 * False will show a default image.
 	 */
-
 	public void setShowThumbnails(boolean show) {
 		thumbnail = show;
 	}
@@ -287,6 +287,13 @@ public class EventHandler {
 
 		public TableRow() {
 			super(mContext, R.layout.item, mDataSource);
+
+			if (mDrawableLruCache == null) {
+				mDrawableLruCache = new DrawableLruCache<Integer>();
+			}
+			if (mMimeTypeIconCache == null) {
+				mMimeTypeIconCache = new DrawableLruCache<String>();
+			}
 		}
 
 		public void addMultiPosition(int index, String path, boolean remove) {
@@ -385,172 +392,7 @@ public class EventHandler {
 			else
 				mViewHolder.mLayout.setBackgroundResource(Color.TRANSPARENT);
 
-			if (file != null && file.isFile()) {
-				String ext = file.toString();
-				String sub_ext = ext.substring(ext.lastIndexOf(".") + 1);
-
-				// This series of else if statements will determine which icon
-				// is displayed
-				if (sub_ext.equalsIgnoreCase("pdf")) {
-					mViewHolder.icon.setImageResource(R.drawable.pdf);
-
-				} else if (sub_ext.equalsIgnoreCase("mp3")
-						|| sub_ext.equalsIgnoreCase("wma")
-						|| sub_ext.equalsIgnoreCase("3ga")
-						|| sub_ext.equalsIgnoreCase("m4a")
-						|| sub_ext.equalsIgnoreCase("caf")
-						|| sub_ext.equalsIgnoreCase("ogg")
-						|| sub_ext.equalsIgnoreCase("m4p")
-						|| sub_ext.equalsIgnoreCase("aac")
-						|| sub_ext.equalsIgnoreCase("wav")
-						|| sub_ext.equalsIgnoreCase("amr")) {
-
-					mViewHolder.icon.setImageResource(R.drawable.music);
-
-				} else if (sub_ext.equalsIgnoreCase("png")
-						|| sub_ext.equalsIgnoreCase("jpg")
-						|| sub_ext.equalsIgnoreCase("jpeg")
-						|| sub_ext.equalsIgnoreCase("gif")
-						|| sub_ext.equalsIgnoreCase("psd")
-						|| sub_ext.equalsIgnoreCase("raw")
-						|| sub_ext.equalsIgnoreCase("tiff")) {
-
-					if (thumbnail == true && file.length() != 0) {
-
-						Drawable icon = mContext.getResources().getDrawable(
-								R.drawable.bitmap);
-						Bitmap bitmap = ((BitmapDrawable) icon).getBitmap();
-						IconPreview.INSTANCE.setPlaceholder(bitmap);
-						mViewHolder.icon.setTag(file.getAbsolutePath());
-						IconPreview.INSTANCE.setType("image");
-
-						IconPreview.INSTANCE.loadBitmap(file.getAbsolutePath(),
-								mViewHolder.icon);
-
-					} else {
-						mViewHolder.icon.setImageResource(R.drawable.image);
-					}
-
-				} else if (sub_ext.equalsIgnoreCase("m4v")
-						|| sub_ext.equalsIgnoreCase("wmv")
-						|| sub_ext.equalsIgnoreCase("3gp")
-						|| sub_ext.equalsIgnoreCase("mov")
-						|| sub_ext.equalsIgnoreCase("avi")
-						|| sub_ext.equalsIgnoreCase("mpg")
-						|| sub_ext.equalsIgnoreCase("flv")
-						|| sub_ext.equalsIgnoreCase("mp4")) {
-
-					if (thumbnail == true && file.length() != 0) {
-						Drawable icon = mContext.getResources().getDrawable(
-								R.drawable.bitmap);
-						Bitmap bitmap = ((BitmapDrawable) icon).getBitmap();
-						IconPreview.INSTANCE.setPlaceholder(bitmap);
-						mViewHolder.icon.setTag(file.getAbsolutePath());
-						IconPreview.INSTANCE.setType("video");
-
-						IconPreview.INSTANCE.loadBitmap(file.getAbsolutePath(),
-								mViewHolder.icon);
-					} else {
-						mViewHolder.icon.setImageResource(R.drawable.movies);
-					}
-
-				} else if (sub_ext.equalsIgnoreCase("apk")) {
-
-					if (thumbnail == true && file.length() != 0) {
-
-						new AsyncTask<String[], Long, Long>() {
-							Drawable icon;
-
-							@Override
-							protected Long doInBackground(String[]... params) {
-								icon = getDrawableFromCache(file.getPath());
-
-								if (icon != null) {
-									return null;
-								} else {
-									icon = getApkDrawable(file);
-								}
-
-								if (icon == null) {
-									icon = mContext.getResources().getDrawable(
-											R.drawable.appicon);
-								}
-
-								AppIconManager.cache.put(file.getPath(), icon);
-								return null;
-							}
-
-							@Override
-							protected void onPostExecute(Long result) {
-								mViewHolder.icon.setImageDrawable(icon);
-							}
-						}.execute();
-
-					} else {
-						mViewHolder.icon.setImageResource(R.drawable.appicon);
-					}
-
-				} else if (sub_ext.equalsIgnoreCase("zip")
-						|| sub_ext.equalsIgnoreCase("gzip")
-						|| sub_ext.equalsIgnoreCase("bzip2")
-						|| sub_ext.equalsIgnoreCase("7z")
-						|| sub_ext.equalsIgnoreCase("ar")
-						|| sub_ext.equalsIgnoreCase("gz")) {
-
-					mViewHolder.icon.setImageResource(R.drawable.zip);
-
-				} else if (sub_ext.equalsIgnoreCase("rar")) {
-					mViewHolder.icon.setImageResource(R.drawable.rar);
-
-				} else if (sub_ext.equalsIgnoreCase("tar")) {
-					mViewHolder.icon.setImageResource(R.drawable.tar);
-
-				} else if (sub_ext.equalsIgnoreCase("doc")
-						|| sub_ext.equalsIgnoreCase("docx")) {
-
-					mViewHolder.icon.setImageResource(R.drawable.word);
-
-				} else if (sub_ext.equalsIgnoreCase("xls")
-						|| sub_ext.equalsIgnoreCase("xlsx")) {
-
-					mViewHolder.icon.setImageResource(R.drawable.excel);
-
-				} else if (sub_ext.equalsIgnoreCase("ppt")
-						|| sub_ext.equalsIgnoreCase("pptx")) {
-
-					mViewHolder.icon.setImageResource(R.drawable.ppt);
-
-				} else if (sub_ext.equalsIgnoreCase("html")
-						|| sub_ext.equalsIgnoreCase("htm")
-						|| sub_ext.equalsIgnoreCase("php")) {
-
-					mViewHolder.icon.setImageResource(R.drawable.html);
-
-				} else if (sub_ext.equalsIgnoreCase("xml")) {
-					mViewHolder.icon.setImageResource(R.drawable.xml32);
-
-				} else if (sub_ext.equalsIgnoreCase("conf")
-						|| sub_ext.equalsIgnoreCase("prop")) {
-					mViewHolder.icon.setImageResource(R.drawable.config);
-
-				} else if (sub_ext.equalsIgnoreCase("jar")) {
-					mViewHolder.icon.setImageResource(R.drawable.jar32);
-
-				} else if (sub_ext.equalsIgnoreCase("txt")
-						|| sub_ext.equalsIgnoreCase("asc")
-						|| sub_ext.equalsIgnoreCase("csv")) {
-					mViewHolder.icon.setImageResource(R.drawable.text1);
-
-				} else {
-					mViewHolder.icon.setImageResource(R.drawable.blanc);
-				}
-
-			} else if (file != null && file.isDirectory()) {
-				if (file.canRead() && file.list().length > 0)
-					mViewHolder.icon.setImageResource(R.drawable.folder_full);
-				else
-					mViewHolder.icon.setImageResource(R.drawable.folder);
-			}
+			setIcon(file, mViewHolder.icon);
 
 			// Shows the size of File
 			if (file.isFile()) {
@@ -599,21 +441,81 @@ public class EventHandler {
 
 			mMultiSelectData.add(src);
 		}
-	}
 
-	private static class AppIconManager {
-		private static ConcurrentHashMap<String, Drawable> cache;
-	}
+		// TODO setIcon set placeholder
+		protected final void setIcon(final File file, final ImageView icon) {
+			final boolean isImage = MimeTypes.isPicture(file);
+			final boolean isVideo = MimeTypes.isVideo(file);
+			final boolean isApk = file.getName().endsWith(".apk");
 
-	private void initializeDrawbale() {
-		AppIconManager.cache = new ConcurrentHashMap<String, Drawable>();
-	}
-
-	private Drawable getDrawableFromCache(String url) {
-		if (AppIconManager.cache.containsKey(url)) {
-			return AppIconManager.cache.get(url);
+			if (file != null && file.isDirectory()) {
+				if (file.canRead() && file.list().length > 0)
+					icon.setImageResource(R.drawable.folder_full);
+				else
+					icon.setImageResource(R.drawable.folder);
+			} else {
+				if (thumbnail) {
+					if (isImage) {
+						// IconPreview.INSTANCE.setPlaceholder(bitmap);
+						icon.setTag(file.getAbsolutePath());
+						IconPreview.INSTANCE.loadBitmap(file, icon);
+					} else if (isVideo) {
+						// IconPreview.INSTANCE.setPlaceholder(bitmap);
+						icon.setTag(file.getAbsolutePath());
+						IconPreview.INSTANCE.loadBitmap(file, icon);
+					} else if (isApk) {
+						// IconPreview.INSTANCE.setPlaceholder(bitmap);
+						icon.setTag(file.getAbsolutePath());
+						IconPreview.INSTANCE.loadApk(file, icon, mContext);
+					} else {
+						loadFromRes(file, icon);
+					}
+				} else {
+					loadFromRes(file, icon);
+				}
+			}
 		}
-		return null;
+
+		private void loadFromRes(final File file, final ImageView icon) {
+			final String fileExt = FilenameUtils.getExtension(file.getName());
+			Drawable mimeIcon = mMimeTypeIconCache.get(fileExt);
+
+			if (mimeIcon == null) {
+				final int mimeIconId = MimeTypes.getIconForExt(fileExt);
+				if (mimeIconId != 0) {
+					mimeIcon = mResources.getDrawable(mimeIconId);
+					mMimeTypeIconCache.put(fileExt, mimeIcon);
+				}
+			}
+
+			if (mimeIcon != null) {
+				icon.setImageDrawable(mimeIcon);
+			} else {
+				// default icon
+				icon.setImageResource(R.drawable.blanc);
+			}
+		}
+
+		@NotNull
+		private Drawable getDrawableForRes(final Resources.Theme theme,
+				final int attrId) {
+			Drawable drawable = mDrawableLruCache.get(attrId);
+			if (drawable == null) {
+				drawable = ThemeUtils.getDrawable(theme, attrId);
+				mDrawableLruCache.put(attrId, drawable);
+			}
+			return drawable;
+		}
+
+		@NotNull
+		private Drawable getDrawableForRes(final Resources res, final int resId) {
+			Drawable drawable = mDrawableLruCache.get(resId);
+			if (drawable == null) {
+				drawable = res.getDrawable(resId);
+				mDrawableLruCache.put(resId, drawable);
+			}
+			return drawable;
+		}
 	}
 
 	// Sort Comparator sort by alphabet
@@ -724,28 +626,6 @@ public class EventHandler {
 		sortType(mDirContent, file.getPath());
 
 		return mDirContent;
-	}
-
-	// Show AppIcons of stored Apps in ListView
-	private Drawable getApkDrawable(File file) {
-		final String filepath = file.getAbsolutePath();
-
-		PackageManager pm = mContext.getPackageManager();
-		PackageInfo packageInfo = pm.getPackageArchiveInfo(filepath,
-				PackageManager.GET_ACTIVITIES);
-
-		if (packageInfo != null) {
-
-			final ApplicationInfo appInfo = packageInfo.applicationInfo;
-			appInfo.sourceDir = filepath;
-			appInfo.publicSourceDir = filepath;
-
-			return pm.getDrawable(appInfo.packageName, appInfo.icon, appInfo);
-		} else {
-			Drawable icon = mContext.getResources().getDrawable(
-					R.drawable.appicon);
-			return icon;
-		}
 	}
 
 	@SuppressWarnings("unchecked")
