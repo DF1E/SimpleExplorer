@@ -22,11 +22,11 @@ package com.dnielfe.manager;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.dnielfe.utils.Bookmarks;
-import com.dnielfe.utils.Compress;
-import com.dnielfe.utils.Decompress;
-import com.dnielfe.utils.DrawerListAdapter;
-import com.dnielfe.utils.LinuxShell;
+import com.dnielfe.manager.utils.Bookmarks;
+import com.dnielfe.manager.utils.Compress;
+import com.dnielfe.manager.utils.Decompress;
+import com.dnielfe.manager.utils.DrawerListAdapter;
+import com.dnielfe.manager.utils.LinuxShell;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -348,9 +348,7 @@ public final class Main extends ListActivity {
 		boolean sdCardExist = Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED);
 
-		if (sdCardExist) {
-			// nothing
-		} else {
+		if (!sdCardExist) {
 			Toast.makeText(Main.this, getString(R.string.sdcardnotfound),
 					Toast.LENGTH_SHORT).show();
 		}

@@ -19,7 +19,7 @@
 
 package com.dnielfe.manager;
 
-import com.dnielfe.utils.MD5Checksum;
+import com.dnielfe.manager.utils.MD5Checksum;
 
 import java.io.File;
 import java.text.DateFormat;

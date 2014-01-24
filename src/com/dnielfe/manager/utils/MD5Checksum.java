@@ -17,7 +17,7 @@
  * MA  02110-1301, USA.
  */
 
-package com.dnielfe.utils;
+package com.dnielfe.manager.utils;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

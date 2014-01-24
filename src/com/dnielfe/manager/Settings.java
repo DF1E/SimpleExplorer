@@ -22,7 +22,7 @@ package com.dnielfe.manager;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.dnielfe.utils.Bookmarks;
+import com.dnielfe.manager.utils.Bookmarks;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;

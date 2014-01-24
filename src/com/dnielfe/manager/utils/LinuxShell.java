@@ -13,7 +13,7 @@
  *   along with 920 Text Editor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.dnielfe.utils;
+package com.dnielfe.manager.utils;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

@@ -15,7 +15,7 @@
         android:contentDescription="@string/desc"
         android:padding="1dp" />
 
-    <com.dnielfe.utils.CheckBoxActivity
+    <com.dnielfe.manager.utils.CheckBoxActivity
         android:id="@+id/select_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

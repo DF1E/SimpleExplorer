@@ -17,7 +17,7 @@
  * MA  02110-1301, USA.
  */
 
-package com.dnielfe.utils;
+package com.dnielfe.manager.preview;
 
 import java.io.File;
 import java.util.Collections;
@@ -29,7 +29,6 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.dnielfe.manager.preview.MimeTypes;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;

@@ -76,7 +76,7 @@
         </activity>
 
         <provider
-            android:name="com.dnielfe.utils.Bookmarks"
+            android:name="com.dnielfe.manager.utils.Bookmarks"
             android:authorities="com.dnielfe.manager.bookmarks"
             android:exported="false" >
         </provider>

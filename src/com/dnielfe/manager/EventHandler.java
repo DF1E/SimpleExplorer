@@ -32,9 +32,9 @@ import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
 
 import com.dnielfe.manager.preview.DrawableLruCache;
+import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.preview.ThemeUtils;
-import com.dnielfe.utils.IconPreview;
 
 import android.content.Context;
 import android.content.res.Resources;

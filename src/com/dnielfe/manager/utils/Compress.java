@@ -1,4 +1,4 @@
-package com.dnielfe.utils;
+package com.dnielfe.manager.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

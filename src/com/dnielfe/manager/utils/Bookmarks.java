@@ -17,7 +17,7 @@
  * MA  02110-1301, USA.
  */
 
-package com.dnielfe.utils;
+package com.dnielfe.manager.utils;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;

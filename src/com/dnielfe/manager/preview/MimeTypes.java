@@ -122,13 +122,15 @@ public final class MimeTypes {
 		EXT_ICONS.put("lha", Integer.valueOf(R.drawable.zip));
 		EXT_ICONS.put("lrf", Integer.valueOf(R.drawable.zip));
 		EXT_ICONS.put("lzma", Integer.valueOf(R.drawable.zip));
-		EXT_ICONS.put("jar", Integer.valueOf(R.drawable.zip));
 		EXT_ICONS.put("rar", Integer.valueOf(R.drawable.zip));
 		EXT_ICONS.put("tar", Integer.valueOf(R.drawable.zip));
 		EXT_ICONS.put("tgz", Integer.valueOf(R.drawable.zip));
 		EXT_ICONS.put("xz", Integer.valueOf(R.drawable.zip));
 		EXT_ICONS.put("zip", Integer.valueOf(R.drawable.zip));
 		EXT_ICONS.put("Z", Integer.valueOf(R.drawable.zip));
+
+		// JAR
+		EXT_ICONS.put("jar", Integer.valueOf(R.drawable.jar32));
 
 		// RAR
 		EXT_ICONS.put("rar", Integer.valueOf(R.drawable.rar));
