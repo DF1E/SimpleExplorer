@@ -100,8 +100,6 @@
     <string name="singlebackup">Enkel Backup</string>
     <string name="size">Gebruikt:</string>
     <string name="size1">Grootte</string>
-    <string name="sorrycouldntfindahtmlviewver">Sorry kon geen app vinden voor het bekijken HTML bestanden</string>
-    <string name="sorrycouldntfindapdfviewver">Sorry kon geen app vinden voor het bekijken van PDF bestanden</string>
     <string name="sort">Sorteer</string>
     <string name="text">Tekst</string>
     <string name="toopen">" om te openen "</string>

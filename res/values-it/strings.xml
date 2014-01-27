@@ -99,8 +99,6 @@
     <string name="singlebackup">Backup Singolo</string>
     <string name="size">Usati:</string>
     <string name="size1">Dimensione</string>
-    <string name="sorrycouldntfindahtmlviewver">Spiacente impossibile trovare un Visualizzatore HTML</string>
-    <string name="sorrycouldntfindapdfviewver">Spiacente impossibile trovare un Lettore PDF</string>
     <string name="sort">Ordina</string>
     <string name="text">Testo</string>
     <string name="toopen">" per aprire "</string>

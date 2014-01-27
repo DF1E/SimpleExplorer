@@ -98,8 +98,6 @@
     <string name="singlebackup">單一備份</string>
     <string name="size">佔用:</string>
     <string name="size1">大小</string>
-    <string name="sorrycouldntfindahtmlviewver">抱歉, 未發現 HTML 程式.</string>
-    <string name="sorrycouldntfindapdfviewver">抱歉, 未發現 PDF 程式.</string>
     <string name="sort">排序</string>
     <string name="text">文字</string>
     <string name="toopen">" 開啟 "</string>

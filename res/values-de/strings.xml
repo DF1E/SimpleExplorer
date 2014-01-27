@@ -100,8 +100,6 @@
     <string name="singlebackup">Einzel Backup</string>
     <string name="size">Größe:</string>
     <string name="size1">Größe</string>
-    <string name="sorrycouldntfindahtmlviewver">Kein HTML Viewer vorhanden</string>
-    <string name="sorrycouldntfindapdfviewver">Kein PDF Viewer vorhanden</string>
     <string name="sort">Sortieren</string>
     <string name="text">Text</string>
     <string name="toopen"> zum öffnen </string>

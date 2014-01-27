@@ -101,8 +101,6 @@
     <string name="singlebackup">Sao lưu dự phòng</string>
     <string name="size">Đã sử dụng:</string>
     <string name="size1">Kích thước</string>
-    <string name="sorrycouldntfindahtmlviewver">Xin lỗi, không thể tìm thấy trình xem HTML.</string>
-    <string name="sorrycouldntfindapdfviewver">Xin lỗi, không thể tìm thấy trình xem PDF.</string>
     <string name="sort">Sắp xếp</string>
     <string name="text">Văn bản</string>
     <string name="toopen">" để mở "</string>
