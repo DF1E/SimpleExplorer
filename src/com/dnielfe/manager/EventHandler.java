@@ -29,17 +29,15 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Stack;
 import org.apache.commons.io.FilenameUtils;
-import org.jetbrains.annotations.NotNull;
-
 import com.dnielfe.manager.preview.DrawableLruCache;
 import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.preview.MimeTypes;
-import com.dnielfe.manager.preview.ThemeUtils;
-
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,12 +59,16 @@ public class EventHandler {
 	private static final int SORT_TYPE = 1;
 	private static final int SORT_SIZE = 2;
 
-	private static DrawableLruCache<Integer> mDrawableLruCache;
-	private static DrawableLruCache<String> mMimeTypeIconCache;
+	public static final String PREF_HIDDEN = "displayhiddenfiles";
+	public static final String PREF_PREVIEW = "showpreview";
+	public static final String PREFS_SORT = "sort";
+	public static final String PREFS_VIEW = "viewmode";
+
 	private final Context mContext;
 	private final Resources mResources;
 	private static int fileCount = 0;
 	TableRow mTable;
+	private SharedPreferences mSettings;
 	boolean multi_select_flag = false;
 
 	private boolean thumbnail = true;
@@ -91,6 +93,20 @@ public class EventHandler {
 
 		mPathStack = new Stack<String>();
 		mDataSource = new ArrayList<String>();
+
+		loadPreferences();
+	}
+
+	// get shared preferences
+	public void loadPreferences() {
+		mSettings = PreferenceManager.getDefaultSharedPreferences(mContext);
+		mShowHiddenFiles = mSettings.getBoolean(PREF_HIDDEN, true);
+		thumbnail = mSettings.getBoolean(PREF_PREVIEW, true);
+		String value = mSettings.getString(PREFS_SORT, "1");
+		String mode = mSettings.getString(PREFS_VIEW, "1");
+
+		mSortType = Integer.parseInt(value);
+		viewmode = Integer.parseInt(mode);
 	}
 
 	/**
@@ -103,29 +119,6 @@ public class EventHandler {
 	 */
 	public void setListAdapter(TableRow adapter) {
 		mTable = adapter;
-	}
-
-	/**
-	 * Set this true and thumbnails will be used as the icon for image files.
-	 * False will show a default image.
-	 */
-	public void setShowThumbnails(boolean show) {
-		thumbnail = show;
-	}
-
-	// Get ViewMode from Main Activity
-	public void setViewMode(int mode) {
-		viewmode = mode;
-	}
-
-	// Get Sort Type int-number from Main
-	public void setSortType(int type) {
-		mSortType = type;
-	}
-
-	// Option to show hidden Files
-	public void setShowHiddenFiles(boolean choice) {
-		mShowHiddenFiles = choice;
 	}
 
 	/**
@@ -282,8 +275,12 @@ public class EventHandler {
 		private final int KB = 1024;
 		private final int MG = KB * KB;
 		private final int GB = MG * KB;
+
 		private String display_size;
-		ArrayList<Integer> positions;
+		private ArrayList<Integer> positions;
+
+		private DrawableLruCache<Integer> mDrawableLruCache;
+		private DrawableLruCache<String> mMimeTypeIconCache;
 
 		public TableRow() {
 			super(mContext, R.layout.item, mDataSource);
@@ -442,7 +439,6 @@ public class EventHandler {
 			mMultiSelectData.add(src);
 		}
 
-		// TODO setIcon set placeholder
 		protected final void setIcon(final File file, final ImageView icon) {
 			final boolean isImage = MimeTypes.isPicture(file);
 			final boolean isVideo = MimeTypes.isVideo(file);
@@ -494,27 +490,6 @@ public class EventHandler {
 				// default icon
 				icon.setImageResource(R.drawable.blanc);
 			}
-		}
-
-		@NotNull
-		private Drawable getDrawableForRes(final Resources.Theme theme,
-				final int attrId) {
-			Drawable drawable = mDrawableLruCache.get(attrId);
-			if (drawable == null) {
-				drawable = ThemeUtils.getDrawable(theme, attrId);
-				mDrawableLruCache.put(attrId, drawable);
-			}
-			return drawable;
-		}
-
-		@NotNull
-		private Drawable getDrawableForRes(final Resources res, final int resId) {
-			Drawable drawable = mDrawableLruCache.get(resId);
-			if (drawable == null) {
-				drawable = res.getDrawable(resId);
-				mDrawableLruCache.put(resId, drawable);
-			}
-			return drawable;
 		}
 	}
 

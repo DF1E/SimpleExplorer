@@ -22,10 +22,10 @@ package com.dnielfe.manager;
 import java.io.File;
 import java.util.ArrayList;
 
+import com.dnielfe.manager.adapters.DrawerListAdapter;
 import com.dnielfe.manager.utils.Bookmarks;
 import com.dnielfe.manager.utils.Compress;
 import com.dnielfe.manager.utils.Decompress;
-import com.dnielfe.manager.utils.DrawerListAdapter;
 import com.dnielfe.manager.utils.LinuxShell;
 
 import android.app.ActionBar;
@@ -74,10 +74,6 @@ public final class Main extends ListActivity {
 	public static final String ACTION_WIDGET = "com.dnielfe.manager.Main.ACTION_WIDGET";
 	public static final String EXTRA_SHORTCUT = "shortcut_path";
 
-	public static final String PREF_HIDDEN = "displayhiddenfiles";
-	public static final String PREF_PREVIEW = "showpreview";
-	public static final String PREFS_SORT = "sort";
-	public static final String PREFS_VIEW = "viewmode";
 	public static final String PREF_DIR = "defaultdir";
 
 	private static final int D_MENU_SHORTCUT = 3;
@@ -144,8 +140,6 @@ public final class Main extends ListActivity {
 
 		mHandler = new EventHandler(this);
 
-		loadPreferences();
-
 		// new ArrayAdapter
 		mTable = mHandler.new TableRow();
 
@@ -198,7 +192,7 @@ public final class Main extends ListActivity {
 	public void onResume() {
 		super.onResume();
 
-		loadPreferences();
+		mHandler.loadPreferences();
 
 		// refresh directory
 		mHandler.updateDirectory(mHandler.setHomeDir(mHandler.getCurrentDir()));
@@ -211,6 +205,8 @@ public final class Main extends ListActivity {
 	}
 
 	private void getDefaultDir() {
+		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
+
 		// get default directory from preferences
 		defaultdir = mSettings.getString("defaultdir", Environment
 				.getExternalStorageDirectory().getPath());
@@ -324,23 +320,6 @@ public final class Main extends ListActivity {
 		ret.setData(Uri.fromFile(data));
 		setResult(RESULT_OK, ret);
 		finish();
-	}
-
-	// loading shared preferences
-	private void loadPreferences() {
-		mSettings = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean hidden = mSettings.getBoolean(PREF_HIDDEN, true);
-		boolean thumb = mSettings.getBoolean(PREF_PREVIEW, true);
-		String value = mSettings.getString("sort", "1");
-		String viewmode = mSettings.getString("viewmode", "1");
-
-		int sort = Integer.parseInt(value);
-		int viewm = Integer.parseInt(viewmode);
-
-		mHandler.setShowHiddenFiles(hidden);
-		mHandler.setSortType(sort);
-		mHandler.setViewMode(viewm);
-		mHandler.setShowThumbnails(thumb);
 	}
 
 	// check if SDcard is present

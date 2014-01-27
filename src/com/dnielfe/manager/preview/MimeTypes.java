@@ -68,7 +68,6 @@ public final class MimeTypes {
 		EXT_ICONS.put("sh", Integer.valueOf(R.drawable.blanc));
 
 		// TEXT
-		EXT_ICONS.put("conf", Integer.valueOf(R.drawable.text1));
 		EXT_ICONS.put("csv", Integer.valueOf(R.drawable.text1));
 		EXT_ICONS.put("diff", Integer.valueOf(R.drawable.text1));
 		EXT_ICONS.put("in", Integer.valueOf(R.drawable.text1));
@@ -81,6 +80,7 @@ public final class MimeTypes {
 
 		// Properties
 		EXT_ICONS.put("properties", Integer.valueOf(R.drawable.config));
+		EXT_ICONS.put("conf", Integer.valueOf(R.drawable.config));
 		EXT_ICONS.put("prop", Integer.valueOf(R.drawable.config));
 
 		// HTML
@@ -345,10 +345,12 @@ public final class MimeTypes {
 		if (file.isDirectory()) {
 			return null;
 		}
+		
 		String type = null;
 		final String extension = FilenameUtils.getExtension(file.getName());
+		
 		if (extension != null && !extension.isEmpty()) {
-			final String extensionLowerCase = extension.toLowerCase(Locale.US);
+			final String extensionLowerCase = extension.toLowerCase(Locale.getDefault());
 			final MimeTypeMap mime = MimeTypeMap.getSingleton();
 			type = mime.getMimeTypeFromExtension(extensionLowerCase);
 			if (type == null) {

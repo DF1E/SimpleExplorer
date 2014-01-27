@@ -186,6 +186,8 @@ public enum IconPreview {
 					}
 				}
 			}
+			
+			cache.put(path, mBitmap);
 			return mBitmap;
 		}
 		return null;
