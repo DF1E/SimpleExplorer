@@ -126,7 +126,7 @@ public final class Main extends ListActivity {
 	private LinearLayout mDirectoryButtons, mDrawer;
 	private MenuItem mMenuItemPaste;
 	private DrawerLayout mDrawerLayout;
-	private ListView mDrawerList;
+	private ListView mDrawerList, mListView;
 	private ActionBar mActionBar;
 	private ActionBarDrawerToggle mDrawerToggle;
 
@@ -138,17 +138,13 @@ public final class Main extends ListActivity {
 		checkEnvironment();
 		setupDrawer();
 
+		// start EventHandler
 		mHandler = new EventHandler(this);
 
 		// new ArrayAdapter
 		mTable = mHandler.new TableRow();
 
-		// Set List Adapter
-		mHandler.setListAdapter(mTable);
-		setListAdapter(mTable);
-
-		// register context menu for our ListView
-		registerForContextMenu(getListView());
+		initList();
 
 		SearchIntent(getIntent());
 
@@ -202,6 +198,18 @@ public final class Main extends ListActivity {
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putString("location", mHandler.getCurrentDir());
 		super.onSaveInstanceState(outState);
+	}
+
+	private void initList() {
+		// get ListView
+		mListView = getListView();
+
+		// Set ListAdapters
+		mHandler.setListAdapter(mTable);
+		setListAdapter(mTable);
+
+		// register context menu for our ListView
+		registerForContextMenu(mListView);
 	}
 
 	private void getDefaultDir() {
@@ -357,7 +365,7 @@ public final class Main extends ListActivity {
 
 		if (toTop) {
 			// go to top of ListView
-			getListView().setSelection(0);
+			mListView.setSelection(0);
 		}
 
 		// Update the Buttons showing the path
