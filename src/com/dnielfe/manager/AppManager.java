@@ -26,7 +26,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,7 +54,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
@@ -85,9 +83,8 @@ public class AppManager extends ListActivity {
 	private static final int ID_LAUNCH = 1;
 	private static final int ID_MANAGE = 2;
 	private static final int ID_UNINSTALL = 3;
-	private static final int ID_BACKUP = 4;
-	private static final int ID_SEND = 5;
-	private static final int ID_MARKET = 6;
+	private static final int ID_SEND = 4;
+	private static final int ID_MARKET = 5;
 
 	private static final int SET_PROGRESS = 0x00;
 	private static final int FINISH_PROGRESS = 0x01;
@@ -142,7 +139,6 @@ public class AppManager extends ListActivity {
 			protected void onPreExecute() {
 				actionBar.setSubtitle(getString(R.string.loading));
 				actionBar.show();
-				getOverflowMenu();
 			}
 
 			@Override
@@ -186,22 +182,6 @@ public class AppManager extends ListActivity {
 		actionBar.show();
 	}
 
-	// get the 3 dot menu button
-	private void getOverflowMenu() {
-
-		try {
-			ViewConfiguration config = ViewConfiguration.get(this);
-			Field menuKeyField = ViewConfiguration.class
-					.getDeclaredField("sHasPermanentMenuKey");
-			if (menuKeyField != null) {
-				menuKeyField.setAccessible(true);
-				menuKeyField.setBoolean(config, false);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -215,7 +195,6 @@ public class AppManager extends ListActivity {
 
 		menu.setHeaderTitle(R.string.options);
 		menu.add(0, ID_LAUNCH, 0, getString(R.string.launch));
-		menu.add(0, ID_BACKUP, 0, getString(R.string.singlebackup));
 		menu.add(0, ID_MANAGE, 0, getString(R.string.manage));
 		menu.add(0, ID_UNINSTALL, 0, getString(R.string.uninstallapp));
 		menu.add(0, ID_MARKET, 0, getString(R.string.playstore));
@@ -236,12 +215,6 @@ public class AppManager extends ListActivity {
 			startActivity(i);
 			break;
 
-		case ID_BACKUP:
-			backupApp(mAppList.get(index).packageName);
-			Toast.makeText(AppManager.this, getString(R.string.backupcomplete),
-					Toast.LENGTH_SHORT).show();
-			break;
-
 		case ID_MANAGE:
 			startActivity(new Intent(
 					android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
@@ -257,22 +230,11 @@ public class AppManager extends ListActivity {
 			break;
 
 		case ID_MARKET:
-			if (multiSelectData.size() > 0 && multiSelectData != null) {
 
-				int length = multiSelectData.size();
-				Intent intent1 = new Intent(Intent.ACTION_VIEW);
-				for (int j = 0; j < length; j++) {
-
-					intent1.setData(Uri.parse("market://details?id="
-							+ multiSelectData.get(j).packageName));
-					startActivity(intent1);
-				}
-			} else {
-				Intent intent1 = new Intent(Intent.ACTION_VIEW);
-				intent1.setData(Uri.parse("market://details?id="
-						+ mAppList.get(index).packageName));
-				startActivity(intent1);
-			}
+			Intent intent1 = new Intent(Intent.ACTION_VIEW);
+			intent1.setData(Uri.parse("market://details?id="
+					+ mAppList.get(index).packageName));
+			startActivity(intent1);
 			break;
 
 		case ID_SEND:
@@ -362,67 +324,6 @@ public class AppManager extends ListActivity {
 			viewHolder.getCheckBox().setChecked(false);
 		} else {
 			viewHolder.getCheckBox().setChecked(true);
-		}
-	}
-
-	private void backupApp(String pkgname) {
-
-		try {
-			ApplicationInfo info = mPackMag.getApplicationInfo(pkgname, 0);
-			String source_dir = info.sourceDir;
-
-			String out_file = info.loadLabel(mPackMag).toString() + ".apk";
-			BufferedInputStream mBuffIn;
-			BufferedOutputStream mBuffOut;
-
-			int read;
-			File mDir = new File(BACKUP_LOC);
-			byte[] mData;
-
-			mData = new byte[BUFFER];
-
-			// create dir if needed
-			File d = new File(BACKUP_LOC);
-			if (!d.exists()) {
-				d.mkdir();
-
-				// then create this directory
-				mDir.mkdir();
-
-			} else {
-				if (!mDir.exists())
-					mDir.mkdir();
-			}
-
-			try {
-				mBuffIn = new BufferedInputStream(new FileInputStream(
-						source_dir));
-				mBuffOut = new BufferedOutputStream(new FileOutputStream(
-						BACKUP_LOC + out_file));
-
-				while ((read = mBuffIn.read(mData, 0, BUFFER)) != -1)
-					mBuffOut.write(mData, 0, read);
-
-				mBuffOut.flush();
-				mBuffIn.close();
-				mBuffOut.close();
-
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				Toast.makeText(AppManager.this,
-						getString(R.string.backuperror), Toast.LENGTH_SHORT)
-						.show();
-			} catch (IOException e) {
-				e.printStackTrace();
-				Toast.makeText(AppManager.this,
-						getString(R.string.backuperror), Toast.LENGTH_SHORT)
-						.show();
-			}
-
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
-			Toast.makeText(AppManager.this, getString(R.string.backuperror),
-					Toast.LENGTH_SHORT).show();
 		}
 	}
 
