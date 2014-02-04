@@ -23,6 +23,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.dnielfe.manager.adapters.DrawerListAdapter;
+import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.utils.Bookmarks;
 import com.dnielfe.manager.utils.Compress;
 import com.dnielfe.manager.utils.Decompress;
@@ -1103,48 +1104,9 @@ public final class Main extends ListActivity {
 			return true;
 
 		case F_MENU_ATTACH:
-			String item_ext = null;
-
-			try {
-				item_ext = mSelectedListItem.substring(
-						mSelectedListItem.lastIndexOf("."),
-						mSelectedListItem.length());
-			} catch (Exception e) {
-				item_ext = ".empty";
-			}
-
 			try {
 				Intent i = new Intent(Intent.ACTION_SEND);
-
-				if (item_ext.equalsIgnoreCase(".mp3")
-						|| item_ext.equalsIgnoreCase(".m4a")
-						|| item_ext.equalsIgnoreCase(".aiff")
-						|| item_ext.equalsIgnoreCase(".wma")
-						|| item_ext.equalsIgnoreCase(".caf")) {
-					i.setType("audio/*");
-				} else if (item_ext.equalsIgnoreCase(".3gp")
-						|| item_ext.equalsIgnoreCase(".wmv")
-						|| item_ext.equalsIgnoreCase(".mp4")
-						|| item_ext.equalsIgnoreCase(".mpeg")
-						|| item_ext.equalsIgnoreCase(".mpg")
-						|| item_ext.equalsIgnoreCase(".mov")
-						|| item_ext.equalsIgnoreCase(".avi")
-						|| item_ext.equalsIgnoreCase(".ogg")) {
-					i.setType("video/*");
-				} else if (item_ext.equalsIgnoreCase(".jpg")
-						|| item_ext.equalsIgnoreCase(".jpeg")
-						|| item_ext.equalsIgnoreCase(".png")
-						|| item_ext.equalsIgnoreCase(".gif")
-						|| item_ext.equalsIgnoreCase(".raw")
-						|| item_ext.equalsIgnoreCase(".psd")
-						|| item_ext.equalsIgnoreCase(".bmp")) {
-					i.setType("image/*");
-				} else if (item_ext.equalsIgnoreCase(".apk")) {
-					i.setType("application/vnd.android.package-archive");
-				} else if (item_ext.equalsIgnoreCase(".empty")) {
-					i.setType("*/*");
-				}
-
+				i.setType(MimeTypes.getMimeType(file));
 				i.putExtra(Intent.EXTRA_SUBJECT, mSelectedListItem);
 				i.putExtra(Intent.EXTRA_BCC, "");
 				i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
