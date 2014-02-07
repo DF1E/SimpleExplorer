@@ -96,6 +96,14 @@ public class InfoDialog extends Activity {
 
 		protected String doInBackground(String... vals) {
 
+			DateFormat dateFormat = android.text.format.DateFormat
+					.getDateFormat(getApplicationContext());
+			DateFormat timeFormat = android.text.format.DateFormat
+					.getTimeFormat(getApplicationContext());
+
+			mTimeLabel.setText(dateFormat.format(file3.lastModified()) + " "
+					+ timeFormat.format(file3.lastModified()));
+
 			if (!file3.canRead()) {
 				mDisplaySize = "---";
 				return mDisplaySize;
@@ -120,24 +128,18 @@ public class InfoDialog extends Activity {
 		}
 
 		protected void onPostExecute(String result) {
-			DateFormat dateFormat = android.text.format.DateFormat
-					.getDateFormat(getApplicationContext());
-			DateFormat timeFormat = android.text.format.DateFormat
-					.getTimeFormat(getApplicationContext());
-			
+			mSizeLabel.setText(result);
+
 			if (file3.isFile()) {
 				try {
-					mMD5Label.setText(MD5Checksum.getMD5Checksum(file3.getPath()));
+					mMD5Label.setText(MD5Checksum.getMD5Checksum(file3
+							.getPath()));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			} else {
 				mMD5Label.setText("-");
 			}
-
-			mTimeLabel.setText(dateFormat.format(file3.lastModified()) + " "
-					+ timeFormat.format(file3.lastModified()));
-			mSizeLabel.setText(result);
 		}
 	}
 

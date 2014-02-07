@@ -1510,12 +1510,6 @@ public final class Main extends ListActivity {
 		alertf.show();
 	}
 
-	// Backgroundwork for:
-	// search
-	// delete
-	// multizip
-	// unzip file
-	// ZIP Folder
 	private class BackgroundWork extends
 			AsyncTask<String, Void, ArrayList<String>> {
 		public ProgressDialog pr_dialog = null;
