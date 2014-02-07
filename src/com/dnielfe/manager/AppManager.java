@@ -404,9 +404,13 @@ public class AppManager extends ListActivity {
 					mHandler.sendMessage(msg);
 
 				} catch (FileNotFoundException e) {
-					e.printStackTrace();
+					Toast.makeText(AppManager.this,
+							getString(R.string.backuperror), Toast.LENGTH_SHORT)
+							.show();
 				} catch (IOException e) {
-					e.printStackTrace();
+					Toast.makeText(AppManager.this,
+							getString(R.string.backuperror), Toast.LENGTH_SHORT)
+							.show();
 				}
 				if (quit.mback == -1)
 					break;
