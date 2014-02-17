@@ -19,21 +19,10 @@
 
 package com.dnielfe.manager;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import com.dnielfe.manager.utils.Bookmarks;
-
+import com.dnielfe.manager.dialogs.EditBookmarksDialog;
 import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.content.DialogInterface;
+import android.app.DialogFragment;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -42,10 +31,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class Settings extends PreferenceActivity {
-
-	private static final int DIALOG_DELETE_BOOKMARKS = 1;
-	private Cursor deleteBookmarksCursor;
-	private List<Uri> bookmarksToDelete = new LinkedList<Uri>();
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -62,7 +47,8 @@ public class Settings extends PreferenceActivity {
 		editBookmarks
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 					public boolean onPreferenceClick(Preference pref) {
-						showDialog(DIALOG_DELETE_BOOKMARKS);
+						final DialogFragment dialog = new EditBookmarksDialog();
+						dialog.show(getFragmentManager(), "dialog");
 						return false;
 					}
 				});
@@ -94,91 +80,5 @@ public class Settings extends PreferenceActivity {
 			return true;
 		}
 		return false;
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	public Dialog onCreateDialog(int id) {
-		switch (id) {
-		case DIALOG_DELETE_BOOKMARKS:
-			deleteBookmarksCursor = getBookmarksCursor();
-			Builder dialog = new AlertDialog.Builder(this)
-					.setTitle(R.string.bookmark)
-					.setMultiChoiceItems(deleteBookmarksCursor,
-							Bookmarks.CHECKED, Bookmarks.NAME,
-							new DialogInterface.OnMultiChoiceClickListener() {
-								public void onClick(DialogInterface dialog,
-										int item, boolean checked) {
-									if (deleteBookmarksCursor
-											.moveToPosition(item)) {
-										Uri deleteUri = ContentUris
-												.withAppendedId(
-														Bookmarks.CONTENT_URI,
-														deleteBookmarksCursor
-																.getInt(deleteBookmarksCursor
-																		.getColumnIndex(Bookmarks._ID)));
-										if (checked)
-											bookmarksToDelete.add(deleteUri);
-										else
-											bookmarksToDelete.remove(deleteUri);
-
-										((AlertDialog) dialog)
-												.getButton(
-														AlertDialog.BUTTON_POSITIVE)
-												.setEnabled(
-														(bookmarksToDelete
-																.size() > 0) ? true
-																: false);
-
-										ContentValues checkedValues = new ContentValues();
-										checkedValues.put(Bookmarks.CHECKED,
-												checked ? 1 : 0);
-										getContentResolver().update(deleteUri,
-												checkedValues, null, null);
-										deleteBookmarksCursor.requery();
-									}
-									((AlertDialog) dialog).getListView()
-											.invalidate();
-								}
-							})
-					.setPositiveButton(R.string.delete,
-							new DialogInterface.OnClickListener() {
-
-								public void onClick(DialogInterface dialog,
-										int which) {
-									for (Uri uri : bookmarksToDelete) {
-										getContentResolver().delete(uri, null,
-												null);
-									}
-									restartBookmarksChecked();
-								}
-							})
-					.setNegativeButton(R.string.cancel,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int item) {
-									restartBookmarksChecked();
-								}
-							});
-			return dialog.create();
-		}
-		return null;
-	}
-
-	@SuppressWarnings("deprecation")
-	private void restartBookmarksChecked() {
-		ContentValues checkedValues = new ContentValues();
-		checkedValues.put(Bookmarks.CHECKED, 0);
-		getContentResolver().update(Bookmarks.CONTENT_URI, checkedValues, null,
-				null);
-		deleteBookmarksCursor.requery();
-		bookmarksToDelete.clear();
-	}
-
-	private Cursor getBookmarksCursor() {
-		return getContentResolver().query(
-				Bookmarks.CONTENT_URI,
-				new String[] { Bookmarks._ID, Bookmarks.NAME, Bookmarks.PATH,
-						Bookmarks.CHECKED }, null, null, null);
 	}
 }
