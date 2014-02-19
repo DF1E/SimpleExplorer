@@ -30,11 +30,11 @@ public class Compress {
 			byte data[] = new byte[BUFFER];
 
 			for (int i = 0; i < _files.length; i++) {
-				
+
 				FileInputStream fi = new FileInputStream(_files[i]);
 				origin = new BufferedInputStream(fi, BUFFER);
 				ZipEntry entry = new ZipEntry(_files[i].substring(_files[i]
-						.lastIndexOf(location) + 1));
+						.lastIndexOf("/") + 1));
 				out.putNextEntry(entry);
 				int count;
 				while ((count = origin.read(data, 0, BUFFER)) != -1) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Simple Explorer
+ * Copyright (C) 2014 Simple Explorer
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,64 +17,87 @@
  * MA  02110-1301, USA.
  */
 
-package com.dnielfe.manager;
-
-import com.dnielfe.manager.utils.MD5Checksum;
+package com.dnielfe.manager.dialogs;
 
 import java.io.File;
 import java.text.DateFormat;
-import android.os.Bundle;
-import android.os.AsyncTask;
-import android.content.Intent;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.dnielfe.manager.FileUtils;
+import com.dnielfe.manager.R;
+import com.dnielfe.manager.utils.MD5Checksum;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 
-public class InfoDialog extends Activity {
+public final class FilePropertiesDialog extends DialogFragment {
 
+	private Activity activity;
+	private static String filePath;
 	private static File file3;
-	private String infopath;
 	private TextView mNameLabel, mPathLabel, mTimeLabel, mSizeLabel,
 			mPermissionLabel, mMD5Label;
 
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.details);
+	public static final String EXTRA_FILE = null;
 
-		Intent i = getIntent();
-		if (i != null) {
-			if (i.getAction() != null
-					&& i.getAction().equals(Intent.ACTION_VIEW)) {
-				infopath = i.getData().getPath();
+	public static DialogFragment instantiate(String file) {
+		final Bundle extras = new Bundle();
+		extras.putString(EXTRA_FILE, file);
 
-				if (infopath == null)
-					infopath = "";
-			} else {
-				infopath = i.getExtras().getString("FILE_NAME");
-			}
-		}
+		file3 = new File(file);
 
-		file3 = new File(infopath);
+		final FilePropertiesDialog dialog = new FilePropertiesDialog();
+		dialog.setArguments(extras);
 
-		mNameLabel = (TextView) findViewById(R.id.name_label);
-		mPathLabel = (TextView) findViewById(R.id.path_label);
-		mTimeLabel = (TextView) findViewById(R.id.time_stamp);
-		mSizeLabel = (TextView) findViewById(R.id.total_size);
-		mPermissionLabel = (TextView) findViewById(R.id.permission1);
-		mMD5Label = (TextView) findViewById(R.id.md5_summary);
+		return dialog;
+	}
 
-		// Set up Button
-		Button button1 = (Button) findViewById(R.id.quit);
-		button1.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				InfoDialog.this.finish();
-			}
-		});
+	@Override
+	public void onCreate(Bundle state) {
+		super.onCreate(state);
+		final Bundle extras = this.getArguments();
+		filePath = extras.getString(EXTRA_FILE);
+	}
 
-		new BackgroundWork().execute(infopath);
+	@Override
+	public Dialog onCreateDialog(Bundle state) {
+		activity = getActivity();
+
+		final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		builder.setTitle(getString(R.string.details));
+		builder.setNeutralButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+
+		final View content = activity.getLayoutInflater().inflate(
+				R.layout.details, null);
+		this.initView(content);
+		builder.setView(content);
+
+		return builder.create();
+	}
+
+	private void initView(@NotNull final View view) {
+		mNameLabel = (TextView) view.findViewById(R.id.name_label);
+		mPathLabel = (TextView) view.findViewById(R.id.path_label);
+		mTimeLabel = (TextView) view.findViewById(R.id.time_stamp);
+		mSizeLabel = (TextView) view.findViewById(R.id.total_size);
+		mPermissionLabel = (TextView) view.findViewById(R.id.permission1);
+		mMD5Label = (TextView) view.findViewById(R.id.md5_summary);
+
+		new BackgroundWork().execute(filePath);
 	}
 
 	private class BackgroundWork extends AsyncTask<String, Void, String> {
@@ -97,9 +120,9 @@ public class InfoDialog extends Activity {
 		protected String doInBackground(String... vals) {
 
 			DateFormat dateFormat = android.text.format.DateFormat
-					.getDateFormat(getApplicationContext());
+					.getDateFormat(activity.getApplicationContext());
 			DateFormat timeFormat = android.text.format.DateFormat
-					.getTimeFormat(getApplicationContext());
+					.getTimeFormat(activity.getApplicationContext());
 
 			mTimeLabel.setText(dateFormat.format(file3.lastModified()) + " "
 					+ timeFormat.format(file3.lastModified()));

@@ -53,11 +53,6 @@
             android:label="@string/dir_info" >
         </activity>
         <activity
-            android:name=".InfoDialog"
-            android:label="@string/details"
-            android:theme="@android:style/Theme.Holo.Light.Dialog" >
-        </activity>
-        <activity
             android:name=".Settings"
             android:label="@string/settings" >
         </activity>

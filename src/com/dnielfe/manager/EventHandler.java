@@ -67,18 +67,18 @@ public class EventHandler {
 	private final Context mContext;
 	private final Resources mResources;
 	private static int fileCount = 0;
-	TableRow mTable;
+	static TableRow mTable;
 	private SharedPreferences mSettings;
 	boolean multi_select_flag = false;
 
 	private boolean thumbnail = true;
 	private int viewmode;
-	private boolean mShowHiddenFiles;
-	private int mSortType = SORT_TYPE;
+	private static boolean mShowHiddenFiles;
+	private static int mSortType = SORT_TYPE;
 
 	public ArrayList<String> mMultiSelectData;
-	public ArrayList<String> mDataSource;
-	private Stack<String> mPathStack;
+	public static ArrayList<String> mDataSource;
+	private static Stack<String> mPathStack;
 
 	/**
 	 * Creates an EventHandler object. This object is used to communicate most
@@ -159,6 +159,10 @@ public class EventHandler {
 		return mDataSource.get(position);
 	}
 
+	public static void refreshDir(String dir) {
+		updateDirectory(setHomeDir(dir));
+	}
+
 	/**
 	 * called to update the file contents as the user navigates there phones
 	 * file system.
@@ -166,7 +170,7 @@ public class EventHandler {
 	 * @param content
 	 *            an ArrayList of the file/folders in the current directory.
 	 */
-	public void updateDirectory(ArrayList<String> content) {
+	public static void updateDirectory(ArrayList<String> content) {
 		if (!mDataSource.isEmpty())
 			mDataSource.clear();
 
@@ -187,12 +191,12 @@ public class EventHandler {
 	}
 
 	// This will return a string of the current directory path
-	public String getCurrentDir() {
+	public static String getCurrentDir() {
 		return mPathStack.peek();
 	}
 
 	// This will return a string of the current home path
-	public ArrayList<String> setHomeDir(String path) {
+	public static ArrayList<String> setHomeDir(String path) {
 		// This will eventually be placed as a settings item
 		mPathStack.clear();
 		mPathStack.push("/");
@@ -504,7 +508,7 @@ public class EventHandler {
 
 	// Sort Comparator sort by size
 	@SuppressWarnings("rawtypes")
-	private final Comparator size = new Comparator<String>() {
+	private final static Comparator size = new Comparator<String>() {
 		@Override
 		public int compare(String arg0, String arg1) {
 			String dir = mPathStack.peek();
@@ -517,7 +521,7 @@ public class EventHandler {
 
 	// Sort Comparator sort by type
 	@SuppressWarnings("rawtypes")
-	private final Comparator type = new Comparator<String>() {
+	private final static Comparator type = new Comparator<String>() {
 		@Override
 		public int compare(String arg0, String arg1) {
 			String ext = null;
@@ -550,7 +554,7 @@ public class EventHandler {
 	 * where we do our sorting (by type, alphabetical, etc).
 	 */
 
-	private ArrayList<String> update_list() {
+	private static ArrayList<String> update_list() {
 
 		ArrayList<String> mDirContent = new ArrayList<String>();
 
@@ -604,7 +608,8 @@ public class EventHandler {
 	}
 
 	@SuppressWarnings("unchecked")
-	private ArrayList<String> sortType(ArrayList<String> content, String current) {
+	private static ArrayList<String> sortType(ArrayList<String> content,
+			String current) {
 		// Set SortType
 		switch (mSortType) {
 
