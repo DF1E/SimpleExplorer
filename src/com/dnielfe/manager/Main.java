@@ -190,8 +190,6 @@ public final class Main extends ListActivity {
 
 		// refresh directory
 		EventHandler.refreshDir(EventHandler.getCurrentDir());
-
-		listView(false);
 	}
 
 	@Override
