@@ -79,7 +79,6 @@
     <string name="Numberoffolders">Số thư mục:</string>
     <string name="of">" của "</string>
     <string name="ok">OK</string>
-    <string name="openas">Mở như</string>
     <string name="options">Tùy chọn</string>
     <string name="packing">Đang đóng gói</string>
     <string name="paste">Dán</string>
@@ -102,7 +101,6 @@
     <string name="size1">Kích thước</string>
     <string name="sort">Sắp xếp</string>
     <string name="text">Văn bản</string>
-    <string name="toopen">" để mở "</string>
     <string name="type">Loại</string>
     <string name="uisettings">Cài đặt xem</string>
     <string name="uninstallapp">Gỡ cài đặt ứng dụng</string>

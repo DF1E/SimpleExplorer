@@ -78,7 +78,6 @@
     <string name="Numberoffolders">Número de Pastas:</string>
     <string name="of">"de"</string>
     <string name="ok">OK</string>
-    <string name="openas">Abrir como</string>
     <string name="options">"Opções"</string>
     <string name="packing">Packing</string>
     <string name="paste">Paste</string>
@@ -101,7 +100,6 @@
     <string name="size1">Tamanho</string>
     <string name="sort">Tipo</string>
     <string name="text">Texto</string>
-    <string name="toopen">"para abrir"</string>
     <string name="type">Tipo</string>
     <string name="uisettings">Ver Configurações</string>
     <string name="uninstallapp">Desinstalar App</string>

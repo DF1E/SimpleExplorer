@@ -77,7 +77,6 @@
     <string name="Numberoffolders">Numero di cartelle:</string>
     <string name="of">" di "</string>
     <string name="ok">OK</string>
-    <string name="openas">Apri come</string>
     <string name="options">Opzioni</string>
     <string name="packing">Comprimendo</string>
     <string name="paste">Incolla</string>
@@ -100,7 +99,6 @@
     <string name="size1">Dimensione</string>
     <string name="sort">Ordina</string>
     <string name="text">Testo</string>
-    <string name="toopen">" per aprire "</string>
     <string name="type">Tipo</string>
     <string name="uisettings">Impostazioni Vista</string>
     <string name="uninstallapp">Disinstalla App</string>

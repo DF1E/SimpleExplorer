@@ -78,7 +78,6 @@
     <string name="Numberoffolders">Número de carpetas:</string>
     <string name="of">" de "</string>
     <string name="ok">OK</string>
-    <string name="openas">Abrir como</string>
     <string name="options">Opciones</string>
     <string name="packing">Empacando</string>
     <string name="paste">Pegar</string>
@@ -101,7 +100,6 @@
     <string name="size1">Tamaño</string>
     <string name="sort">Ordenar</string>
     <string name="text">Texto</string>
-    <string name="toopen">" Para abrir "</string>
     <string name="type">Tipo</string>
     <string name="uisettings">Ver ajustes</string>
     <string name="uninstallapp">Desinstalar aplicación</string>

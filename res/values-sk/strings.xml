@@ -79,7 +79,6 @@
     <string name="Numberoffolders">Počet priečinkov:</string>
     <string name="of">" z "</string>
     <string name="ok">OK</string>
-    <string name="openas">Otvoriť ako</string>
     <string name="options">Možnosti</string>
     <string name="packing">Balenie</string>
     <string name="paste">Prilepiť</string>
@@ -102,7 +101,6 @@
     <string name="size1">Veľkosť</string>
     <string name="sort">Zoradiť</string>
     <string name="text">Text</string>
-    <string name="toopen">" pre otvorenie "</string>
     <string name="type">Typ</string>
     <string name="uisettings">Zobraziť nastavenia</string>
     <string name="uninstallapp">Odinštalovať aplikáciu</string>

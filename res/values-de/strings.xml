@@ -78,7 +78,6 @@
     <string name="Numberoffolders">Anzahl der Ordner:</string>
     <string name="of">" von "</string>
     <string name="ok">OK</string>
-    <string name="openas">Öffnen als</string>
     <string name="options">Optionen</string>
     <string name="packing">Verpacken</string>
     <string name="paste">Einfügen</string>
@@ -101,7 +100,6 @@
     <string name="size1">Größe</string>
     <string name="sort">Sortieren</string>
     <string name="text">Text</string>
-    <string name="toopen"> zum öffnen </string>
     <string name="type">Typ</string>
     <string name="uisettings">Oberfläche</string>
     <string name="uninstallapp">Deinstallieren</string>

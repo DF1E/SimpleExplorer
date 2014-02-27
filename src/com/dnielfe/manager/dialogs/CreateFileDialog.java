@@ -32,7 +32,7 @@ import android.widget.Toast;
 import com.dnielfe.manager.EventHandler;
 import com.dnielfe.manager.FileUtils;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.utils.LinuxShell;
+import com.stericson.RootTools.RootTools;
 
 public final class CreateFileDialog extends DialogFragment {
 
@@ -70,7 +70,7 @@ public final class CreateFileDialog extends DialogFragment {
 									Toast.LENGTH_SHORT).show();
 						}
 					} catch (Exception e) {
-						if (LinuxShell.isRoot()) {
+						if (RootTools.isRootAvailable()) {
 							FileUtils.createRootFile(
 									EventHandler.getCurrentDir(), name);
 							Toast.makeText(a, R.string.filecreated,

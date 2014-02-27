@@ -78,7 +78,6 @@
     <string name="Numberoffolders">Broj Foldera:</string>
     <string name="of">" od "</string>
     <string name="ok">OK</string>
-    <string name="openas">Otvori kao</string>
     <string name="options">Opcije</string>
     <string name="packing">Pakiranje</string>
     <string name="paste">Zalijepi</string>
@@ -101,7 +100,6 @@
     <string name="size1">Veli�ina</string>
     <string name="sort">Sortirati</string>
     <string name="text">Tekst</string>
-    <string name="toopen">" za otvaranje "</string>
     <string name="type">Tip</string>
     <string name="uisettings">Postavke pregleda</string>
     <string name="uninstallapp">Deinstaliraj Aplikaciju</string>

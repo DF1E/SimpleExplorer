@@ -78,7 +78,6 @@
     <string name="Numberoffolders">Klasör adedi:</string>
     <string name="of">" of "</string>
     <string name="ok">OK</string>
-    <string name="openas">olarak aç</string>
     <string name="options">Tercihler</string>
     <string name="packing">Paketleniyor</string>
     <string name="paste">Yapıştır</string>
@@ -101,7 +100,6 @@
     <string name="size1">Boyut</string>
     <string name="sort">Sırala</string>
     <string name="text">Metin</string>
-    <string name="toopen">" açmak "</string>
     <string name="type">Tür</string>
     <string name="uisettings">Ayarları göster</string>
     <string name="uninstallapp">Uygulamayı kaldır</string>

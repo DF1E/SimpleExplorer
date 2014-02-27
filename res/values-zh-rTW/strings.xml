@@ -76,7 +76,6 @@
     <string name="Numberoffolders">資料夾數目:</string>
     <string name="of">" 的 "</string>
     <string name="ok">OK</string>
-    <string name="openas">開啟為</string>
     <string name="options">選項</string>
     <string name="packing">打包</string>
     <string name="paste">黏貼</string>
@@ -99,7 +98,6 @@
     <string name="size1">大小</string>
     <string name="sort">排序</string>
     <string name="text">文字</string>
-    <string name="toopen">" 開啟 "</string>
     <string name="type">類型</string>
     <string name="uisettings">View 設定</string>
     <string name="uninstallapp">移除 App</string>

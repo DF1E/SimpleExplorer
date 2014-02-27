@@ -5,41 +5,6 @@
     android:orientation="vertical"
     android:padding="4dp" >
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:indeterminateBehavior="repeat" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:maxLines="1"
-            android:minWidth="120dp"
-            android:padding="2dp"
-            android:text="@string/fname"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/name_label"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:ellipsize="end"
-            android:gravity="right|center_vertical"
-            android:maxLines="1"
-            android:textIsSelectable="false"
-            android:textStyle="bold" />
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -147,7 +112,7 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/fourth_title"
+            android:id="@+id/six_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -155,10 +120,10 @@
             android:maxLines="1"
             android:minWidth="120dp"
             android:padding="2dp"
-            android:text="@string/used" />
+            android:text="@string/AvaibleSize" />
 
         <TextView
-            android:id="@+id/permission1"
+            android:id="@+id/avaible_size"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -199,7 +164,7 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/six_title"
+            android:id="@+id/fourth_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -207,10 +172,10 @@
             android:maxLines="1"
             android:minWidth="120dp"
             android:padding="2dp"
-            android:text="@string/AvaibleSize" />
+            android:text="@string/used" />
 
         <TextView
-            android:id="@+id/avaible_size"
+            android:id="@+id/permission1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

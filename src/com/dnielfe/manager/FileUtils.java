@@ -45,7 +45,7 @@ import android.widget.Toast;
 public class FileUtils {
 
 	private static final int BUFFER = 2048;
-	private long mDirSize = 0;
+	private static long mDirSize = 0;
 
 	// Inspired by org.apache.commons.io.FileUtils.isSymlink()
 	private static boolean isSymlink(File file) throws IOException {
@@ -64,7 +64,7 @@ public class FileUtils {
 	 * 
 	 * @param path
 	 */
-	private void get_dir_size(File path) {
+	private static void get_dir_size(File path) {
 		File[] list = path.listFiles();
 		int len;
 
@@ -153,7 +153,7 @@ public class FileUtils {
 		}
 	}
 
-	public long getDirSize(String path) {
+	public static long getDirSize(String path) {
 		get_dir_size(new File(path));
 
 		return mDirSize;
@@ -275,22 +275,20 @@ public class FileUtils {
 		}
 	}
 
-	// filePath = currentDir + "/" + path
+	// filePath = currentDir + "/" + item
 	// newName = new name
-	public static int renameTarget(String filePath, String newName) {
+	public static boolean renameTarget(String filePath, String newName) {
 		File src = new File(filePath);
 		File dest;
-
-		if (newName.length() < 1)
-			return -1;
 
 		String temp = filePath.substring(0, filePath.lastIndexOf("/"));
 
 		dest = new File(temp + "/" + newName);
+
 		if (src.renameTo(dest))
-			return 0;
+			return true;
 		else
-			return -1;
+			return false;
 	}
 
 	// path = currentDir
@@ -473,7 +471,7 @@ public class FileUtils {
 	private static int moveCopyRoot(String old, String newDir) {
 
 		try {
-			if (LinuxShell.isRoot()) {
+			if (RootTools.isRootAvailable()) {
 				if (!readReadWriteFile()) {
 					RootTools.remount(newDir, "rw");
 				}

@@ -19,19 +19,16 @@
 
 package com.dnielfe.manager.dialogs;
 
-import com.dnielfe.manager.EventHandler;
-import com.dnielfe.manager.FileUtils;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.utils.LinuxShell;
-
+import com.dnielfe.manager.tasks.RenameTask;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public final class RenameDialog extends DialogFragment {
 
@@ -41,23 +38,12 @@ public final class RenameDialog extends DialogFragment {
 	public static final String EXTRA_FILE = null;
 	public static final String EXTRA_NAME = null;
 
-	public static DialogFragment instantiate(String dir, String name) {
-		final Bundle extras = new Bundle();
-		extras.putString(EXTRA_FILE, dir);
-		extras.putString(EXTRA_NAME, name);
+	public static DialogFragment instantiate(String dir, String name1) {
+		filepath = dir;
+		name = name1;
 
 		final RenameDialog dialog = new RenameDialog();
-		dialog.setArguments(extras);
-
 		return dialog;
-	}
-
-	@Override
-	public void onCreate(Bundle state) {
-		super.onCreate(state);
-		final Bundle extras = this.getArguments();
-		filepath = extras.getString(EXTRA_FILE);
-		name = extras.getString(EXTRA_NAME);
 	}
 
 	@Override
@@ -81,28 +67,10 @@ public final class RenameDialog extends DialogFragment {
 						if (inputf.getText().length() < 1)
 							dialog.dismiss();
 
-						try {
-							FileUtils.renameTarget(filepath, newname);
-							Toast.makeText(a,
-									getString(R.string.filewasrenamed),
-									Toast.LENGTH_LONG).show();
-						} catch (Exception e) {
-							if (LinuxShell.isRoot()) {
-								FileUtils.renameRootTarget(
-										EventHandler.getCurrentDir(), name,
-										newname);
-								Toast.makeText(a,
-										getString(R.string.filewasrenamed),
-										Toast.LENGTH_LONG).show();
-							} else {
-								Toast.makeText(a, getString(R.string.error),
-										Toast.LENGTH_SHORT).show();
-							}
-						}
-
 						dialog.dismiss();
-
-						EventHandler.refreshDir(EventHandler.getCurrentDir());
+						final RenameTask task = new RenameTask(a, filepath,
+								name, newname);
+						task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 					}
 				});
 		b.setNegativeButton(R.string.cancel,

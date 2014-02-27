@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Simple Explorer
+ * Copyright (C) 2014 Simple Explorer
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -26,12 +26,13 @@ import com.dnielfe.manager.adapters.DrawerListAdapter;
 import com.dnielfe.manager.dialogs.CreateFileDialog;
 import com.dnielfe.manager.dialogs.DeleteFilesDialog;
 import com.dnielfe.manager.dialogs.FilePropertiesDialog;
+import com.dnielfe.manager.dialogs.RenameDialog;
 import com.dnielfe.manager.dialogs.UnzipDialog;
 import com.dnielfe.manager.dialogs.ZipFilesDialog;
 import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.tasks.ZipFolderTask;
 import com.dnielfe.manager.utils.Bookmarks;
-import com.dnielfe.manager.utils.LinuxShell;
+import com.stericson.RootTools.RootTools;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -189,6 +190,8 @@ public final class Main extends ListActivity {
 
 		// refresh directory
 		EventHandler.refreshDir(EventHandler.getCurrentDir());
+
+		listView(false);
 	}
 
 	@Override
@@ -479,7 +482,7 @@ public final class Main extends ListActivity {
 						mUseBackKey = true;
 
 				} else {
-					if (LinuxShell.isRoot()) {
+					if (RootTools.isRootAvailable()) {
 						EventHandler.updateDirectory(mHandler.getNextDir(item,
 								false));
 
@@ -901,61 +904,9 @@ public final class Main extends ListActivity {
 
 		case D_MENU_RENAME:
 		case F_MENU_RENAME:
-			// TODO move to dialog package
-
-			/*
-			 * final DialogFragment dialog3 = RenameDialog.instantiate(
-			 * file.getPath(), mSelectedListItem);
-			 * dialog3.show(getFragmentManager(), "dialog");
-			 */
-
-			AlertDialog.Builder alertf = new AlertDialog.Builder(this);
-
-			alertf.setTitle(getString(R.string.rename));
-
-			// Set an EditText view to get user input
-			final EditText inputf = new EditText(this);
-			inputf.setText(mSelectedListItem);
-			alertf.setView(inputf);
-			alertf.setPositiveButton(getString(R.string.ok),
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,
-								int whichButton) {
-							String newname = inputf.getText().toString();
-
-							if (inputf.getText().length() < 1)
-								dialog.dismiss();
-
-							if (FileUtils.renameTarget(file.getPath(), newname) == 0) {
-								Toast.makeText(Main.this,
-										getString(R.string.filewasrenamed),
-										Toast.LENGTH_LONG).show();
-							} else {
-								if (LinuxShell.isRoot()) {
-									FileUtils.renameRootTarget(
-											EventHandler.getCurrentDir(),
-											mSelectedListItem, newname);
-								} else {
-									Toast.makeText(getBaseContext(),
-											getString(R.string.error),
-											Toast.LENGTH_SHORT).show();
-								}
-							}
-							dialog.dismiss();
-							EventHandler.refreshDir(EventHandler
-									.getCurrentDir());
-						}
-					});
-
-			alertf.setNegativeButton(getString(R.string.cancel),
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,
-								int whichButton) {
-							dialog.dismiss();
-						}
-					});
-
-			alertf.show();
+			final DialogFragment dialog3 = RenameDialog.instantiate(
+					file.getPath(), mSelectedListItem);
+			dialog3.show(getFragmentManager(), "dialog");
 			return true;
 
 		case F_MENU_ATTACH:

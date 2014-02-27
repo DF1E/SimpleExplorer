@@ -79,7 +79,6 @@
     <string name="Numberoffolders">Nombre de dossiers:</string>
     <string name="of">" de "</string>
     <string name="ok">OK</string>
-    <string name="openas">Ouvrir en tant que</string>
     <string name="options">Options</string>
     <string name="packing">Packing</string>
     <string name="paste">Coller</string>
@@ -102,7 +101,6 @@
     <string name="size1">Taille</string>
     <string name="sort">Trier</string>
     <string name="text">Texte</string>
-    <string name="toopen">" pour ouvrir "</string>
     <string name="type">Type</string>
     <string name="uisettings">Afficher paramètres</string>
     <string name="uninstallapp">Désinstaller App</string>

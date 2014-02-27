@@ -78,7 +78,6 @@
     <string name="Numberoffolders">Содержит папок:</string>
     <string name="of">" из "</string>
     <string name="ok">OK</string>
-    <string name="openas">Открыть как...</string>
     <string name="options">Действия</string>
     <string name="packing">Сжатие в TAR-архив</string>
     <string name="paste">Вставить</string>
@@ -101,7 +100,6 @@
     <string name="size1">По размеру</string>
     <string name="sort">Сортировка</string>
     <string name="text">Текст</string>
-    <string name="toopen">" открыть "</string>
     <string name="type">По типу</string>
     <string name="uisettings">Отображение</string>
     <string name="uninstallapp">Удалить приложение</string>

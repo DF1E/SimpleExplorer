@@ -79,7 +79,6 @@
     <string name="Numberoffolders">Number of folders:</string>
     <string name="of">" of "</string>
     <string name="ok">OK</string>
-    <string name="openas">Open as</string>
     <string name="options">Options</string>
     <string name="packing">Packing</string>
     <string name="paste">Paste</string>
@@ -102,7 +101,6 @@
     <string name="size1">Size</string>
     <string name="sort">Sort</string>
     <string name="text">Text</string>
-    <string name="toopen">" to open "</string>
     <string name="type">Type</string>
     <string name="uisettings">View settings</string>
     <string name="uninstallapp">Uninstall App</string>

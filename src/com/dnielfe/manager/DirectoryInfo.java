@@ -21,8 +21,6 @@ package com.dnielfe.manager;
 
 import java.io.File;
 import java.text.DateFormat;
-import com.dnielfe.manager.FileUtils.ProgressbarClass;
-
 import android.os.Bundle;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -33,8 +31,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class DirectoryInfo extends Activity {
@@ -42,9 +38,8 @@ public class DirectoryInfo extends Activity {
 	private static final int MG = KB * KB;
 	private static final int GB = MG * KB;
 	private String mPathName;
-	private TextView mNameLabel, mPathLabel, mDirLabel, mFileLabel, mTimeLabel,
-			mUsedLabel, mAvaibleLabel, mFreeLabel;
-	private ProgressBar mSpaceBar;
+	private TextView mPathLabel, mDirLabel, mFileLabel, mTimeLabel, mUsedLabel,
+			mAvaibleLabel, mFreeLabel;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,7 +62,6 @@ public class DirectoryInfo extends Activity {
 			}
 		}
 
-		mNameLabel = (TextView) findViewById(R.id.name_label);
 		mPathLabel = (TextView) findViewById(R.id.path_label);
 		mDirLabel = (TextView) findViewById(R.id.dirs_label);
 		mFileLabel = (TextView) findViewById(R.id.files_label);
@@ -75,7 +69,6 @@ public class DirectoryInfo extends Activity {
 		mUsedLabel = (TextView) findViewById(R.id.permission1);
 		mFreeLabel = (TextView) findViewById(R.id.freespace);
 		mAvaibleLabel = (TextView) findViewById(R.id.avaible_size);
-		mSpaceBar = (ProgressBar) findViewById(R.id.progressBar);
 
 		new BackgroundWork().execute(mPathName);
 	}
@@ -105,17 +98,9 @@ public class DirectoryInfo extends Activity {
 		}
 
 		protected Long doInBackground(String... vals) {
-			FileUtils flmg = new FileUtils();
 			File dir = new File(vals[0]);
 			long size = 0;
 			int len = 0;
-
-			try {
-				// try to display free space in progresBar
-				displayFreeSpace();
-			} catch (Exception e) {
-
-			}
 
 			File[] list = dir.listFiles();
 			if (list != null)
@@ -134,7 +119,7 @@ public class DirectoryInfo extends Activity {
 				size = fss.getAvailableBlocksLong() * fss.getBlockSizeLong();
 
 			} else {
-				size = flmg.getDirSize(vals[0]);
+				size = FileUtils.getDirSize(vals[0]);
 			}
 
 			// get used space of FileSystem
@@ -188,40 +173,17 @@ public class DirectoryInfo extends Activity {
 			mUsedLabel.setText(mDisplaySize);
 
 			if (dir.getAbsolutePath().equals("/")) {
-				mNameLabel.setText("/");
 				mFreeLabel.setText("---");
 				mAvaibleLabel.setText("---");
 			} else if (!dir.canRead() || !dir.canWrite()) {
-				mNameLabel.setText(dir.getName());
 				mFreeLabel.setText("---");
 				mAvaibleLabel.setText("---");
 			} else {
-				mNameLabel.setText(dir.getName());
 				mFreeLabel.setText(mFreeSpace);
 				mAvaibleLabel.setText(avaible);
 			}
 
 			dialog.cancel();
-		}
-	}
-
-	private void displayFreeSpace() {
-		mSpaceBar = (ProgressBar) findViewById(R.id.progressBar);
-		File dir1 = new File(mPathName);
-		int total;
-		int free;
-
-		if (mSpaceBar == null) {
-			mSpaceBar.setVisibility(View.GONE);
-		} else if (!dir1.canRead()) {
-			mSpaceBar.setVisibility(View.GONE);
-		} else {
-			total = ProgressbarClass.totalMemory(dir1);
-			free = ProgressbarClass.freeMemory(dir1);
-
-			mSpaceBar.setVisibility(View.VISIBLE);
-			mSpaceBar.setMax(total);
-			mSpaceBar.setProgress(free);
 		}
 	}
 

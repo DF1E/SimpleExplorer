@@ -74,6 +74,7 @@ public class AppManager extends ListActivity {
 	private static final String BACKUP_LOC = Environment
 			.getExternalStorageDirectory().getPath() + "/Simple Explorer/Apps/";
 
+	private static ArrayList<ApplicationInfo> multiSelectData = null;
 	private static ArrayList<ApplicationInfo> mAppList = null;
 	private static PackageManager mPackMag = null;
 	private static ProgressDialog mDialog = null;
@@ -91,10 +92,11 @@ public class AppManager extends ListActivity {
 	private static final int FLAG_UPDATED_SYS_APP = 0x80;
 
 	private static final int BUFFER = 2048;
-	private static ArrayList<ApplicationInfo> multiSelectData = null;
 
 	private ActionBar actionBar;
 	private MenuItem mMenuItem;
+
+	private ListView mListView;
 
 	// Our handler object that will update the GUI from our background thread.
 	private Handler mHandler = new Handler() {
@@ -128,10 +130,11 @@ public class AppManager extends ListActivity {
 		mAppList = new ArrayList<ApplicationInfo>();
 		multiSelectData = new ArrayList<ApplicationInfo>();
 
+		mListView = getListView();
 		mPackMag = getPackageManager();
-		registerForContextMenu(getListView());
-
 		actionBar = getActionBar();
+
+		registerForContextMenu(mListView);
 
 		new AsyncTask<String[], Long, Long>() {
 
@@ -166,15 +169,15 @@ public class AppManager extends ListActivity {
 				updateactionbar();
 				// This enable fast-scroll divider
 				if (mAppList.size() > 40) {
-					getListView().setFastScrollEnabled(true);
+					mListView.setFastScrollEnabled(true);
 				} else {
-					getListView().setFastScrollEnabled(false);
+					mListView.setFastScrollEnabled(false);
 				}
 			}
 		}.execute();
 
-		actionBar.show();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.show();
 	}
 
 	public void updateactionbar() {
@@ -238,43 +241,23 @@ public class AppManager extends ListActivity {
 			break;
 
 		case ID_SEND:
-			if (multiSelectData.size() > 0 && multiSelectData != null) {
 
-				ArrayList<Uri> uris = new ArrayList<Uri>();
-				int length = multiSelectData.size();
-				Intent send_intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-				send_intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+			try {
+				ApplicationInfo info1 = mPackMag.getApplicationInfo(
+						mAppList.get(index).packageName, 0);
+				String source_dir = info1.sourceDir;
+				File file = new File(source_dir);
+				Uri uri11 = Uri.fromFile(file.getAbsoluteFile());
 
-				send_intent.setType("image/jpeg");
-				for (int j = 0; j < length; j++) {
+				Intent infointent = new Intent(Intent.ACTION_SEND);
 
-					File file = new File(multiSelectData.get(j).sourceDir)
-							.getAbsoluteFile();
-					uris.add(Uri.fromFile(file));
-				}
-				send_intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,
-						uris);
-				startActivity(Intent.createChooser(send_intent,
+				infointent.setType("application/zip");
+				infointent.putExtra(Intent.EXTRA_STREAM, uri11);
+				startActivity(Intent.createChooser(infointent,
 						getString(R.string.share)));
-
-			} else {
-				try {
-					ApplicationInfo info1 = mPackMag.getApplicationInfo(
-							mAppList.get(index).packageName, 0);
-					String source_dir = info1.sourceDir;
-					File file = new File(source_dir);
-					Uri uri11 = Uri.fromFile(file.getAbsoluteFile());
-
-					Intent infointent = new Intent(Intent.ACTION_SEND);
-
-					infointent.setType("application/zip");
-					infointent.putExtra(Intent.EXTRA_STREAM, uri11);
-					startActivity(Intent.createChooser(infointent,
-							getString(R.string.share)));
-				} catch (Exception e) {
-					Toast.makeText(AppManager.this, "Error", Toast.LENGTH_SHORT)
-							.show();
-				}
+			} catch (Exception e) {
+				Toast.makeText(AppManager.this, "Error", Toast.LENGTH_SHORT)
+						.show();
 			}
 			break;
 		}
@@ -517,7 +500,7 @@ public class AppManager extends ListActivity {
 	private OnCheckedChangeListener mStarCheckedChanceChangeListener = new OnCheckedChangeListener() {
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
-			final int position = getListView().getPositionForView(buttonView);
+			final int position = mListView.getPositionForView(buttonView);
 			if (position != ListView.INVALID_POSITION) {
 				mStarStates[position] = isChecked;
 			}

@@ -78,7 +78,6 @@
     <string name="Numberoffolders">Aantal mappen:</string>
     <string name="of">" of "</string>
     <string name="ok">OK</string>
-    <string name="openas">Open als</string>
     <string name="options">Opties</string>
     <string name="packing">Inpakken</string>
     <string name="paste">Plakken</string>
@@ -101,7 +100,6 @@
     <string name="size1">Grootte</string>
     <string name="sort">Sorteer</string>
     <string name="text">Tekst</string>
-    <string name="toopen">" om te openen "</string>
     <string name="type">Type</string>
     <string name="uisettings">Bekijk Instellingen</string>
     <string name="uninstallapp">Verwijder App</string>
