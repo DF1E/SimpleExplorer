@@ -36,7 +36,6 @@ import com.dnielfe.manager.tasks.PasteTask;
 import com.dnielfe.manager.tasks.ZipFolderTask;
 import com.dnielfe.manager.utils.Bookmarks;
 import com.dnielfe.manager.utils.ClipBoard;
-import com.stericson.RootTools.RootTools;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -121,7 +120,7 @@ public final class Main extends ListActivity implements
 
 	public ActionMode mActionMode;
 
-	private static String mSelectedListItem, mCurrentPath;
+	private static String mSelectedListItem;
 	private static String[] drawerTitles;
 
 	private SharedPreferences mSettings;
@@ -186,18 +185,10 @@ public final class Main extends ListActivity implements
 			}
 		}
 
-		mCurrentPath = defaultdir;
 		File dir = new File(defaultdir);
 
 		if (dir.exists() && dir.isDirectory())
-			EventHandler.refreshDir(dir.getAbsolutePath());
-		listView(false);
-
-		if (mCurrentPath != null) {
-			mObserver = mObserverCache.getOrCreate(mCurrentPath);
-			mObserver.addOnEventListener(this);
-			mObserver.startWatching();
-		}
+			navigateTo(dir.getAbsolutePath());
 	}
 
 	@Override
@@ -205,7 +196,7 @@ public final class Main extends ListActivity implements
 		super.onResume();
 		String dir = EventHandler.getCurrentDir();
 
-		restartObserver(dir);
+		navigateTo(dir);
 
 		mHandler.loadPreferences();
 
@@ -237,6 +228,23 @@ public final class Main extends ListActivity implements
 		// get default directory from preferences
 		defaultdir = mSettings.getString("defaultdir", Environment
 				.getExternalStorageDirectory().getPath());
+	}
+
+	private void navigateTo(String path) {
+		if (mObserver != null) {
+			mObserver.stopWatching();
+			mObserver.removeOnEventListener(this);
+		}
+
+		EventHandler.refreshDir(path);
+
+		mObserver = mObserverCache.getOrCreate(path);
+		mObserver.addOnEventListener(this);
+		mObserver.startWatching();
+
+		mListView.setSelection(0);
+
+		setDirectoryButtons();
 	}
 
 	private void setupDrawer() {
@@ -368,8 +376,6 @@ public final class Main extends ListActivity implements
 
 	@Override
 	public void onEvent(int event, String path) {
-		// TODO Observer Events fix
-
 		// this will automatically update the directory when an action like this
 		// will be performed
 		switch (event & FileObserver.ALL_EVENTS) {
@@ -388,19 +394,6 @@ public final class Main extends ListActivity implements
 		}
 	}
 
-	public void restartObserver(String requested) {
-		mCurrentPath = requested;
-
-		if (mObserver != null) {
-			mObserver.stopWatching();
-			mObserver.removeOnEventListener(this);
-		}
-
-		mObserver = mObserverCache.getOrCreate(requested);
-		mObserver.addOnEventListener(this);
-		mObserver.startWatching();
-	}
-
 	private void SearchIntent(Intent intent) {
 		setIntent(intent);
 
@@ -413,18 +406,6 @@ public final class Main extends ListActivity implements
 				// TODO move SearchTask() to tasks package
 			}
 		}
-	}
-
-	// get ListView options
-	private void listView(boolean toTop) {
-
-		if (toTop) {
-			// go to top of ListView
-			mListView.setSelection(0);
-		}
-
-		// Update the Buttons showing the path
-		setDirectoryButtons();
 	}
 
 	// set directory buttons showing path
@@ -448,9 +429,7 @@ public final class Main extends ListActivity implements
 				WRAP_CONTENT, Gravity.CENTER_VERTICAL));
 		bt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				EventHandler.refreshDir("/");
-				restartObserver("/");
-				listView(true);
+				navigateTo("/");
 			}
 		});
 
@@ -477,9 +456,7 @@ public final class Main extends ListActivity implements
 			b.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
 					String dir1 = (String) view.getTag();
-					EventHandler.refreshDir(dir1);
-					restartObserver(dir1);
-					listView(true);
+					navigateTo(dir1);
 				}
 			});
 
@@ -527,32 +504,11 @@ public final class Main extends ListActivity implements
 
 		} else {
 			if (file.isDirectory()) {
-				if (file.canRead()) {
-					EventHandler.updateDirectory(mHandler.getNextDir(item,
-							false));
+				navigateTo(file.getAbsolutePath());
 
-					listView(true);
+				if (!mUseBackKey)
+					mUseBackKey = true;
 
-					if (!mUseBackKey)
-						mUseBackKey = true;
-
-				} else {
-					if (RootTools.isRootAvailable()) {
-						EventHandler.updateDirectory(mHandler.getNextDir(item,
-								false));
-
-						listView(true);
-
-						if (!mUseBackKey)
-							mUseBackKey = true;
-
-					} else {
-						Toast.makeText(this,
-								getString(R.string.cantreadfolder),
-								Toast.LENGTH_SHORT).show();
-					}
-				}
-				restartObserver(file.getAbsolutePath());
 			} else {
 				listItemAction(file, item);
 			}
@@ -1008,9 +964,7 @@ public final class Main extends ListActivity implements
 							File file = new File(path);
 							if (file != null) {
 								if (file.isDirectory()) {
-									EventHandler.refreshDir(path);
-									restartObserver(path);
-									listView(true);
+									navigateTo(path);
 								} else {
 									listItemAction(file, path);
 								}
@@ -1304,10 +1258,7 @@ public final class Main extends ListActivity implements
 
 					public void onClick(DialogInterface dialog, int position) {
 						String path = file.get(position);
-						EventHandler.refreshDir(path.substring(0,
-								path.lastIndexOf("/")));
-						restartObserver(path.substring(0, path.lastIndexOf("/")));
-						listView(true);
+						navigateTo(path.substring(0, path.lastIndexOf("/")));
 					}
 				});
 				AlertDialog dialog = builder.create();
@@ -1321,7 +1272,6 @@ public final class Main extends ListActivity implements
 
 		NavigateRunnable(final String path) {
 			this.target = path;
-			mCurrentPath = target;
 		}
 
 		@Override
@@ -1343,9 +1293,7 @@ public final class Main extends ListActivity implements
 		} else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
 				&& !current.equals("/")) {
 
-			EventHandler.updateDirectory(EventHandler.setHomeDir(parent));
-			restartObserver(parent);
-			listView(true);
+			navigateTo(parent);
 			return true;
 
 		} else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
