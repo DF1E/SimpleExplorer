@@ -80,8 +80,6 @@ public final class CreateFileDialog extends DialogFragment {
 									Toast.LENGTH_SHORT).show();
 						}
 					}
-
-					EventHandler.refreshDir(EventHandler.getCurrentDir());
 				}
 
 				dialog.dismiss();

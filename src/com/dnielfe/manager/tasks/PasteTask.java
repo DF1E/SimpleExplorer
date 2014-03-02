@@ -30,19 +30,25 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.dnielfe.manager.EventHandler;
+import com.dnielfe.manager.FileUtils;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.utils.Decompress;
+import com.dnielfe.manager.utils.ClipBoard;
 
 import org.jetbrains.annotations.NotNull;
 
-public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
+public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 
 	private final WeakReference<Activity> activity;
 
 	private ProgressDialog dialog;
 
-	public UnZipTask(final Activity activity) {
+	private String location;
+
+	private boolean success = false;
+
+	public PasteTask(final Activity activity, String currentDir) {
 		this.activity = new WeakReference<Activity>(activity);
+		this.location = currentDir;
 	}
 
 	@Override
@@ -51,7 +57,12 @@ public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
 
 		if (activity != null) {
 			this.dialog = new ProgressDialog(activity);
-			this.dialog.setMessage(activity.getString(R.string.unzipping));
+
+			if (ClipBoard.isMove())
+				this.dialog.setMessage(activity.getString(R.string.moving));
+			else
+				this.dialog.setMessage(activity.getString(R.string.copying));
+
 			this.dialog.setCancelable(true);
 			this.dialog
 					.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -71,13 +82,29 @@ public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
 	protected List<String> doInBackground(String... files) {
 		final List<String> failed = new ArrayList<String>();
 
-		EventHandler.getCurrentDir();
+		String[] content = ClipBoard.getClipBoardContents();
 
-		final Decompress decompress = new Decompress(files[0], files[1]);
-		try {
-			decompress.unzip();
-		} catch (Exception e) {
-			failed.add(files.toString());
+		int len = content.length;
+
+		if (len == 0) {
+			failed.add(content.toString());
+			return failed;
+		} else if (len == 1) {
+			FileUtils.copyToDirectory(content[0], location);
+			success = true;
+			if (ClipBoard.isMove()) {
+				FileUtils.deleteTarget(content[0], location);
+				success = true;
+			}
+		} else {
+			for (int i = 0; i < len; i++) {
+				FileUtils.copyToDirectory(content[i], location);
+				success = true;
+				if (ClipBoard.isMove()) {
+					FileUtils.deleteTarget(content[i], location);
+					success = true;
+				}
+			}
 		}
 		return failed;
 	}
@@ -100,6 +127,31 @@ public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
 		}
 
 		final Activity activity = this.activity.get();
+
+		if (ClipBoard.isMove()) {
+			if (success)
+				Toast.makeText(activity,
+						activity.getString(R.string.movesuccsess),
+						Toast.LENGTH_SHORT).show();
+			else
+				Toast.makeText(activity, activity.getString(R.string.movefail),
+						Toast.LENGTH_SHORT).show();
+		} else {
+			if (success)
+				Toast.makeText(activity,
+						activity.getString(R.string.copysuccsess),
+						Toast.LENGTH_SHORT).show();
+			else
+				Toast.makeText(activity, activity.getString(R.string.copyfail),
+						Toast.LENGTH_SHORT).show();
+		}
+
+		ClipBoard.unlock();
+		ClipBoard.clear();
+		activity.invalidateOptionsMenu();
+
+		EventHandler.refreshDir(location);
+
 		if (activity != null && !failed.isEmpty()) {
 			Toast.makeText(activity, activity.getString(R.string.cantopenfile),
 					Toast.LENGTH_SHORT).show();

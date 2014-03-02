@@ -1,9 +1,10 @@
 Changelog:
 
 v1.9.4
-fixed sharing issue
-improved thumbnail handling
 added korean and french language
+added a fileobserver
+improved thumbnail handling
+fixed some sharing issues
 fixed minor bugs
 
 v1.9.3

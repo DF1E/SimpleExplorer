@@ -102,8 +102,6 @@ public final class DeleteTask extends AsyncTask<String, Void, List<String>> {
 			this.dialog.dismiss();
 		}
 
-		EventHandler.refreshDir(location);
-
 		final Activity activity = this.activity.get();
 		if (activity != null && !failed.isEmpty()) {
 			Toast.makeText(activity, activity.getString(R.string.cantopenfile),

@@ -91,12 +91,14 @@ public class DirectoryInfo extends Activity {
 		long test = dir.getTotalSpace();
 		long freespace = dir.getFreeSpace();
 
+		@Override
 		protected void onPreExecute() {
 			dialog = ProgressDialog.show(DirectoryInfo.this, "",
 					getString(R.string.calcinfo));
 			dialog.setCancelable(true);
 		}
 
+		@Override
 		protected Long doInBackground(String... vals) {
 			File dir = new File(vals[0]);
 			long size = 0;
@@ -155,10 +157,9 @@ public class DirectoryInfo extends Activity {
 			return size;
 		}
 
+		@Override
 		protected void onPostExecute(Long result) {
 			File dir = new File(mPathName);
-
-			String avaible = String.valueOf(mAvaibleSize);
 
 			DateFormat dateFormat = android.text.format.DateFormat
 					.getDateFormat(getApplicationContext());
@@ -180,7 +181,7 @@ public class DirectoryInfo extends Activity {
 				mAvaibleLabel.setText("---");
 			} else {
 				mFreeLabel.setText(mFreeSpace);
-				mAvaibleLabel.setText(avaible);
+				mAvaibleLabel.setText(mAvaibleSize);
 			}
 
 			dialog.cancel();

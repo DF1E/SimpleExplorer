@@ -42,7 +42,7 @@ public final class RenameTask extends AsyncTask<String, Void, List<String>> {
 
 	private ProgressDialog dialog;
 
-	private String location, filepath, name, newname;
+	private String filepath, name, newname;
 
 	private boolean succes = false;
 
@@ -80,7 +80,7 @@ public final class RenameTask extends AsyncTask<String, Void, List<String>> {
 	protected List<String> doInBackground(String... files) {
 		final List<String> failed = new ArrayList<String>();
 
-		location = EventHandler.getCurrentDir();
+		EventHandler.getCurrentDir();
 
 		try {
 			if (FileUtils.renameTarget(filepath, newname)) {
@@ -115,8 +115,6 @@ public final class RenameTask extends AsyncTask<String, Void, List<String>> {
 		if (this.dialog != null) {
 			this.dialog.dismiss();
 		}
-
-		EventHandler.refreshDir(location);
 
 		final Activity activity = this.activity.get();
 

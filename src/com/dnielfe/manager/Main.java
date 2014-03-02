@@ -29,9 +29,13 @@ import com.dnielfe.manager.dialogs.FilePropertiesDialog;
 import com.dnielfe.manager.dialogs.RenameDialog;
 import com.dnielfe.manager.dialogs.UnzipDialog;
 import com.dnielfe.manager.dialogs.ZipFilesDialog;
+import com.dnielfe.manager.fileobserver.FileObserverCache;
+import com.dnielfe.manager.fileobserver.MultiFileObserver;
 import com.dnielfe.manager.preview.MimeTypes;
+import com.dnielfe.manager.tasks.PasteTask;
 import com.dnielfe.manager.tasks.ZipFolderTask;
 import com.dnielfe.manager.utils.Bookmarks;
+import com.dnielfe.manager.utils.ClipBoard;
 import com.stericson.RootTools.RootTools;
 
 import android.app.ActionBar;
@@ -51,6 +55,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.FileObserver;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -76,7 +82,8 @@ import android.widget.ListView;
 import android.widget.Button;
 import android.widget.Toast;
 
-public final class Main extends ListActivity {
+public final class Main extends ListActivity implements
+		MultiFileObserver.OnEventListener {
 
 	public static final String ACTION_WIDGET = "com.dnielfe.manager.Main.ACTION_WIDGET";
 	public static final String EXTRA_SHORTCUT = "shortcut_path";
@@ -88,7 +95,6 @@ public final class Main extends ListActivity {
 	private static final int D_MENU_DELETE = 6;
 	private static final int D_MENU_RENAME = 7;
 	private static final int D_MENU_COPY = 8;
-	private static final int D_MENU_PASTE = 9;
 	private static final int D_MENU_ZIP = 10;
 	private static final int D_MENU_MOVE = 12;
 	private static final int F_MENU_BOOKMARK = 13;
@@ -100,23 +106,22 @@ public final class Main extends ListActivity {
 	private static final int F_MENU_DETAILS = 19;
 	private static final int D_MENU_DETAILS = 20;
 
-	private static final int SEARCH_TYPE = 33;
-	private static final int COPY_TYPE = 35;
-
 	private static final int directorytextsize = 16;
+
+	private static Handler sHandler;
+	private MultiFileObserver mObserver;
+	private FileObserverCache mObserverCache;
+	private Runnable mLastRunnable;
 
 	private static EventHandler mHandler;
 	private static EventHandler.TableRow mTable;
 
 	private boolean mReturnIntent = false;
-	private boolean mHoldingFile = false;
 	private boolean mUseBackKey = true;
-	private boolean delete_after_copy = false;
 
 	public ActionMode mActionMode;
 
-	private static String mCopiedTarget;
-	private static String mSelectedListItem;
+	private static String mSelectedListItem, mCurrentPath;
 	private static String[] drawerTitles;
 
 	private SharedPreferences mSettings;
@@ -134,6 +139,10 @@ public final class Main extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 
+		if (sHandler == null) {
+			sHandler = new Handler(this.getMainLooper());
+		}
+
 		checkEnvironment();
 		setupDrawer();
 
@@ -142,6 +151,8 @@ public final class Main extends ListActivity {
 
 		// new ArrayAdapter
 		mTable = mHandler.new TableRow();
+
+		mObserverCache = FileObserverCache.getInstance();
 
 		initList();
 
@@ -175,21 +186,31 @@ public final class Main extends ListActivity {
 			}
 		}
 
+		mCurrentPath = defaultdir;
 		File dir = new File(defaultdir);
 
 		if (dir.exists() && dir.isDirectory())
 			EventHandler.refreshDir(dir.getAbsolutePath());
 		listView(false);
+
+		if (mCurrentPath != null) {
+			mObserver = mObserverCache.getOrCreate(mCurrentPath);
+			mObserver.addOnEventListener(this);
+			mObserver.startWatching();
+		}
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
+		String dir = EventHandler.getCurrentDir();
+
+		restartObserver(dir);
 
 		mHandler.loadPreferences();
 
 		// refresh directory
-		EventHandler.refreshDir(EventHandler.getCurrentDir());
+		EventHandler.refreshDir(dir);
 	}
 
 	@Override
@@ -345,6 +366,41 @@ public final class Main extends ListActivity {
 		SearchIntent(intent);
 	}
 
+	@Override
+	public void onEvent(int event, String path) {
+		// TODO Observer Events fix
+
+		// this will automatically update the directory when an action like this
+		// will be performed
+		switch (event & FileObserver.ALL_EVENTS) {
+		case FileObserver.CREATE:
+		case FileObserver.CLOSE_WRITE:
+		case FileObserver.MODIFY:
+		case FileObserver.MOVE_SELF:
+		case FileObserver.ATTRIB:
+		case FileObserver.DELETE:
+		case FileObserver.DELETE_SELF:
+		case FileObserver.MOVED_TO:
+			sHandler.removeCallbacks(mLastRunnable);
+			sHandler.post(mLastRunnable = new NavigateRunnable(EventHandler
+					.getCurrentDir()));
+			break;
+		}
+	}
+
+	public void restartObserver(String requested) {
+		mCurrentPath = requested;
+
+		if (mObserver != null) {
+			mObserver.stopWatching();
+			mObserver.removeOnEventListener(this);
+		}
+
+		mObserver = mObserverCache.getOrCreate(requested);
+		mObserver.addOnEventListener(this);
+		mObserver.startWatching();
+	}
+
 	private void SearchIntent(Intent intent) {
 		setIntent(intent);
 
@@ -353,8 +409,8 @@ public final class Main extends ListActivity {
 
 			if (query.length() > 0) {
 				// start search in background
-				new BackgroundWork(SEARCH_TYPE).execute(query);
-				// TODO move to tasks package
+				new SearchTask().execute(query);
+				// TODO move SearchTask() to tasks package
 			}
 		}
 	}
@@ -393,6 +449,7 @@ public final class Main extends ListActivity {
 		bt.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				EventHandler.refreshDir("/");
+				restartObserver("/");
 				listView(true);
 			}
 		});
@@ -421,7 +478,7 @@ public final class Main extends ListActivity {
 				public void onClick(View view) {
 					String dir1 = (String) view.getTag();
 					EventHandler.refreshDir(dir1);
-
+					restartObserver(dir1);
 					listView(true);
 				}
 			});
@@ -495,6 +552,7 @@ public final class Main extends ListActivity {
 								Toast.LENGTH_SHORT).show();
 					}
 				}
+				restartObserver(file.getAbsolutePath());
 			} else {
 				listItemAction(file, item);
 			}
@@ -740,16 +798,8 @@ public final class Main extends ListActivity {
 		inflater.inflate(R.menu.main, menu);
 
 		mMenuItemPaste = menu.findItem(R.id.paste);
+		mMenuItemPaste.setVisible(false);
 		return true;
-	}
-
-	// Hide ActionBar Items, if Drawer is open
-	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawer);
-
-		menu.findItem(R.id.paste).setVisible(mHoldingFile);
-		return super.onPrepareOptionsMenu(menu);
 	}
 
 	@Override
@@ -783,19 +833,9 @@ public final class Main extends ListActivity {
 			return true;
 
 		case R.id.paste:
-			boolean multi_select = mHandler.hasMultiSelectData();
-
-			if (multi_select) {
-				copyFileMultiSelect(EventHandler.getCurrentDir());
-
-			} else if (mHoldingFile && mCopiedTarget.length() > 1) {
-
-				String[] data = { mCopiedTarget, EventHandler.getCurrentDir() };
-
-				new BackgroundWork(COPY_TYPE).execute(data);
-			}
-
-			mHoldingFile = false;
+			final PasteTask ptc = new PasteTask(this,
+					EventHandler.getCurrentDir());
+			ptc.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			mMenuItemPaste.setVisible(false);
 			return true;
 
@@ -822,7 +862,6 @@ public final class Main extends ListActivity {
 			ContextMenuInfo info) {
 		super.onCreateContextMenu(menu, v, info);
 
-		boolean multi_data = mHandler.hasMultiSelectData();
 		AdapterContextMenuInfo _info = (AdapterContextMenuInfo) info;
 		mSelectedListItem = mHandler.getData(_info.position);
 		File item = new File(EventHandler.getCurrentDir() + "/"
@@ -836,8 +875,6 @@ public final class Main extends ListActivity {
 			menu.add(0, D_MENU_COPY, 0, getString(R.string.copy));
 			menu.add(0, D_MENU_MOVE, 0, getString(R.string.move));
 			menu.add(0, D_MENU_ZIP, 0, getString(R.string.zipfolder));
-			menu.add(0, D_MENU_PASTE, 0, getString(R.string.pasteintofolder))
-					.setEnabled(mHoldingFile || multi_data);
 			menu.add(0, D_MENU_SHORTCUT, 0, getString(R.string.shortcut));
 			menu.add(0, D_MENU_BOOKMARK, 0, getString(R.string.createbookmark));
 			menu.add(0, D_MENU_DETAILS, 0, getString(R.string.details));
@@ -924,39 +961,18 @@ public final class Main extends ListActivity {
 
 		case F_MENU_MOVE:
 		case D_MENU_MOVE:
-			delete_after_copy = true;
+			String[] copyMove = new String[] { file.getPath() };
 
-			mHoldingFile = true;
+			ClipBoard.cutMove(copyMove);
 			mMenuItemPaste.setVisible(true);
-
-			mCopiedTarget = file.getPath();
 			return true;
 
 		case F_MENU_COPY:
 		case D_MENU_COPY:
-			delete_after_copy = false;
+			String[] copyFile = new String[] { file.getPath() };
 
-			mHoldingFile = true;
+			ClipBoard.cutCopy(copyFile);
 			mMenuItemPaste.setVisible(true);
-
-			mCopiedTarget = file.getPath();
-			return true;
-
-		case D_MENU_PASTE:
-			boolean multi_select = mHandler.hasMultiSelectData();
-
-			if (multi_select) {
-				copyFileMultiSelect(file.getPath());
-
-			} else if (mHoldingFile && mCopiedTarget.length() > 1) {
-
-				String[] data = { mCopiedTarget, file.getPath() };
-
-				new BackgroundWork(COPY_TYPE).execute(data);
-			}
-
-			mHoldingFile = false;
-			mMenuItemPaste.setVisible(false);
 			return true;
 
 		case D_MENU_ZIP:
@@ -982,6 +998,9 @@ public final class Main extends ListActivity {
 		builder.setCursor(bookmarksCursor,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int item) {
+						if (mDrawerLayout.isDrawerOpen(mDrawer))
+							mDrawerLayout.closeDrawer(mDrawer);
+
 						if (bookmarksCursor.moveToPosition(item)) {
 							String path = bookmarksCursor
 									.getString(bookmarksCursor
@@ -990,6 +1009,7 @@ public final class Main extends ListActivity {
 							if (file != null) {
 								if (file.isDirectory()) {
 									EventHandler.refreshDir(path);
+									restartObserver(path);
 									listView(true);
 								} else {
 									listItemAction(file, path);
@@ -1000,8 +1020,6 @@ public final class Main extends ListActivity {
 									getString(R.string.error),
 									Toast.LENGTH_SHORT).show();
 						}
-
-						mDrawerLayout.closeDrawer(mDrawer);
 					}
 				}, Bookmarks.NAME);
 		builder.create();
@@ -1057,9 +1075,6 @@ public final class Main extends ListActivity {
 									}
 
 									dialog.dismiss();
-									String temp = EventHandler.getCurrentDir();
-									EventHandler.updateDirectory(mHandler
-											.getNextDir(temp, true));
 								}
 							});
 
@@ -1124,7 +1139,6 @@ public final class Main extends ListActivity {
 			case R.id.actioncopy:
 				try {
 					multicopy();
-					mMenuItemPaste.setVisible(true);
 					mode.finish();
 				} catch (Exception e) {
 					mode.finish();
@@ -1134,7 +1148,6 @@ public final class Main extends ListActivity {
 			case R.id.actionmove:
 				try {
 					multimove();
-					mMenuItemPaste.setVisible(true);
 					mode.finish();
 				} catch (Exception e) {
 					mode.finish();
@@ -1172,6 +1185,7 @@ public final class Main extends ListActivity {
 			mActionMode = null;
 			if (mHandler.isMultiSelected()) {
 				mTable.killMultiSelect(true, true);
+				mHandler.multi_select_flag = false;
 			}
 		}
 	};
@@ -1218,114 +1232,50 @@ public final class Main extends ListActivity {
 	}
 
 	private void multicopy() {
-		if (mHandler.mMultiSelectData == null
-				|| mHandler.mMultiSelectData.isEmpty()) {
-			mTable.killMultiSelect(true, true);
-		}
-		delete_after_copy = false;
-		mTable.killMultiSelect(false, true);
-		EventHandler.updateDirectory(mHandler.getNextDir(
-				EventHandler.getCurrentDir(), true));
+		final String[] data = new String[mHandler.mMultiSelectData.size()];
+		int at = 0;
+
+		for (String string : mHandler.mMultiSelectData)
+			data[at++] = string;
+
+		ClipBoard.cutCopy(data);
+		mMenuItemPaste.setVisible(true);
 	}
 
-	// move multiple files
 	private void multimove() {
-		if (mHandler.mMultiSelectData == null
-				|| mHandler.mMultiSelectData.isEmpty()) {
-			mTable.killMultiSelect(true, true);
-		}
-		delete_after_copy = true;
-		mTable.killMultiSelect(false, true);
-		EventHandler.updateDirectory(mHandler.getNextDir(
-				EventHandler.getCurrentDir(), true));
+		final String[] data = new String[mHandler.mMultiSelectData.size()];
+		int at = 0;
+
+		for (String string : mHandler.mMultiSelectData)
+			data[at++] = string;
+
+		ClipBoard.cutMove(data);
+		mMenuItemPaste.setVisible(true);
 	}
 
-	// copy multiple files
-	private void copyFileMultiSelect(String newLocation) {
-		String[] data;
-		int index = 1;
-
-		if (mHandler.mMultiSelectData.size() > 0) {
-			data = new String[mHandler.mMultiSelectData.size() + 1];
-			data[0] = newLocation;
-
-			for (String s : mHandler.mMultiSelectData)
-				data[index++] = s;
-
-			new BackgroundWork(COPY_TYPE).execute(data);
-		}
-	}
-
-	// TODO delete - move everything in a single task
-	private class BackgroundWork extends
-			AsyncTask<String, Void, ArrayList<String>> {
+	private class SearchTask extends AsyncTask<String, Void, ArrayList<String>> {
 		public ProgressDialog pr_dialog = null;
 		private String file_name;
-		private int type;
-		private int copy_rtn;
 
-		private BackgroundWork(int type) {
-			this.type = type;
+		private SearchTask() {
 		}
 
 		// This will show a Dialog while Action is running in Background
 		@Override
 		protected void onPreExecute() {
-
-			switch (type) {
-			case SEARCH_TYPE:
-				pr_dialog = ProgressDialog.show(Main.this, "",
-						getString(R.string.search));
-				pr_dialog.setCanceledOnTouchOutside(true);
-				break;
-			case COPY_TYPE:
-				if (delete_after_copy) {
-					pr_dialog = ProgressDialog.show(Main.this, "",
-							getString(R.string.moving));
-				} else {
-					pr_dialog = ProgressDialog.show(Main.this, "",
-							getString(R.string.copying));
-				}
-				pr_dialog.setCancelable(true);
-				break;
-			}
+			pr_dialog = ProgressDialog.show(Main.this, "",
+					getString(R.string.search));
+			pr_dialog.setCanceledOnTouchOutside(true);
 		}
 
 		// Background thread here
 		@Override
 		protected ArrayList<String> doInBackground(String... params) {
-			String dir1 = EventHandler.getCurrentDir();
+			file_name = params[0];
 
-			switch (type) {
-			case SEARCH_TYPE:
-				file_name = params[0];
-
-				ArrayList<String> found = FileUtils.searchInDirectory(
-						EventHandler.getCurrentDir(), file_name);
-				return found;
-			case COPY_TYPE:
-				int len = params.length;
-
-				if (mHandler.mMultiSelectData != null
-						&& !mHandler.mMultiSelectData.isEmpty()) {
-					for (int i = 1; i < len; i++) {
-						copy_rtn = FileUtils.copyToDirectory(params[i],
-								params[0]);
-
-						if (delete_after_copy)
-							if (copy_rtn != -2)
-								FileUtils.deleteTarget(params[i], dir1);
-					}
-				} else {
-					copy_rtn = FileUtils.copyToDirectory(params[0], params[1]);
-
-					if (delete_after_copy)
-						if (copy_rtn != -2)
-							FileUtils.deleteTarget(params[0], dir1);
-				}
-				return null;
-			}
-			return null;
+			ArrayList<String> found = FileUtils.searchInDirectory(
+					EventHandler.getCurrentDir(), file_name);
+			return found;
 		}
 
 		// This is called when the background thread is finished
@@ -1334,75 +1284,49 @@ public final class Main extends ListActivity {
 			final CharSequence[] names;
 			int len = file != null ? file.size() : 0;
 
-			switch (type) {
-			case SEARCH_TYPE:
-				if (len == 0) {
-					Toast.makeText(Main.this, R.string.itcouldntbefound,
-							Toast.LENGTH_SHORT).show();
-				} else {
-					names = new CharSequence[len];
+			pr_dialog.dismiss();
 
-					for (int i = 0; i < len; i++) {
-						String entry = file.get(i);
-						names[i] = entry.substring(entry.lastIndexOf("/") + 1,
-								entry.length());
-					}
+			if (len == 0) {
+				Toast.makeText(Main.this, R.string.itcouldntbefound,
+						Toast.LENGTH_SHORT).show();
+			} else {
+				names = new CharSequence[len];
 
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-							Main.this);
-					builder.setTitle(R.string.foundfiles);
-					builder.setItems(names,
-							new DialogInterface.OnClickListener() {
-
-								public void onClick(DialogInterface dialog,
-										int position) {
-									String path = file.get(position);
-									EventHandler.refreshDir(path.substring(0,
-											path.lastIndexOf("/")));
-									listView(true);
-								}
-							});
-					AlertDialog dialog = builder.create();
-					dialog.show();
+				for (int i = 0; i < len; i++) {
+					String entry = file.get(i);
+					names[i] = entry.substring(entry.lastIndexOf("/") + 1,
+							entry.length());
 				}
-				pr_dialog.dismiss();
-				break;
-			case COPY_TYPE:
-				if (copy_rtn == -2 & delete_after_copy)
-					Toast.makeText(Main.this, R.string.movefail,
-							Toast.LENGTH_SHORT).show();
 
-				else if (delete_after_copy)
-					Toast.makeText(Main.this, R.string.movesuccsess,
-							Toast.LENGTH_SHORT).show();
+				AlertDialog.Builder builder = new AlertDialog.Builder(Main.this);
+				builder.setTitle(R.string.foundfiles);
+				builder.setItems(names, new DialogInterface.OnClickListener() {
 
-				else if (copy_rtn == 0)
-					Toast.makeText(Main.this, R.string.copysuccsess,
-							Toast.LENGTH_SHORT).show();
-
-				else if (copy_rtn == -2)
-					Toast.makeText(Main.this, R.string.fileexists,
-							Toast.LENGTH_SHORT).show();
-
-				else
-					Toast.makeText(Main.this, R.string.copyfail,
-							Toast.LENGTH_SHORT).show();
-
-				delete_after_copy = false;
-				pr_dialog.dismiss();
-				break;
+					public void onClick(DialogInterface dialog, int position) {
+						String path = file.get(position);
+						EventHandler.refreshDir(path.substring(0,
+								path.lastIndexOf("/")));
+						restartObserver(path.substring(0, path.lastIndexOf("/")));
+						listView(true);
+					}
+				});
+				AlertDialog dialog = builder.create();
+				dialog.show();
 			}
+		}
+	}
 
-			if (mHandler.mMultiSelectData != null
-					&& !mHandler.mMultiSelectData.isEmpty()) {
-				mTable.killMultiSelect(true, true);
-				mHandler.multi_select_flag = false;
-			}
+	private static final class NavigateRunnable implements Runnable {
+		private final String target;
 
-			EventHandler.updateDirectory(mHandler.getNextDir(
-					EventHandler.getCurrentDir(), true));
+		NavigateRunnable(final String path) {
+			this.target = path;
+			mCurrentPath = target;
+		}
 
-			listView(false);
+		@Override
+		public void run() {
+			EventHandler.refreshDir(target);
 		}
 	}
 
@@ -1410,6 +1334,8 @@ public final class Main extends ListActivity {
 	@Override
 	public boolean onKeyDown(int keycode, KeyEvent event) {
 		String current = EventHandler.getCurrentDir();
+		File file = new File(EventHandler.getCurrentDir());
+		String parent = file.getParent();
 
 		if (mDrawerLayout.isDrawerOpen(mDrawer)) {
 			mDrawerLayout.closeDrawer(mDrawer);
@@ -1417,8 +1343,8 @@ public final class Main extends ListActivity {
 		} else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
 				&& !current.equals("/")) {
 
-			EventHandler.updateDirectory(mHandler.getPreviousDir(current));
-
+			EventHandler.updateDirectory(EventHandler.setHomeDir(parent));
+			restartObserver(parent);
 			listView(true);
 			return true;
 
@@ -1427,15 +1353,21 @@ public final class Main extends ListActivity {
 			Toast.makeText(Main.this, getString(R.string.pressbackagaintoquit),
 					Toast.LENGTH_SHORT).show();
 
-			// Stop holding file for move/copy
-			mHoldingFile = false;
-			mMenuItemPaste.setVisible(false);
+			if (!ClipBoard.isEmpty()) {
+				ClipBoard.unlock();
+				ClipBoard.clear();
+				mMenuItemPaste.setVisible(false);
+			}
 
 			mUseBackKey = false;
 			return false;
 
 		} else if (keycode == KeyEvent.KEYCODE_BACK && !mUseBackKey
 				&& current.equals("/")) {
+			if (mObserver != null) {
+				mObserver.stopWatching();
+				mObserver.removeOnEventListener(this);
+			}
 			finish();
 			return false;
 		}
