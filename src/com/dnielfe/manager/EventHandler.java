@@ -205,19 +205,6 @@ public class EventHandler {
 		return update_list();
 	}
 
-	// This will return to the previous Directory
-	public ArrayList<String> getPreviousDir(String path) {
-
-		File file = new File(path);
-		String parent = file.getParent();
-
-		mPathStack.clear();
-		mPathStack.push("/");
-		mPathStack.push(parent);
-
-		return update_list();
-	}
-
 	// Get next Directory
 	// return with list
 	public ArrayList<String> getNextDir(String path, boolean isFullPath) {
@@ -308,7 +295,7 @@ public class EventHandler {
 			} else if (mMultiSelectData.contains(path)) {
 				if (remove) {
 					if (positions.contains(index))
-						positions.remove(new Integer(index));
+						positions.remove(Integer.valueOf(index));
 
 					mMultiSelectData.remove(path);
 				} else {

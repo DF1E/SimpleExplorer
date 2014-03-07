@@ -36,23 +36,11 @@ public final class ZipFilesDialog extends DialogFragment {
 
 	private static String[] files;
 
-	public static final String EXTRA_FILE = null;
-
 	public static DialogFragment instantiate(String[] files1) {
-		final Bundle extras = new Bundle();
-		extras.putStringArray(EXTRA_FILE, files1);
+		files = files1;
 
 		final ZipFilesDialog dialog = new ZipFilesDialog();
-		dialog.setArguments(extras);
-
 		return dialog;
-	}
-
-	@Override
-	public void onCreate(Bundle state) {
-		super.onCreate(state);
-		final Bundle extras = this.getArguments();
-		files = extras.getStringArray(EXTRA_FILE);
 	}
 
 	@Override

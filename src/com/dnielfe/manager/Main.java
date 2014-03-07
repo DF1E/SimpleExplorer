@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import com.dnielfe.manager.adapters.DrawerListAdapter;
 import com.dnielfe.manager.dialogs.CreateFileDialog;
+import com.dnielfe.manager.dialogs.CreateFolderDialog;
 import com.dnielfe.manager.dialogs.DeleteFilesDialog;
 import com.dnielfe.manager.dialogs.FilePropertiesDialog;
 import com.dnielfe.manager.dialogs.RenameDialog;
@@ -76,7 +77,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -194,14 +194,11 @@ public final class Main extends ListActivity implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		String dir = EventHandler.getCurrentDir();
-
-		navigateTo(dir);
 
 		mHandler.loadPreferences();
 
 		// refresh directory
-		EventHandler.refreshDir(dir);
+		EventHandler.refreshDir(EventHandler.getCurrentDir());
 	}
 
 	@Override
@@ -236,12 +233,18 @@ public final class Main extends ListActivity implements
 			mObserver.removeOnEventListener(this);
 		}
 
-		EventHandler.refreshDir(path);
+		try {
+			EventHandler.refreshDir(path);
+		} catch (Exception e) {
+			Toast.makeText(Main.this, getString(R.string.cantreadfolder),
+					Toast.LENGTH_SHORT).show();
+		}
 
 		mObserver = mObserverCache.getOrCreate(path);
 		mObserver.addOnEventListener(this);
 		mObserver.startWatching();
 
+		// go to the top of the ListView
 		mListView.setSelection(0);
 
 		setDirectoryButtons();
@@ -770,6 +773,8 @@ public final class Main extends ListActivity implements
 			}
 			return true;
 		case R.id.create:
+			if (mDrawerLayout.isDrawerOpen(mDrawer))
+				mDrawerLayout.closeDrawer(mDrawer);
 			createDialog();
 			return true;
 		case R.id.bookmarks:
@@ -777,11 +782,7 @@ public final class Main extends ListActivity implements
 			return true;
 		case R.id.multis:
 			mHandler.multiselect();
-
-			if (mActionMode == null)
-				mActionMode = startActionMode(new MultiController());
-			else
-				mActionMode.finish();
+			mActionMode = startActionMode(new MultiController());
 			return true;
 
 		case R.id.search:
@@ -805,11 +806,6 @@ public final class Main extends ListActivity implements
 				.query(Bookmarks.CONTENT_URI,
 						new String[] { Bookmarks._ID, Bookmarks.NAME,
 								Bookmarks.PATH, }, null, null, null);
-	}
-
-	private void createfile() {
-		final DialogFragment dialog = new CreateFileDialog();
-		dialog.show(getFragmentManager(), "dialog");
 	}
 
 	// Will be displayed when long clicking ListView
@@ -887,9 +883,8 @@ public final class Main extends ListActivity implements
 
 		case D_MENU_DETAILS:
 		case F_MENU_DETAILS:
-			// TODO add permission
-			final DialogFragment dialog = FilePropertiesDialog.instantiate(file
-					.getPath());
+			final DialogFragment dialog = FilePropertiesDialog
+					.instantiate(file);
 			dialog.show(getFragmentManager(), "dialog");
 			return true;
 
@@ -946,6 +941,9 @@ public final class Main extends ListActivity implements
 
 	// Show a Dialog with your bookmarks
 	private void bookmarkDialog() {
+		if (mDrawerLayout.isDrawerOpen(mDrawer))
+			mDrawerLayout.closeDrawer(mDrawer);
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 		final Cursor bookmarksCursor = getBookmarks();
@@ -990,57 +988,13 @@ public final class Main extends ListActivity implements
 				switch (itemz) {
 
 				case 0:
-					createfile();
-					mDrawerLayout.closeDrawer(mDrawer);
+					final DialogFragment dialog1 = new CreateFileDialog();
+					dialog1.show(getFragmentManager(), "dialog");
 					return;
 
 				case 1:
-					final EditText input = new EditText(Main.this);
-
-					AlertDialog.Builder alert = new AlertDialog.Builder(
-							Main.this);
-					alert.setTitle(getString(R.string.createnewfolder));
-					alert.setMessage(R.string.createmsg);
-					alert.setView(input);
-					alert.setPositiveButton(getString(R.string.ok),
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									if (input.getText().length() >= 1) {
-										if (FileUtils.createDir(
-												EventHandler.getCurrentDir()
-														+ "/", input.getText()
-														.toString()) == 0)
-											Toast.makeText(
-													Main.this,
-													input.getText().toString()
-															+ getString(R.string.created),
-													Toast.LENGTH_LONG).show();
-										else
-											Toast.makeText(
-													Main.this,
-													getString(R.string.newfolderwasnotcreated),
-													Toast.LENGTH_SHORT).show();
-									} else {
-										Toast.makeText(
-												Main.this,
-												getString(R.string.newfolderwasnotcreated),
-												Toast.LENGTH_SHORT).show();
-									}
-
-									dialog.dismiss();
-								}
-							});
-
-					alert.setNegativeButton(getString(R.string.cancel),
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									// Cancel
-								}
-							});
-
-					alert.show();
+					final DialogFragment dialog2 = new CreateFolderDialog();
+					dialog2.show(getFragmentManager(), "dialog");
 					return;
 				}
 			}
@@ -1154,13 +1108,12 @@ public final class Main extends ListActivity implements
 			uris.add(Uri.fromFile(file));
 		}
 
-		Intent mail_int = new Intent();
-		mail_int.setAction(android.content.Intent.ACTION_SEND_MULTIPLE);
-		mail_int.setType("*/*");
-		mail_int.putExtra(Intent.EXTRA_BCC, "");
-		mail_int.putExtra(Intent.EXTRA_SUBJECT, " ");
-		mail_int.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
-		startActivity(Intent.createChooser(mail_int, getString(R.string.share)));
+		Intent intent = new Intent();
+		intent.setAction(android.content.Intent.ACTION_SEND_MULTIPLE);
+		intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+		intent.setType(MimeTypes.ALL_MIME_TYPES);
+		intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+		startActivity(Intent.createChooser(intent, getString(R.string.share)));
 	}
 
 	private void multidelete() {
@@ -1212,6 +1165,8 @@ public final class Main extends ListActivity implements
 		private String file_name;
 
 		private SearchTask() {
+			if (mDrawerLayout.isDrawerOpen(mDrawer))
+				mDrawerLayout.closeDrawer(mDrawer);
 		}
 
 		// This will show a Dialog while Action is running in Background
@@ -1284,7 +1239,7 @@ public final class Main extends ListActivity implements
 	@Override
 	public boolean onKeyDown(int keycode, KeyEvent event) {
 		String current = EventHandler.getCurrentDir();
-		File file = new File(EventHandler.getCurrentDir());
+		File file = new File(current);
 		String parent = file.getParent();
 
 		if (mDrawerLayout.isDrawerOpen(mDrawer)) {

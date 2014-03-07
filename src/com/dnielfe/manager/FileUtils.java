@@ -21,23 +21,18 @@ package com.dnielfe.manager;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
 
-import com.dnielfe.manager.utils.LinuxShell;
-import com.stericson.RootTools.RootTools;
+import com.dnielfe.manager.commands.RootCommands;
 
-import android.app.Application;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
@@ -219,7 +214,7 @@ public class FileUtils {
 				copyToDirectory(old + "/" + files[i], dir);
 
 		} else if (old_file.isFile() && !temp_dir.canWrite()) {
-			int root = moveCopyRoot(old, newDir);
+			int root = RootCommands.moveCopyRoot(old, newDir);
 
 			if (root == 0)
 				return 0;
@@ -312,7 +307,7 @@ public class FileUtils {
 			File dir = new File(path + "/" + name);
 
 			try {
-				createRootdir(dir, path);
+				RootCommands.createRootdir(dir, path);
 				return 0;
 			} catch (Exception e) {
 				return -1;
@@ -360,7 +355,7 @@ public class FileUtils {
 		}
 
 		else if (target.exists() && !target.delete()) {
-			DeleteFileRoot(path, dir);
+			RootCommands.DeleteFileRoot(path, dir);
 			return 0;
 		}
 		return -1;
@@ -378,21 +373,6 @@ public class FileUtils {
 		search_file(dir, fileName, names);
 
 		return names;
-	}
-
-	public static class ProgressbarClass extends Application {
-
-		public static int totalMemory(File dir) {
-			long longTotal = dir.getTotalSpace() / 1048576;
-			int Total = (int) longTotal;
-			return Total;
-		}
-
-		public static int freeMemory(File dir) {
-			long longFree = (dir.getTotalSpace() - dir.getFreeSpace()) / 1048576;
-			int Free = (int) longFree;
-			return Free;
-		}
 	}
 
 	public static void createShortcut(Main main, String path, String name) {
@@ -421,150 +401,6 @@ public class FileUtils {
 		} catch (Exception e) {
 			Toast.makeText(main, main.getString(R.string.error),
 					Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	// Check if system is mounted
-	private static boolean readReadWriteFile() {
-		File mountFile = new File("/proc/mounts");
-		StringBuilder procData = new StringBuilder();
-		if (mountFile.exists()) {
-			try {
-				FileInputStream fis = new FileInputStream(mountFile.toString());
-				DataInputStream dis = new DataInputStream(fis);
-				BufferedReader br = new BufferedReader(new InputStreamReader(
-						dis));
-				String data;
-				while ((data = br.readLine()) != null) {
-					procData.append(data + "\n");
-				}
-
-				br.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-				return false;
-			}
-			if (procData.toString() != null) {
-				String[] tmp = procData.toString().split("\n");
-				for (int x = 0; x < tmp.length; x++) {
-					// Kept simple here on purpose different devices have
-					// different blocks
-					if (tmp[x].contains("/dev/block")
-							&& tmp[x].contains("/system")) {
-						if (tmp[x].contains("rw")) {
-							// system is rw
-							return true;
-						} else if (tmp[x].contains("ro")) {
-							// system is ro
-							return false;
-						} else {
-							return false;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
-
-	// Move or Copy with Root Access using RootTools library
-	private static int moveCopyRoot(String old, String newDir) {
-
-		try {
-			if (RootTools.isRootAvailable()) {
-				if (!readReadWriteFile()) {
-					RootTools.remount(newDir, "rw");
-				}
-
-				RootTools.copyFile(old, newDir, true, true);
-				return 0;
-			} else {
-				return -1;
-			}
-
-		} catch (Exception e) {
-			return -1;
-		}
-	}
-
-	// Create Directory with root
-	public static int createRootdir(File dir, String path) {
-
-		if (dir.exists())
-			return -1;
-
-		try {
-			if (!readReadWriteFile()) {
-				RootTools.remount(path, "rw");
-			}
-			LinuxShell.execute("mkdir " + dir.getAbsolutePath());
-			return 0;
-		} catch (Exception e) {
-			return -1;
-		}
-	}
-
-	// Create file with root
-	// cdir = currentDir
-	// name = filename
-	public static void createRootFile(String cdir, String name) {
-		File dir = new File(cdir + "/" + name);
-
-		if (dir.exists())
-			return;
-
-		try {
-			if (!readReadWriteFile()) {
-				RootTools.remount(cdir, "rw");
-			}
-			LinuxShell.execute("touch " + dir.getAbsolutePath());
-			return;
-		} catch (Exception e) {
-			return;
-		}
-	}
-
-	// rename file with root
-	// path = currentDir
-	// oldName = currentDir + "/" + selected Item
-	// name = new name
-	public static int renameRootTarget(String path, String oldname, String name) {
-
-		File file = new File(path + "/" + oldname);
-		File newf = new File(path + "/" + name);
-
-		if (name.length() < 1)
-			return -1;
-
-		try {
-			if (!readReadWriteFile()) {
-				RootTools.remount(path, "rw");
-			}
-			LinuxShell.execute("mv " + file.getAbsolutePath() + " "
-					+ newf.getAbsolutePath());
-
-			return 0;
-		} catch (Exception e) {
-			return -1;
-		}
-	}
-
-	// Delete file with root
-	public static void DeleteFileRoot(String path, String dir) {
-
-		try {
-			if (!readReadWriteFile()) {
-				RootTools.remount(path, "rw");
-			}
-			if (new File(path).isDirectory()) {
-				LinuxShell.execute("rm -f -r " + path);
-
-			} else {
-				LinuxShell.execute("rm -r " + path);
-			}
-
-		} catch (Exception e) {
-			return;
 		}
 	}
 }

@@ -36,23 +36,11 @@ public final class UnzipDialog extends DialogFragment {
 
 	private static String file;
 
-	public static final String EXTRA_FILE = null;
-
-	public static DialogFragment instantiate(String file) {
-		final Bundle extras = new Bundle();
-		extras.putString(EXTRA_FILE, file);
+	public static DialogFragment instantiate(String file1) {
+		file = file1;
 
 		final UnzipDialog dialog = new UnzipDialog();
-		dialog.setArguments(extras);
-
 		return dialog;
-	}
-
-	@Override
-	public void onCreate(Bundle state) {
-		super.onCreate(state);
-		final Bundle extras = this.getArguments();
-		file = extras.getString(EXTRA_FILE);
 	}
 
 	@Override

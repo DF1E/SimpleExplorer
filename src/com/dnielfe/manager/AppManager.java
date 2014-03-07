@@ -121,9 +121,9 @@ public class AppManager extends ListActivity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.appmanager);
 
 		initializeDrawbale();
-		setContentView(R.layout.appmanager);
 
 		findViewById(R.id.backup_button_all);
 
@@ -140,6 +140,7 @@ public class AppManager extends ListActivity {
 
 			@Override
 			protected void onPreExecute() {
+				actionBar.setDisplayHomeAsUpEnabled(true);
 				actionBar.setSubtitle(getString(R.string.loading));
 				actionBar.show();
 			}
@@ -175,9 +176,6 @@ public class AppManager extends ListActivity {
 				}
 			}
 		}.execute();
-
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.show();
 	}
 
 	public void updateactionbar() {
@@ -414,7 +412,7 @@ public class AppManager extends ListActivity {
 		return Long.toString(bytes);
 	}
 
-	class ViewHolder {
+	private class ViewHolder {
 		public ImageView image = null;
 		public CheckBox select = null;
 		public TextView name = null;
@@ -427,10 +425,6 @@ public class AppManager extends ListActivity {
 			version = (TextView) row.findViewById(R.id.versionlabel);
 			size = (TextView) row.findViewById(R.id.installdate);
 			image = (ImageView) row.findViewById(R.id.icon);
-		}
-
-		void populateFrom(String s) {
-			name.setText(s);
 		}
 
 		public CheckBox getCheckBox() {

@@ -33,13 +33,15 @@ import com.dnielfe.manager.R;
 
 public final class MimeTypes {
 
-	private MimeTypes() {
-
-	}
+	public static final String ALL_MIME_TYPES = "*/*";
 
 	private static final HashMap<String, Integer> EXT_ICONS = new HashMap<String, Integer>();
 
 	private static final HashMap<String, String> MIME_TYPES = new HashMap<String, String>();
+
+	private MimeTypes() {
+
+	}
 
 	static {
 		// BINARY
@@ -345,12 +347,13 @@ public final class MimeTypes {
 		if (file.isDirectory()) {
 			return null;
 		}
-		
+
 		String type = null;
 		final String extension = FilenameUtils.getExtension(file.getName());
-		
+
 		if (extension != null && !extension.isEmpty()) {
-			final String extensionLowerCase = extension.toLowerCase(Locale.getDefault());
+			final String extensionLowerCase = extension.toLowerCase(Locale
+					.getDefault());
 			final MimeTypeMap mime = MimeTypeMap.getSingleton();
 			type = mime.getMimeTypeFromExtension(extensionLowerCase);
 			if (type == null) {

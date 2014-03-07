@@ -83,7 +83,7 @@
     <string name="packing">Packing</string>
     <string name="paste">Paste</string>
     <string name="pasteintofolder">Paste into folder</string>
-    <string name="permissions">Persmissions:</string>
+    <string name="permissions">Persmissions</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Press back again to exit.</string>
     <string name="rename">Rename</string>
@@ -113,5 +113,14 @@
     <string name="xdaforum">XDA forum</string>
     <string name="zipfolder">Compress folder</string>
     <string name="zipping">Compressing</string>
+
+    <!-- permissions -->
+    <string name="owner">Owner:</string>
+    <string name="group">Group:</string>
+    <string name="others">Other:</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="execute">Execute</string>
+    <string name="permissionschanged">Permissions changed</string>
 
 </resources>

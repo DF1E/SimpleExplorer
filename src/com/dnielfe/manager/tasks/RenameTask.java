@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.dnielfe.manager.EventHandler;
 import com.dnielfe.manager.FileUtils;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.commands.RootCommands;
 import com.stericson.RootTools.RootTools;
 
 import org.jetbrains.annotations.NotNull;
@@ -87,7 +88,7 @@ public final class RenameTask extends AsyncTask<String, Void, List<String>> {
 				succes = true;
 			} else {
 				if (RootTools.isRootAvailable()) {
-					FileUtils.renameRootTarget(EventHandler.getCurrentDir(),
+					RootCommands.renameRootTarget(EventHandler.getCurrentDir(),
 							name, newname);
 					succes = true;
 				}

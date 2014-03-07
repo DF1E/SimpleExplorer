@@ -82,7 +82,7 @@
     <string name="packing">Verpacken</string>
     <string name="paste">Einfügen</string>
     <string name="pasteintofolder">In Ordner kopieren/ verschieben</string>
-    <string name="permissions">Berechtigungen:</string>
+    <string name="permissions">Berechtigungen</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Erneut klicken um das Programm zu beenden</string>
     <string name="rename">Umbenennen</string>
@@ -112,5 +112,14 @@
     <string name="xdaforum">XDA Forum</string>
     <string name="zipfolder">Ordner Verpacken</string>
     <string name="zipping">Verpacken</string>
+
+    <!-- permissions -->
+    <string name="owner">Besitzer:</string>
+    <string name="group">Gruppe:</string>
+    <string name="others">Andere:</string>
+    <string name="read">Lesen</string>
+    <string name="write">Schreiben</string>
+    <string name="execute">Ausführen</string>
+    <string name="permissionschanged">Berechtigungen wurden geändert</string>
 
 </resources>

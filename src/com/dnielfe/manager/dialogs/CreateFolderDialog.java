@@ -19,7 +19,6 @@
 
 package com.dnielfe.manager.dialogs;
 
-import java.io.File;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -30,18 +29,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dnielfe.manager.EventHandler;
+import com.dnielfe.manager.FileUtils;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.commands.RootCommands;
-import com.stericson.RootTools.RootTools;
 
-public final class CreateFileDialog extends DialogFragment {
+public final class CreateFolderDialog extends DialogFragment {
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		final Activity a = getActivity();
 
 		final AlertDialog.Builder b = new AlertDialog.Builder(a);
-		b.setTitle(R.string.newfile);
+		b.setTitle(R.string.createnewfolder);
+		b.setMessage(R.string.createmsg);
 
 		// Set an EditText view to get user input
 		final EditText inputf = new EditText(a);
@@ -52,33 +51,16 @@ public final class CreateFileDialog extends DialogFragment {
 			public void onClick(DialogInterface dialog, int which) {
 				String name = inputf.getText().toString();
 
-				File file = new File(EventHandler.getCurrentDir()
-						+ File.separator + name);
-
-				if (file.exists()) {
-					Toast.makeText(a, getString(R.string.fileexists),
-							Toast.LENGTH_SHORT).show();
-				} else {
+				if (name.length() >= 1) {
 					try {
-						if (name.length() >= 1) {
-							file.createNewFile();
-
-							Toast.makeText(a, R.string.filecreated,
-									Toast.LENGTH_SHORT).show();
-						} else {
-							Toast.makeText(a, R.string.error,
-									Toast.LENGTH_SHORT).show();
-						}
+						FileUtils.createDir(EventHandler.getCurrentDir() + "/",
+								name);
+						Toast.makeText(a, name + getString(R.string.created),
+								Toast.LENGTH_LONG).show();
 					} catch (Exception e) {
-						if (RootTools.isRootAvailable()) {
-							RootCommands.createRootFile(
-									EventHandler.getCurrentDir(), name);
-							Toast.makeText(a, R.string.filecreated,
-									Toast.LENGTH_SHORT).show();
-						} else {
-							Toast.makeText(a, R.string.error,
-									Toast.LENGTH_SHORT).show();
-						}
+						Toast.makeText(a,
+								getString(R.string.newfolderwasnotcreated),
+								Toast.LENGTH_SHORT).show();
 					}
 				}
 
