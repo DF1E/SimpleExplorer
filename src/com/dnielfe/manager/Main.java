@@ -896,18 +896,12 @@ public final class Main extends ListActivity implements
 			return true;
 
 		case F_MENU_ATTACH:
-			try {
-				Intent i = new Intent(Intent.ACTION_SEND);
-				i.setType(MimeTypes.getMimeType(file));
-				i.putExtra(Intent.EXTRA_SUBJECT, mSelectedListItem);
-				i.putExtra(Intent.EXTRA_BCC, "");
-				i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-				startActivity(Intent
-						.createChooser(i, getString(R.string.share)));
-			} catch (Exception e) {
-				Toast.makeText(this, getString(R.string.error),
-						Toast.LENGTH_SHORT).show();
-			}
+			Intent i = new Intent(Intent.ACTION_SEND);
+			i.setType(MimeTypes.getMimeType(file));
+			i.putExtra(Intent.EXTRA_SUBJECT, mSelectedListItem);
+			i.putExtra(Intent.EXTRA_BCC, "");
+			i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+			startActivity(Intent.createChooser(i, getString(R.string.share)));
 			return true;
 
 		case F_MENU_MOVE:

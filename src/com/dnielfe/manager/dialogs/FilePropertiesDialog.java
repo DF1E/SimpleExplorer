@@ -525,7 +525,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 							this.context.getString(R.string.permissionschanged),
 							Toast.LENGTH_SHORT).show();
 			}
-
 		}
 
 		private void getPermissions(File file32) {
@@ -590,8 +589,8 @@ public final class FilePropertiesDialog extends DialogFragment {
 
 		private static String createFileInfo(String... args) {
 			if (args.length == 6) {
-				mFileInfo = new String[] { args[0].substring(1, 9), args[1],
-						args[2], args[3] + " " + args[4], args[5] };
+				mFileInfo = new String[] { args[0], args[1], args[2],
+						args[3] + " " + args[4], args[5] };
 			} else if (args.length == 7) {
 				mFileInfo = new String[] { args[0], args[1], args[2], args[3],
 						args[4] + " " + args[5], args[6] };
