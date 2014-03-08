@@ -26,9 +26,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
 
 import com.dnielfe.manager.FileUtils;
@@ -569,7 +566,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 		private static void getFileProperties(File file) {
 			BufferedWriter out;
 			BufferedReader in;
-			List<String> fileInfoList = new ArrayList<String>();
 
 			try {
 				String[] cmd = { "su", "-c", "ls", "-l",
@@ -582,7 +578,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 						proc.getInputStream()));
 				String line = "";
 				while ((line = in.readLine()) != null) {
-					fileInfoList.add(createFileInfo(line.split("\\s+")));
+					createFileInfo(line.split("\\s+"));
 				}
 				proc.waitFor();
 				in.close();
@@ -594,8 +590,8 @@ public final class FilePropertiesDialog extends DialogFragment {
 
 		private static String createFileInfo(String... args) {
 			if (args.length == 6) {
-				mFileInfo = new String[] { args[0], args[1], args[2],
-						args[3] + " " + args[4], args[5] };
+				mFileInfo = new String[] { args[0].substring(1, 9), args[1],
+						args[2], args[3] + " " + args[4], args[5] };
 			} else if (args.length == 7) {
 				mFileInfo = new String[] { args[0], args[1], args[2], args[3],
 						args[4] + " " + args[5], args[6] };

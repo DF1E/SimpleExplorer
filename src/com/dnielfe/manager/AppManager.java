@@ -74,12 +74,11 @@ public class AppManager extends ListActivity {
 	private static final String BACKUP_LOC = Environment
 			.getExternalStorageDirectory().getPath() + "/Simple Explorer/Apps/";
 
+	private static AppListAdapter mTable;
 	private static ArrayList<ApplicationInfo> multiSelectData = null;
 	private static ArrayList<ApplicationInfo> mAppList = null;
 	private static PackageManager mPackMag = null;
 	private static ProgressDialog mDialog = null;
-	private static PackageInfo appinfo = null;
-	private static ApplicationInfo apkinfo = null;
 
 	private static final int ID_LAUNCH = 1;
 	private static final int ID_MANAGE = 2;
@@ -111,8 +110,6 @@ public class AppManager extends ListActivity {
 				Toast.makeText(AppManager.this,
 						getString(R.string.backupcomplete), Toast.LENGTH_SHORT)
 						.show();
-
-				unselectAll();
 				break;
 			}
 		}
@@ -125,10 +122,11 @@ public class AppManager extends ListActivity {
 
 		initializeDrawbale();
 
-		findViewById(R.id.backup_button_all);
-
 		mAppList = new ArrayList<ApplicationInfo>();
 		multiSelectData = new ArrayList<ApplicationInfo>();
+
+		// new Adapter
+		mTable = new AppListAdapter();
 
 		mListView = getListView();
 		mPackMag = getPackageManager();
@@ -158,8 +156,7 @@ public class AppManager extends ListActivity {
 
 			@Override
 			protected void onPostExecute(Long result) {
-
-				setListAdapter(new TableView());
+				mListView.setAdapter(mTable);
 
 				if (savedInstanceState != null) {
 					mStarStates = savedInstanceState
@@ -265,7 +262,7 @@ public class AppManager extends ListActivity {
 	public void refreshList() {
 		mAppList.clear();
 		get_downloaded_apps();
-		setListAdapter(new TableView());
+		mTable.notifyDataSetChanged();
 		updateactionbar();
 	}
 
@@ -286,8 +283,8 @@ public class AppManager extends ListActivity {
 				mDialog = ProgressDialog.show(AppManager.this,
 						getString(R.string.backup), "", true, false);
 
-				Thread all = new Thread(new BackgroundWork(multiSelectData));
-				all.start();
+				BackgroundWork all = new BackgroundWork(multiSelectData);
+				all.execute();
 			} else {
 				Toast.makeText(AppManager.this, getString(R.string.noapps),
 						Toast.LENGTH_SHORT).show();
@@ -330,7 +327,7 @@ public class AppManager extends ListActivity {
 	 * background thread, while updating the user via a message being sent to
 	 * our handler object.
 	 */
-	private class BackgroundWork implements Runnable {
+	private class BackgroundWork extends AsyncTask<File, Void, Boolean> {
 
 		private ArrayList<ApplicationInfo> mDataSource;
 		private File mDir = new File(BACKUP_LOC);
@@ -354,7 +351,8 @@ public class AppManager extends ListActivity {
 			}
 		}
 
-		public void run() {
+		@Override
+		protected Boolean doInBackground(File... arg0) {
 			BufferedInputStream mBuffIn;
 			BufferedOutputStream mBuffOut;
 			Message msg;
@@ -383,21 +381,26 @@ public class AppManager extends ListActivity {
 					msg.obj = i + getString(R.string.of) + len
 							+ getString(R.string.backedup);
 					mHandler.sendMessage(msg);
-
 				} catch (FileNotFoundException e) {
 					Toast.makeText(AppManager.this,
 							getString(R.string.backuperror), Toast.LENGTH_SHORT)
 							.show();
+					return false;
 				} catch (IOException e) {
 					Toast.makeText(AppManager.this,
 							getString(R.string.backuperror), Toast.LENGTH_SHORT)
 							.show();
+					return false;
 				}
-				if (quit.mback == -1)
-					break;
 			}
+			return true;
+		}
 
-			mHandler.sendEmptyMessage(FINISH_PROGRESS);
+		@Override
+		protected void onPostExecute(Boolean result) {
+			if (result)
+				mHandler.sendEmptyMessage(FINISH_PROGRESS);
+			unselectAll();
 		}
 	}
 
@@ -432,27 +435,28 @@ public class AppManager extends ListActivity {
 		}
 	}
 
-	private class TableView extends ArrayAdapter<ApplicationInfo> {
+	private class AppListAdapter extends ArrayAdapter<ApplicationInfo> {
+		private PackageInfo appinfo;
+		private ApplicationInfo info;
 
-		private TableView() {
+		private AppListAdapter() {
 			super(AppManager.this, R.layout.appmanagerrow, mAppList);
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
-			ApplicationInfo info = mAppList.get(position);
-			String appname = info.loadLabel(mPackMag).toString();
+			info = mAppList.get(position);
 
 			try {
-				apkinfo = mPackMag.getApplicationInfo(
+				info = mPackMag.getApplicationInfo(
 						mAppList.get(position).packageName, 0);
-
-			} catch (NameNotFoundException e2) {
-				e2.printStackTrace();
+				appinfo = mPackMag.getPackageInfo(info.packageName, 0);
+			} catch (NameNotFoundException e) {
+				e.printStackTrace();
 			}
 
-			final String source_dir = apkinfo.sourceDir;
+			final String source_dir = info.sourceDir;
 			File apkfile = new File(source_dir);
 			final long apksize = apkfile.length();
 			String apk_size = getAsString(apksize);
@@ -467,13 +471,7 @@ public class AppManager extends ListActivity {
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			try {
-				appinfo = mPackMag.getPackageInfo(info.packageName, 0);
-
-			} catch (NameNotFoundException e1) {
-				e1.printStackTrace();
-			}
-
+			String appname = info.loadLabel(mPackMag).toString();
 			String version = appinfo.versionName;
 
 			holder.select.setOnCheckedChangeListener(null);
@@ -500,14 +498,6 @@ public class AppManager extends ListActivity {
 			}
 		}
 	};
-
-	public static class quit {
-		public static int mback = 0;
-	}
-
-	private void initializequit() {
-		quit.mback = -1;
-	}
 
 	public static class AppIconManager {
 		private static ConcurrentHashMap<String, Drawable> cache;
@@ -589,8 +579,8 @@ public class AppManager extends ListActivity {
 			mStarStates[i] = false;
 			multiSelectData.remove(mAppList.get(i));
 		}
-		refreshList();
 		mMenuItem.setTitle(getString(R.string.selectall));
+		refreshList();
 	}
 
 	private void createshortcut() {
@@ -678,7 +668,6 @@ public class AppManager extends ListActivity {
 			refreshList();
 			mMenuItem.setTitle(getString(R.string.selectall));
 		} else {
-			initializequit();
 			finish();
 		}
 		return;
