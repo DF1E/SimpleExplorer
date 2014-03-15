@@ -29,9 +29,9 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.EventHandler;
-import com.dnielfe.manager.FileUtils;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.utils.SimpleUtils;
+
 import org.jetbrains.annotations.NotNull;
 
 public final class ZipFolderTask extends
@@ -41,10 +41,11 @@ public final class ZipFolderTask extends
 
 	private ProgressDialog dialog;
 
-	private String location;
+	private String zipname;
 
-	public ZipFolderTask(final Activity activity) {
+	public ZipFolderTask(final Activity activity, String newpath) {
 		this.activity = new WeakReference<Activity>(activity);
+		this.zipname = newpath;
 	}
 
 	@Override
@@ -73,10 +74,8 @@ public final class ZipFolderTask extends
 	protected ArrayList<String> doInBackground(String... files) {
 		final ArrayList<String> failed = new ArrayList<String>();
 
-		location = EventHandler.getCurrentDir();
-
 		try {
-			FileUtils.createZipFile(files[0]);
+			SimpleUtils.createZipFile(files[0], zipname);
 		} catch (Exception e) {
 			failed.add(files.toString());
 		}
@@ -99,8 +98,6 @@ public final class ZipFolderTask extends
 		if (this.dialog != null) {
 			this.dialog.dismiss();
 		}
-
-		EventHandler.refreshDir(location);
 
 		final Activity activity = this.activity.get();
 		if (activity != null && !failed.isEmpty()) {

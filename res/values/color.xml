@@ -3,6 +3,5 @@
 
     <color name="gray">#aaa</color>
     <color name="light">#F0F0F0</color>
-    <color name="holoblue">@android:color/holo_blue_light</color>
 
 </resources>

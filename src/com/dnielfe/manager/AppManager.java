@@ -31,11 +31,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.io.FileUtils;
+
+import com.dnielfe.manager.dialogs.DeleteFilesDialog;
+
 import android.app.ActionBar;
-import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -90,8 +94,6 @@ public class AppManager extends ListActivity {
 	private static final int FINISH_PROGRESS = 0x01;
 	private static final int FLAG_UPDATED_SYS_APP = 0x80;
 
-	private static final int BUFFER = 2048;
-
 	private ActionBar actionBar;
 	private MenuItem mMenuItem;
 
@@ -126,7 +128,7 @@ public class AppManager extends ListActivity {
 		multiSelectData = new ArrayList<ApplicationInfo>();
 
 		// new Adapter
-		mTable = new AppListAdapter();
+		mTable = new AppListAdapter(this, mAppList);
 
 		mListView = getListView();
 		mPackMag = getPackageManager();
@@ -175,11 +177,6 @@ public class AppManager extends ListActivity {
 		}.execute();
 	}
 
-	public void updateactionbar() {
-		actionBar.setSubtitle(mAppList.size() + getString(R.string.apps));
-		actionBar.show();
-	}
-
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -220,7 +217,6 @@ public class AppManager extends ListActivity {
 			break;
 
 		case ID_UNINSTALL:
-
 			Intent i1 = new Intent(Intent.ACTION_DELETE);
 			i1.setData(Uri.parse("package:" + mAppList.get(index).packageName));
 			startActivity(i1);
@@ -228,7 +224,6 @@ public class AppManager extends ListActivity {
 			break;
 
 		case ID_MARKET:
-
 			Intent intent1 = new Intent(Intent.ACTION_VIEW);
 			intent1.setData(Uri.parse("market://details?id="
 					+ mAppList.get(index).packageName));
@@ -236,7 +231,6 @@ public class AppManager extends ListActivity {
 			break;
 
 		case ID_SEND:
-
 			try {
 				ApplicationInfo info1 = mPackMag.getApplicationInfo(
 						mAppList.get(index).packageName, 0);
@@ -245,7 +239,6 @@ public class AppManager extends ListActivity {
 				Uri uri11 = Uri.fromFile(file.getAbsoluteFile());
 
 				Intent infointent = new Intent(Intent.ACTION_SEND);
-
 				infointent.setType("application/zip");
 				infointent.putExtra(Intent.EXTRA_STREAM, uri11);
 				startActivity(Intent.createChooser(infointent,
@@ -266,9 +259,13 @@ public class AppManager extends ListActivity {
 		updateactionbar();
 	}
 
+	public void updateactionbar() {
+		actionBar.setSubtitle(mAppList.size() + getString(R.string.apps));
+		actionBar.show();
+	}
+
 	public void onClick(View view) {
 		switch (view.getId()) {
-
 		case R.id.backup_button_all:
 
 			multiSelectData.clear();
@@ -330,6 +327,7 @@ public class AppManager extends ListActivity {
 	private class BackgroundWork extends AsyncTask<File, Void, Boolean> {
 
 		private ArrayList<ApplicationInfo> mDataSource;
+		private static final int BUFFER = 2048;
 		private File mDir = new File(BACKUP_LOC);
 		private byte[] mData;
 
@@ -404,23 +402,12 @@ public class AppManager extends ListActivity {
 		}
 	}
 
-	public String getAsString(long bytes) {
-		String[] Q = new String[] { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
-
-		for (int i = 6; i > 0; i--) {
-			double step = Math.pow(1024, i);
-			if (bytes > step)
-				return String.format("%3.1f %s", bytes / step, Q[i]);
-		}
-		return Long.toString(bytes);
-	}
-
 	private class ViewHolder {
-		public ImageView image = null;
-		public CheckBox select = null;
-		public TextView name = null;
-		public TextView version = null;
-		public TextView size = null;
+		public ImageView image;
+		public CheckBox select;
+		public TextView name;
+		public TextView version;
+		public TextView size;
 
 		ViewHolder(View row) {
 			name = (TextView) row.findViewById(R.id.app_name);
@@ -436,21 +423,22 @@ public class AppManager extends ListActivity {
 	}
 
 	private class AppListAdapter extends ArrayAdapter<ApplicationInfo> {
+		private ArrayList<ApplicationInfo> mAppList;
 		private PackageInfo appinfo;
 		private ApplicationInfo info;
 
-		private AppListAdapter() {
-			super(AppManager.this, R.layout.appmanagerrow, mAppList);
+		private AppListAdapter(Context context, ArrayList<ApplicationInfo> list) {
+			super(context, R.layout.appmanagerrow, list);
+			this.mAppList = list;
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
-			info = mAppList.get(position);
+			info = getItem(position);
 
 			try {
-				info = mPackMag.getApplicationInfo(
-						mAppList.get(position).packageName, 0);
+				info = mPackMag.getApplicationInfo(info.packageName, 0);
 				appinfo = mPackMag.getPackageInfo(info.packageName, 0);
 			} catch (NameNotFoundException e) {
 				e.printStackTrace();
@@ -459,7 +447,6 @@ public class AppManager extends ListActivity {
 			final String source_dir = info.sourceDir;
 			File apkfile = new File(source_dir);
 			final long apksize = apkfile.length();
-			String apk_size = getAsString(apksize);
 
 			if (convertView == null) {
 				LayoutInflater inflater = getLayoutInflater();
@@ -481,11 +468,16 @@ public class AppManager extends ListActivity {
 
 			holder.name.setText(appname);
 			holder.version.setText(getString(R.string.version) + version);
-			holder.size.setText(String.valueOf(apk_size));
+			holder.size.setText(FileUtils.byteCountToDisplaySize(apksize));
 
 			// this should not throw the exception
 			holder.image.setImageDrawable(getAppIcon(info.packageName));
 			return convertView;
+		}
+
+		@Override
+		public ApplicationInfo getItem(int position) {
+			return mAppList.get(position);
 		}
 	}
 
@@ -554,7 +546,9 @@ public class AppManager extends ListActivity {
 			return true;
 
 		case R.id.deleteapps:
-			deleteapps();
+			final DialogFragment dialog1 = DeleteFilesDialog
+					.instantiate(new String[] { BACKUP_LOC });
+			dialog1.show(getFragmentManager(), "dialog");
 			return true;
 
 		case R.id.actionselect:
@@ -601,60 +595,6 @@ public class AppManager extends ListActivity {
 
 		Toast.makeText(AppManager.this, getString(R.string.shortcutcreated),
 				Toast.LENGTH_SHORT).show();
-	}
-
-	private void deleteapps() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle(R.string.deleteapps);
-		builder.setMessage(R.string.deleteappsmsg);
-		builder.setPositiveButton((R.string.ok),
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						delete();
-					}
-				});
-		builder.setNegativeButton((R.string.cancel),
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.cancel();
-					}
-				});
-		builder.create().show();
-	}
-
-	private void delete() {
-		new AsyncTask<String[], Long, Long>() {
-			private ProgressDialog dialog;
-
-			@Override
-			protected void onPreExecute() {
-				dialog = ProgressDialog.show(AppManager.this, "",
-						getString(R.string.deleting));
-				dialog.setCancelable(true);
-			}
-
-			@Override
-			protected Long doInBackground(String[]... params) {
-				File folder = new File(BACKUP_LOC);
-
-				String[] children = folder.list();
-				for (int i = 0; i < children.length; i++) {
-					new File(folder, children[i]).delete();
-				}
-				return null;
-			}
-
-			@Override
-			protected void onPostExecute(Long result) {
-				Toast.makeText(AppManager.this,
-						getString(R.string.appsdeleted), Toast.LENGTH_SHORT)
-						.show();
-
-				dialog.cancel();
-			}
-		}.execute();
 	}
 
 	@Override

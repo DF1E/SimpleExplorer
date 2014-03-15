@@ -6,7 +6,6 @@
     <string name="appmanager">Quản lý ứng dụng</string>
     <string name="apps">"Ứng dụng"</string>
     <string name="appsdeleted">Ứng dụng đã được loại bỏ khỏi thẻ SD.</string>
-    <string name="AvaibleSize">Tổng kích thước:</string>
     <string name="backedup">"Đã sao lưu"</string>
     <string name="backup">Sao lưu</string>
     <string name="backupcomplete">Sao lưu hoàn tất.</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Ưa thích</string>
     <string name="bookmarkadded">Mục ưa thích đã được thêm.</string>
     <string name="bookmarkexist">Ưa thích đã tồn tại!</string>
-    <string name="calcinfo">Đang tính toán thông tin</string>
     <string name="cancel">Hủy</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Hoạt động này không thể được hoàn tác!"</string>
     <string name="cantopenfile">Không thể mở tập tin này</string>
     <string name="cantreadfolder">Không thể đọc thư mục do thẩm quyền</string>
-    <string name="choosefiles">Chọn tập tin</string>
     <string name="copiedtoclipboard">Đã sao chép vào bảng tạm.</string>
     <string name="copy">Sao chép</string>
     <string name="copyfail">Sao chép thất bại!</string>
@@ -51,10 +48,7 @@
     <string name="fileexists">Tập tin đã tồn tại.</string>
     <string name="files">" Tập tin"</string>
     <string name="filewasrenamed">Tập tin đã được đổi tên.</string>
-    <string name="fname">Tên:</string>
-    <string name="folders">" Thư mục "</string>
     <string name="foundfiles">Tìm thấy</string>
-    <string name="freespace">Không gian trống:</string>
     <string name="hiddenfiles">Tập tin ẩn</string>
     <string name="image">Hình ảnh</string>
     <string name="itcouldntbefound">Không thể tìm thấy.</string>
@@ -75,14 +69,11 @@
     <string name="newfile">Tập tin mới</string>
     <string name="newfolderwasnotcreated">Thư mục mới chưa được tạo.</string>
     <string name="noapps">Không có ứng dụng được chọn.</string>
-    <string name="Numberoffiles">Số tập tin:</string>
-    <string name="Numberoffolders">Số thư mục:</string>
     <string name="of">" của "</string>
     <string name="ok">OK</string>
     <string name="options">Tùy chọn</string>
     <string name="packing">Đang đóng gói</string>
     <string name="paste">Dán</string>
-    <string name="pasteintofolder">Dán vào thư mục</string>
     <string name="permissions">Quyền</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Nhấn QUAY LẠI lần nữa để thoát.</string>
@@ -111,7 +102,6 @@
     <string name="video">Video</string>
     <string name="viewmode">Chế độ xem</string>
     <string name="xdaforum">Diễn đàn XDA</string>
-    <string name="zipfolder">Nén thư mục</string>
     <string name="zipping">Đang nén</string>
 
 </resources>

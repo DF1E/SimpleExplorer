@@ -6,7 +6,6 @@
     <string name="appmanager">Menedżer aplikacji</string>
     <string name="apps">" Aplikacje"</string>
     <string name="appsdeleted">Aplikacje usunięte z karty SD</string>
-    <string name="AvaibleSize">Całkowita wielkość:</string>
     <string name="backedup">" zarchwizowane"</string>
     <string name="backup">Zarchiwizuj</string>
     <string name="backupcomplete">Tworzenie kopii danych zakończone</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Zakładki</string>
     <string name="bookmarkadded">Zakładka dodana</string>
     <string name="bookmarkexist">Zakładka już istnieje!</string>
-    <string name="calcinfo">Przeliczanie informacji</string>
     <string name="cancel">Anuluj</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Operacja nie może być cofnięta"</string>
     <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Nie można wczytać ze względu na brak zezwoleń</string>
-    <string name="choosefiles">Wybierz pliki!</string>
     <string name="copiedtoclipboard">skopiowano do schowka</string>
     <string name="copy">Kopiuj</string>
     <string name="copyfail">Nie można skopiować!</string>
@@ -51,10 +48,7 @@
     <string name="fileexists">Taki plik już istnieje</string>
     <string name="files">" Pliki"</string>
     <string name="filewasrenamed">Nazwa pliku została zmieniona</string>
-    <string name="fname">Nazwa:</string>
-    <string name="folders">" Foldery "</string>
     <string name="foundfiles">Wyszukaj pliki</string>
-    <string name="freespace">Dostępna przestrzeń:</string>
     <string name="hiddenfiles">Ukryte pliki</string>
     <string name="image">Obraz</string>
     <string name="itcouldntbefound">Nie zostało znalezione</string>
@@ -74,14 +68,11 @@
     <string name="newfile">Utwórz nowy plik</string>
     <string name="newfolderwasnotcreated">Nowy folder nie został utworzony</string>
     <string name="noapps">Żadna aplikacja nie została wybrana</string>
-    <string name="Numberoffiles">Liczba plików:</string>
-    <string name="Numberoffolders">Liczba folderów:</string>
     <string name="of">" z "</string>
     <string name="ok">OK</string>
     <string name="options">Opcje</string>
     <string name="packing">Pakowanie</string>
     <string name="paste">Wklej</string>
-    <string name="pasteintofolder">Wklej do folderu</string>
     <string name="permissions">Pozwolenia</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Naciśnij klawisz powrotu, aby wyjść</string>
@@ -110,7 +101,6 @@
     <string name="video">Wideo</string>
     <string name="viewmode">Tryb wyświetlania</string>
     <string name="xdaforum">XDA Forum</string>
-    <string name="zipfolder">Spakuj folder do pliku .zip</string>
     <string name="zipping">Pakowanie</string>
 
 </resources>

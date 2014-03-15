@@ -6,7 +6,6 @@
     <string name="appmanager">App Manager</string>
     <string name="apps">" Apps"</string>
     <string name="appsdeleted">Apps von der SD Karte gelöscht</string>
-    <string name="AvaibleSize">Ordner Gesamtgröße:</string>
     <string name="backedup">" gespeichert"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup abgeschlossen</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Lesezeichen</string>
     <string name="bookmarkadded">Lesezeichen hinzugefügt</string>
     <string name="bookmarkexist">Lesezeichen bereits vorhanden</string>
-    <string name="calcinfo">Berechne Daten</string>
     <string name="cancel">Abbrechen</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dies kann nicht rückgängig gemacht werden!"</string>
     <string name="cantopenfile">Datei kann nicht geöffnet werden</string>
     <string name="cantreadfolder">Kann wegen fehlender Zugriffsrechte nicht gelesen werden</string>
-    <string name="choosefiles">Wähle Dateien aus!</string>
     <string name="copiedtoclipboard">in die Zwischenablage kopiert</string>
     <string name="copy">Kopieren</string>
     <string name="copyfail">Kopieren fehlgeschlagen!</string>
@@ -33,7 +30,7 @@
     <string name="defaultdir">Standard Verzeichnis</string>
     <string name="delete">Löschen</string>
     <string name="deleteapps">Apps löschen</string>
-    <string name="deleteappsmsg">Die gesicherten Apps werden von der SD Karte gelöscht!</string>
+    <string name="deletesuccess">Löschen erfolgreich</string>
     <string name="deleting">Löschen</string>
     <string name="desc">desc</string>
     <string name="detailed">Detaillierte Liste</string>
@@ -41,20 +38,16 @@
     <string name="dir_info">Ordner Informationen</string>
     <string name="drawer_open">Drawer öffnen</string>
     <string name="drawer_close">Drawer schließen</string>
+    <string name="empty">Leer</string>
     <string name="error">Error</string>
     <string name="exit">Beenden</string>
-    <string name="extract">Extrahieren</string>
     <string name="extractto">Extrahieren nach</string>
-    <string name="fdirectory">Verzeichnis:</string>
     <string name="file">Datei</string>
     <string name="filecreated">Datei wurde erstellt</string>
     <string name="fileexists">Datei existiert bereits</string>
     <string name="files">" Dateien"</string>
     <string name="filewasrenamed">Umbenennen erfolgreich</string>
-    <string name="fname">Name:</string>
-    <string name="folders">"" Ordner "</string>
     <string name="foundfiles">Gefunden</string>
-    <string name="freespace">Freier Speicher:</string>
     <string name="hiddenfiles">Versteckte Dateien</string>
     <string name="image">Bild</string>
     <string name="itcouldntbefound">Die Sucheingabe konnte nicht gefunden werden</string>
@@ -74,14 +67,11 @@
     <string name="newfile">Neue Datei</string>
     <string name="newfolderwasnotcreated">Neuer Ordner wurde nicht erstellt</string>
     <string name="noapps">Keine Apps ausgewählt</string>
-    <string name="Numberoffiles">Anzahl der Daten:</string>
-    <string name="Numberoffolders">Anzahl der Ordner:</string>
     <string name="of">" von "</string>
     <string name="ok">OK</string>
     <string name="options">Optionen</string>
     <string name="packing">Verpacken</string>
     <string name="paste">Einfügen</string>
-    <string name="pasteintofolder">In Ordner kopieren/ verschieben</string>
     <string name="permissions">Berechtigungen</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Erneut klicken um das Programm zu beenden</string>
@@ -105,12 +95,10 @@
     <string name="uninstallapp">Deinstallieren</string>
     <string name="unselectall">Alle abwählen</string>
     <string name="unzipping">Entpacken</string>
-    <string name="used">Verwendet:</string>
     <string name="version">"Version "</string>
     <string name="video">Video</string>
     <string name="viewmode">Ansichtsmodus</string>
     <string name="xdaforum">XDA Forum</string>
-    <string name="zipfolder">Ordner Verpacken</string>
     <string name="zipping">Verpacken</string>
 
     <!-- permissions -->
@@ -121,5 +109,17 @@
     <string name="write">Schreiben</string>
     <string name="execute">Ausführen</string>
     <string name="permissionschanged">Berechtigungen wurden geändert</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020Datei(en)</string>
+    <string name="_selected">\u0020ausgewählt</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Verzeichnis:</string>
+    <string name="total">Gesamtspeicher:</string>
+    <string name="free">Freier Speicher:</string>
+    <string name="available">Verfügbarer Speicher:</string>
+    <string name="block_size">Block Größe:</string>
+    <string name="used">Verwendet:</string>
 
 </resources>

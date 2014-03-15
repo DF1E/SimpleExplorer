@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Simple Explorer
+ * Copyright (C) 2014 Simple Explorer
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,8 +17,10 @@
  * MA  02110-1301, USA.
  */
 
-package com.dnielfe.manager;
+package com.dnielfe.manager.settings;
 
+import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.R;
 import com.dnielfe.manager.dialogs.EditBookmarksDialog;
 import android.app.ActionBar;
 import android.app.DialogFragment;
@@ -30,7 +32,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class Settings extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity {
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -57,7 +59,7 @@ public class Settings extends PreferenceActivity {
 	@Override
 	public void onBackPressed() {
 		this.finish();
-		Intent i = new Intent(getBaseContext(), Main.class);
+		Intent i = new Intent(getBaseContext(), Browser.class);
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 		return;
@@ -74,7 +76,7 @@ public class Settings extends PreferenceActivity {
 
 		case android.R.id.home:
 			this.finish();
-			Intent i = new Intent(getBaseContext(), Main.class);
+			Intent i = new Intent(getBaseContext(), Browser.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(i);
 			return true;

@@ -28,9 +28,9 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dnielfe.manager.EventHandler;
-import com.dnielfe.manager.FileUtils;
+import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.utils.SimpleUtils;
 
 public final class CreateFolderDialog extends DialogFragment {
 
@@ -53,8 +53,7 @@ public final class CreateFolderDialog extends DialogFragment {
 
 				if (name.length() >= 1) {
 					try {
-						FileUtils.createDir(EventHandler.getCurrentDir() + "/",
-								name);
+						SimpleUtils.createDir(Browser.mCurrentPath + "/", name);
 						Toast.makeText(a, name + getString(R.string.created),
 								Toast.LENGTH_LONG).show();
 					} catch (Exception e) {

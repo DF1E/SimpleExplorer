@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Simple Explorer
+ * Copyright (C) 2014 Simple Explorer
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,30 +17,42 @@
  * MA  02110-1301, USA.
  */
 
-package com.dnielfe.manager;
+package com.dnielfe.manager.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
 
-import com.dnielfe.manager.commands.RootCommands;
+import org.jetbrains.annotations.NotNull;
 
+import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.R;
+import com.dnielfe.manager.commands.RootCommands;
+import com.dnielfe.manager.preview.MimeTypes;
+import com.dnielfe.manager.settings.Settings;
+
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
-public class FileUtils {
+public class SimpleUtils {
 
 	private static final int BUFFER = 2048;
 	private static long mDirSize = 0;
+	private static int fileCount = 0;
 
 	// Inspired by org.apache.commons.io.FileUtils.isSymlink()
 	private static boolean isSymlink(File file) throws IOException {
@@ -148,9 +160,59 @@ public class FileUtils {
 		}
 	}
 
+	@NotNull
+	public static ArrayList<String> listFiles(String path) {
+		ArrayList<String> mDirContent = new ArrayList<String>();
+
+		if (!mDirContent.isEmpty())
+			mDirContent.clear();
+
+		final File file = new File(path);
+
+		if (file.exists() && file.canRead()) {
+			String[] list = file.list();
+			int len = list.length;
+
+			// add files/folder to ArrayList depending on hidden status
+			for (int i = 0; i < len; i++) {
+				if (!Settings.mShowHiddenFiles) {
+					if (list[i].toString().charAt(0) != '.')
+						mDirContent.add(list[i]);
+
+				} else {
+					mDirContent.add(list[i]);
+				}
+			}
+
+		} else {
+			try {
+				Process p = Runtime.getRuntime().exec(
+						new String[] { "su", "-c",
+								"ls -a \"" + file.getAbsolutePath() + "\"" });
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						p.getInputStream()));
+
+				String line;
+				while ((line = in.readLine()) != null) {
+					if (!Settings.mShowHiddenFiles) {
+						if (line.toString().charAt(0) != '.')
+							mDirContent.add(line);
+					} else {
+						mDirContent.add(line);
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		// sort files with a comparator
+		SortUtils.sortType(mDirContent, file.getPath());
+		return mDirContent;
+	}
+
 	public static long getDirSize(String path) {
 		get_dir_size(new File(path));
-
 		return mDirSize;
 	}
 
@@ -232,14 +294,10 @@ public class FileUtils {
 	 * @param path
 	 */
 
-	public static void createZipFile(String path) {
-
+	public static void createZipFile(String path, String zipName) {
 		File dir = new File(path);
 
-		File parent = dir.getParentFile();
-		String filepath = parent.getAbsolutePath();
 		String[] list = dir.list();
-		String name = path.substring(path.lastIndexOf("/"), path.length());
 		String _path;
 
 		if (!dir.canRead() || !dir.canWrite())
@@ -254,8 +312,8 @@ public class FileUtils {
 
 		try {
 			ZipOutputStream zip_out = new ZipOutputStream(
-					new BufferedOutputStream(new FileOutputStream(filepath
-							+ name + ".zip"), BUFFER));
+					new BufferedOutputStream(new FileOutputStream(zipName),
+							BUFFER));
 
 			for (int i = 0; i < len; i++)
 				zip_folder(new File(_path + list[i]), zip_out);
@@ -375,15 +433,57 @@ public class FileUtils {
 		return names;
 	}
 
-	public static void createShortcut(Main main, String path, String name) {
+	public static int getFileCount(File file) {
+		fileCount = 0;
+		calculateFileCount(file);
+		return fileCount;
+	}
 
+	// Calculate number of files in directory
+	private static void calculateFileCount(File file) {
+		if (!file.isDirectory()) {
+			fileCount++;
+			return;
+		}
+		if (file.list() == null) {
+			return;
+		}
+		for (String fileName : file.list()) {
+			File f = new File(file.getAbsolutePath() + File.separator
+					+ fileName);
+			calculateFileCount(f);
+		}
+	}
+
+	public static void openFile(final Context context, final File target) {
+		final String mime = MimeTypes.getMimeType(target);
+		if (mime != null) {
+			final Intent i = new Intent(Intent.ACTION_VIEW);
+			i.setDataAndType(Uri.fromFile(target), mime);
+			if (context.getPackageManager().queryIntentActivities(i, 0)
+					.isEmpty()) {
+				Toast.makeText(context, R.string.cantopenfile,
+						Toast.LENGTH_SHORT).show();
+				return;
+			}
+			try {
+				context.startActivity(i);
+			} catch (Exception e) {
+				Toast.makeText(
+						context,
+						context.getString(R.string.cantopenfile)
+								+ e.getMessage(), Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	public static void createShortcut(Activity main, String path, String name) {
 		try {
 			// Create the intent that will handle the shortcut
-			Intent shortcutIntent = new Intent(main, Main.class);
+			Intent shortcutIntent = new Intent(main, Browser.class);
 			shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-			shortcutIntent.putExtra(Main.EXTRA_SHORTCUT, path);
+			shortcutIntent.putExtra(Browser.EXTRA_SHORTCUT, path);
 
 			// The intent to send to broadcast for register the shortcut intent
 			Intent intent = new Intent();

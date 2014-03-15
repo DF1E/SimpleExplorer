@@ -29,10 +29,10 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.EventHandler;
-import com.dnielfe.manager.FileUtils;
+import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.ClipBoard;
+import com.dnielfe.manager.utils.SimpleUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -90,18 +90,18 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 			failed.add(content.toString());
 			return failed;
 		} else if (len == 1) {
-			FileUtils.copyToDirectory(content[0], location);
+			SimpleUtils.copyToDirectory(content[0], location);
 			success = true;
 			if (ClipBoard.isMove()) {
-				FileUtils.deleteTarget(content[0], location);
+				SimpleUtils.deleteTarget(content[0], location);
 				success = true;
 			}
 		} else {
 			for (int i = 0; i < len; i++) {
-				FileUtils.copyToDirectory(content[i], location);
+				SimpleUtils.copyToDirectory(content[i], location);
 				success = true;
 				if (ClipBoard.isMove()) {
-					FileUtils.deleteTarget(content[i], location);
+					SimpleUtils.deleteTarget(content[i], location);
 					success = true;
 				}
 			}
@@ -150,7 +150,7 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 		ClipBoard.clear();
 		activity.invalidateOptionsMenu();
 
-		EventHandler.refreshDir(location);
+		Browser.refreshDir(location);
 
 		if (activity != null && !failed.isEmpty()) {
 			Toast.makeText(activity, activity.getString(R.string.cantopenfile),

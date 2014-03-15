@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Simple Explorer
+ * Copyright (C) 2014 Simple Explorer
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -43,9 +43,7 @@ public class DrawerListAdapter extends BaseAdapter {
 		convertView = inflater.inflate(R.layout.drawer_listitem, parent, false);
 
 		TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
-
 		txtTitle.setText(mTitle[position]);
-
 		return convertView;
 	}
 

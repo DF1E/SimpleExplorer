@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Advanced</string>
     <string name="appmanager">App Manager</string>
     <string name="apps">" Apps"</string>
-    <string name="appsdeleted">Apps removed from SD card.</string>
-    <string name="AvaibleSize">Total size:</string>
     <string name="backedup">" Backed up"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup complete.</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Bookmarks</string>
     <string name="bookmarkadded">Bookmark added.</string>
     <string name="bookmarkexist">Bookmark already exists!</string>
-    <string name="calcinfo">Calculating information</string>
     <string name="cancel">Cancel</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"This cannot be undone!"</string>
     <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Cannot read folder due to permissions</string>
-    <string name="choosefiles">Select files</string>
     <string name="copiedtoclipboard">Copied to clipboard.</string>
     <string name="copy">Copy</string>
     <string name="copyfail">Copy failed!</string>
@@ -33,7 +30,7 @@
     <string name="defaultdir">Default directory</string>
     <string name="delete">Delete</string>
     <string name="deleteapps">Delete Apps</string>
-    <string name="deleteappsmsg">Saved Apps will be deleted from SD Card!</string>
+    <string name="deletesuccess">Delete successful</string>
     <string name="deleting">Deleting</string>
     <string name="desc">desc</string>
     <string name="detailed">Detailed</string>
@@ -41,20 +38,16 @@
     <string name="dir_info">Folder information</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="empty">Empty</string>
     <string name="error">Error</string>
     <string name="exit">Exit</string>
-    <string name="extract">Extract</string>
     <string name="extractto">Extract to</string>
-    <string name="fdirectory">Path:</string>
     <string name="file">File</string>
     <string name="filecreated">File was created.</string>
     <string name="fileexists">File already exists.</string>
     <string name="files">" Files"</string>
     <string name="filewasrenamed">File was renamed.</string>
-    <string name="fname">Name:</string>
-    <string name="folders">" Folders "</string>
     <string name="foundfiles">Found</string>
-    <string name="freespace">Free space:</string>
     <string name="hiddenfiles">Hidden files</string>
     <string name="image">Image</string>
     <string name="itcouldntbefound">It couldnt be found.</string>
@@ -67,7 +60,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Successfully moved.</string>
     <string name="moving">Moving</string>
-    <string name="multis">Multi select</string>
     <string name="multizip">Zip</string>
     <string name="music">Music</string>
     <string name="name">Name</string>
@@ -75,14 +67,11 @@
     <string name="newfile">New file</string>
     <string name="newfolderwasnotcreated">New folder was not created.</string>
     <string name="noapps">No Apps selected.</string>
-    <string name="Numberoffiles">Number of files:</string>
-    <string name="Numberoffolders">Number of folders:</string>
     <string name="of">" of "</string>
     <string name="ok">OK</string>
     <string name="options">Options</string>
     <string name="packing">Packing</string>
     <string name="paste">Paste</string>
-    <string name="pasteintofolder">Paste into folder</string>
     <string name="permissions">Persmissions</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Press back again to exit.</string>
@@ -106,12 +95,10 @@
     <string name="uninstallapp">Uninstall App</string>
     <string name="unselectall">Unselect all</string>
     <string name="unzipping">Extracting</string>
-    <string name="used">Used:</string>
     <string name="version">"Version "</string>
     <string name="video">Video</string>
     <string name="viewmode">View mode</string>
     <string name="xdaforum">XDA forum</string>
-    <string name="zipfolder">Compress folder</string>
     <string name="zipping">Compressing</string>
 
     <!-- permissions -->
@@ -122,5 +109,17 @@
     <string name="write">Write</string>
     <string name="execute">Execute</string>
     <string name="permissionschanged">Permissions changed</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file(s)</string>
+    <string name="_selected">\u0020selected</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Location:</string>
+    <string name="total">Total space:</string>
+    <string name="free">Free space:</string>
+    <string name="available">Available space:</string>
+    <string name="block_size">Block size:</string>
+    <string name="used">Used:</string>
 
 </resources>

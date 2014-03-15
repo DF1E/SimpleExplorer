@@ -29,9 +29,10 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.EventHandler;
-import com.dnielfe.manager.FileUtils;
+import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.utils.SimpleUtils;
+
 import org.jetbrains.annotations.NotNull;
 
 public final class DeleteTask extends AsyncTask<String, Void, List<String>> {
@@ -39,8 +40,6 @@ public final class DeleteTask extends AsyncTask<String, Void, List<String>> {
 	private final WeakReference<Activity> activity;
 
 	private ProgressDialog dialog;
-
-	private String location;
 
 	public DeleteTask(final Activity activity) {
 		this.activity = new WeakReference<Activity>(activity);
@@ -72,13 +71,11 @@ public final class DeleteTask extends AsyncTask<String, Void, List<String>> {
 	protected List<String> doInBackground(String... files) {
 		final List<String> failed = new ArrayList<String>();
 
-		location = EventHandler.getCurrentDir();
-
 		try {
 			int size = files.length;
 
 			for (int i = 0; i < size; i++)
-				FileUtils.deleteTarget(files[i], location);
+				SimpleUtils.deleteTarget(files[i], Browser.mCurrentPath);
 		} catch (Exception e) {
 			failed.add(files.toString());
 		}

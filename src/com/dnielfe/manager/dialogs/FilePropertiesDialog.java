@@ -28,10 +28,11 @@ import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import org.jetbrains.annotations.NotNull;
 
-import com.dnielfe.manager.FileUtils;
 import com.dnielfe.manager.R;
+import org.apache.commons.io.FileUtils;
 import com.dnielfe.manager.commands.Permissions;
 import com.dnielfe.manager.commands.RootCommands;
+import com.dnielfe.manager.utils.SimpleUtils;
 import com.dnielfe.manager.utils.MD5Checksum;
 
 import android.app.Activity;
@@ -221,14 +222,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 	}
 
 	private static final class FilePropertiesPagerItem implements PagerItem {
-
-		final int KB = 1024;
-		final int MG = KB * KB;
-		final int GB = MG * KB;
-
-		long size = 0;
-
-		private String mDisplaySize;
 		private File file3;
 		private Context mContext;
 		private TextView mPathLabel, mTimeLabel, mSizeLabel, mMD5Label;
@@ -275,6 +268,9 @@ public final class FilePropertiesDialog extends DialogFragment {
 		}
 
 		private final class LoadFsTask extends AsyncTask<File, Void, String> {
+			private String mDisplaySize;
+			private long size = 0;
+
 			private LoadFsTask() {
 			}
 
@@ -299,23 +295,13 @@ public final class FilePropertiesDialog extends DialogFragment {
 				if (!file3.canRead()) {
 					mDisplaySize = "---";
 					return mDisplaySize;
-				}
-
-				if (file3.isFile()) {
+				} else if (file3.isFile()) {
 					size = file3.length();
 				} else {
-					size = FileUtils.getDirSize(file3.getPath());
+					size = SimpleUtils.getDirSize(file3.getPath());
 				}
 
-				if (size > GB)
-					mDisplaySize = String.format("%.2f GB", (double) size / GB);
-				else if (size < GB && size > MG)
-					mDisplaySize = String.format("%.2f MB", (double) size / MG);
-				else if (size < MG && size > KB)
-					mDisplaySize = String.format("%.2f KB", (double) size / KB);
-				else
-					mDisplaySize = String.format("%.2f B", (double) size);
-
+				mDisplaySize = FileUtils.byteCountToDisplaySize(size);
 				return mDisplaySize;
 			}
 

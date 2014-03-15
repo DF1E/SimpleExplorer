@@ -6,7 +6,6 @@
     <string name="appmanager">Aplicación Gerente</string>
     <string name="apps">" Aplicaciónes"</string>
     <string name="appsdeleted">Aplicaciónes eliminadas de la tarjeta SD.</string>
-    <string name="AvaibleSize">Tamaño total:</string>
     <string name="backedup">" Reservado"</string>
     <string name="backup">Reserva</string>
     <string name="backupcomplete">Reserva completa.</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Marcadores</string>
     <string name="bookmarkadded">Marcador agregado.</string>
     <string name="bookmarkexist">Marcador ya existe!</string>
-    <string name="calcinfo">Calculando información</string>
     <string name="cancel">Cancelar</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Esto no se puede desechar!"</string>
     <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">No so puede leer la carpeta debido a permisos.</string>
-    <string name="choosefiles">Seleccionar archivos!</string>
     <string name="copiedtoclipboard">Copiado al portapapeles</string>
     <string name="copy">Copiar</string>
     <string name="copyfail">Copia fracaso!</string>
@@ -51,10 +48,7 @@
     <string name="fileexists">Archivo ya existe</string>
     <string name="files">" Archivos"</string>
     <string name="filewasrenamed">Archivo fue renombrado.</string>
-    <string name="fname">Nombre:</string>
-    <string name="folders">" Carpetas "</string>
     <string name="foundfiles">Localizado</string>
-    <string name="freespace">Espacio libre:</string>
     <string name="hiddenfiles">Archivos ocultados</string>
     <string name="image">Imagen</string>
     <string name="itcouldntbefound">No pudo ser localizado.</string>
@@ -74,14 +68,11 @@
     <string name="newfile">Nuevo archivo</string>
     <string name="newfolderwasnotcreated">Nueva carpeta no fue creada.</string>
     <string name="noapps">Aplicaciónes no fueron seleccionadas.</string>
-    <string name="Numberoffiles">Número de archivos:</string>
-    <string name="Numberoffolders">Número de carpetas:</string>
     <string name="of">" de "</string>
     <string name="ok">OK</string>
     <string name="options">Opciones</string>
     <string name="packing">Empacando</string>
     <string name="paste">Pegar</string>
-    <string name="pasteintofolder">Pegar dentro de carpeta</string>
     <string name="permissions">Permisos</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Presionar atrás de nuevo para salir.</string>
@@ -110,7 +101,6 @@
     <string name="video">Vídeo</string>
     <string name="viewmode">Modo de ver</string>
     <string name="xdaforum">Foro de XDA</string>
-    <string name="zipfolder">Comprimir carpeta</string>
     <string name="zipping">Comprimiendo</string>
 
 </resources>

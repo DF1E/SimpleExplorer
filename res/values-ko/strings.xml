@@ -6,7 +6,6 @@
     <string name="appmanager">App Manager(앱 매니저)</string>
     <string name="apps">" 앱"</string>
     <string name="appsdeleted">SD카드로부터 앱이 삭제되었습니다.</string>
-    <string name="AvaibleSize">전체 크기:</string>
     <string name="backedup">" 백업되었습니다"</string>
     <string name="backup">백업</string>
     <string name="backupcomplete">백업 완료.</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">북마크</string>
     <string name="bookmarkadded">북마크 추가.</string>
     <string name="bookmarkexist">북마크가 이미 존재합니다!</string>
-    <string name="calcinfo">정보 계산중</string>
     <string name="cancel">취소</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">This cannot be undone!</string>
     <string name="cantopenfile">이 파일을 열 수 없습니다</string>
     <string name="cantreadfolder">폴더를 읽을 권한이 없습니다</string>
-    <string name="choosefiles">파일 선택</string>
     <string name="copiedtoclipboard">클립보드에 복사되었습니다.</string>
     <string name="copy">복사</string>
     <string name="copyfail">복사 실패</string>
@@ -51,10 +48,7 @@
     <string name="fileexists">파일이 이미 존재합니다.</string>
     <string name="files">" 파일들"</string>
     <string name="filewasrenamed">파일의 이름이 변경되었습니다.</string>
-    <string name="fname">이름:</string>
-    <string name="folders">" 폴더 "</string>
     <string name="foundfiles">발견</string>
-    <string name="freespace">남은 용량:</string>
     <string name="hiddenfiles">숨겨진 파일</string>
     <string name="image">사진</string>
     <string name="itcouldntbefound">It couldnt be found.</string>
@@ -75,14 +69,11 @@
     <string name="newfile">New file</string>
     <string name="newfolderwasnotcreated">New folder was not created.</string>
     <string name="noapps">No Apps selected.</string>
-    <string name="Numberoffiles">Number of files:</string>
-    <string name="Numberoffolders">Number of folders:</string>
     <string name="of">" of "</string>
     <string name="ok">OK</string>
     <string name="options">Options</string>
     <string name="packing">Packing</string>
     <string name="paste">Paste</string>
-    <string name="pasteintofolder">Paste into folder</string>
     <string name="permissions">Persmissions</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Press back again to exit.</string>
@@ -111,7 +102,6 @@
     <string name="video">Video</string>
     <string name="viewmode">View mode</string>
     <string name="xdaforum">XDA forum</string>
-    <string name="zipfolder">Compress folder</string>
     <string name="zipping">Compressing</string>
 
 </resources>

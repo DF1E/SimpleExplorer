@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:padding="1dp"
-                android:text="@string/fdirectory"
+                android:text="@string/location"
                 android:textColor="@color/gray" />
 
             <TextView

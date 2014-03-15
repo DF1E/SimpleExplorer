@@ -6,7 +6,6 @@
     <string name="appmanager">Uygulama Yöneticisi</string>
     <string name="apps">" Uygulama"</string>
     <string name="appsdeleted">Uygulama SD karttan kaldırıldı</string>
-    <string name="AvaibleSize">Toplam Boyut:</string>
     <string name="backedup">" yedeklendi"</string>
     <string name="backup">Yedekleme</string>
     <string name="backupcomplete">Yedekleme tamamlandı</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Yer İmleri</string>
     <string name="bookmarkadded">Yer imi eklendi</string>
     <string name="bookmarkexist">Yer imi zaten var!</string>
-    <string name="calcinfo">Hesaplama Bilgisi</string>
     <string name="cancel">İptal</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Bu işlem geri alınamaz"</string>
     <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Yetkisizlik nedeniyle klasör okunamıyor</string>
-    <string name="choosefiles">Dosyaları Seç!</string>
     <string name="copiedtoclipboard">Panoya kopyalandı</string>
     <string name="copy">Kopyala</string>
     <string name="copyfail">Kopyalama başarısız!</string>
@@ -51,10 +48,7 @@
     <string name="fileexists">Dosya zaten var</string>
     <string name="files">" Dosya"</string>
     <string name="filewasrenamed">Dosya yeniden adlandırıldı</string>
-    <string name="fname">Ad:</string>
-    <string name="folders">" Klasör "</string>
     <string name="foundfiles">Bulundu</string>
-    <string name="freespace">Boş Alan:</string>
     <string name="hiddenfiles">Gizli Dosyalar</string>
     <string name="image">Resim</string>
     <string name="itcouldntbefound">Bulunamadı</string>
@@ -74,14 +68,11 @@
     <string name="newfile">Yeni Dosya</string>
     <string name="newfolderwasnotcreated">Yeni Klasör oluşturulamadı</string>
     <string name="noapps">Uygulama seçin</string>
-    <string name="Numberoffiles">Dosya adedi:</string>
-    <string name="Numberoffolders">Klasör adedi:</string>
     <string name="of">" of "</string>
     <string name="ok">OK</string>
     <string name="options">Tercihler</string>
     <string name="packing">Paketleniyor</string>
     <string name="paste">Yapıştır</string>
-    <string name="pasteintofolder">Klasöre yapıştır</string>
     <string name="permissions">İzinler</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Çıkmak için Geri tuşuna bas</string>
@@ -110,7 +101,6 @@
     <string name="video">Video</string>
     <string name="viewmode">Görünüm Biçimi</string>
     <string name="xdaforum">XDA Forum</string>
-    <string name="zipfolder">Sıkıştırma Klasörü</string>
     <string name="zipping">Sıkıştırıyor</string>
 
 </resources>

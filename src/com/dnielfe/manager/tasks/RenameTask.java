@@ -29,10 +29,10 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.EventHandler;
-import com.dnielfe.manager.FileUtils;
+import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.commands.RootCommands;
+import com.dnielfe.manager.utils.SimpleUtils;
 import com.stericson.RootTools.RootTools;
 
 import org.jetbrains.annotations.NotNull;
@@ -81,15 +81,13 @@ public final class RenameTask extends AsyncTask<String, Void, List<String>> {
 	protected List<String> doInBackground(String... files) {
 		final List<String> failed = new ArrayList<String>();
 
-		EventHandler.getCurrentDir();
-
 		try {
-			if (FileUtils.renameTarget(filepath, newname)) {
+			if (SimpleUtils.renameTarget(filepath, newname)) {
 				succes = true;
 			} else {
 				if (RootTools.isRootAvailable()) {
-					RootCommands.renameRootTarget(EventHandler.getCurrentDir(),
-							name, newname);
+					RootCommands.renameRootTarget(Browser.mCurrentPath, name,
+							newname);
 					succes = true;
 				}
 			}

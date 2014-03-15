@@ -6,7 +6,6 @@
     <string name="appmanager">App beheer</string>
     <string name="apps">" Apps"</string>
     <string name="appsdeleted">Apps verwijderd van SD kaart</string>
-    <string name="AvaibleSize">Totale Grootte:</string>
     <string name="backedup">" gebackupt"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup compleet</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Bladwijzers</string>
     <string name="bookmarkadded">Bladwijzer toegevoegd</string>
     <string name="bookmarkexist">Bladwijzer bestaat al!</string>
-    <string name="calcinfo">Informatie berekenen</string>
     <string name="cancel">Annuleer</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dit kan niet ongedaan gemaakt worden"</string>
     <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Folder kan niet gelezen worden wegens machtigingen</string>
-    <string name="choosefiles">Selecteer bestanden!</string>
     <string name="copiedtoclipboard">gekopieerd naar Klembord</string>
     <string name="copy">Kopi\u00EBren</string>
     <string name="copyfail">Kopi\u00EBren mislukt!</string>
@@ -51,10 +48,7 @@
     <string name="fileexists">Bestand bestaat al</string>
     <string name="files">" Bestanden"</string>
     <string name="filewasrenamed">Bestand is hernoemt</string>
-    <string name="fname">Naam:</string>
-    <string name="folders">" Mappen "</string>
     <string name="foundfiles">Gevonden</string>
-    <string name="freespace">Vrije Ruimte:</string>
     <string name="hiddenfiles">Verborgen bestanden</string>
     <string name="image">Afbeelding</string>
     <string name="itcouldntbefound">Kon niet gevonden worden</string>
@@ -74,14 +68,11 @@
     <string name="newfile">Nieuw Bestand</string>
     <string name="newfolderwasnotcreated">Geen nieuwe map aangemaakt</string>
     <string name="noapps">Geen apps geselecteerd</string>
-    <string name="Numberoffiles">Aantal bestanden:</string>
-    <string name="Numberoffolders">Aantal mappen:</string>
     <string name="of">" of "</string>
     <string name="ok">OK</string>
     <string name="options">Opties</string>
     <string name="packing">Inpakken</string>
     <string name="paste">Plakken</string>
-    <string name="pasteintofolder">Plakken in Map</string>
     <string name="permissions">Machtigingen</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Tik nogmaals terug om af te sluiten</string>
@@ -110,7 +101,6 @@
     <string name="video">Video</string>
     <string name="viewmode">Weergavemodus</string>
     <string name="xdaforum">XDA Forum</string>
-    <string name="zipfolder">Zip bestand maken</string>
     <string name="zipping">Inpakken</string>
 
 </resources>

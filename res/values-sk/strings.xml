@@ -6,7 +6,6 @@
     <string name="appmanager">Správca aplikácií</string>
     <string name="apps">" apl."</string>
     <string name="appsdeleted">Aplikácie boli odstránené z karty SD.</string>
-    <string name="AvaibleSize">Celková veľkosť:</string>
     <string name="backedup">" záloh."</string>
     <string name="backup">Zálohovať</string>
     <string name="backupcomplete">Záloha bola dokončená.</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Záložky</string>
     <string name="bookmarkadded">Záložka bola pridaná.</string>
     <string name="bookmarkexist">Záložka už existuje!</string>
-    <string name="calcinfo">Výpočet informácií</string>
     <string name="cancel">Zrušiť</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Túto akciu nie je možné vrátiť!"</string>
     <string name="cantopenfile">Nemožno otvoriť tento priečinok</string>
     <string name="cantreadfolder">Nemožno čítať priečinok kvôli oprávneniam.</string>
-    <string name="choosefiles">Vyberte súbory</string>
     <string name="copiedtoclipboard">Skopírované do schránky.</string>
     <string name="copy">Kopírovať</string>
     <string name="copyfail">Kopírovanie zlyhalo!</string>
@@ -51,10 +48,7 @@
     <string name="fileexists">Súbor už existuje.</string>
     <string name="files">" súb."</string>
     <string name="filewasrenamed">Súbor bol premenovaný.</string>
-    <string name="fname">Name:</string>
-    <string name="folders">" prieč."</string>
     <string name="foundfiles">Najdené</string>
-    <string name="freespace">Voľné miesto:</string>
     <string name="hiddenfiles">Skryté súbory</string>
     <string name="image">Obrázok</string>
     <string name="itcouldntbefound">Nenašlo sa.</string>
@@ -75,14 +69,11 @@
     <string name="newfile">Nový súbor</string>
     <string name="newfolderwasnotcreated">Nový priečinok nemohol byť vytvorený.</string>
     <string name="noapps">Nevybrané žiadne aplikácie.</string>
-    <string name="Numberoffiles">Počet súborov:</string>
-    <string name="Numberoffolders">Počet priečinkov:</string>
     <string name="of">" z "</string>
     <string name="ok">OK</string>
     <string name="options">Možnosti</string>
     <string name="packing">Balenie</string>
     <string name="paste">Prilepiť</string>
-    <string name="pasteintofolder">Prilepiť do priečinka</string>
     <string name="permissions">Oprávnenia</string>
     <string name="playstore">Obchod Play</string>
     <string name="pressbackagaintoquit">Stlačte znova tlačidlo Späť pre ukončenie.</string>
@@ -111,7 +102,6 @@
     <string name="video">Video</string>
     <string name="viewmode">Režim zobrazenia</string>
     <string name="xdaforum">Fórum XDA</string>
-    <string name="zipfolder">Zabaliť priečinok</string>
     <string name="zipping">Balenie</string>
 
 </resources>

@@ -29,7 +29,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.EventHandler;
+import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.Decompress;
 
@@ -71,8 +71,6 @@ public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
 	protected List<String> doInBackground(String... files) {
 		final List<String> failed = new ArrayList<String>();
 
-		EventHandler.getCurrentDir();
-
 		final Decompress decompress = new Decompress(files[0], files[1]);
 		try {
 			decompress.unzip();
@@ -98,6 +96,8 @@ public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
 		if (this.dialog != null) {
 			this.dialog.dismiss();
 		}
+
+		Browser.refreshDir(Browser.mCurrentPath);
 
 		final Activity activity = this.activity.get();
 		if (activity != null && !failed.isEmpty()) {

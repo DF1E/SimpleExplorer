@@ -19,7 +19,7 @@
 
 package com.dnielfe.manager.dialogs;
 
-import com.dnielfe.manager.EventHandler;
+import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.tasks.UnZipTask;
 
@@ -51,7 +51,7 @@ public final class UnzipDialog extends DialogFragment {
 
 		// Set an EditText view to get user input
 		final EditText inputf = new EditText(a);
-		inputf.setText(EventHandler.getCurrentDir());
+		inputf.setText(Browser.mCurrentPath);
 
 		b.setTitle(R.string.extractto);
 		b.setView(inputf);

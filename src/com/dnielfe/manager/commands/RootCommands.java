@@ -33,6 +33,7 @@ import com.stericson.RootTools.RootTools;
 
 public class RootCommands {
 
+	@NotNull
 	public static String getFilePermissions(String path) {
 		StringBuilder log = new StringBuilder();
 

@@ -6,7 +6,6 @@
     <string name="appmanager">Gestore App</string>
     <string name="apps">" Apps"</string>
     <string name="appsdeleted">App rimossa dalla Scheda SD</string>
-    <string name="AvaibleSize">Dimensione totale:</string>
     <string name="backedup">" backuppato"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup eseguito</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Preferiti</string>
     <string name="bookmarkadded">Preferito aggiunto</string>
     <string name="bookmarkexist">Il preferito esiste già!</string>
-    <string name="calcinfo">Elaborando le informazioni</string>
     <string name="cancel">Annulla</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Questa operazione non può essere annullata"</string>
     <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Impossibile accedere alla cartella per mancanza di permessi</string>
-    <string name="choosefiles">Seleziona i file!</string>
     <string name="copiedtoclipboard">copiato negli Appunti</string>
     <string name="copy">Copia</string>
     <string name="copyfail">Copia fallita!</string>
@@ -50,10 +47,7 @@
     <string name="fileexists">Il File esiste già</string>
     <string name="files">" Files"</string>
     <string name="filewasrenamed">Il File è stato rinominato</string>
-    <string name="fname">Nome:</string>
-    <string name="folders">" Cartelle "</string>
     <string name="foundfiles">Trovato</string>
-    <string name="freespace">Spazio libero:</string>
     <string name="hiddenfiles">File Nascosti</string>
     <string name="image">Immagine</string>
     <string name="itcouldntbefound">Non è stato possibile trovare niente</string>
@@ -73,14 +67,11 @@
     <string name="newfile">Nuovo file</string>
     <string name="newfolderwasnotcreated">La nuova cartella non è stata creata</string>
     <string name="noapps">Nessun App selezionata</string>
-    <string name="Numberoffiles">Numero di file:</string>
-    <string name="Numberoffolders">Numero di cartelle:</string>
     <string name="of">" di "</string>
     <string name="ok">OK</string>
     <string name="options">Opzioni</string>
     <string name="packing">Comprimendo</string>
     <string name="paste">Incolla</string>
-    <string name="pasteintofolder">Incolla nella Cartella</string>
     <string name="permissions">Permessi</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Premi indietro unaltra volta per uscire</string>
@@ -109,7 +100,6 @@
     <string name="video">Video</string>
     <string name="viewmode">Modalità Vista</string>
     <string name="xdaforum">Forum XDA</string>
-    <string name="zipfolder">Comprimi Cartella</string>
     <string name="zipping">Comprimendo</string>
 
 </resources>

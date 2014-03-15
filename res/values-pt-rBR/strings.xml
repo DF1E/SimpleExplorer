@@ -6,7 +6,6 @@
     <string name="appmanager">Gerenciar App</string>
     <string name="apps">"Apps"</string>
     <string name="appsdeleted">Apps removido do Cartão SD</string>
-    <string name="AvaibleSize">Tamanho Total:</string>
     <string name="backedup">"backup"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup completo</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Favoritos</string>
     <string name="bookmarkadded">Favorito adicionado</string>
     <string name="bookmarkexist">Favorito ja existente!</string>
-    <string name="calcinfo">Calculando Informação</string>
     <string name="cancel">Cancelar</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">Isso não pode ser desfeito</string>
     <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Não consegue ler pastas devido as permissões</string>
-    <string name="choosefiles">Selecionar Arquivos</string>
     <string name="copiedtoclipboard">Copiados para o clipboard</string>
     <string name="copy">Copiar</string>
     <string name="copyfail">Falha ao copiar!</string>
@@ -51,10 +48,7 @@
     <string name="fileexists">Arquivo já existe</string>
     <string name="files">"Arquivos"</string>
     <string name="filewasrenamed">Arquivo renomeado</string>
-    <string name="fname">Nome:</string>
-    <string name="folders">"Pastas"</string>
     <string name="foundfiles">Encontrado</string>
-    <string name="freespace">Espaço Livre:</string>
     <string name="hiddenfiles">Arquivos Ocultos</string>
     <string name="image">Imagem</string>
     <string name="itcouldntbefound">Não pôde ser encontrado</string>
@@ -74,14 +68,11 @@
     <string name="newfile">Novo Arquivo</string>
     <string name="newfolderwasnotcreated">Nova Pasta não foi criada</string>
     <string name="noapps">Nenhum App selecionado</string>
-    <string name="Numberoffiles">Número de Arquivos:</string>
-    <string name="Numberoffolders">Número de Pastas:</string>
     <string name="of">"de"</string>
     <string name="ok">OK</string>
     <string name="options">"Opções"</string>
     <string name="packing">Packing</string>
     <string name="paste">Paste</string>
-    <string name="pasteintofolder">Colar na Pasta</string>
     <string name="permissions">Persmissions</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Pressione novamente para sair</string>
@@ -110,7 +101,6 @@
     <string name="video">Vídeo</string>
     <string name="viewmode">Visualização</string>
     <string name="xdaforum">Forum XDA</string>
-    <string name="zipfolder">Pasta Zip</string>
     <string name="zipping">Fechando</string>
 
 </resources>

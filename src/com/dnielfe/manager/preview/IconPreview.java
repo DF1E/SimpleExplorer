@@ -29,7 +29,6 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -53,6 +52,7 @@ public enum IconPreview {
 	private Map<ImageView, String> imageViews = Collections
 			.synchronizedMap(new ConcurrentHashMap<ImageView, String>());
 	private static PackageManager packageManager;
+	private static int mSize = 72;
 	private Bitmap placeholder;
 
 	IconPreview() {
@@ -140,7 +140,6 @@ public enum IconPreview {
 		final boolean isApk = file.getName().endsWith(".apk");
 		Bitmap mBitmap = null;
 		String path = file.getAbsolutePath();
-		int size = 72;
 
 		if (isImage) {
 
@@ -153,7 +152,7 @@ public enum IconPreview {
 			if (o.outWidth != -1 && o.outHeight != -1) {
 				final int originalSize = (o.outHeight > o.outWidth) ? o.outWidth
 						: o.outHeight;
-				o.inSampleSize = originalSize / size;
+				o.inSampleSize = originalSize / mSize;
 			}
 
 			mBitmap = BitmapFactory.decodeFile(path, o);
@@ -162,7 +161,6 @@ public enum IconPreview {
 			return mBitmap;
 
 		} else if (isVideo) {
-
 			mBitmap = ThumbnailUtils.createVideoThumbnail(path,
 					MediaStore.Video.Thumbnails.MICRO_KIND);
 
@@ -186,7 +184,7 @@ public enum IconPreview {
 					}
 				}
 			}
-			
+
 			cache.put(path, mBitmap);
 			return mBitmap;
 		}

@@ -6,7 +6,6 @@
     <string name="appmanager">Gestion Apps</string>
     <string name="apps">" Apps"</string>
     <string name="appsdeleted">Apps supprimés de la carte SD.</string>
-    <string name="AvaibleSize">Taille totale:</string>
     <string name="backedup">" Sauvegardé"</string>
     <string name="backup">Sauvegarde</string>
     <string name="backupcomplete">Sauvegarde complète.</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Favoris</string>
     <string name="bookmarkadded">Favori ajouté.</string>
     <string name="bookmarkexist">Ce favori existe déjà!</string>
-    <string name="calcinfo">Calcul de l information</string>
     <string name="cancel">Annuler</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Annulation impossible!"</string>
     <string name="cantopenfile">Ne peut ouvrir ce fichier</string>
     <string name="cantreadfolder">Lecture impossible à cause des permissions</string>
-    <string name="choosefiles">Sélectionnez fichiers</string>
     <string name="copiedtoclipboard">Copié dans le presse-papiers.</string>
     <string name="copy">Copier</string>
     <string name="copyfail">La copie a échoué!</string>
@@ -51,10 +48,7 @@
     <string name="fileexists">Le fichier existe déjà.</string>
     <string name="files">" Fichiers"</string>
     <string name="filewasrenamed">Fichier renommé.</string>
-    <string name="fname">Nom:</string>
-    <string name="folders">" Dossiers "</string>
     <string name="foundfiles">Trouvé</string>
-    <string name="freespace">>Espace libre:</string>
     <string name="hiddenfiles">Fichiers cachés</string>
     <string name="image">Image</string>
     <string name="itcouldntbefound">Ne peut être trouvé.</string>
@@ -75,14 +69,11 @@
     <string name="newfile">Nouveau fichier</string>
     <string name="newfolderwasnotcreated">Nouveau dossier non créé.</string>
     <string name="noapps">Pas dApps sélectionnés.</string>
-    <string name="Numberoffiles">Nombre de fichiers:</string>
-    <string name="Numberoffolders">Nombre de dossiers:</string>
     <string name="of">" de "</string>
     <string name="ok">OK</string>
     <string name="options">Options</string>
     <string name="packing">Packing</string>
     <string name="paste">Coller</string>
-    <string name="pasteintofolder">Coller dans le dossier</string>
     <string name="permissions">Permissions</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Appuyer encore sur retour pour quitter.</string>
@@ -111,7 +102,6 @@
     <string name="video">Vidéo</string>
     <string name="viewmode">Mode daffichage</string>
     <string name="xdaforum">Forum XDA</string>
-    <string name="zipfolder">Compresser dossier</string>
     <string name="zipping">Compression</string>
 
 </resources>

@@ -6,7 +6,6 @@
     <string name="appmanager">App Manager</string>
     <string name="apps">" приложений"</string>
     <string name="appsdeleted">Резервные копии приложений удалены.</string>
-    <string name="AvaibleSize">Вместимость:</string>
     <string name="backedup">" резервировано"</string>
     <string name="backup">Резервное копирование</string>
     <string name="backupcomplete">Резервное копирование выполнено.</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Закладки</string>
     <string name="bookmarkadded">Закладка добалена.</string>
     <string name="bookmarkexist">Закладка уже существует!</string>
-    <string name="calcinfo">Вычисление</string>
     <string name="cancel">Отмена</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Вы уверены? Это необратимо!"</string>
     <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Не удается прочитать папку из-за прав доступа!</string>
-    <string name="choosefiles">Выберите файлы</string>
     <string name="copiedtoclipboard">Скопировано в буфер обмена.</string>
     <string name="copy">Копировать</string>
     <string name="copyfail">Копирование не удалось!</string>
@@ -51,10 +48,7 @@
     <string name="fileexists">Файл с таким именем уже существует!</string>
     <string name="files">" файлов"</string>
     <string name="filewasrenamed">Файл переименован.</string>
-    <string name="fname">Имя:</string>
-    <string name="folders">" папок"</string>
     <string name="foundfiles">Найдено</string>
-    <string name="freespace">Свободно:</string>
     <string name="hiddenfiles">Скрытые файлы</string>
     <string name="image">Изображение</string>
     <string name="itcouldntbefound">Ничего не найдено!</string>
@@ -74,14 +68,11 @@
     <string name="newfile">Создать файл</string>
     <string name="newfolderwasnotcreated">Папка не создана!</string>
     <string name="noapps">Приложения не выбраны!</string>
-    <string name="Numberoffiles">Содержит файлов:</string>
-    <string name="Numberoffolders">Содержит папок:</string>
     <string name="of">" из "</string>
     <string name="ok">OK</string>
     <string name="options">Действия</string>
     <string name="packing">Сжатие в TAR-архив</string>
     <string name="paste">Вставить</string>
-    <string name="pasteintofolder">Вставить в папку</string>
     <string name="permissions">Разрешения</string>
     <string name="playstore">В Google Play Маркет</string>
     <string name="pressbackagaintoquit">Для выхода нажмите ещё раз.</string>
@@ -110,7 +101,6 @@
     <string name="video">Видео</string>
     <string name="viewmode">Вид списка</string>
     <string name="xdaforum">XDA forum</string>
-    <string name="zipfolder">Сжать папку в ZIP-архив</string>
     <string name="zipping">Сжатие в ZIP-архив</string>
 
 </resources>

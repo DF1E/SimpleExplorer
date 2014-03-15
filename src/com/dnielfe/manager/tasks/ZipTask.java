@@ -29,7 +29,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.EventHandler;
+import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.Compress;
 
@@ -41,7 +41,7 @@ public final class ZipTask extends AsyncTask<String, Void, List<String>> {
 
 	private ProgressDialog dialog;
 
-	private String location, zipname;
+	private String zipname;
 
 	public ZipTask(final Activity activity, String name1) {
 		this.activity = new WeakReference<Activity>(activity);
@@ -74,12 +74,10 @@ public final class ZipTask extends AsyncTask<String, Void, List<String>> {
 	protected List<String> doInBackground(String... files) {
 		final List<String> failed = new ArrayList<String>();
 
-		location = EventHandler.getCurrentDir();
-
 		final Compress compress = new Compress(files, zipname);
 
 		try {
-			compress.zip(location);
+			compress.zip(Browser.mCurrentPath);
 		} catch (Exception e) {
 			failed.add(files.toString());
 		}

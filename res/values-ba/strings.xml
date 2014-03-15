@@ -6,7 +6,6 @@
     <string name="appmanager">Menedger aplikacije</string>
     <string name="apps">"Aplikacije"</string>
     <string name="appsdeleted">Aplikacije uklonjene sa SD Kartice</string>
-    <string name="AvaibleSize">Ukupna veli�ina:</string>
     <string name="backedup">" backupirano"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup zavr�en</string>
@@ -14,12 +13,10 @@
     <string name="bookmark">Zabilje�ke</string>
     <string name="bookmarkadded">Zabilje�ka dodana</string>
     <string name="bookmarkexist">Zabilje�ka ve� postoji!</string>
-    <string name="calcinfo">Kalkulacija Informacije</string>
     <string name="cancel">Otka�i</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Ovo ne mo�e biti poni�teno zbog dozvole"</string>
     <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Onemogu�eno �itanje foldera zbog dozvole</string>
-    <string name="choosefiles">Odabir Datoteke!</string>
     <string name="copiedtoclipboard">Kopirano u Prijenosnik</string>
     <string name="copy">Kopiraj</string>
     <string name="copyfail">Kopiranje nije uspjelo!</string>
@@ -51,10 +48,7 @@
     <string name="fileexists">Fajl ve� postoji</string>
     <string name="files">" Fajlovi"</string>
     <string name="filewasrenamed">Fajl preimenovan</string>
-    <string name="fname">Naziv:</string>
-    <string name="folders">" Folderi "</string>
     <string name="foundfiles">Prona�en</string>
-    <string name="freespace">Slobodan prostor:</string>
     <string name="hiddenfiles">Skriveni Fajlovi</string>
     <string name="image">Slika</string>
     <string name="itcouldntbefound">Nije prona�eno</string>
@@ -74,14 +68,11 @@
     <string name="newfile">Novi Fajl</string>
     <string name="newfolderwasnotcreated">Novi Folder nije kreiran</string>
     <string name="noapps">Nijedna aplikacija nije odabrana</string>
-    <string name="Numberoffiles">Broj Fajlova:</string>
-    <string name="Numberoffolders">Broj Foldera:</string>
     <string name="of">" od "</string>
     <string name="ok">OK</string>
     <string name="options">Opcije</string>
     <string name="packing">Pakiranje</string>
     <string name="paste">Zalijepi</string>
-    <string name="pasteintofolder">Zalijepi u Folder</string>
     <string name="permissions">Dozvole</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Pritisni ponovo "natrag" za izlaz</string>
@@ -110,7 +101,6 @@
     <string name="video">Video</string>
     <string name="viewmode">Na�in prikaza</string>
     <string name="xdaforum">XDA Forum</string>
-    <string name="zipfolder">Zip Folder</string>
     <string name="zipping">Pakiranje</string>
 
 </resources>

@@ -6,7 +6,6 @@
     <string name="appmanager">App 管理器</string>
     <string name="apps">" Apps"</string>
     <string name="appsdeleted">從 SD 移除 Apps.</string>
-    <string name="AvaibleSize">全部空間:</string>
     <string name="backedup">" 備份"</string>
     <string name="backup">備份</string>
     <string name="backupcomplete">備份完成.</string>
@@ -14,11 +13,9 @@
     <string name="bookmark">書籤</string>
     <string name="bookmarkadded">書籤新增完成.</string>
     <string name="bookmarkexist">書籤已存在!</string>
-    <string name="calcinfo">資訊計算中</string>
     <string name="cancel">取消</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"無法被還原!"</string>
     <string name="cantreadfolder">權限限制而無法讀取資料夾.</string>
-    <string name="choosefiles">選擇檔案</string>
     <string name="copiedtoclipboard">複製至剪貼簿.</string>
     <string name="copy">複製</string>
     <string name="copyfail">複製失敗!</string>
@@ -49,10 +46,7 @@
     <string name="fileexists">檔案已存在.</string>
     <string name="files">" 檔案"</string>
     <string name="filewasrenamed">檔案更名完成.</string>
-    <string name="fname">名稱:</string>
-    <string name="folders">" 資料夾 "</string>
     <string name="foundfiles">找到</string>
-    <string name="freespace">可用空間:</string>
     <string name="hiddenfiles">隱藏檔案</string>
     <string name="image">圖檔</string>
     <string name="itcouldntbefound">它無法被發現.</string>
@@ -72,14 +66,11 @@
     <string name="newfile">新檔案</string>
     <string name="newfolderwasnotcreated">無法建立新資料夾.</string>
     <string name="noapps">未選擇 App.</string>
-    <string name="Numberoffiles">檔案數目:</string>
-    <string name="Numberoffolders">資料夾數目:</string>
     <string name="of">" 的 "</string>
     <string name="ok">OK</string>
     <string name="options">選項</string>
     <string name="packing">打包</string>
     <string name="paste">黏貼</string>
-    <string name="pasteintofolder">黏貼至資料夾</string>
     <string name="permissions">權限</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">再按一次返回將離開.</string>
@@ -108,7 +99,6 @@
     <string name="video">影片</string>
     <string name="viewmode">View 模式</string>
     <string name="xdaforum">XDA 論壇</string>
-    <string name="zipfolder">壓縮資料夾</string>
     <string name="zipping">壓縮</string>
 
 </resources>
