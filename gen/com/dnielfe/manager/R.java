@@ -160,6 +160,7 @@ public final class R {
         public static final int LastModified=0x7f080032;
         /**  actionmode 
  actionmode 
+ actionmode 
          */
         public static final int _files=0x7f08006a;
         public static final int _selected=0x7f08006b;
@@ -225,6 +226,7 @@ public final class R {
         public static final int loading=0x7f080034;
         /**  directory info dialog 
  directory info dialog 
+ directory info dialog 
          */
         public static final int location=0x7f08006c;
         public static final int manage=0x7f080035;
@@ -247,6 +249,7 @@ public final class R {
         public static final int options=0x7f080044;
         public static final int others=0x7f080065;
         /**  permissions 
+ permissions 
  permissions 
          */
         public static final int owner=0x7f080063;

@@ -37,7 +37,7 @@
     <string name="dir_info">文件夹信息</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="empty">空文件夹</string>
+    <string name="empty">空</string>
     <string name="error">错误</string>
     <string name="exit">退出</string>
     <string name="extractto">解压到</string>
