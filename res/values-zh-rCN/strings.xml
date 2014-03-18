@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Simple Explorer</string>
+    <string name="advancedsettings">高级</string>
+    <string name="appmanager">App 管理器</string>
+    <string name="apps">" Apps"</string>
+    <string name="backedup">" 备份"</string>
+    <string name="backup">备份</string>
+    <string name="backupcomplete">备份完成.</string>
+    <string name="backuperror">无法备份.</string>
+    <string name="bookmark">书签</string>
+    <string name="bookmarkadded">添加书签成功.</string>
+    <string name="bookmarkexist">书签已存在!</string>
+    <string name="cancel">取消</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">"无法还原!"</string>
+    <string name="cantopenfile">无法打开这个文件</string>
+    <string name="cantreadfolder">无权限读取该文件夹</string>
+    <string name="copiedtoclipboard">复制到剪切板.</string>
+    <string name="copy">复制</string>
+    <string name="copyfail">复制失败!</string>
+    <string name="copying">复制中</string>
+    <string name="copysuccsess">复制成功.</string>
+    <string name="create">新建</string>
+    <string name="createbookmark">新建书签</string>
+    <string name="created">" 新建完成."</string>
+    <string name="createmsg">名称第一个字符为小数点可以隐藏该文件夹.</string>
+    <string name="createnewfolder">新建文件夹</string>
+    <string name="defaultdir">默认目录</string>
+    <string name="delete">删除</string>
+    <string name="deleteapps">删除 Apps</string>
+    <string name="deletesuccess">删除成功</string>
+    <string name="deleting">删除中</string>
+    <string name="desc">其它</string>
+    <string name="detailed">详细</string>
+    <string name="details">详细</string>
+    <string name="dir_info">文件夹信息</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="empty">空</string>
+    <string name="error">错误</string>
+    <string name="exit">退出</string>
+    <string name="extractto">解压到</string>
+    <string name="file">文件</string>
+    <string name="filecreated">文件创建完成.</string>
+    <string name="fileexists">文件已经存在.</string>
+    <string name="files">" 文件"</string>
+    <string name="filewasrenamed">文件重命名完成.</string>
+    <string name="foundfiles">找到</string>
+    <string name="hiddenfiles">隐藏文件</string>
+    <string name="image">图像</string>
+    <string name="itcouldntbefound">无法找到.</string>
+    <string name="LastModified">最后修改:</string>
+    <string name="launch">开展</string>
+    <string name="loading">载入</string>
+    <string name="manage">管理</string>
+    <string name="md5">MD5:</string>
+    <string name="move">移动</string>
+    <string name="movefail">移动失败.</string>
+    <string name="movesuccsess">移动成功.</string>
+    <string name="moving">移动中</string>
+    <string name="multizip">Zip</string>
+    <string name="music">音乐</string>
+    <string name="name">名称</string>
+    <string name="newd">新文件夹</string>
+    <string name="newfile">新文件</string>
+    <string name="newfolderwasnotcreated">无法新建文件.</string>
+    <string name="noapps">未选择 Apps.</string>
+    <string name="of">" 的 "</string>
+    <string name="ok">确定</string>
+    <string name="options">选项</string>
+    <string name="packing">打包</string>
+    <string name="paste">粘贴</string>
+    <string name="permissions">权限</string>
+    <string name="playstore">Play Store</string>
+    <string name="pressbackagaintoquit">再按一次返回键退出.</string>
+    <string name="rename">重命名</string>
+    <string name="sdcardnotfound">未发现SD卡!</string>
+    <string name="search">搜索</string>
+    <string name="searchtext">搜索</string>
+    <string name="selectall">全选</string>
+    <string name="settings">设置</string>
+    <string name="share">分享</string>
+    <string name="shortcut">创建快捷方式</string>
+    <string name="shortcutcreated">快捷方式创建完成.</string>
+    <string name="showpreview">缩略图</string>
+    <string name="simple">简单</string>
+    <string name="size">使用:</string>
+    <string name="size1">大小</string>
+    <string name="sort">排序</string>
+    <string name="text">文本</string>
+    <string name="type">类型</string>
+    <string name="uisettings">视图 设置</string>
+    <string name="uninstallapp">卸载 App</string>
+    <string name="unselectall">全部不选</string>
+    <string name="unzipping">解压</string>
+    <string name="version">"版本 "</string>
+    <string name="video">视频</string>
+    <string name="viewmode">视图 模式</string>
+    <string name="xdaforum">XDA 论坛</string>
+    <string name="zipping">压缩</string>
+
+    <!-- permissions -->
+    <string name="owner">Owner:</string>
+    <string name="group">Group:</string>
+    <string name="others">Other:</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="execute">Execute</string>
+    <string name="permissionschanged">Permissions changed</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file(s)</string>
+    <string name="_selected">\u0020selected</string>
+
+    <!-- directory info dialog -->
+    <string name="location">位置:</string>
+    <string name="total">总空间:</string>
+    <string name="free">空闲空间:</string>
+    <string name="available">可用空间:</string>
+    <string name="block_size">块大小:</string>
+    <string name="used">已使用:</string>
+
+</resources>
