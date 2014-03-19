@@ -235,6 +235,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int LastModified=0x7f080032;
         /**  actionmode 
  actionmode 
+ actionmode 
+ actionmode 
          */
         public static final int _files=0x7f08006d;
         public static final int _selected=0x7f08006e;
@@ -298,6 +300,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int loading=0x7f080034;
         /**  directory info dialog 
  directory info dialog 
+ directory info dialog 
+ directory info dialog 
          */
         public static final int location=0x7f08006f;
         public static final int manage=0x7f080035;
@@ -319,6 +323,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int options=0x7f080044;
         public static final int others=0x7f080068;
         /**  permissions 
+ permissions 
+ permissions 
  permissions 
          */
         public static final int owner=0x7f080066;

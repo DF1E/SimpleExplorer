@@ -100,6 +100,10 @@ public final class DeleteTask extends AsyncTask<String, Void, List<String>> {
 		}
 
 		final Activity activity = this.activity.get();
+
+		Toast.makeText(activity, activity.getString(R.string.deletesuccess),
+				Toast.LENGTH_SHORT).show();
+
 		if (activity != null && !failed.isEmpty()) {
 			Toast.makeText(activity, activity.getString(R.string.cantopenfile),
 					Toast.LENGTH_SHORT).show();
