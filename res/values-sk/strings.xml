@@ -4,7 +4,7 @@
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Pokročilé</string>
     <string name="appmanager">Správca aplikácií</string>
-    <string name="apps">" apl."</string>
+    <string name="apps">" aplik."</string>
     <string name="appsdeleted">Aplikácie boli odstránené z karty SD.</string>
     <string name="backedup">" záloh."</string>
     <string name="backup">Zálohovať</string>
@@ -14,7 +14,7 @@
     <string name="bookmarkadded">Záložka bola pridaná.</string>
     <string name="bookmarkexist">Záložka už existuje!</string>
     <string name="cancel">Zrušiť</string>
-    <string name="cannotbeundoneareyousureyouwanttodelete">"Túto akciu nie je možné vrátiť!"</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">Túto akciu nie je možné vrátiť!</string>
     <string name="cantopenfile">Nemožno otvoriť tento priečinok</string>
     <string name="cantreadfolder">Nemožno čítať priečinok kvôli oprávneniam.</string>
     <string name="copiedtoclipboard">Skopírované do schránky.</string>
@@ -30,7 +30,7 @@
     <string name="defaultdir">Predvolený adresár</string>
     <string name="delete">Vymazať</string>
     <string name="deleteapps">Vymazať aplikácie</string>
-    <string name="deleteappsmsg">Uložené aplikácie budú odstránené z karty SD!</string>
+    <string name="deletesuccess">Úspešne vymazané</string>
     <string name="deleting">Vymazávanie</string>
     <string name="desc">Popis</string>
     <string name="detailed">Podrobný</string>
@@ -38,6 +38,7 @@
     <string name="dir_info">Informácie o priečinku</string>
     <string name="drawer_open">Otvoriť navigačnú ponuku</string>
     <string name="drawer_close">Zatvoriť navigačnú ponuku</string>
+    <string name="empty">Prázdne</string>
     <string name="error">Chyba</string>
     <string name="exit">Ukončiť</string>
     <string name="extract">Rozbaliť</string>
@@ -88,7 +89,6 @@
     <string name="shortcutcreated">Skratka bola vytvorená.</string>
     <string name="showpreview">Náhľady</string>
     <string name="simple">Jednoduchý</string>
-    <string name="size">Použité:</string>
     <string name="size1">Veľkosť</string>
     <string name="sort">Zoradiť</string>
     <string name="text">Text</string>
@@ -103,5 +103,26 @@
     <string name="viewmode">Režim zobrazenia</string>
     <string name="xdaforum">Fórum XDA</string>
     <string name="zipping">Balenie</string>
+    
+    <!-- permissions -->
+    <string name="owner">Vlastník:</string>
+    <string name="group">Spupina:</string>
+    <string name="others">Ostatní:</string>
+    <string name="read">Čítanie</string>
+    <string name="write">Zápis</string>
+    <string name="execute">Spustenie</string>
+    <string name="permissionschanged">Oprávnenia boli zmenené</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020súb.</string>
+    <string name="_selected">\u0020vybran.</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Umiestnenie:</string>
+    <string name="total">Celková veľkosť:</string>
+    <string name="free">Voľné miesto:</string>
+    <string name="available">Dostupné mesto:</string>
+    <string name="block_size">Veľkosť bloku:</string>
+    <string name="used">Využité:</string>
 
 </resources>
