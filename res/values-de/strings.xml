@@ -5,7 +5,6 @@
     <string name="advancedsettings">Erweitert</string>
     <string name="appmanager">App Manager</string>
     <string name="apps">" Apps"</string>
-    <string name="appsdeleted">Apps von der SD Karte gelöscht</string>
     <string name="backedup">" gespeichert"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup abgeschlossen</string>
@@ -59,7 +58,6 @@
     <string name="movefail">Verschieben fehlgeschlagen</string>
     <string name="movesuccsess">Verschieben erfolgreich</string>
     <string name="moving">Verschiebe</string>
-    <string name="multis">Mehrfach-Auswahl</string>
     <string name="multizip">Verpacken</string>
     <string name="music">Musik</string>
     <string name="name">Name</string>
@@ -100,6 +98,11 @@
     <string name="viewmode">Ansichtsmodus</string>
     <string name="xdaforum">XDA Forum</string>
     <string name="zipping">Verpacken</string>
+
+    <!-- theme -->
+    <string name="theme">Theme</string>
+    <string name="light">Hell</string>
+    <string name="dark">Dunkel</string>
 
     <!-- permissions -->
     <string name="owner">Besitzer:</string>

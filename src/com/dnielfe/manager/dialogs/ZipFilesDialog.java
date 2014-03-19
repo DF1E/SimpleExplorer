@@ -20,7 +20,6 @@
 package com.dnielfe.manager.dialogs;
 
 import java.io.File;
-
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.tasks.ZipFolderTask;
@@ -60,9 +59,7 @@ public final class ZipFilesDialog extends DialogFragment {
 
 		b.setTitle(getString(R.string.packing) + " (" + String.valueOf(size)
 				+ ")");
-
 		b.setView(inputf);
-
 		b.setPositiveButton(getString(R.string.ok),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
@@ -76,6 +73,11 @@ public final class ZipFilesDialog extends DialogFragment {
 								task.executeOnExecutor(
 										AsyncTask.THREAD_POOL_EXECUTOR,
 										files[0]);
+							} else {
+								dialog.dismiss();
+								final ZipTask task = new ZipTask(a, newpath);
+								task.executeOnExecutor(
+										AsyncTask.THREAD_POOL_EXECUTOR, files);
 							}
 						} else {
 							dialog.dismiss();
@@ -83,7 +85,6 @@ public final class ZipFilesDialog extends DialogFragment {
 							task.executeOnExecutor(
 									AsyncTask.THREAD_POOL_EXECUTOR, files);
 						}
-
 					}
 				});
 		b.setNegativeButton(R.string.cancel,

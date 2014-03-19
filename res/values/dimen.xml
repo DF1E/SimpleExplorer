@@ -5,6 +5,9 @@
     <dimen name="item_height">54dp</dimen>
 
     <!-- Navigation drawer width -->
-    <dimen name="drawer_width">230dp</dimen>
+    <dimen name="drawer_width">220dp</dimen>
+
+    <!-- Actionbar height -->
+    <dimen name="actionbar_height">48dp</dimen>
 
 </resources>

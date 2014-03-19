@@ -2,6 +2,8 @@
 <resources>
 
     <color name="gray">#aaa</color>
-    <color name="light">#F0F0F0</color>
+    <color name="holo_light_window_background">#F0F0F0</color>
+    <color name="holo_dark_window_background">#353535</color>
+    <color name="holo_dark_actionbar_background">#262626</color>
 
 </resources>

@@ -2,7 +2,7 @@
 
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/search"
+        android:icon="?attr/action_search"
         android:showAsAction="always"
         android:title="@string/search"/>
 

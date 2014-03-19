@@ -19,6 +19,8 @@
 
 package com.dnielfe.manager.adapters;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.dnielfe.manager.R;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -32,7 +34,7 @@ public class DrawerListAdapter extends BaseAdapter {
 	private String[] mTitle;
 	private LayoutInflater inflater;
 
-	public DrawerListAdapter(Context context, String[] pTitle) {
+	public DrawerListAdapter(@NotNull final Context context, String[] pTitle) {
 		mContext = context;
 		mTitle = pTitle;
 	}

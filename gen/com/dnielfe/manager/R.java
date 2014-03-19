@@ -9,19 +9,82 @@ package com.dnielfe.manager;
 
 public final class R {
     public static final class array {
+        public static final int appearance_types_values=0x7f050006;
         public static final int drawerTitles_array=0x7f050004;
         public static final int sortentries=0x7f050000;
         public static final int sortvalues=0x7f050001;
+        public static final int themes=0x7f050005;
         public static final int viewentries=0x7f050002;
         public static final int viewvalues=0x7f050003;
     }
     public static final class attr {
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int action_bookmark=0x7f010005;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int action_copy=0x7f010000;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int action_create=0x7f010009;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int action_cut=0x7f010001;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int action_edit=0x7f010002;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int action_info=0x7f010003;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int action_multi=0x7f01000b;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int action_paste=0x7f010004;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int action_remove=0x7f010006;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int action_search=0x7f010007;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int action_share=0x7f010008;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int action_zip=0x7f01000a;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int ic_bookmark=0x7f01000c;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int ic_drawer=0x7f01000d;
     }
     public static final class color {
         public static final int gray=0x7f060000;
-        public static final int light=0x7f060001;
+        public static final int holo_dark_actionbar_background=0x7f060003;
+        public static final int holo_dark_window_background=0x7f060002;
+        public static final int holo_light_window_background=0x7f060001;
     }
     public static final class dimen {
+        /**  Actionbar height 
+         */
+        public static final int actionbar_height=0x7f070002;
         /**  Navigation drawer width 
          */
         public static final int drawer_width=0x7f070001;
@@ -34,39 +97,51 @@ public final class R {
         public static final int appicon=0x7f020001;
         public static final int appmanager=0x7f020002;
         public static final int blanc=0x7f020003;
-        public static final int bookmark=0x7f020004;
-        public static final int config=0x7f020005;
-        public static final int copy=0x7f020006;
-        public static final int create=0x7f020007;
-        public static final int delete=0x7f020008;
-        public static final int drawer_shadow=0x7f020009;
-        public static final int edit=0x7f02000a;
-        public static final int folder=0x7f02000b;
-        public static final int folder_full=0x7f02000c;
-        public static final int html=0x7f02000d;
-        public static final int ic_drawer=0x7f02000e;
-        public static final int ic_launcher=0x7f02000f;
-        public static final int image=0x7f020010;
-        public static final int info=0x7f020011;
-        public static final int jar32=0x7f020012;
-        public static final int listmore=0x7f020013;
-        public static final int move=0x7f020014;
-        public static final int movies=0x7f020015;
-        public static final int multi=0x7f020016;
-        public static final int music=0x7f020017;
-        public static final int pdf=0x7f020018;
-        public static final int ppt=0x7f020019;
-        public static final int rar=0x7f02001a;
-        public static final int search=0x7f02001b;
-        public static final int share=0x7f02001c;
-        public static final int tab_indicator_holo=0x7f02001d;
-        public static final int tab_selected_holo=0x7f02001e;
-        public static final int tab_unselected_holo=0x7f02001f;
-        public static final int tar=0x7f020020;
-        public static final int text1=0x7f020021;
-        public static final int xml32=0x7f020022;
-        public static final int zip=0x7f020023;
-        public static final int zipfile=0x7f020024;
+        public static final int config=0x7f020004;
+        public static final int drawer_shadow=0x7f020005;
+        public static final int folder=0x7f020006;
+        public static final int folder_full=0x7f020007;
+        public static final int holo_dark_action_copy=0x7f020008;
+        public static final int holo_dark_action_cut=0x7f020009;
+        public static final int holo_dark_action_edit=0x7f02000a;
+        public static final int holo_dark_action_info=0x7f02000b;
+        public static final int holo_dark_action_remove=0x7f02000c;
+        public static final int holo_dark_action_search=0x7f02000d;
+        public static final int holo_dark_action_share=0x7f02000e;
+        public static final int holo_dark_ic_action_new=0x7f02000f;
+        public static final int holo_dark_ic_action_select_all=0x7f020010;
+        public static final int holo_dark_ic_bookmark=0x7f020011;
+        public static final int holo_dark_ic_drawer=0x7f020012;
+        public static final int holo_dark_ic_storage=0x7f020013;
+        public static final int holo_light_action_copy=0x7f020014;
+        public static final int holo_light_action_cut=0x7f020015;
+        public static final int holo_light_action_edit=0x7f020016;
+        public static final int holo_light_action_info=0x7f020017;
+        public static final int holo_light_action_remove=0x7f020018;
+        public static final int holo_light_action_search=0x7f020019;
+        public static final int holo_light_action_share=0x7f02001a;
+        public static final int holo_light_ic_action_new=0x7f02001b;
+        public static final int holo_light_ic_action_select_all=0x7f02001c;
+        public static final int holo_light_ic_bookmark=0x7f02001d;
+        public static final int holo_light_ic_drawer=0x7f02001e;
+        public static final int holo_light_ic_storage=0x7f02001f;
+        public static final int html=0x7f020020;
+        public static final int ic_launcher=0x7f020021;
+        public static final int image=0x7f020022;
+        public static final int jar32=0x7f020023;
+        public static final int listmore=0x7f020024;
+        public static final int movies=0x7f020025;
+        public static final int music=0x7f020026;
+        public static final int pdf=0x7f020027;
+        public static final int ppt=0x7f020028;
+        public static final int rar=0x7f020029;
+        public static final int tab_indicator_holo=0x7f02002a;
+        public static final int tab_selected_holo=0x7f02002b;
+        public static final int tab_unselected_holo=0x7f02002c;
+        public static final int tar=0x7f02002d;
+        public static final int text1=0x7f02002e;
+        public static final int xml32=0x7f02002f;
+        public static final int zip=0x7f020030;
     }
     public static final class id {
         public static final int action_search=0x7f0b0041;
@@ -161,19 +236,18 @@ public final class R {
         /**  actionmode 
  actionmode 
          */
-        public static final int _files=0x7f08006a;
-        public static final int _selected=0x7f08006b;
+        public static final int _files=0x7f08006d;
+        public static final int _selected=0x7f08006e;
         public static final int advancedsettings=0x7f080002;
         public static final int app_name=0x7f080001;
         public static final int appmanager=0x7f080003;
         public static final int apps=0x7f080004;
-        public static final int appsdeleted=0x7f080072;
-        public static final int available=0x7f08006f;
+        public static final int available=0x7f080072;
         public static final int backedup=0x7f080005;
         public static final int backup=0x7f080006;
         public static final int backupcomplete=0x7f080007;
         public static final int backuperror=0x7f080008;
-        public static final int block_size=0x7f080070;
+        public static final int block_size=0x7f080073;
         public static final int bookmark=0x7f080009;
         public static final int bookmarkadded=0x7f08000a;
         public static final int bookmarkexist=0x7f08000b;
@@ -191,10 +265,10 @@ public final class R {
         public static final int created=0x7f080017;
         public static final int createmsg=0x7f080018;
         public static final int createnewfolder=0x7f080019;
+        public static final int dark=0x7f080065;
         public static final int defaultdir=0x7f08001a;
         public static final int delete=0x7f08001b;
         public static final int deleteapps=0x7f08001c;
-        public static final int deleteappsmsg=0x7f080073;
         public static final int deletesuccess=0x7f08001d;
         public static final int deleting=0x7f08001e;
         public static final int desc=0x7f08001f;
@@ -205,28 +279,27 @@ public final class R {
         public static final int drawer_open=0x7f080023;
         public static final int empty=0x7f080025;
         public static final int error=0x7f080026;
-        public static final int execute=0x7f080068;
+        public static final int execute=0x7f08006b;
         public static final int exit=0x7f080027;
-        public static final int extract=0x7f080074;
         public static final int extractto=0x7f080028;
-        public static final int fdirectory=0x7f080075;
         public static final int file=0x7f080029;
         public static final int filecreated=0x7f08002a;
         public static final int fileexists=0x7f08002b;
         public static final int files=0x7f08002c;
         public static final int filewasrenamed=0x7f08002d;
         public static final int foundfiles=0x7f08002e;
-        public static final int free=0x7f08006e;
-        public static final int group=0x7f080064;
+        public static final int free=0x7f080071;
+        public static final int group=0x7f080067;
         public static final int hiddenfiles=0x7f08002f;
         public static final int image=0x7f080030;
         public static final int itcouldntbefound=0x7f080031;
         public static final int launch=0x7f080033;
+        public static final int light=0x7f080064;
         public static final int loading=0x7f080034;
         /**  directory info dialog 
  directory info dialog 
          */
-        public static final int location=0x7f08006c;
+        public static final int location=0x7f08006f;
         public static final int manage=0x7f080035;
         public static final int md5=0x7f080036;
         public static final int minus=0x7f080000;
@@ -234,7 +307,6 @@ public final class R {
         public static final int movefail=0x7f080038;
         public static final int movesuccsess=0x7f080039;
         public static final int moving=0x7f08003a;
-        public static final int multis=0x7f080076;
         public static final int multizip=0x7f08003b;
         public static final int music=0x7f08003c;
         public static final int name=0x7f08003d;
@@ -245,18 +317,18 @@ public final class R {
         public static final int of=0x7f080042;
         public static final int ok=0x7f080043;
         public static final int options=0x7f080044;
-        public static final int others=0x7f080065;
+        public static final int others=0x7f080068;
         /**  permissions 
  permissions 
          */
-        public static final int owner=0x7f080063;
+        public static final int owner=0x7f080066;
         public static final int packing=0x7f080045;
         public static final int paste=0x7f080046;
         public static final int permissions=0x7f080047;
-        public static final int permissionschanged=0x7f080069;
+        public static final int permissionschanged=0x7f08006c;
         public static final int playstore=0x7f080048;
         public static final int pressbackagaintoquit=0x7f080049;
-        public static final int read=0x7f080066;
+        public static final int read=0x7f080069;
         public static final int rename=0x7f08004a;
         public static final int sdcardnotfound=0x7f08004b;
         public static final int search=0x7f08004c;
@@ -272,22 +344,28 @@ public final class R {
         public static final int size1=0x7f080056;
         public static final int sort=0x7f080057;
         public static final int text=0x7f080058;
-        public static final int total=0x7f08006d;
+        /**  theme 
+ theme 
+         */
+        public static final int theme=0x7f080063;
+        public static final int total=0x7f080070;
         public static final int type=0x7f080059;
         public static final int uisettings=0x7f08005a;
         public static final int uninstallapp=0x7f08005b;
         public static final int unselectall=0x7f08005c;
         public static final int unzipping=0x7f08005d;
-        public static final int used=0x7f080071;
+        public static final int used=0x7f080074;
         public static final int version=0x7f08005e;
         public static final int video=0x7f08005f;
         public static final int viewmode=0x7f080060;
-        public static final int write=0x7f080067;
+        public static final int write=0x7f08006a;
         public static final int xdaforum=0x7f080061;
         public static final int zipping=0x7f080062;
     }
     public static final class style {
-        public static final int AppBaseTheme=0x7f090000;
+        public static final int ThemeDark=0x7f090001;
+        public static final int ThemeLight=0x7f090000;
+        public static final int actionBarStyleDark=0x7f090002;
     }
     public static final class xml {
         public static final int preferences=0x7f040000;

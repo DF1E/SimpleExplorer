@@ -5,7 +5,6 @@
     <string name="advancedsettings">Zaawansowane</string>
     <string name="appmanager">Menedżer aplikacji</string>
     <string name="apps">" Aplikacje"</string>
-    <string name="appsdeleted">Aplikacje usunięte z karty SD</string>
     <string name="backedup">" zarchwizowane"</string>
     <string name="backup">Zarchiwizuj</string>
     <string name="backupcomplete">Tworzenie kopii danych zakończone</string>
@@ -30,7 +29,6 @@
     <string name="defaultdir">Domyślny katalog</string>
     <string name="delete">Usuń</string>
     <string name="deleteapps">Usuń aplikacje</string>
-    <string name="deleteappsmsg">Zapisane aplikacje zostaną usunięte z karty SD!</string>
     <string name="deleting">Usuwanie</string>
     <string name="desc">opis</string>
     <string name="detailed">Szczegółowy</string>
@@ -40,9 +38,7 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="error">Błąd</string>
     <string name="exit">Exit</string>
-    <string name="extract">Wypakuj</string>
     <string name="extractto">Wypakuj do</string>
-    <string name="fdirectory">Ścieżka:</string>
     <string name="file">Plik</string>
     <string name="filecreated">Plik został utworzony</string>
     <string name="fileexists">Taki plik już istnieje</string>
@@ -60,7 +56,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">przeniesiono pomyślnie</string>
     <string name="moving">Przenoszenie</string>
-    <string name="multis">Wielokrotny wybór</string>
     <string name="multizip">Spakuj</string>
     <string name="music">Muzyka</string>
     <string name="name">Nazwa</string>

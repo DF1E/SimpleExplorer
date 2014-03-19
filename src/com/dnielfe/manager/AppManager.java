@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Simple Explorer
+ * Copyright (C) 2014 Simple Explorer
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -34,6 +34,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.io.FileUtils;
 
 import com.dnielfe.manager.dialogs.DeleteFilesDialog;
+import com.dnielfe.manager.settings.Settings;
 
 import android.app.ActionBar;
 import android.app.DialogFragment;
@@ -120,6 +121,8 @@ public class AppManager extends ListActivity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		initTheme();
+
 		setContentView(R.layout.appmanager);
 
 		initializeDrawbale();
@@ -175,6 +178,16 @@ public class AppManager extends ListActivity {
 				}
 			}
 		}.execute();
+	}
+
+	// TODO fix on resume
+	private void initTheme() {
+		String theme = Settings.mTheme;
+
+		int theme1 = theme.compareTo("light") == 0 ? R.style.ThemeLight
+				: R.style.ThemeDark;
+
+		setTheme(theme1);
 	}
 
 	@Override

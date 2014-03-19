@@ -5,7 +5,6 @@
     <string name="advancedsettings">Geavanceerd</string>
     <string name="appmanager">App beheer</string>
     <string name="apps">" Apps"</string>
-    <string name="appsdeleted">Apps verwijderd van SD kaart</string>
     <string name="backedup">" gebackupt"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup compleet</string>
@@ -30,7 +29,6 @@
     <string name="defaultdir">Standaardlocatie</string>
     <string name="delete">Verwijderen</string>
     <string name="deleteapps">Verwijder Apps</string>
-    <string name="deleteappsmsg">De op de SD kaart opgeslagen apps zullen verwijderd worden!</string>
     <string name="deleting">Bezig met verwijderen</string>
     <string name="desc">desc</string>
     <string name="detailed">Gedetailleerd</string>
@@ -40,9 +38,7 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="error">Fout</string>
     <string name="exit">Exit</string>
-    <string name="extract">Uitpakken</string>
     <string name="extractto">Uitpakken naar</string>
-    <string name="fdirectory">Locatie:</string>
     <string name="file">Bestand</string>
     <string name="filecreated">Bestand is aangemaakt</string>
     <string name="fileexists">Bestand bestaat al</string>
@@ -60,7 +56,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">succesvol verplaatst</string>
     <string name="moving">Bezig met verplaatsen</string>
-    <string name="multis">Multiselectie</string>
     <string name="multizip">Zip</string>
     <string name="music">Muziek</string>
     <string name="name">Naam</string>

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.jetbrains.annotations.NotNull;
 
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
@@ -51,7 +52,8 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 	private DrawableLruCache<Integer> mDrawableLruCache;
 	private DrawableLruCache<String> mMimeTypeIconCache;
 
-	public BrowserListAdapter(Context context, ArrayList<String> data) {
+	public BrowserListAdapter(@NotNull final Context context,
+			ArrayList<String> data) {
 		super(context, R.layout.item, data);
 
 		this.mContext = context;

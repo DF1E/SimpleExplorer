@@ -34,6 +34,8 @@ import com.dnielfe.manager.fileobserver.MultiFileObserver;
 import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.settings.SettingsActivity;
 import com.dnielfe.manager.tasks.PasteTask;
+import com.dnielfe.manager.utils.ActionBarNavigation;
+import com.dnielfe.manager.utils.ActionBarNavigation.OnNavigateListener;
 import com.dnielfe.manager.utils.Bookmarks;
 import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
@@ -41,7 +43,6 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -57,7 +58,6 @@ import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -67,41 +67,36 @@ import android.view.MenuItem;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Button;
 import android.widget.Toast;
 
 public final class Browser extends ListActivity implements
-		MultiFileObserver.OnEventListener {
+		MultiFileObserver.OnEventListener, OnNavigateListener {
 
 	public static final String ACTION_WIDGET = "com.dnielfe.manager.Main.ACTION_WIDGET";
 	public static final String EXTRA_SHORTCUT = "shortcut_path";
 
-	public static final String PREF_DIR = "defaultdir";
-
-	private static final int directorytextsize = 16;
-
 	private ActionModeController mActionController;
 	private static Handler sHandler;
 	private MultiFileObserver mObserver;
+	private static ActionBarNavigation mNavigation;
 	private FileObserverCache mObserverCache;
 	private Runnable mLastRunnable;
 
-	private static BrowserListAdapter mTable;
+	private static BrowserListAdapter mListAdapter;
 
 	private boolean mReturnIntent = false;
 	private boolean mUseBackKey = true;
 
 	private static String[] drawerTitles;
 	public static ArrayList<String> mDataSource;
-
-	private String defaultdir;
 	public static String mCurrentPath;
+
+	private int mCurrentTheme;
+	private String defaultdir;
 	private View mActionView;
-	private LinearLayout mDirectoryButtons, mDrawer;
+	private LinearLayout mDrawer;
 	private MenuItem mMenuItemPaste;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -112,6 +107,10 @@ public final class Browser extends ListActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Settings.updatePreferences(this);
+
+		initTheme();
+
 		setContentView(R.layout.home);
 
 		init();
@@ -158,6 +157,8 @@ public final class Browser extends ListActivity implements
 
 		// refresh directory
 		updateDirectory(setDirectory(mCurrentPath));
+
+		initTheme();
 	}
 
 	@Override
@@ -167,14 +168,13 @@ public final class Browser extends ListActivity implements
 	}
 
 	private void init() {
-		Settings.updatePreferences(this);
-
 		mDataSource = new ArrayList<String>();
 
 		// new ArrayAdapter
-		mTable = new BrowserListAdapter(this, mDataSource);
+		mListAdapter = new BrowserListAdapter(this, mDataSource);
 
 		mObserverCache = FileObserverCache.getInstance();
+		mNavigation = new ActionBarNavigation(this);
 
 		this.mActionController = new ActionModeController(this);
 
@@ -189,13 +189,10 @@ public final class Browser extends ListActivity implements
 
 		// get ListView
 		mListView = getListView();
+		mListView.setAdapter(mListAdapter);
+		mListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
 
 		mActionController.setListView(mListView);
-
-		// Set ListAdapters
-		mListView.setAdapter(mTable);
-
-		mListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
 	}
 
 	private void navigateTo(String path) {
@@ -217,13 +214,17 @@ public final class Browser extends ListActivity implements
 		mObserver.addOnEventListener(this);
 		mObserver.startWatching();
 
+		// add listener for navigation view in ActionBar
+		mNavigation.addonNavigateListener(this);
+		mNavigation.setDirectoryButtons(path);
+
 		// go to the top of the ListView
 		mListView.setSelection(0);
-
-		setDirectoryButtons();
 	}
 
 	private void setupDrawer() {
+		final String themeId = Settings.mTheme;
+
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.drawer_list);
 		mDrawer = (LinearLayout) findViewById(R.id.left_drawer);
@@ -256,8 +257,11 @@ public final class Browser extends ListActivity implements
 		mActionBar.show();
 
 		// Add Navigation Drawer to ActionBar
-		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-				R.drawable.ic_drawer, R.string.drawer_open,
+		mDrawerToggle = new ActionBarDrawerToggle(
+				this,
+				mDrawerLayout,
+				themeId.contentEquals("light") ? R.drawable.holo_light_ic_drawer
+						: R.drawable.holo_dark_ic_drawer, R.string.drawer_open,
 				R.string.drawer_close) {
 
 			@Override
@@ -282,7 +286,6 @@ public final class Browser extends ListActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-
 				selectItem(position);
 			}
 		});
@@ -353,14 +356,21 @@ public final class Browser extends ListActivity implements
 		case FileObserver.CLOSE_WRITE:
 		case FileObserver.MODIFY:
 		case FileObserver.MOVE_SELF:
+		case FileObserver.MOVED_TO:
+		case FileObserver.MOVED_FROM:
 		case FileObserver.ATTRIB:
 		case FileObserver.DELETE:
 		case FileObserver.DELETE_SELF:
-		case FileObserver.MOVED_TO:
 			sHandler.removeCallbacks(mLastRunnable);
 			sHandler.post(mLastRunnable = new NavigateRunnable(mCurrentPath));
 			break;
 		}
+	}
+
+	@Override
+	public void onNavigate(String path) {
+		// navigate to path when ActionBarNavigation button is clicked
+		navigateTo(path);
 	}
 
 	private void SearchIntent(Intent intent) {
@@ -370,93 +380,13 @@ public final class Browser extends ListActivity implements
 			String query = intent.getStringExtra(SearchManager.QUERY);
 
 			if (query.length() > 0) {
-				// start search in background
-				new SearchTask().execute(query);
-				// TODO move SearchTask() to tasks package
+				// open a new class
+				Intent intent1 = new Intent(Browser.this, SearchActivity.class);
+				intent1.putExtra("current", mCurrentPath);
+				intent1.putExtra("query", query);
+				startActivity(intent1);
 			}
 		}
-	}
-
-	// set directory buttons showing path
-	private void setDirectoryButtons() {
-		File currentDirectory = new File(mCurrentPath);
-
-		HorizontalScrollView scrolltext = (HorizontalScrollView) findViewById(R.id.scroll_text);
-		mDirectoryButtons = (LinearLayout) findViewById(R.id.directory_buttons);
-		mDirectoryButtons.removeAllViews();
-
-		String[] parts = currentDirectory.getAbsolutePath().split("/");
-
-		int WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT;
-		int MATCH_PARENT = FrameLayout.LayoutParams.MATCH_PARENT;
-
-		// Add home button separately
-		Button bt = new Button(this, null, android.R.attr.borderlessButtonStyle);
-		bt.setText("/");
-		bt.setTextSize(directorytextsize);
-		bt.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT,
-				WRAP_CONTENT, Gravity.CENTER_VERTICAL));
-		bt.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				navigateTo("/");
-			}
-		});
-
-		mDirectoryButtons.addView(bt);
-
-		// Add other buttons
-		String dir = "";
-
-		for (int i = 1; i < parts.length; i++) {
-			dir += "/" + parts[i];
-
-			FrameLayout fv1 = new FrameLayout(this);
-			fv1.setBackground(getResources().getDrawable(R.drawable.listmore));
-			fv1.setLayoutParams(new FrameLayout.LayoutParams(WRAP_CONTENT,
-					MATCH_PARENT, Gravity.CENTER_VERTICAL));
-
-			Button b = new Button(this, null,
-					android.R.attr.borderlessButtonStyle);
-			b.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT,
-					WRAP_CONTENT, Gravity.CENTER_VERTICAL));
-			b.setText(parts[i]);
-			b.setTextSize(directorytextsize);
-			b.setTag(dir);
-			b.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View view) {
-					String dir1 = (String) view.getTag();
-					navigateTo(dir1);
-				}
-			});
-
-			b.setOnLongClickListener(new View.OnLongClickListener() {
-				public boolean onLongClick(View view) {
-					String dir1 = (String) view.getTag();
-					savetoclip(dir1);
-					return true;
-				}
-			});
-
-			mDirectoryButtons.addView(fv1);
-			mDirectoryButtons.addView(b);
-			scrolltext.postDelayed(new Runnable() {
-				public void run() {
-					HorizontalScrollView hv = (HorizontalScrollView) findViewById(R.id.scroll_text);
-					hv.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
-				}
-			}, 100L);
-		}
-	}
-
-	// save current string in ClipBoard
-	private void savetoclip(String dir1) {
-		android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-		android.content.ClipData clip = android.content.ClipData.newPlainText(
-				"Copied Text", dir1);
-		clipboard.setPrimaryClip(clip);
-		Toast.makeText(this,
-				"'" + dir1 + "' " + getString(R.string.copiedtoclipboard),
-				Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -536,11 +466,7 @@ public final class Browser extends ListActivity implements
 			pid.show(getFragmentManager(), "dialog");
 			return true;
 		case R.id.search:
-			// TODO optimize
-			Intent intent1 = new Intent(Browser.this, SearchActivity.class);
-			intent1.putExtra("current", mCurrentPath);
-			startActivity(intent1);
-			// this.onSearchRequested();
+			this.onSearchRequested();
 			return true;
 		case R.id.paste:
 			final PasteTask ptc = new PasteTask(this, mCurrentPath);
@@ -552,25 +478,35 @@ public final class Browser extends ListActivity implements
 		}
 	}
 
-	private Cursor getBookmarks() {
-		return getContentResolver()
-				.query(Bookmarks.CONTENT_URI,
-						new String[] { Bookmarks._ID, Bookmarks.NAME,
-								Bookmarks.PATH, }, null, null, null);
+	// TODO fix on resume
+	private void initTheme() {
+		String theme = Settings.mTheme;
+
+		int theme1 = theme.compareTo("light") == 0 ? R.style.ThemeLight
+				: R.style.ThemeDark;
+
+		if (mCurrentTheme != theme1) {
+			mCurrentTheme = theme1;
+			setTheme(theme1);
+		}
 	}
 
-	// Show a Dialog with your bookmarks
 	private void bookmarkDialog() {
 		if (mDrawerLayout.isDrawerOpen(mDrawer))
 			mDrawerLayout.closeDrawer(mDrawer);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-		final Cursor bookmarksCursor = getBookmarks();
+		final Cursor bookmarksCursor = getContentResolver()
+				.query(Bookmarks.CONTENT_URI,
+						new String[] { Bookmarks._ID, Bookmarks.NAME,
+								Bookmarks.PATH, }, null, null, null);
 
 		builder.setTitle(R.string.bookmark);
 		builder.setCursor(bookmarksCursor,
 				new DialogInterface.OnClickListener() {
+
+					@Override
 					public void onClick(DialogInterface dialog, int item) {
 						if (mDrawerLayout.isDrawerOpen(mDrawer))
 							mDrawerLayout.closeDrawer(mDrawer);
@@ -623,69 +559,6 @@ public final class Browser extends ListActivity implements
 		alertmore.show();
 	}
 
-	private class SearchTask extends AsyncTask<String, Void, ArrayList<String>> {
-		public ProgressDialog pr_dialog = null;
-		private String file_name;
-
-		private SearchTask() {
-			if (mDrawerLayout.isDrawerOpen(mDrawer))
-				mDrawerLayout.closeDrawer(mDrawer);
-		}
-
-		// This will show a Dialog while Action is running in Background
-		@Override
-		protected void onPreExecute() {
-			pr_dialog = ProgressDialog.show(Browser.this, "",
-					getString(R.string.search));
-			pr_dialog.setCanceledOnTouchOutside(true);
-		}
-
-		// Background thread here
-		@Override
-		protected ArrayList<String> doInBackground(String... params) {
-			file_name = params[0];
-
-			ArrayList<String> found = SimpleUtils.searchInDirectory(
-					mCurrentPath, file_name);
-			return found;
-		}
-
-		// This is called when the background thread is finished
-		@Override
-		protected void onPostExecute(final ArrayList<String> file) {
-			final CharSequence[] names;
-			int len = file != null ? file.size() : 0;
-
-			pr_dialog.dismiss();
-
-			if (len == 0) {
-				Toast.makeText(Browser.this, R.string.itcouldntbefound,
-						Toast.LENGTH_SHORT).show();
-			} else {
-				names = new CharSequence[len];
-
-				for (int i = 0; i < len; i++) {
-					String entry = file.get(i);
-					names[i] = entry.substring(entry.lastIndexOf("/") + 1,
-							entry.length());
-				}
-
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						Browser.this);
-				builder.setTitle(R.string.foundfiles);
-				builder.setItems(names, new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface dialog, int position) {
-						String path = file.get(position);
-						navigateTo(path.substring(0, path.lastIndexOf("/")));
-					}
-				});
-				AlertDialog dialog = builder.create();
-				dialog.show();
-			}
-		}
-	}
-
 	private static final class NavigateRunnable implements Runnable {
 		private final String target;
 
@@ -699,14 +572,14 @@ public final class Browser extends ListActivity implements
 		}
 	}
 
-	public static void updateDirectory(ArrayList<String> content) {
+	private static void updateDirectory(ArrayList<String> content) {
 		if (!mDataSource.isEmpty())
 			mDataSource.clear();
 
 		for (String data : content)
 			mDataSource.add(data);
 
-		mTable.notifyDataSetChanged();
+		mListAdapter.notifyDataSetChanged();
 	}
 
 	// need it to update from other classes
@@ -714,9 +587,13 @@ public final class Browser extends ListActivity implements
 		updateDirectory(setDirectory(dir));
 	}
 
-	public static ArrayList<String> setDirectory(String path) {
+	private static ArrayList<String> setDirectory(String path) {
 		mCurrentPath = path;
 		return SimpleUtils.listFiles(path);
+	}
+
+	public static ActionBarNavigation getNavigation() {
+		return mNavigation;
 	}
 
 	// On back pressed Actions
@@ -754,6 +631,8 @@ public final class Browser extends ListActivity implements
 				mObserver.stopWatching();
 				mObserver.removeOnEventListener(this);
 			}
+
+			mNavigation.removeOnNavigateListener(this);
 			finish();
 			return false;
 		}

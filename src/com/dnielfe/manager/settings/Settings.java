@@ -33,6 +33,7 @@ public final class Settings {
 	public static boolean mShowHiddenFiles;
 	public static int viewmode;
 	public static int mSortType;
+	public static String mTheme;
 	public static String defaultdir;
 
 	public static void updatePreferences(Context context) {
@@ -41,12 +42,13 @@ public final class Settings {
 
 		mShowHiddenFiles = p.getBoolean("displayhiddenfiles", true);
 		thumbnail = p.getBoolean("showpreview", true);
-		String value = p.getString("sort", "1");
+		mTheme = p.getString("preference_theme", "light");
+		String sort = p.getString("sort", "1");
 		String mode = p.getString("viewmode", "1");
 		defaultdir = p.getString("defaultdir", Environment
 				.getExternalStorageDirectory().getPath());
 
-		mSortType = Integer.parseInt(value);
+		mSortType = Integer.parseInt(sort);
 		viewmode = Integer.parseInt(mode);
 	}
 }

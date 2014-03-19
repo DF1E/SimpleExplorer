@@ -3,27 +3,27 @@
 
     <item
         android:id="@+id/paste"
-        android:icon="@drawable/actionpaste"
+        android:icon="?attr/action_paste"
         android:showAsAction="ifRoom"
         android:title="@string/paste"/>
     <item
         android:id="@+id/create"
-        android:icon="@drawable/create"
+        android:icon="?attr/action_create"
         android:showAsAction="ifRoom"
         android:title="@string/create"/>
     <item
         android:id="@+id/bookmarks"
-        android:icon="@drawable/bookmark"
+        android:icon="?attr/action_bookmark"
         android:showAsAction="ifRoom"
         android:title="@string/bookmark"/>
     <item
         android:id="@+id/folderinfo"
-        android:icon="@drawable/info"
+        android:icon="?attr/action_info"
         android:showAsAction="ifRoom"
         android:title="@string/dir_info"/>
     <item
         android:id="@+id/search"
-        android:icon="@drawable/search"
+        android:icon="?attr/action_search"
         android:showAsAction="ifRoom"
         android:title="@string/search"/>
 

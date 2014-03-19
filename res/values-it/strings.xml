@@ -5,7 +5,6 @@
     <string name="advancedsettings">Avanzate</string>
     <string name="appmanager">Gestore App</string>
     <string name="apps">" Apps"</string>
-    <string name="appsdeleted">App rimossa dalla Scheda SD</string>
     <string name="backedup">" backuppato"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup eseguito</string>
@@ -30,7 +29,6 @@
     <string name="defaultdir">Directory predefinita</string>
     <string name="delete">Elimina</string>
     <string name="deleteapps">Elimina Apps</string>
-    <string name="deleteappsmsg">Le App salvate verranno eliminate dalla scheda SD!</string>
     <string name="deleting">Eliminazione in corso</string>
     <string name="desc">decr</string>
     <string name="detailed">Dettagliata</string>
@@ -39,9 +37,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="error">Errore</string>
-    <string name="extract">Estrai</string>
     <string name="extractto">Estrai in</string>
-    <string name="fdirectory">Percorso:</string>
     <string name="file">File</string>
     <string name="filecreated">Il File è stato creato</string>
     <string name="fileexists">Il File esiste già</string>
@@ -59,7 +55,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">spostato con successo</string>
     <string name="moving">Spostamento</string>
-    <string name="multis">Selezione multipla</string>
     <string name="multizip">Comprimi</string>
     <string name="music">Musica</string>
     <string name="name">Nome</string>

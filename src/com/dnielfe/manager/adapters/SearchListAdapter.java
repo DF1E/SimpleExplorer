@@ -22,6 +22,8 @@ package com.dnielfe.manager.adapters;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.SearchActivity;
 
@@ -37,7 +39,8 @@ public class SearchListAdapter extends ArrayAdapter<String> {
 	private ArrayList<String> mData;
 	private Context mContext;
 
-	public SearchListAdapter(Context context, ArrayList<String> data) {
+	public SearchListAdapter(@NotNull final Context context,
+			ArrayList<String> data) {
 		super(context, R.layout.search_row, data);
 		this.mContext = context;
 		this.mData = data;
@@ -70,7 +73,7 @@ public class SearchListAdapter extends ArrayAdapter<String> {
 			String strPart = f.getName()
 					.substring(startIndex, startIndex + len);
 			filename = f.getName().replace(strPart,
-					"<font color=\"#91DEF7\">" + strPart + "</font>");
+					"<font color=\"#FF8800\">" + strPart + "</font>");
 			holder.name.setText(Html.fromHtml(filename),
 					TextView.BufferType.SPANNABLE);
 			holder.info.setText(f.getPath());

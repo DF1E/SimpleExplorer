@@ -5,7 +5,6 @@
     <string name="advancedsettings">進階</string>
     <string name="appmanager">App 管理器</string>
     <string name="apps">" Apps"</string>
-    <string name="appsdeleted">從 SD 移除 Apps.</string>
     <string name="backedup">" 備份"</string>
     <string name="backup">備份</string>
     <string name="backupcomplete">備份完成.</string>
@@ -29,7 +28,6 @@
     <string name="defaultdir">預設路徑</string>
     <string name="delete">刪除</string>
     <string name="deleteapps">刪除 Apps</string>
-    <string name="deleteappsmsg">儲存的 Apps 將從 SD 上刪除!</string>
     <string name="deleting">刪除中</string>
     <string name="desc">其它</string>
     <string name="detailed">明細</string>
@@ -38,9 +36,7 @@
     <string name="drawer_open">開啟導航抽屜</string>
     <string name="drawer_close">關閉導航抽屜</string>
     <string name="error">錯誤</string>
-    <string name="extract">提取</string>
     <string name="extractto">提取至</string>
-    <string name="fdirectory">路徑:</string>
     <string name="file">檔案</string>
     <string name="filecreated">檔案建立完成.</string>
     <string name="fileexists">檔案已存在.</string>
@@ -58,7 +54,6 @@
     <string name="movefail">移動失敗.</string>
     <string name="movesuccsess">移動成功.</string>
     <string name="moving">移動中</string>
-    <string name="multis">多重選擇</string>
     <string name="multizip">Zip</string>
     <string name="music">音樂</string>
     <string name="name">名稱</string>

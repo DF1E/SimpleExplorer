@@ -5,7 +5,6 @@
     <string name="advancedsettings">Pokročilé</string>
     <string name="appmanager">Správca aplikácií</string>
     <string name="apps">" apl."</string>
-    <string name="appsdeleted">Aplikácie boli odstránené z karty SD.</string>
     <string name="backedup">" záloh."</string>
     <string name="backup">Zálohovať</string>
     <string name="backupcomplete">Záloha bola dokončená.</string>
@@ -30,7 +29,6 @@
     <string name="defaultdir">Predvolený adresár</string>
     <string name="delete">Vymazať</string>
     <string name="deleteapps">Vymazať aplikácie</string>
-    <string name="deleteappsmsg">Uložené aplikácie budú odstránené z karty SD!</string>
     <string name="deleting">Vymazávanie</string>
     <string name="desc">Popis</string>
     <string name="detailed">Podrobný</string>
@@ -40,9 +38,7 @@
     <string name="drawer_close">Zatvoriť navigačnú ponuku</string>
     <string name="error">Chyba</string>
     <string name="exit">Ukončiť</string>
-    <string name="extract">Rozbaliť</string>
     <string name="extractto">Rozbaliť do</string>
-    <string name="fdirectory">Umiestnenie:</string>
     <string name="file">Súbor</string>
     <string name="filecreated">Súbor bol vytvorený.</string>
     <string name="fileexists">Súbor už existuje.</string>
@@ -61,7 +57,6 @@
     <string name="movefail">Presun zlyhal.</string>
     <string name="movesuccsess">Úspešne presunuté.</string>
     <string name="moving">Presúvanie</string>
-    <string name="multis">Výber viacerých</string>
     <string name="multizip">Zip</string>
     <string name="music">Hudba</string>
     <string name="name">Názov</string>

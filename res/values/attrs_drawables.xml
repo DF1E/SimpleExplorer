@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="action_copy" format="reference" />
+    <attr name="action_cut" format="reference" />
+    <attr name="action_edit" format="reference" />
+    <attr name="action_info" format="reference" />
+    <attr name="action_paste" format="reference" />
+    <attr name="action_bookmark" format="reference" />
+    <attr name="action_remove" format="reference" />
+    <attr name="action_search" format="reference" />
+    <attr name="action_share" format="reference" />
+    <attr name="action_create" format="reference" />
+    <attr name="action_zip" format="reference" />
+    <attr name="action_multi" format="reference" />
+    <attr name="ic_bookmark" format="reference" />
+    <attr name="ic_drawer" format="reference" />
+
+</resources>

@@ -18,6 +18,7 @@ This program licensed under http://www.gnu.org/licenses/gpl-2.0.html
 + lexaleon - russian
 + pylerSM - slovakian
 + twbetep - traditional chinese
++ taocp - simplified chinese
 + hoangnguyen - vietnamese
 + scweeny - korean
 + logpc - french

@@ -5,7 +5,6 @@
     <string name="advancedsettings">Gelişmiş</string>
     <string name="appmanager">Uygulama Yöneticisi</string>
     <string name="apps">" Uygulama"</string>
-    <string name="appsdeleted">Uygulama SD karttan kaldırıldı</string>
     <string name="backedup">" yedeklendi"</string>
     <string name="backup">Yedekleme</string>
     <string name="backupcomplete">Yedekleme tamamlandı</string>
@@ -30,7 +29,6 @@
     <string name="defaultdir">Varsayılan Dizin</string>
     <string name="delete">Sil</string>
     <string name="deleteapps">Uygulamaları sil</string>
-    <string name="deleteappsmsg">Kaydedilmiş uygulamalar SD Karttan silinecek!</string>
     <string name="deleting">Siliniyor</string>
     <string name="desc">azalan</string>
     <string name="detailed">Ayrıntılı</string>
@@ -40,9 +38,7 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="error">Hata</string>
     <string name="exit">Exit</string>
-    <string name="extract">Çıkart</string>
     <string name="extractto">Buraya çıkart</string>
-    <string name="fdirectory">Yol:</string>
     <string name="file">Dosya</string>
     <string name="filecreated">Dosya oluşturuldu</string>
     <string name="fileexists">Dosya zaten var</string>
@@ -60,7 +56,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Başarıyla taşındı</string>
     <string name="moving">Taşınıyor</string>
-    <string name="multis">Çokluseçim</string>
     <string name="multizip">Zip</string>
     <string name="music">Müzik</string>
     <string name="name">Ad</string>

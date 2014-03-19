@@ -23,6 +23,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.dnielfe.manager.adapters.SearchListAdapter;
+import com.dnielfe.manager.settings.Settings;
+import com.dnielfe.manager.utils.ActionBarNavigation;
 import com.dnielfe.manager.utils.SimpleUtils;
 
 import android.app.ActionBar;
@@ -41,6 +43,8 @@ import android.widget.Toast;
 
 public class SearchActivity extends ListActivity {
 
+	private ActionBarNavigation mActionBarNavigation;
+
 	public static String mQuery;
 	private static String mSearchDirectory;
 
@@ -52,6 +56,8 @@ public class SearchActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		initTheme();
+
 		setContentView(R.layout.search_layout);
 
 		init();
@@ -86,7 +92,9 @@ public class SearchActivity extends ListActivity {
 		File f = new File(filepath.toString());
 
 		if (f.isDirectory()) {
-			// TODO find a way to open folder
+			finish();
+			Browser.mCurrentPath = f.getPath();
+			mActionBarNavigation.setDirectoryButtons(f.getPath());
 		} else if (f.isFile()) {
 			SimpleUtils.openFile(this, f);
 		}
@@ -95,12 +103,21 @@ public class SearchActivity extends ListActivity {
 	private void init() {
 		Intent intent = getIntent();
 
-		if (intent != null)
-			mSearchDirectory = intent.getStringExtra("current");
-
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.show();
+
+		mActionBarNavigation = Browser.getNavigation();
+
+		if (intent != null) {
+			mSearchDirectory = intent.getStringExtra("current");
+			mQuery = intent.getStringExtra("query");
+
+			if (mQuery != null) {
+				mTask = new SearchTask();
+				mTask.execute(mQuery);
+			}
+		}
 
 		SearchIntent(intent);
 	}
@@ -153,6 +170,16 @@ public class SearchActivity extends ListActivity {
 		}
 	}
 
+	// TODO fix on resume
+	private void initTheme() {
+		String theme = Settings.mTheme;
+
+		int theme1 = theme.compareTo("light") == 0 ? R.style.ThemeLight
+				: R.style.ThemeDark;
+
+		setTheme(theme1);
+	}
+
 	private class SearchTask extends AsyncTask<String, Void, ArrayList<String>> {
 		public ProgressDialog pr_dialog = null;
 		private String file_name;
@@ -180,8 +207,6 @@ public class SearchActivity extends ListActivity {
 		protected void onPostExecute(final ArrayList<String> files) {
 			int len = files != null ? files.size() : 0;
 
-			pr_dialog.dismiss();
-
 			if (len == 0) {
 				Toast.makeText(SearchActivity.this, R.string.itcouldntbefound,
 						Toast.LENGTH_SHORT).show();
@@ -194,6 +219,8 @@ public class SearchActivity extends ListActivity {
 
 				mAdapter.notifyDataSetChanged();
 			}
+
+			pr_dialog.dismiss();
 		}
 	}
 

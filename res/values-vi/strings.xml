@@ -5,7 +5,6 @@
     <string name="advancedsettings">Nâng cao</string>
     <string name="appmanager">Quản lý ứng dụng</string>
     <string name="apps">"Ứng dụng"</string>
-    <string name="appsdeleted">Ứng dụng đã được loại bỏ khỏi thẻ SD.</string>
     <string name="backedup">"Đã sao lưu"</string>
     <string name="backup">Sao lưu</string>
     <string name="backupcomplete">Sao lưu hoàn tất.</string>
@@ -30,7 +29,6 @@
     <string name="defaultdir">Thư mục mặc định</string>
     <string name="delete">Xóa</string>
     <string name="deleteapps">Xóa ứng dụng</string>
-    <string name="deleteappsmsg">Tập tin đã lưu sẽ bị xóa khỏi thẻ SD!</string>
     <string name="deleting">Đang xóa</string>
     <string name="desc">desc</string>
     <string name="detailed">Chi tiết</string>
@@ -40,9 +38,7 @@
     <string name="drawer_close">Đóng điều hướng ngăn xếp</string>
     <string name="error">Lỗi</string>
     <string name="exit">Thoát</string>
-    <string name="extract">Giải nén</string>
     <string name="extractto">Giải nén tới</string>
-    <string name="fdirectory">Đường dẫn:</string>
     <string name="file">Tập tin</string>
     <string name="filecreated">Tập tin đã được tạo.</string>
     <string name="fileexists">Tập tin đã tồn tại.</string>
@@ -61,7 +57,6 @@
     <string name="movefail">Di chuyển thất bại.</string>
     <string name="movesuccsess">Đã chuyển thành công.</string>
     <string name="moving">Đang chuyển</string>
-    <string name="multis">Chọn nhiều</string>
     <string name="multizip">Zip</string>
     <string name="music">Nhạc</string>
     <string name="name">Tên</string>

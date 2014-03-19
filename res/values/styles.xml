@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ThemeLight" parent="android:Theme.Holo.Light">
+        <item name="android:windowBackground">@color/holo_light_window_background</item>
+        <item name="ic_drawer">@drawable/holo_light_ic_drawer</item>
+        <item name="action_copy">@drawable/holo_light_action_copy</item>
+        <item name="action_cut">@drawable/holo_light_action_cut</item>
+        <item name="action_edit">@drawable/holo_light_action_edit</item>
+        <item name="action_info">@drawable/holo_light_action_info</item>
+        <item name="action_paste">@drawable/actionpaste</item>
+        <item name="action_create">@drawable/holo_light_ic_action_new</item>
+        <item name="action_multi">@drawable/holo_light_ic_action_select_all</item>
+        <item name="action_zip">@drawable/holo_light_ic_storage</item>
+        <item name="action_bookmark">@drawable/holo_light_ic_bookmark</item>
+        <item name="action_remove">@drawable/holo_light_action_remove</item>
+        <item name="action_search">@drawable/holo_light_action_search</item>
+        <item name="action_share">@drawable/holo_light_action_share</item>
+    </style>
+
+    <style name="ThemeDark" parent="android:Theme.Holo">
+        <item name="android:windowBackground">@color/holo_dark_window_background</item>
+        <item name="android:actionBarStyle">@style/actionBarStyleDark</item>
+        <item name="ic_drawer">@drawable/holo_dark_ic_drawer</item>
+        <item name="action_copy">@drawable/holo_dark_action_copy</item>
+        <item name="action_cut">@drawable/holo_dark_action_cut</item>
+        <item name="action_edit">@drawable/holo_dark_action_edit</item>
+        <item name="action_info">@drawable/holo_dark_action_info</item>
+        <item name="action_paste">@drawable/actionpaste</item>
+        <item name="action_create">@drawable/holo_dark_ic_action_new</item>
+        <item name="action_multi">@drawable/holo_dark_ic_action_select_all</item>
+        <item name="action_zip">@drawable/holo_dark_ic_storage</item>
+        <item name="action_bookmark">@drawable/holo_dark_ic_bookmark</item>
+        <item name="action_remove">@drawable/holo_dark_action_remove</item>
+        <item name="action_search">@drawable/holo_dark_action_search</item>
+        <item name="action_share">@drawable/holo_dark_action_share</item>
+    </style>
+
+    <style name="actionBarStyleDark" parent="@android:style/Widget.ActionBar">
+        <item name="android:background">@color/holo_dark_actionbar_background</item>
+        <item name="android:backgroundSplit">@color/holo_dark_actionbar_background</item>
+    </style>
+
+</resources>

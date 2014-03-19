@@ -5,7 +5,6 @@
     <string name="advancedsettings">Advanced</string>
     <string name="appmanager">App Manager(앱 매니저)</string>
     <string name="apps">" 앱"</string>
-    <string name="appsdeleted">SD카드로부터 앱이 삭제되었습니다.</string>
     <string name="backedup">" 백업되었습니다"</string>
     <string name="backup">백업</string>
     <string name="backupcomplete">백업 완료.</string>
@@ -30,7 +29,6 @@
     <string name="defaultdir">기본 디렉토리</string>
     <string name="delete">삭제</string>
     <string name="deleteapps">앱 삭제</string>
-    <string name="deleteappsmsg">저장된 애플리케이션이 SD 카드에서 삭제됩니다</string>
     <string name="deleting">삭제중</string>
     <string name="desc">desc</string>
     <string name="detailed">자세히</string>
@@ -40,9 +38,7 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="error">에러</string>
     <string name="exit">나가기</string>
-    <string name="extract">압축풀기</string>
     <string name="extractto">압축해제 </string>
-    <string name="fdirectory">경로:</string>
     <string name="file">파일</string>
     <string name="filecreated">파일이 생성되었습니다.</string>
     <string name="fileexists">파일이 이미 존재합니다.</string>
@@ -61,7 +57,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Successfully moved.</string>
     <string name="moving">Moving</string>
-    <string name="multis">Multi select</string>
     <string name="multizip">Zip</string>
     <string name="music">Music</string>
     <string name="name">Name</string>

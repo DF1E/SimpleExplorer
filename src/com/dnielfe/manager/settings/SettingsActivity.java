@@ -37,6 +37,7 @@ public class SettingsActivity extends PreferenceActivity {
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		initTheme();
 		super.onCreate(savedInstanceState);
 
 		ActionBar actionBar = getActionBar();
@@ -54,6 +55,16 @@ public class SettingsActivity extends PreferenceActivity {
 						return false;
 					}
 				});
+	}
+
+	// TODO fix on resume
+	private void initTheme() {
+		String theme = Settings.mTheme;
+
+		int theme1 = theme.compareTo("light") == 0 ? R.style.ThemeLight
+				: R.style.ThemeDark;
+
+		setTheme(theme1);
 	}
 
 	@Override

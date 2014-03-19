@@ -289,11 +289,6 @@ public class SimpleUtils {
 		return 0;
 	}
 
-	/**
-	 * 
-	 * @param path
-	 */
-
 	public static void createZipFile(String path, String zipName) {
 		File dir = new File(path);
 
@@ -477,6 +472,18 @@ public class SimpleUtils {
 		}
 	}
 
+	// save current string in ClipBoard
+	public static void savetoClipBoard(final Context co, String dir1) {
+		android.content.ClipboardManager clipboard = (android.content.ClipboardManager) co
+				.getSystemService(Context.CLIPBOARD_SERVICE);
+		android.content.ClipData clip = android.content.ClipData.newPlainText(
+				"Copied Text", dir1);
+		clipboard.setPrimaryClip(clip);
+		Toast.makeText(co,
+				"'" + dir1 + "' " + co.getString(R.string.copiedtoclipboard),
+				Toast.LENGTH_SHORT).show();
+	}
+
 	public static void createShortcut(Activity main, String path, String name) {
 		try {
 			// Create the intent that will handle the shortcut
@@ -497,7 +504,6 @@ public class SimpleUtils {
 
 			Toast.makeText(main, main.getString(R.string.shortcutcreated),
 					Toast.LENGTH_SHORT).show();
-
 		} catch (Exception e) {
 			Toast.makeText(main, main.getString(R.string.error),
 					Toast.LENGTH_SHORT).show();

@@ -5,7 +5,6 @@
     <string name="advancedsettings">Дополнительно</string>
     <string name="appmanager">App Manager</string>
     <string name="apps">" приложений"</string>
-    <string name="appsdeleted">Резервные копии приложений удалены.</string>
     <string name="backedup">" резервировано"</string>
     <string name="backup">Резервное копирование</string>
     <string name="backupcomplete">Резервное копирование выполнено.</string>
@@ -30,7 +29,6 @@
     <string name="defaultdir">Каталог по умолчанию</string>
     <string name="delete">Удалить</string>
     <string name="deleteapps">Удалить рез. копии</string>
-    <string name="deleteappsmsg">Резервные копии приложений будут удалены!</string>
     <string name="deleting">Удаление</string>
     <string name="desc">desc</string>
     <string name="detailed">Подробный</string>
@@ -40,9 +38,7 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="error">Ошибка</string>
     <string name="exit">Exit</string>
-    <string name="extract">Распаковать</string>
     <string name="extractto">Распаковать в...</string>
-    <string name="fdirectory">Расположение:</string>
     <string name="file">Прочее</string>
     <string name="filecreated">Файл создан.</string>
     <string name="fileexists">Файл с таким именем уже существует!</string>
@@ -60,7 +56,6 @@
     <string name="movefail">Перемещение не удалось!</string>
     <string name="movesuccsess">Перемещено успешно.</string>
     <string name="moving">Перемещение</string>
-    <string name="multis">Множественный выбор</string>
     <string name="multizip">Сжать в архив...</string>
     <string name="music">Аудио</string>
     <string name="name">По имени</string>

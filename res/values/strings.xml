@@ -101,6 +101,11 @@
     <string name="xdaforum">XDA forum</string>
     <string name="zipping">Compressing</string>
 
+    <!-- theme -->
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
     <!-- permissions -->
     <string name="owner">Owner:</string>
     <string name="group">Group:</string>

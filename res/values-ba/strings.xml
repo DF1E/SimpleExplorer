@@ -5,7 +5,6 @@
     <string name="advancedsettings">Napredno</string>
     <string name="appmanager">Menedger aplikacije</string>
     <string name="apps">"Aplikacije"</string>
-    <string name="appsdeleted">Aplikacije uklonjene sa SD Kartice</string>
     <string name="backedup">" backupirano"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup zavr�en</string>
@@ -30,7 +29,6 @@
     <string name="defaultdir">Standardni direktorij</string>
     <string name="delete">Izbri�i</string>
     <string name="deleteapps">Izbri�i aplikacije</string>
-    <string name="deleteappsmsg">Pohranjene aplikacije �e biti izbrisane sa SD Kartice!</string>
     <string name="deleting">Brisanje</string>
     <string name="desc">desc</string>
     <string name="detailed">Detaljno</string>
@@ -40,9 +38,7 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="error">Gre�ka</string>
     <string name="exit">Exit</string>
-    <string name="extract">Ekstrahiranje</string>
     <string name="extractto">Ekstrahiraj u</string>
-    <string name="fdirectory">Staza:</string>
     <string name="file">Fajl</string>
     <string name="filecreated">Fajl kreiran</string>
     <string name="fileexists">Fajl ve� postoji</string>
@@ -60,7 +56,6 @@
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">premje�tanje uspje�no</string>
     <string name="moving">Premje�tanje</string>
-    <string name="multis">Vi�estruka selekcija</string>
     <string name="multizip">Zip</string>
     <string name="music">Muzika</string>
     <string name="name">Ime</string>
