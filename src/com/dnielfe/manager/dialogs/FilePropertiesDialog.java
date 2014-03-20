@@ -19,11 +19,7 @@
 
 package com.dnielfe.manager.dialogs;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import org.jetbrains.annotations.NotNull;
@@ -339,23 +335,23 @@ public final class FilePropertiesDialog extends DialogFragment {
 		/**
 		 * User: read, write, execute
 		 */
-		private CompoundButton ur;
-		private CompoundButton uw;
-		private CompoundButton ux;
+		private CompoundButton ur = null;
+		private CompoundButton uw = null;
+		private CompoundButton ux = null;
 
 		/**
 		 * Group: read, write, execute
 		 */
-		private CompoundButton gr;
-		private CompoundButton gw;
-		private CompoundButton gx;
+		private CompoundButton gr = null;
+		private CompoundButton gw = null;
+		private CompoundButton gx = null;
 
 		/**
 		 * Others: read, write, execute
 		 */
-		private CompoundButton or;
-		private CompoundButton ow;
-		private CompoundButton ox;
+		private CompoundButton or = null;
+		private CompoundButton ow = null;
+		private CompoundButton ox = null;
 
 		private final File mFile;
 		private View mView;
@@ -363,7 +359,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 		private LoadFsTask mTask;
 		private TextView mGroup;
 		private Permissions mPermission;
-		private static String[] mFileInfo;
 
 		private FilePermissionsPagerItem(final File file) {
 			mFile = file;
@@ -411,14 +406,11 @@ public final class FilePropertiesDialog extends DialogFragment {
 
 			try {
 				getPermissions(mFile);
-				if (!(mFileInfo == null)) {
-					mOwner.setText(mFileInfo[1]);
-					mGroup.setText(mFileInfo[2]);
-				} else {
-					disableBoxes();
-				}
 			} catch (Exception e) {
 				disableBoxes();
+
+				this.mInputPermissions = null;
+				this.mModifiedPermissions = null;
 			}
 		}
 
@@ -489,7 +481,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 		}
 
 		private class ApplyTask extends AsyncTask<File, Void, Boolean> {
-
 			private final Context context;
 			private final Permissions target;
 
@@ -514,74 +505,41 @@ public final class FilePropertiesDialog extends DialogFragment {
 		}
 
 		private void getPermissions(File file32) {
-			try {
-				getFileProperties(file32);
-				mPermission = new Permissions(mFileInfo[0]);
+			String[] mFileInfo = null;
 
-				this.ur.setChecked(mPermission.ur);
-				this.uw.setChecked(mPermission.uw);
-				this.ux.setChecked(mPermission.ux);
-				this.gr.setChecked(mPermission.gr);
-				this.gw.setChecked(mPermission.gw);
-				this.gx.setChecked(mPermission.gx);
-				this.or.setChecked(mPermission.or);
-				this.ow.setChecked(mPermission.ow);
-				this.ox.setChecked(mPermission.ox);
+			mFileInfo = RootCommands.getFileProperties(file32);
 
-				this.ur.setOnCheckedChangeListener(this);
-				this.uw.setOnCheckedChangeListener(this);
-				this.ux.setOnCheckedChangeListener(this);
-				this.gr.setOnCheckedChangeListener(this);
-				this.gw.setOnCheckedChangeListener(this);
-				this.gx.setOnCheckedChangeListener(this);
-				this.or.setOnCheckedChangeListener(this);
-				this.ow.setOnCheckedChangeListener(this);
-				this.ox.setOnCheckedChangeListener(this);
-
-				this.mInputPermissions = mPermission;
-				this.mModifiedPermissions = mPermission;
-			} catch (Exception e) {
+			if (mFileInfo != null) {
+				mOwner.setText(mFileInfo[1]);
+				mGroup.setText(mFileInfo[2]);
+			} else {
 				disableBoxes();
-
-				this.mInputPermissions = null;
-				this.mModifiedPermissions = null;
 			}
-		}
 
-		private static void getFileProperties(File file) {
-			BufferedWriter out;
-			BufferedReader in;
+			mPermission = new Permissions(mFileInfo[0]);
 
-			try {
-				String[] cmd = { "su", "-c", "ls", "-l",
-						RootCommands.getCmdPath(file.getAbsolutePath()) };
+			this.ur.setChecked(mPermission.ur);
+			this.uw.setChecked(mPermission.uw);
+			this.ux.setChecked(mPermission.ux);
+			this.gr.setChecked(mPermission.gr);
+			this.gw.setChecked(mPermission.gw);
+			this.gx.setChecked(mPermission.gx);
+			this.or.setChecked(mPermission.or);
+			this.ow.setChecked(mPermission.ow);
+			this.ox.setChecked(mPermission.ox);
 
-				Process proc = Runtime.getRuntime().exec(cmd);
-				out = new BufferedWriter(new OutputStreamWriter(
-						proc.getOutputStream()));
-				in = new BufferedReader(new InputStreamReader(
-						proc.getInputStream()));
-				String line = "";
-				while ((line = in.readLine()) != null) {
-					createFileInfo(line.split("\\s+"));
-				}
-				proc.waitFor();
-				in.close();
-				out.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+			this.ur.setOnCheckedChangeListener(this);
+			this.uw.setOnCheckedChangeListener(this);
+			this.ux.setOnCheckedChangeListener(this);
+			this.gr.setOnCheckedChangeListener(this);
+			this.gw.setOnCheckedChangeListener(this);
+			this.gx.setOnCheckedChangeListener(this);
+			this.or.setOnCheckedChangeListener(this);
+			this.ow.setOnCheckedChangeListener(this);
+			this.ox.setOnCheckedChangeListener(this);
 
-		private static String createFileInfo(String... args) {
-			if (args.length == 6) {
-				mFileInfo = new String[] { args[0], args[1], args[2],
-						args[3] + " " + args[4], args[5] };
-			} else if (args.length == 7) {
-				mFileInfo = new String[] { args[0], args[1], args[2], args[3],
-						args[4] + " " + args[5], args[6] };
-			}
-			return null;
+			this.mInputPermissions = mPermission;
+			this.mModifiedPermissions = mPermission;
 		}
 	}
 }

@@ -20,12 +20,16 @@
 package com.dnielfe.manager.commands;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+
 import org.jetbrains.annotations.NotNull;
 import android.util.Log;
 
@@ -33,66 +37,37 @@ import com.stericson.RootTools.RootTools;
 
 public class RootCommands {
 
-	@NotNull
-	public static String getFilePermissions(String path) {
-		StringBuilder log = new StringBuilder();
+	private static final String UNIX_ESCAPE_EXPRESSION = "(\\(|\\)|\\[|\\]|\\s|\'|\"|`|\\{|\\}|&|\\\\|\\?)";
 
-		String[] cmd = { "su", "-c", "ls", "-l", getCmdPath(path) };
+	public static String getCommandLineString(String input) {
+		return input.replaceAll(UNIX_ESCAPE_EXPRESSION, "\\\\$1");
+	}
+
+	@NotNull
+	public static ArrayList<String> listFiles(String path, boolean showhidden) {
+		ArrayList<String> mDirContent = new ArrayList<String>();
 
 		try {
-			Process process = Runtime.getRuntime().exec(cmd);
+			String[] cmd = new String[] { "su", "-c", "ls", "-a",
+					RootCommands.getCommandLineString(path) };
+			Process p = Runtime.getRuntime().exec(cmd);
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					p.getInputStream()));
 
-			BufferedReader bufferedReader = new BufferedReader(
-					new InputStreamReader(process.getInputStream()));
 			String line;
-			while ((line = bufferedReader.readLine()) != null) {
-				log.append(line + "\n");
+			while ((line = in.readLine()) != null) {
+				if (!showhidden) {
+					if (line.toString().charAt(0) != '.')
+						mDirContent.add(line);
+				} else {
+					mDirContent.add(line);
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		String[] test = getAttrs(log.toString());
-		return test[0];
-	}
-
-	@NotNull
-	private static String[] getAttrs(String string) {
-		if (string.length() < 44) {
-			return null;
-		}
-		final char[] chars = string.toCharArray();
-
-		final String[] results = new String[11];
-		int ind = 0;
-		final StringBuilder current = new StringBuilder();
-
-		Loop: for (int i = 0; i < chars.length; i++) {
-			switch (chars[i]) {
-			case ' ':
-			case '\t':
-				if (current.length() != 0) {
-					results[ind] = current.toString();
-					ind++;
-					current.setLength(0);
-					if (ind == 10) {
-						results[ind] = string.substring(i).trim();
-						break Loop;
-					}
-				}
-				break;
-
-			default:
-				current.append(chars[i]);
-				break;
-			}
-		}
-
-		return results;
-	}
-
-	public static String getCmdPath(String path) {
-		return path.replace(" ", "\\ ").replace("'", "\\'");
+		return mDirContent;
 	}
 
 	// Create Directory with root
@@ -235,6 +210,7 @@ public class RootCommands {
 		return false;
 	}
 
+	@NotNull
 	public static BufferedReader execute(String cmd) {
 		BufferedReader reader = null;
 		try {
@@ -271,11 +247,54 @@ public class RootCommands {
 				RootTools.remount(file.getAbsolutePath(), "rw");
 			}
 			execute("chmod " + toOctalPermission(permissions) + " "
-					+ getCmdPath(file.getAbsolutePath()));
+					+ getCommandLineString(file.getAbsolutePath()));
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	@NotNull
+	public static String[] getFileProperties(File file) {
+		BufferedWriter out = null;
+		BufferedReader in = null;
+		String[] info = null;
+
+		try {
+			String[] cmd = { "su", "-c", "ls", "-l",
+					getCommandLineString(file.getAbsolutePath()) };
+
+			Process proc = Runtime.getRuntime().exec(cmd);
+			out = new BufferedWriter(new OutputStreamWriter(
+					proc.getOutputStream()));
+			in = new BufferedReader(
+					new InputStreamReader(proc.getInputStream()));
+			String line = "";
+			while ((line = in.readLine()) != null) {
+				info = formatFileInfo(line.split("\\s+"));
+			}
+			proc.waitFor();
+			in.close();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return info;
+	}
+
+	@NotNull
+	private static String[] formatFileInfo(String... args) {
+		String[] info = null;
+
+		if (args.length == 6) {
+			info = new String[] { args[0], args[1], args[2],
+					args[3] + " " + args[4], args[5] };
+		} else if (args.length == 7) {
+			info = new String[] { args[0], args[1], args[2], args[3],
+					args[4] + " " + args[5], args[6] };
+		}
+		return info;
 	}
 
 	/**

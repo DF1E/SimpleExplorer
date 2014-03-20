@@ -21,13 +21,11 @@ package com.dnielfe.manager.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
@@ -163,6 +161,7 @@ public class SimpleUtils {
 	@NotNull
 	public static ArrayList<String> listFiles(String path) {
 		ArrayList<String> mDirContent = new ArrayList<String>();
+		boolean showhidden = Settings.mShowHiddenFiles;
 
 		if (!mDirContent.isEmpty())
 			mDirContent.clear();
@@ -175,33 +174,18 @@ public class SimpleUtils {
 
 			// add files/folder to ArrayList depending on hidden status
 			for (int i = 0; i < len; i++) {
-				if (!Settings.mShowHiddenFiles) {
+				if (!showhidden) {
 					if (list[i].toString().charAt(0) != '.')
 						mDirContent.add(list[i]);
-
 				} else {
 					mDirContent.add(list[i]);
 				}
 			}
-
 		} else {
 			try {
-				Process p = Runtime.getRuntime().exec(
-						new String[] { "su", "-c",
-								"ls -a \"" + file.getAbsolutePath() + "\"" });
-				BufferedReader in = new BufferedReader(new InputStreamReader(
-						p.getInputStream()));
-
-				String line;
-				while ((line = in.readLine()) != null) {
-					if (!Settings.mShowHiddenFiles) {
-						if (line.toString().charAt(0) != '.')
-							mDirContent.add(line);
-					} else {
-						mDirContent.add(line);
-					}
-				}
-			} catch (IOException e) {
+				mDirContent = RootCommands.listFiles(file.getAbsolutePath(),
+						showhidden);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
