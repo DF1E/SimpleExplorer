@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Erweitert</string>
     <string name="appmanager">App Manager</string>
@@ -54,6 +55,7 @@
     <string name="launch">Starten</string>
     <string name="loading">Lade..</string>
     <string name="manage">Verwalten</string>
+    <string name="md5">MD5:</string>
     <string name="move">Verschieben</string>
     <string name="movefail">Verschieben fehlgeschlagen</string>
     <string name="movesuccsess">Verschieben erfolgreich</string>

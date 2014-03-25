@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Gelişmiş</string>
-    <string name="appmanager">Uygulama Yöneticisi</string>
-    <string name="apps">" Uygulama"</string>
+    <string name="appmanager">Uyg. Yöneticisi</string>
+    <string name="apps">" Uyg.lar"</string>
     <string name="backedup">" yedeklendi"</string>
-    <string name="backup">Yedekleme</string>
+    <string name="backup">Yedek</string>
     <string name="backupcomplete">Yedekleme tamamlandı</string>
     <string name="backuperror">Yedeklenemiyor</string>
-    <string name="bookmark">Yer İmleri</string>
-    <string name="bookmarkadded">Yer imi eklendi</string>
-    <string name="bookmarkexist">Yer imi zaten var!</string>
+    <string name="bookmark">Sık Kullanılanlar</string>
+    <string name="bookmarkadded">Sık Kullanılanlara eklendi</string>
+    <string name="bookmarkexist">Sık Kullanılanlarda var!</string>
     <string name="cancel">İptal</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Bu işlem geri alınamaz"</string>
     <string name="cantopenfile">Cannot open this file</string>
@@ -22,27 +23,29 @@
     <string name="copying">Kopyalıyor</string>
     <string name="copysuccsess">Kopyalama başarılı</string>
     <string name="create">Oluştur</string>
-    <string name="createbookmark">Yer imi oluştur</string>
+    <string name="createbookmark">Sık kullanılan oluştur</string>
     <string name="created">" Oluşturuldu"</string>
-    <string name="createmsg">Gizli dosya oluşturmak için metinden önce nokta koy.</string>
+    <string name="createmsg">Gizli dosya oluşturmak için metinden önce nokta koy.</string>
     <string name="createnewfolder">Yeni Klasör oluştur</string>
     <string name="defaultdir">Varsayılan Dizin</string>
     <string name="delete">Sil</string>
     <string name="deleteapps">Uygulamaları sil</string>
-    <string name="deleting">Siliniyor</string>
-    <string name="desc">azalan</string>
+    <string name="deletesuccess">Delete successful</string>
+    <string name="deleting">Siliyor</string>
+    <string name="desc">desc</string>
     <string name="detailed">Ayrıntılı</string>
     <string name="details">Ayrıntılar</string>
     <string name="dir_info">Klasör Bilgisi</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="empty">Empty</string>
     <string name="error">Hata</string>
     <string name="exit">Exit</string>
-    <string name="extractto">Buraya çıkart</string>
+    <string name="extractto">Buraya çıkar</string>
     <string name="file">Dosya</string>
     <string name="filecreated">Dosya oluşturuldu</string>
-    <string name="fileexists">Dosya zaten var</string>
-    <string name="files">" Dosya"</string>
+    <string name="fileexists">Dosya önceden var</string>
+    <string name="files">" Dosyalar"</string>
     <string name="filewasrenamed">Dosya yeniden adlandırıldı</string>
     <string name="foundfiles">Bulundu</string>
     <string name="hiddenfiles">Gizli Dosyalar</string>
@@ -52,6 +55,7 @@
     <string name="launch">Aç</string>
     <string name="loading">Yükleniyor..</string>
     <string name="manage">Yönet</string>
+    <string name="md5">MD5:</string>
     <string name="move">Taşı</string>
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Başarıyla taşındı</string>
@@ -66,9 +70,9 @@
     <string name="of">" of "</string>
     <string name="ok">OK</string>
     <string name="options">Tercihler</string>
-    <string name="packing">Paketleniyor</string>
+    <string name="packing">Paket</string>
     <string name="paste">Yapıştır</string>
-    <string name="permissions">İzinler</string>
+    <string name="permissions">İzinler:</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Çıkmak için Geri tuşuna bas</string>
     <string name="rename">Yeniden adlandır</string>
@@ -86,16 +90,41 @@
     <string name="size1">Boyut</string>
     <string name="sort">Sırala</string>
     <string name="text">Metin</string>
-    <string name="type">Tür</string>
+    <string name="type">Type</string>
     <string name="uisettings">Ayarları göster</string>
     <string name="uninstallapp">Uygulamayı kaldır</string>
     <string name="unselectall">Hiçbirini seçme</string>
     <string name="unzipping">Açılıyor</string>
-    <string name="used">Kullanılan:</string>
-    <string name="version">"Sürüm "</string>
+    <string name="version">"Version "</string>
     <string name="video">Video</string>
-    <string name="viewmode">Görünüm Biçimi</string>
+    <string name="viewmode">İzleme Modu</string>
     <string name="xdaforum">XDA Forum</string>
     <string name="zipping">Sıkıştırıyor</string>
+
+    <!-- theme -->
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
+    <!-- permissions -->
+    <string name="owner">Owner:</string>
+    <string name="group">Group:</string>
+    <string name="others">Other:</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="execute">Execute</string>
+    <string name="permissionschanged">Permissions changed</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file(s)</string>
+    <string name="_selected">\u0020selected</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Location:</string>
+    <string name="total">Total space:</string>
+    <string name="free">Free space:</string>
+    <string name="available">Available space:</string>
+    <string name="block_size">Block size:</string>
+    <string name="used">Kullanılan:</string>
 
 </resources>

@@ -602,7 +602,7 @@ public class AppManager extends ListActivity {
 				getString(R.string.appmanager));
 		addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
 				Intent.ShortcutIconResource.fromContext(AppManager.this,
-						R.drawable.appmanager));
+						R.drawable.app_manager));
 		addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
 		AppManager.this.sendBroadcast(addIntent);
 

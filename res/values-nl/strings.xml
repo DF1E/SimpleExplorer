@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Geavanceerd</string>
     <string name="appmanager">App beheer</string>
@@ -29,6 +30,7 @@
     <string name="defaultdir">Standaardlocatie</string>
     <string name="delete">Verwijderen</string>
     <string name="deleteapps">Verwijder Apps</string>
+    <string name="deletesuccess">Delete successful</string>
     <string name="deleting">Bezig met verwijderen</string>
     <string name="desc">desc</string>
     <string name="detailed">Gedetailleerd</string>
@@ -36,6 +38,7 @@
     <string name="dir_info">Map Informatie</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="empty">Empty</string>
     <string name="error">Fout</string>
     <string name="exit">Exit</string>
     <string name="extractto">Uitpakken naar</string>
@@ -52,6 +55,7 @@
     <string name="launch">Start</string>
     <string name="loading">Bezig met laden</string>
     <string name="manage">Beheer</string>
+    <string name="md5">MD5:</string>
     <string name="move">Verplaatsen</string>
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">succesvol verplaatst</string>
@@ -68,7 +72,7 @@
     <string name="options">Opties</string>
     <string name="packing">Inpakken</string>
     <string name="paste">Plakken</string>
-    <string name="permissions">Machtigingen</string>
+    <string name="permissions">Machtigingen:</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Tik nogmaals terug om af te sluiten</string>
     <string name="rename">Hernoem</string>
@@ -91,11 +95,36 @@
     <string name="uninstallapp">Verwijder App</string>
     <string name="unselectall">Deselecteer Alles</string>
     <string name="unzipping">Uitpakken</string>
-    <string name="used">Gebruikt:</string>
     <string name="version">"Versie "</string>
     <string name="video">Video</string>
     <string name="viewmode">Weergavemodus</string>
     <string name="xdaforum">XDA Forum</string>
     <string name="zipping">Inpakken</string>
+
+    <!-- theme -->
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
+    <!-- permissions -->
+    <string name="owner">Owner:</string>
+    <string name="group">Group:</string>
+    <string name="others">Other:</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="execute">Execute</string>
+    <string name="permissionschanged">Permissions changed</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file(s)</string>
+    <string name="_selected">\u0020selected</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Location:</string>
+    <string name="total">Total space:</string>
+    <string name="free">Free space:</string>
+    <string name="available">Available space:</string>
+    <string name="block_size">Block size:</string>
+    <string name="used">Gebruikt:</string>
 
 </resources>

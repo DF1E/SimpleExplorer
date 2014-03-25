@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Avanzate</string>
     <string name="appmanager">Gestore App</string>
@@ -14,7 +15,7 @@
     <string name="bookmarkexist">Il preferito esiste già!</string>
     <string name="cancel">Annulla</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Questa operazione non può essere annullata"</string>
-    <string name="cantopenfile">Cannot open this file</string>
+    <string name="cantopenfile">Impossibile aprire questo file</string>
     <string name="cantreadfolder">Impossibile accedere alla cartella per mancanza di permessi</string>
     <string name="copiedtoclipboard">copiato negli Appunti</string>
     <string name="copy">Copia</string>
@@ -29,6 +30,7 @@
     <string name="defaultdir">Directory predefinita</string>
     <string name="delete">Elimina</string>
     <string name="deleteapps">Elimina Apps</string>
+    <string name="deletesuccess">Delete successful</string>
     <string name="deleting">Eliminazione in corso</string>
     <string name="desc">decr</string>
     <string name="detailed">Dettagliata</string>
@@ -36,7 +38,9 @@
     <string name="dir_info">Informazioni Cartella</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="empty">Vuoto</string>
     <string name="error">Errore</string>
+    <string name="exit">Esci</string>
     <string name="extractto">Estrai in</string>
     <string name="file">File</string>
     <string name="filecreated">Il File è stato creato</string>
@@ -51,8 +55,9 @@
     <string name="launch">Avvia</string>
     <string name="loading">Caricamento..</string>
     <string name="manage">Gestisci</string>
+    <string name="md5">MD5:</string>
     <string name="move">Sposta</string>
-    <string name="movefail">Moving failed.</string>
+    <string name="movefail">Spostamento fallito</string>
     <string name="movesuccsess">spostato con successo</string>
     <string name="moving">Spostamento</string>
     <string name="multizip">Comprimi</string>
@@ -67,9 +72,9 @@
     <string name="options">Opzioni</string>
     <string name="packing">Comprimendo</string>
     <string name="paste">Incolla</string>
-    <string name="permissions">Permessi</string>
+    <string name="permissions">Permessi:</string>
     <string name="playstore">Playstore</string>
-    <string name="pressbackagaintoquit">Premi indietro unaltra volta per uscire</string>
+    <string name="pressbackagaintoquit">Premi indietro un\'altra volta per uscire</string>
     <string name="rename">Rinomina</string>
     <string name="sdcardnotfound">Impossibile trovare la Scheda SD!</string>
     <string name="search">Cerca</string>
@@ -90,11 +95,36 @@
     <string name="uninstallapp">Disinstalla App</string>
     <string name="unselectall">Deseleziona Tutto</string>
     <string name="unzipping">Scomprimendo</string>
-    <string name="used">Usati:</string>
     <string name="version">"Versione "</string>
     <string name="video">Video</string>
     <string name="viewmode">Modalità Vista</string>
     <string name="xdaforum">Forum XDA</string>
     <string name="zipping">Comprimendo</string>
+
+    <!-- theme -->
+    <string name="theme">Tema</string>
+    <string name="light">Chiaro</string>
+    <string name="dark">Scuro</string>
+
+    <!-- permissions -->
+    <string name="owner">Proprietario:</string>
+    <string name="group">Gruppo:</string>
+    <string name="others">Altri:</string>
+    <string name="read">Lettura</string>
+    <string name="write">Scrittura</string>
+    <string name="execute">Esecuzione</string>
+    <string name="permissionschanged">Permessi cambiati</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file</string>
+    <string name="_selected">\u0020selezionati</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Posizione:</string>
+    <string name="total">Spazio totale:</string>
+    <string name="free">Spazio libero:</string>
+    <string name="available">Spazio disponibile:</string>
+    <string name="block_size">Dimensione dei blocchi:</string>
+    <string name="used">Usati:</string>
 
 </resources>

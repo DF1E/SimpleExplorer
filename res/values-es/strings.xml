@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Avanzado</string>
     <string name="appmanager">Aplicación Gerente</string>
@@ -19,7 +20,7 @@
     <string name="copiedtoclipboard">Copiado al portapapeles</string>
     <string name="copy">Copiar</string>
     <string name="copyfail">Copia fracaso!</string>
-    <string name="copying">Copiando</string>
+    <string name="copying">Copiando...</string>
     <string name="copysuccsess">Copia fue exitosa.</string>
     <string name="create">Crear</string>
     <string name="createbookmark">Crear marcador</string>
@@ -29,13 +30,15 @@
     <string name="defaultdir">Directorio defecto</string>
     <string name="delete">Borrar</string>
     <string name="deleteapps">Borrar Apps</string>
-    <string name="deleting">Borrando</string>
+    <string name="deletesuccess">Delete successful</string>
+    <string name="deleting">Borrando...</string>
     <string name="desc">Descendente</string>
     <string name="detailed">Detallado</string>
     <string name="details">Detalles</string>
     <string name="dir_info">Información de carpeta</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="empty">Empty</string>
     <string name="error">Error</string>
     <string name="exit">Exit</string>
     <string name="extractto">Extraer a</string>
@@ -50,12 +53,13 @@
     <string name="itcouldntbefound">No pudo ser localizado.</string>
     <string name="LastModified">Último modificado:</string>
     <string name="launch">Lanzar</string>
-    <string name="loading">Cargando</string>
+    <string name="loading">Cargando...</string>
     <string name="manage">Administrar</string>
+    <string name="md5">MD5:</string>
     <string name="move">Mover</string>
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Movida fue exitosa.</string>
-    <string name="moving">Moviendo</string>
+    <string name="moving">Moviendo...</string>
     <string name="multizip">Zip</string>
     <string name="music">Música</string>
     <string name="name">Nombre</string>
@@ -68,7 +72,7 @@
     <string name="options">Opciones</string>
     <string name="packing">Empacando</string>
     <string name="paste">Pegar</string>
-    <string name="permissions">Permisos</string>
+    <string name="permissions">Permisos:</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Presionar atrás de nuevo para salir.</string>
     <string name="rename">Renombrar</string>
@@ -90,12 +94,37 @@
     <string name="uisettings">Ver ajustes</string>
     <string name="uninstallapp">Desinstalar aplicación</string>
     <string name="unselectall">Deseleccionar todo</string>
-    <string name="unzipping">Extractando</string>
-    <string name="used">Usado:</string>
+    <string name="unzipping">Extractando...</string>
     <string name="version">"Versión "</string>
     <string name="video">Vídeo</string>
     <string name="viewmode">Modo de ver</string>
     <string name="xdaforum">Foro de XDA</string>
-    <string name="zipping">Comprimiendo</string>
+    <string name="zipping">Comprimiendo...</string>
+
+    <!-- theme -->
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
+    <!-- permissions -->
+    <string name="owner">Owner:</string>
+    <string name="group">Group:</string>
+    <string name="others">Other:</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="execute">Execute</string>
+    <string name="permissionschanged">Permissions changed</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file(s)</string>
+    <string name="_selected">\u0020selected</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Location:</string>
+    <string name="total">Total space:</string>
+    <string name="free">Free space:</string>
+    <string name="available">Available space:</string>
+    <string name="block_size">Block size:</string>
+    <string name="used">Usado:</string>
 
 </resources>

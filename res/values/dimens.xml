@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Actionbar height -->
+    <dimen name="actionbar_height">48dp</dimen>
+
     <!-- ListItem height -->
     <dimen name="item_height">54dp</dimen>
 
     <!-- Navigation drawer width -->
-    <dimen name="drawer_width">220dp</dimen>
+    <dimen name="drawer_width">240dp</dimen>
 
-    <!-- Actionbar height -->
-    <dimen name="actionbar_height">48dp</dimen>
+    <!-- drawer bookmarks item height -->
+    <dimen name="drawer_bookmark_item_height">52dp</dimen>
+
+    <!-- drawer menu item height -->
+    <dimen name="drawer_menu_item_height">48dp</dimen>
 
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Avançado</string>
     <string name="appmanager">Gerenciar App</string>
@@ -15,7 +16,7 @@
     <string name="cancel">Cancelar</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">Isso não pode ser desfeito</string>
     <string name="cantopenfile">Cannot open this file</string>
-    <string name="cantreadfolder">Não consegue ler pastas devido as permissões</string>
+    <string name="cantreadfolder">Cannot read folder due to permissions</string>
     <string name="copiedtoclipboard">Copiados para o clipboard</string>
     <string name="copy">Copiar</string>
     <string name="copyfail">Falha ao copiar!</string>
@@ -29,6 +30,7 @@
     <string name="defaultdir">Diretório Padrão</string>
     <string name="delete">Deletar</string>
     <string name="deleteapps">Deletar Apps</string>
+    <string name="deletesuccess">Delete successful</string>
     <string name="deleting">Deletando</string>
     <string name="desc">desc</string>
     <string name="detailed">Detalhado</string>
@@ -36,12 +38,13 @@
     <string name="dir_info">Informação da Pasta</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="empty">Empty</string>
     <string name="error">Erro</string>
     <string name="exit">Exit</string>
     <string name="extractto">Extract to</string>
     <string name="file">Arquivo</string>
     <string name="filecreated">File was created.</string>
-    <string name="fileexists">Arquivo já existe</string>
+    <string name="fileexists">File already exists.</string>
     <string name="files">"Arquivos"</string>
     <string name="filewasrenamed">Arquivo renomeado</string>
     <string name="foundfiles">Encontrado</string>
@@ -52,12 +55,13 @@
     <string name="launch">Launcher</string>
     <string name="loading">Carregando..</string>
     <string name="manage">Gerenciar</string>
+    <string name="md5">MD5:</string>
     <string name="move">Mover</string>
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">Movido com êxito</string>
     <string name="moving">Movendo</string>
     <string name="multizip">Zip</string>
-    <string name="music">Música</string>
+    <string name="music">Musica</string>
     <string name="name">Nome</string>
     <string name="newd">Novo Diretório</string>
     <string name="newfile">Novo Arquivo</string>
@@ -91,11 +95,36 @@
     <string name="uninstallapp">Desinstalar App</string>
     <string name="unselectall">Desmarcar Todos</string>
     <string name="unzipping">Descompactando</string>
-    <string name="used">Usado:</string>
     <string name="version">"Versão"</string>
-    <string name="video">Vídeo</string>
+    <string name="video">Video</string>
     <string name="viewmode">Visualização</string>
     <string name="xdaforum">Forum XDA</string>
     <string name="zipping">Fechando</string>
+
+    <!-- theme -->
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
+    <!-- permissions -->
+    <string name="owner">Owner:</string>
+    <string name="group">Group:</string>
+    <string name="others">Other:</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="execute">Execute</string>
+    <string name="permissionschanged">Permissions changed</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file(s)</string>
+    <string name="_selected">\u0020selected</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Location:</string>
+    <string name="total">Total space:</string>
+    <string name="free">Free space:</string>
+    <string name="available">Available space:</string>
+    <string name="block_size">Block size:</string>
+    <string name="used">Usado:</string>
 
 </resources>

@@ -41,9 +41,9 @@ public class SettingsActivity extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 
 		ActionBar actionBar = getActionBar();
-		actionBar.show();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-
+		actionBar.show();
+		
 		addPreferencesFromResource(R.xml.preferences);
 
 		Preference editBookmarks = findPreference("editbookmarks");

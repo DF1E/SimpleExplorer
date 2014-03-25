@@ -32,7 +32,7 @@ public final class MultiFileObserver extends FileObserver {
 		void onEvent(int event, String path);
 	}
 
-	private final Set<OnEventListener> listeners;
+	public final Set<OnEventListener> listeners;
 	private final String path;
 
 	private int watchCount;

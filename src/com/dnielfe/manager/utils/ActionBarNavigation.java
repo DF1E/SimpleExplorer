@@ -35,8 +35,10 @@ import com.dnielfe.manager.R;
 
 public class ActionBarNavigation {
 
-	private Set<OnNavigateListener> listeners;
+	public Set<OnNavigateListener> listeners;
 
+	int WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT;
+	int MATCH_PARENT = FrameLayout.LayoutParams.MATCH_PARENT;
 	private static int directorytextsize = 16;
 
 	private LinearLayout mDirectoryButtons;
@@ -53,6 +55,7 @@ public class ActionBarNavigation {
 
 	public void setDirectoryButtons(String path) {
 		File currentDirectory = new File(path);
+		String dir = "";
 
 		HorizontalScrollView scrolltext = (HorizontalScrollView) mActivity
 				.findViewById(R.id.scroll_text);
@@ -61,9 +64,6 @@ public class ActionBarNavigation {
 		mDirectoryButtons.removeAllViews();
 
 		String[] parts = currentDirectory.getAbsolutePath().split("/");
-
-		int WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT;
-		int MATCH_PARENT = FrameLayout.LayoutParams.MATCH_PARENT;
 
 		// Add home button separately
 		Button bt = new Button(mActivity, null,
@@ -83,8 +83,6 @@ public class ActionBarNavigation {
 		mDirectoryButtons.addView(bt);
 
 		// Add other buttons
-		String dir = "";
-
 		for (int i = 1; i < parts.length; i++) {
 			dir += "/" + parts[i];
 

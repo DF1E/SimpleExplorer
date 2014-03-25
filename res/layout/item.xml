@@ -15,7 +15,7 @@
         android:layout_centerVertical="true"
         android:contentDescription="@string/desc"
         android:cropToPadding="true"
-        android:padding="5dp"
+        android:padding="6dp"
         android:scaleType="centerCrop" />
 
     <LinearLayout

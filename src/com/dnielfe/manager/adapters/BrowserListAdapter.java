@@ -134,9 +134,9 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 
 		if (file != null && file.isDirectory()) {
 			if (file.canRead() && file.list().length > 0)
-				icon.setImageResource(R.drawable.folder_full);
+				icon.setImageResource(R.drawable.type_folder);
 			else
-				icon.setImageResource(R.drawable.folder);
+				icon.setImageResource(R.drawable.type_folder_empty);
 		} else {
 			if (Settings.thumbnail) {
 				if (isImage) {
@@ -176,7 +176,7 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 			icon.setImageDrawable(mimeIcon);
 		} else {
 			// default icon
-			icon.setImageResource(R.drawable.blanc);
+			icon.setImageResource(R.drawable.type_unknown);
 		}
 	}
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Nâng cao</string>
     <string name="appmanager">Quản lý ứng dụng</string>
@@ -29,6 +30,7 @@
     <string name="defaultdir">Thư mục mặc định</string>
     <string name="delete">Xóa</string>
     <string name="deleteapps">Xóa ứng dụng</string>
+    <string name="deletesuccess">Delete successful</string>
     <string name="deleting">Đang xóa</string>
     <string name="desc">desc</string>
     <string name="detailed">Chi tiết</string>
@@ -36,6 +38,7 @@
     <string name="dir_info">Thông tin thư mục</string>
     <string name="drawer_open">Mở điều hướng ngăn xếp</string>
     <string name="drawer_close">Đóng điều hướng ngăn xếp</string>
+    <string name="empty">Empty</string>
     <string name="error">Lỗi</string>
     <string name="exit">Thoát</string>
     <string name="extractto">Giải nén tới</string>
@@ -69,7 +72,7 @@
     <string name="options">Tùy chọn</string>
     <string name="packing">Đang đóng gói</string>
     <string name="paste">Dán</string>
-    <string name="permissions">Quyền</string>
+    <string name="permissions">Quyền:</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Nhấn QUAY LẠI lần nữa để thoát.</string>
     <string name="rename">Đổi tên</string>
@@ -92,11 +95,36 @@
     <string name="uninstallapp">Gỡ cài đặt ứng dụng</string>
     <string name="unselectall">Bỏ chọn tất cả</string>
     <string name="unzipping">Đang giải nén</string>
-    <string name="used">Đã sử dụng:</string>
     <string name="version">"Phiên bản "</string>
     <string name="video">Video</string>
     <string name="viewmode">Chế độ xem</string>
     <string name="xdaforum">Diễn đàn XDA</string>
     <string name="zipping">Đang nén</string>
+
+    <!-- theme -->
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
+    <!-- permissions -->
+    <string name="owner">Owner:</string>
+    <string name="group">Group:</string>
+    <string name="others">Other:</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="execute">Execute</string>
+    <string name="permissionschanged">Permissions changed</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file(s)</string>
+    <string name="_selected">\u0020selected</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Location:</string>
+    <string name="total">Total space:</string>
+    <string name="free">Free space:</string>
+    <string name="available">Available space:</string>
+    <string name="block_size">Block size:</string>
+    <string name="used">Đã sử dụng:</string>
 
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Дополнительно</string>
     <string name="appmanager">App Manager</string>
@@ -29,6 +30,7 @@
     <string name="defaultdir">Каталог по умолчанию</string>
     <string name="delete">Удалить</string>
     <string name="deleteapps">Удалить рез. копии</string>
+    <string name="deletesuccess">Delete successful</string>
     <string name="deleting">Удаление</string>
     <string name="desc">desc</string>
     <string name="detailed">Подробный</string>
@@ -36,6 +38,7 @@
     <string name="dir_info">Свойства папки</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="empty">Empty</string>
     <string name="error">Ошибка</string>
     <string name="exit">Exit</string>
     <string name="extractto">Распаковать в...</string>
@@ -52,6 +55,7 @@
     <string name="launch">Запустить</string>
     <string name="loading">Загрузка</string>
     <string name="manage">О приложении</string>
+    <string name="md5">MD5:</string>
     <string name="move">Вырезать</string>
     <string name="movefail">Перемещение не удалось!</string>
     <string name="movesuccsess">Перемещено успешно.</string>
@@ -68,7 +72,7 @@
     <string name="options">Действия</string>
     <string name="packing">Сжатие в TAR-архив</string>
     <string name="paste">Вставить</string>
-    <string name="permissions">Разрешения</string>
+    <string name="permissions">Разрешения:</string>
     <string name="playstore">В Google Play Маркет</string>
     <string name="pressbackagaintoquit">Для выхода нажмите ещё раз.</string>
     <string name="rename">Переименовать</string>
@@ -91,11 +95,36 @@
     <string name="uninstallapp">Удалить приложение</string>
     <string name="unselectall">Отменить выбор</string>
     <string name="unzipping">Распаковка ZIP-архива</string>
-    <string name="used">Занято:</string>
     <string name="version">"Версия "</string>
     <string name="video">Видео</string>
     <string name="viewmode">Вид списка</string>
     <string name="xdaforum">XDA forum</string>
     <string name="zipping">Сжатие в ZIP-архив</string>
+
+    <!-- theme -->
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
+    <!-- permissions -->
+    <string name="owner">Owner:</string>
+    <string name="group">Group:</string>
+    <string name="others">Other:</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="execute">Execute</string>
+    <string name="permissionschanged">Permissions changed</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file(s)</string>
+    <string name="_selected">\u0020selected</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Location:</string>
+    <string name="total">Total space:</string>
+    <string name="free">Free space:</string>
+    <string name="available">Available space:</string>
+    <string name="block_size">Block size:</string>
+    <string name="used">Занято:</string>
 
 </resources>

@@ -22,6 +22,7 @@ package com.dnielfe.manager;
 import java.io.File;
 import java.util.ArrayList;
 
+import com.dnielfe.manager.adapters.BookmarksAdapter;
 import com.dnielfe.manager.adapters.DrawerListAdapter;
 import com.dnielfe.manager.adapters.BrowserListAdapter;
 import com.dnielfe.manager.controller.ActionModeController;
@@ -40,12 +41,9 @@ import com.dnielfe.manager.utils.Bookmarks;
 import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.ListActivity;
 import android.app.SearchManager;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -59,7 +57,6 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
@@ -84,22 +81,23 @@ public final class Browser extends ListActivity implements
 	private FileObserverCache mObserverCache;
 	private Runnable mLastRunnable;
 
+	private static BookmarksAdapter mBookmarksAdapter;
 	private static BrowserListAdapter mListAdapter;
+	private static DrawerListAdapter mMenuAdapter;
 
 	private boolean mReturnIntent = false;
 	private boolean mUseBackKey = true;
 
-	private static String[] drawerTitles;
 	public static ArrayList<String> mDataSource;
 	public static String mCurrentPath;
 
+	private Cursor mBookmarksCursor;
 	private int mCurrentTheme;
 	private String defaultdir;
-	private View mActionView;
 	private LinearLayout mDrawer;
 	private MenuItem mMenuItemPaste;
 	private DrawerLayout mDrawerLayout;
-	private ListView mDrawerList;
+	private ListView mDrawerList, mBookmarkList;
 	private AbsListView mListView;
 	private ActionBar mActionBar;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -155,8 +153,7 @@ public final class Browser extends ListActivity implements
 
 		Settings.updatePreferences(this);
 
-		// refresh directory
-		updateDirectory(setDirectory(mCurrentPath));
+		invalidateOptionsMenu();
 
 		initTheme();
 	}
@@ -183,16 +180,118 @@ public final class Browser extends ListActivity implements
 		}
 
 		checkEnvironment();
+		initActionBar();
 		setupDrawer();
 
 		SearchIntent(getIntent());
 
 		// get ListView
-		mListView = getListView();
+		mListView = (ListView) findViewById(android.R.id.list);
 		mListView.setAdapter(mListAdapter);
 		mListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
 
 		mActionController.setListView(mListView);
+	}
+
+	private void initActionBar() {
+		this.mActionBar = this.getActionBar();
+		this.mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
+				| ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO
+				| ActionBar.DISPLAY_HOME_AS_UP);
+
+		// set custom ActionBar layout
+		final View mActionView = getLayoutInflater().inflate(
+				R.layout.actionbar, null);
+		this.mActionBar.setCustomView(mActionView);
+		this.mActionBar.show();
+	}
+
+	private void setupDrawer() {
+		final String themeId = Settings.mTheme;
+
+		mDrawer = (LinearLayout) findViewById(R.id.left_drawer);
+
+		// init drawer menu list
+		mDrawerList = (ListView) findViewById(R.id.drawer_list);
+		mMenuAdapter = new DrawerListAdapter(this);
+		mDrawerList.setAdapter(mMenuAdapter);
+
+		// init bookmark list
+		mBookmarkList = (ListView) findViewById(R.id.bookmark_list);
+		mBookmarksCursor = getBookmarksCursor();
+		mBookmarksAdapter = new BookmarksAdapter(this, mBookmarksCursor, 0);
+		mBookmarkList.setAdapter(mBookmarksAdapter);
+
+		// Set shadow of navigation drawer
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
+				GravityCompat.START);
+
+		int icon = themeId.contentEquals("light") ? R.drawable.holo_light_ic_drawer
+				: R.drawable.holo_dark_ic_drawer;
+
+		// Add Navigation Drawer to ActionBar
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, icon,
+				R.string.drawer_open, R.string.drawer_close) {
+
+			@Override
+			public void onDrawerOpened(View view) {
+				super.onDrawerOpened(view);
+				mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
+						| ActionBar.DISPLAY_HOME_AS_UP
+						| ActionBar.DISPLAY_USE_LOGO
+						| ActionBar.DISPLAY_SHOW_TITLE);
+				mActionBar.setTitle(R.string.app_name);
+				invalidateOptionsMenu();
+			}
+
+			@Override
+			public void onDrawerClosed(View view) {
+				super.onDrawerClosed(view);
+				mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
+						| ActionBar.DISPLAY_HOME_AS_UP
+						| ActionBar.DISPLAY_SHOW_CUSTOM
+						| ActionBar.DISPLAY_USE_LOGO);
+				invalidateOptionsMenu();
+			}
+		};
+
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+		mBookmarkList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				if (mDrawerLayout.isDrawerOpen(mDrawer))
+					mDrawerLayout.closeDrawer(mDrawer);
+
+				if (mBookmarksCursor.moveToPosition(position)) {
+					String path = mBookmarksCursor.getString(mBookmarksCursor
+							.getColumnIndex(Bookmarks.PATH));
+					File file = new File(path);
+					if (file != null) {
+						if (file.isDirectory()) {
+							mCurrentPath = path;
+							// go to the top of the ListView
+							mListView.setSelection(0);
+						} else {
+							listItemAction(file, path);
+						}
+					}
+				} else {
+					Toast.makeText(Browser.this, getString(R.string.error),
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+
+		mDrawerList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				selectItem(position);
+			}
+		});
 	}
 
 	private void navigateTo(String path) {
@@ -211,84 +310,16 @@ public final class Browser extends ListActivity implements
 		}
 
 		mObserver = mObserverCache.getOrCreate(path);
-		mObserver.addOnEventListener(this);
+
+		// add listener for FileObserver and start watching
+		if (mObserver.listeners.isEmpty())
+			mObserver.addOnEventListener(this);
 		mObserver.startWatching();
 
 		// add listener for navigation view in ActionBar
-		mNavigation.addonNavigateListener(this);
+		if (mNavigation.listeners.isEmpty())
+			mNavigation.addonNavigateListener(this);
 		mNavigation.setDirectoryButtons(path);
-
-		// go to the top of the ListView
-		mListView.setSelection(0);
-	}
-
-	private void setupDrawer() {
-		final String themeId = Settings.mTheme;
-
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.drawer_list);
-		mDrawer = (LinearLayout) findViewById(R.id.left_drawer);
-
-		// Set shadow of navigation drawer
-		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
-				GravityCompat.START);
-
-		// get Titles from Array
-		drawerTitles = getResources()
-				.getStringArray(R.array.drawerTitles_array);
-
-		// Create Adapter with MenuListAdapter
-		DrawerListAdapter mMenuAdapter = new DrawerListAdapter(this,
-				drawerTitles);
-		mDrawerList.setAdapter(mMenuAdapter);
-
-		// Prepare ActionBar
-		mActionBar = getActionBar();
-		mActionBar.setDisplayShowCustomEnabled(true);
-		mActionBar.setHomeButtonEnabled(true);
-		mActionBar.setDisplayHomeAsUpEnabled(true);
-		mActionBar.setDisplayShowTitleEnabled(false);
-
-		// ActionBar Layout
-		LayoutInflater inflator = (LayoutInflater) this
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mActionView = inflator.inflate(R.layout.actionbar, null);
-		mActionBar.setCustomView(mActionView);
-		mActionBar.show();
-
-		// Add Navigation Drawer to ActionBar
-		mDrawerToggle = new ActionBarDrawerToggle(
-				this,
-				mDrawerLayout,
-				themeId.contentEquals("light") ? R.drawable.holo_light_ic_drawer
-						: R.drawable.holo_dark_ic_drawer, R.string.drawer_open,
-				R.string.drawer_close) {
-
-			@Override
-			public void onDrawerClosed(View view) {
-				mActionBar.setDisplayShowTitleEnabled(false);
-				mActionBar.setCustomView(mActionView);
-				invalidateOptionsMenu();
-			}
-
-			@Override
-			public void onDrawerOpened(View drawerView) {
-				mActionBar.setDisplayShowTitleEnabled(true);
-				mActionBar.setCustomView(null);
-				invalidateOptionsMenu();
-			}
-		};
-
-		mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-		mDrawerList.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				selectItem(position);
-			}
-		});
 	}
 
 	private void selectItem(int position) {
@@ -371,6 +402,8 @@ public final class Browser extends ListActivity implements
 	public void onNavigate(String path) {
 		// navigate to path when ActionBarNavigation button is clicked
 		navigateTo(path);
+		// go to the top of the ListView
+		mListView.setSelection(0);
 	}
 
 	private void SearchIntent(Intent intent) {
@@ -398,6 +431,9 @@ public final class Browser extends ListActivity implements
 
 		if (file.isDirectory()) {
 			navigateTo(file.getAbsolutePath());
+
+			// go to the top of the ListView
+			mListView.setSelection(0);
 
 			if (!mUseBackKey)
 				mUseBackKey = true;
@@ -442,9 +478,18 @@ public final class Browser extends ListActivity implements
 	}
 
 	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		// update ActionBar navigation view
+		// this is needed when a Bookmark is selected in NavingationDrawer
+		if (!mDrawerLayout.isDrawerOpen(mDrawer)) {
+			navigateTo(mCurrentPath);
+		}
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-
 		case android.R.id.home:
 			if (mDrawerLayout.isDrawerOpen(mDrawer)) {
 				mDrawerLayout.closeDrawer(mDrawer);
@@ -452,13 +497,19 @@ public final class Browser extends ListActivity implements
 				mDrawerLayout.openDrawer(mDrawer);
 			}
 			return true;
-		case R.id.create:
+		case R.id.createfile:
 			if (mDrawerLayout.isDrawerOpen(mDrawer))
 				mDrawerLayout.closeDrawer(mDrawer);
-			createDialog();
+
+			final DialogFragment dialog1 = new CreateFileDialog();
+			dialog1.show(getFragmentManager(), "dialog");
 			return true;
-		case R.id.bookmarks:
-			bookmarkDialog();
+		case R.id.createfolder:
+			if (mDrawerLayout.isDrawerOpen(mDrawer))
+				mDrawerLayout.closeDrawer(mDrawer);
+
+			final DialogFragment dialog2 = new CreateFolderDialog();
+			dialog2.show(getFragmentManager(), "dialog");
 			return true;
 		case R.id.folderinfo:
 			final DialogFragment pid = DirectoryInfoDialog
@@ -491,72 +542,11 @@ public final class Browser extends ListActivity implements
 		}
 	}
 
-	private void bookmarkDialog() {
-		if (mDrawerLayout.isDrawerOpen(mDrawer))
-			mDrawerLayout.closeDrawer(mDrawer);
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-		final Cursor bookmarksCursor = getContentResolver()
-				.query(Bookmarks.CONTENT_URI,
-						new String[] { Bookmarks._ID, Bookmarks.NAME,
-								Bookmarks.PATH, }, null, null, null);
-
-		builder.setTitle(R.string.bookmark);
-		builder.setCursor(bookmarksCursor,
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int item) {
-						if (mDrawerLayout.isDrawerOpen(mDrawer))
-							mDrawerLayout.closeDrawer(mDrawer);
-
-						if (bookmarksCursor.moveToPosition(item)) {
-							String path = bookmarksCursor
-									.getString(bookmarksCursor
-											.getColumnIndex(Bookmarks.PATH));
-							File file = new File(path);
-							if (file != null) {
-								if (file.isDirectory()) {
-									navigateTo(path);
-								} else {
-									listItemAction(file, path);
-								}
-							}
-						} else {
-							Toast.makeText(Browser.this,
-									getString(R.string.error),
-									Toast.LENGTH_SHORT).show();
-						}
-					}
-				}, Bookmarks.NAME);
-		builder.create();
-		builder.show();
-	}
-
-	private void createDialog() {
-		final CharSequence[] create = { getString(R.string.newfile),
-				getString(R.string.newd), };
-
-		AlertDialog.Builder builder3 = new AlertDialog.Builder(Browser.this);
-		builder3.setItems(create, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int itemz) {
-				switch (itemz) {
-
-				case 0:
-					final DialogFragment dialog1 = new CreateFileDialog();
-					dialog1.show(getFragmentManager(), "dialog");
-					return;
-
-				case 1:
-					final DialogFragment dialog2 = new CreateFolderDialog();
-					dialog2.show(getFragmentManager(), "dialog");
-					return;
-				}
-			}
-		});
-		AlertDialog alertmore = builder3.create();
-		alertmore.show();
+	private Cursor getBookmarksCursor() {
+		return getContentResolver().query(
+				Bookmarks.CONTENT_URI,
+				new String[] { Bookmarks._ID, Bookmarks.NAME, Bookmarks.PATH,
+						Bookmarks.CHECKED }, null, null, null);
 	}
 
 	private static final class NavigateRunnable implements Runnable {
@@ -609,6 +599,9 @@ public final class Browser extends ListActivity implements
 				&& !mCurrentPath.equals("/")) {
 
 			navigateTo(parent);
+
+			// go to the top of the ListView
+			mListView.setSelection(0);
 			return true;
 
 		} else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey

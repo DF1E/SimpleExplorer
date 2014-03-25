@@ -7,15 +7,15 @@
         android:showAsAction="ifRoom"
         android:title="@string/paste"/>
     <item
-        android:id="@+id/create"
-        android:icon="?attr/action_create"
+        android:id="@+id/createfile"
+        android:icon="?attr/action_create_file"
         android:showAsAction="ifRoom"
-        android:title="@string/create"/>
+        android:title="@string/newfile"/>
     <item
-        android:id="@+id/bookmarks"
-        android:icon="?attr/action_bookmark"
+        android:id="@+id/createfolder"
+        android:icon="?attr/action_create_folder"
         android:showAsAction="ifRoom"
-        android:title="@string/bookmark"/>
+        android:title="@string/createnewfolder"/>
     <item
         android:id="@+id/folderinfo"
         android:icon="?attr/action_info"

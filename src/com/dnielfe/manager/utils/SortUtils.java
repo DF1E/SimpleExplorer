@@ -32,7 +32,7 @@ public class SortUtils {
 	private static final int SORT_TYPE = 1;
 	private static final int SORT_SIZE = 2;
 
-	public static ArrayList<String> sortType(ArrayList<String> content,
+	public static ArrayList<String> sortList(ArrayList<String> content,
 			String current) {
 
 		switch (Settings.mSortType) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer(파일관리자)</string>
     <string name="advancedsettings">Advanced</string>
     <string name="appmanager">App Manager(앱 매니저)</string>
@@ -29,6 +30,7 @@
     <string name="defaultdir">기본 디렉토리</string>
     <string name="delete">삭제</string>
     <string name="deleteapps">앱 삭제</string>
+    <string name="deletesuccess">Delete successful</string>
     <string name="deleting">삭제중</string>
     <string name="desc">desc</string>
     <string name="detailed">자세히</string>
@@ -36,6 +38,7 @@
     <string name="dir_info">폴더 정보</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="empty">Empty</string>
     <string name="error">에러</string>
     <string name="exit">나가기</string>
     <string name="extractto">압축해제 </string>
@@ -69,7 +72,7 @@
     <string name="options">Options</string>
     <string name="packing">Packing</string>
     <string name="paste">Paste</string>
-    <string name="permissions">Persmissions</string>
+    <string name="permissions">Persmissions:</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Press back again to exit.</string>
     <string name="rename">Rename</string>
@@ -92,11 +95,36 @@
     <string name="uninstallapp">Uninstall App</string>
     <string name="unselectall">Unselect all</string>
     <string name="unzipping">Extracting</string>
-    <string name="used">Used:</string>
     <string name="version">"Version "</string>
     <string name="video">Video</string>
     <string name="viewmode">View mode</string>
     <string name="xdaforum">XDA forum</string>
     <string name="zipping">Compressing</string>
+
+    <!-- theme -->
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
+    <!-- permissions -->
+    <string name="owner">Owner:</string>
+    <string name="group">Group:</string>
+    <string name="others">Other:</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="execute">Execute</string>
+    <string name="permissionschanged">Permissions changed</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file(s)</string>
+    <string name="_selected">\u0020selected</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Location:</string>
+    <string name="total">Total space:</string>
+    <string name="free">Free space:</string>
+    <string name="available">Available space:</string>
+    <string name="block_size">Block size:</string>
+    <string name="used">Used:</string>
 
 </resources>

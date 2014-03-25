@@ -22,6 +22,7 @@ package com.dnielfe.manager.adapters;
 import org.jetbrains.annotations.NotNull;
 
 import com.dnielfe.manager.R;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,20 +33,28 @@ import android.widget.TextView;
 public class DrawerListAdapter extends BaseAdapter {
 	private Context mContext;
 	private String[] mTitle;
-	private LayoutInflater inflater;
 
-	public DrawerListAdapter(@NotNull final Context context, String[] pTitle) {
-		mContext = context;
-		mTitle = pTitle;
+	public DrawerListAdapter(@NotNull final Context context) {
+		this.mContext = context;
+		this.mTitle = context.getResources().getStringArray(
+				R.array.drawerTitles_array);
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		inflater = (LayoutInflater) mContext
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		convertView = inflater.inflate(R.layout.drawer_listitem, parent, false);
+		ViewHolder holder;
 
-		TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
-		txtTitle.setText(mTitle[position]);
+		if (convertView == null) {
+			LayoutInflater inflater = (LayoutInflater) mContext
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.drawer_listitem, parent,
+					false);
+			holder = new ViewHolder(convertView);
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
+
+		holder.title.setText(mTitle[position]);
 		return convertView;
 	}
 
@@ -62,5 +71,13 @@ public class DrawerListAdapter extends BaseAdapter {
 	@Override
 	public long getItemId(int position) {
 		return position;
+	}
+
+	private class ViewHolder {
+		public TextView title = null;
+
+		ViewHolder(View row) {
+			title = (TextView) row.findViewById(R.id.title);
+		}
 	}
 }
