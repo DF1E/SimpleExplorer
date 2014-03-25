@@ -114,31 +114,27 @@ public final class MimeTypes {
 		EXT_ICONS.put("fdf", Integer.valueOf(R.drawable.type_pdf));
 
 		// Compress
-		EXT_ICONS.put("ace", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("bz", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("bz2", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("cab", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("cpio", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("gz", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("lha", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("lrf", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("lzma", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("rar", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("tar", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("tgz", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("xz", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("zip", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("Z", Integer.valueOf(R.drawable.type_zip));
-		EXT_ICONS.put("7z", Integer.valueOf(R.drawable.type_zip));
+		EXT_ICONS.put("ace", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("bz", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("bz2", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("cab", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("cpio", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("gz", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("lha", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("lrf", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("lzma", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("rar", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("tar", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("tgz", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("xz", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("zip", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("Z", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("7z", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("rar", Integer.valueOf(R.drawable.type_package));
+		EXT_ICONS.put("tar", Integer.valueOf(R.drawable.type_package));
 
 		// JAR
 		EXT_ICONS.put("jar", Integer.valueOf(R.drawable.jar32));
-
-		// RAR
-		EXT_ICONS.put("rar", Integer.valueOf(R.drawable.rar));
-
-		// TAR
-		EXT_ICONS.put("tar", Integer.valueOf(R.drawable.tar));
 
 		// Image
 		EXT_ICONS.put("bmp", Integer.valueOf(R.drawable.type_pic));

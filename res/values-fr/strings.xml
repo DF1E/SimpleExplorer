@@ -30,7 +30,7 @@
     <string name="defaultdir">Dossier par défaut</string>
     <string name="delete">Supprimer</string>
     <string name="deleteapps">Supprimer Apps</string>
-    <string name="deletesuccess">Delete successful</string>
+    <string name="deletesuccess">Supprimé avec succès</string>
     <string name="deleting">Suppression</string>
     <string name="desc">desc</string>
     <string name="detailed">Détaillé</string>
@@ -38,7 +38,7 @@
     <string name="dir_info">Information dossier</string>
     <string name="drawer_open">Ouvrir le tiroir de navigation</string>
     <string name="drawer_close">Fermer le tiroir de navigation</string>
-    <string name="empty">Empty</string>
+    <string name="empty">Vide</string>
     <string name="error">Erreur</string>
     <string name="exit">Quitter</string>
     <string name="extractto">Extraire vers</string>
@@ -49,7 +49,6 @@
     <string name="filewasrenamed">Fichier renommé.</string>
     <string name="foundfiles">Trouvé</string>
     <string name="hiddenfiles">Fichiers cachés</string>
-    <string name="image">Image</string>
     <string name="itcouldntbefound">Ne peut être trouvé.</string>
     <string name="LastModified">Dernière modification:</string>
     <string name="launch">Lancer</string>
@@ -61,9 +60,7 @@
     <string name="movesuccsess">Déplacement avec succès.</string>
     <string name="moving">Déplacement</string>
     <string name="multizip">Zip</string>
-    <string name="music">Musique</string>
     <string name="name">Nom</string>
-    <string name="newd">Nouveau dossier</string>
     <string name="newfile">Nouveau fichier</string>
     <string name="newfolderwasnotcreated">Nouveau dossier non créé.</string>
     <string name="noapps">Pas d\'Apps sélectionnés.</string>
@@ -89,42 +86,40 @@
     <string name="size">Utilisé:</string>
     <string name="size1">Taille</string>
     <string name="sort">Trier</string>
-    <string name="text">Texte</string>
     <string name="type">Type</string>
     <string name="uisettings">Afficher paramètres</string>
     <string name="uninstallapp">Désinstaller App</string>
     <string name="unselectall">Tout désélectionner</string>
     <string name="unzipping">Extraction</string>
     <string name="version">"Version "</string>
-    <string name="video">Vidéo</string>
     <string name="viewmode">Mode d\'affichage</string>
     <string name="xdaforum">Forum XDA</string>
     <string name="zipping">Compression</string>
 
     <!-- theme -->
-    <string name="theme">Theme</string>
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
+    <string name="theme">Thème</string>
+    <string name="light">Clair</string>
+    <string name="dark">Foncé</string>
 
     <!-- permissions -->
-    <string name="owner">Owner:</string>
-    <string name="group">Group:</string>
-    <string name="others">Other:</string>
-    <string name="read">Read</string>
-    <string name="write">Write</string>
-    <string name="execute">Execute</string>
-    <string name="permissionschanged">Permissions changed</string>
+    <string name="owner">Propriétaire</string>
+    <string name="group">Groupe:</string>
+    <string name="others">Autre:</string>
+    <string name="read">Lecture</string>
+    <string name="write">Ecriture</string>
+    <string name="execute">Executer</string>
+    <string name="permissionschanged">Permissions modifées</string>
 
     <!-- actionmode -->
     <string name="_files">\u0020file(s)</string>
     <string name="_selected">\u0020selected</string>
 
     <!-- directory info dialog -->
-    <string name="location">Location:</string>
-    <string name="total">Total space:</string>
-    <string name="free">Free space:</string>
-    <string name="available">Available space:</string>
-    <string name="block_size">Block size:</string>
+    <string name="location">Emplacement:</string>
+    <string name="total">Espace total:</string>
+    <string name="free">Espace libre:</string>
+    <string name="available">Espace disponible:</string>
+    <string name="block_size">Taille de bloc:</string>
     <string name="used">Utilisé:</string>
 
 </resources>

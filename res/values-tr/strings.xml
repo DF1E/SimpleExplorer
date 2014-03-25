@@ -49,7 +49,6 @@
     <string name="filewasrenamed">Dosya yeniden adlandırıldı</string>
     <string name="foundfiles">Bulundu</string>
     <string name="hiddenfiles">Gizli Dosyalar</string>
-    <string name="image">Resim</string>
     <string name="itcouldntbefound">Bulunamadı</string>
     <string name="LastModified">Son değişiklik:</string>
     <string name="launch">Aç</string>
@@ -61,9 +60,7 @@
     <string name="movesuccsess">Başarıyla taşındı</string>
     <string name="moving">Taşınıyor</string>
     <string name="multizip">Zip</string>
-    <string name="music">Müzik</string>
     <string name="name">Ad</string>
-    <string name="newd">Yeni Klasör</string>
     <string name="newfile">Yeni Dosya</string>
     <string name="newfolderwasnotcreated">Yeni Klasör oluşturulamadı</string>
     <string name="noapps">Uygulama seçin</string>
@@ -89,14 +86,12 @@
     <string name="size">Kullanılan:</string>
     <string name="size1">Boyut</string>
     <string name="sort">Sırala</string>
-    <string name="text">Metin</string>
     <string name="type">Type</string>
     <string name="uisettings">Ayarları göster</string>
     <string name="uninstallapp">Uygulamayı kaldır</string>
     <string name="unselectall">Hiçbirini seçme</string>
     <string name="unzipping">Açılıyor</string>
     <string name="version">"Version "</string>
-    <string name="video">Video</string>
     <string name="viewmode">İzleme Modu</string>
     <string name="xdaforum">XDA Forum</string>
     <string name="zipping">Sıkıştırıyor</string>

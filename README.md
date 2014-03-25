@@ -24,6 +24,6 @@ This program licensed under http://www.gnu.org/licenses/gpl-2.0.html
 + logpc - french
 
 
-**Now you can help to translate this app at [PureFM](http://www.getlocalization.com/Simple_Explorer)!**
+**Now you can help to translate this app at [getlocalization.com](http://www.getlocalization.com/Simple_Explorer)!**
 
 Discussion Thread: http://forum.xda-developers.com/showthread.php?t=2330864

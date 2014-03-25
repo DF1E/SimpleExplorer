@@ -49,7 +49,6 @@
     <string name="filewasrenamed">파일의 이름이 변경되었습니다.</string>
     <string name="foundfiles">발견</string>
     <string name="hiddenfiles">숨겨진 파일</string>
-    <string name="image">사진</string>
     <string name="itcouldntbefound">It couldnt be found.</string>
     <string name="LastModified">Last modified:</string>
     <string name="launch">Launch</string>
@@ -61,9 +60,7 @@
     <string name="movesuccsess">Successfully moved.</string>
     <string name="moving">Moving</string>
     <string name="multizip">Zip</string>
-    <string name="music">Music</string>
     <string name="name">Name</string>
-    <string name="newd">New Directory</string>
     <string name="newfile">New file</string>
     <string name="newfolderwasnotcreated">New folder was not created.</string>
     <string name="noapps">No Apps selected.</string>
@@ -89,14 +86,12 @@
     <string name="size">Used:</string>
     <string name="size1">Size</string>
     <string name="sort">Sort</string>
-    <string name="text">Text</string>
     <string name="type">Type</string>
     <string name="uisettings">View settings</string>
     <string name="uninstallapp">Uninstall App</string>
     <string name="unselectall">Unselect all</string>
     <string name="unzipping">Extracting</string>
     <string name="version">"Version "</string>
-    <string name="video">Video</string>
     <string name="viewmode">View mode</string>
     <string name="xdaforum">XDA forum</string>
     <string name="zipping">Compressing</string>

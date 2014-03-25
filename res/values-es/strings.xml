@@ -49,7 +49,6 @@
     <string name="filewasrenamed">Archivo fue renombrado.</string>
     <string name="foundfiles">Localizado</string>
     <string name="hiddenfiles">Archivos ocultados</string>
-    <string name="image">Imagen</string>
     <string name="itcouldntbefound">No pudo ser localizado.</string>
     <string name="LastModified">Último modificado:</string>
     <string name="launch">Lanzar</string>
@@ -61,9 +60,7 @@
     <string name="movesuccsess">Movida fue exitosa.</string>
     <string name="moving">Moviendo...</string>
     <string name="multizip">Zip</string>
-    <string name="music">Música</string>
     <string name="name">Nombre</string>
-    <string name="newd">Nueva carpeta</string>
     <string name="newfile">Nuevo archivo</string>
     <string name="newfolderwasnotcreated">Nueva carpeta no fue creada.</string>
     <string name="noapps">Aplicaciónes no fueron seleccionadas.</string>
@@ -89,14 +86,12 @@
     <string name="size">Usado:</string>
     <string name="size1">Tamaño</string>
     <string name="sort">Ordenar</string>
-    <string name="text">Texto</string>
     <string name="type">Tipo</string>
     <string name="uisettings">Ver ajustes</string>
     <string name="uninstallapp">Desinstalar aplicación</string>
     <string name="unselectall">Deseleccionar todo</string>
     <string name="unzipping">Extractando...</string>
     <string name="version">"Versión "</string>
-    <string name="video">Vídeo</string>
     <string name="viewmode">Modo de ver</string>
     <string name="xdaforum">Foro de XDA</string>
     <string name="zipping">Comprimiendo...</string>

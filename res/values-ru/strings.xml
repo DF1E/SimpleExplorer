@@ -49,7 +49,6 @@
     <string name="filewasrenamed">Файл переименован.</string>
     <string name="foundfiles">Найдено</string>
     <string name="hiddenfiles">Скрытые файлы</string>
-    <string name="image">Изображение</string>
     <string name="itcouldntbefound">Ничего не найдено!</string>
     <string name="LastModified">Изменён:</string>
     <string name="launch">Запустить</string>
@@ -61,9 +60,7 @@
     <string name="movesuccsess">Перемещено успешно.</string>
     <string name="moving">Перемещение</string>
     <string name="multizip">Сжать в архив...</string>
-    <string name="music">Аудио</string>
     <string name="name">По имени</string>
-    <string name="newd">Создать папку</string>
     <string name="newfile">Создать файл</string>
     <string name="newfolderwasnotcreated">Папка не создана!</string>
     <string name="noapps">Приложения не выбраны!</string>
@@ -89,14 +86,12 @@
     <string name="size">Размер:</string>
     <string name="size1">По размеру</string>
     <string name="sort">Сортировка</string>
-    <string name="text">Текст</string>
     <string name="type">По типу</string>
     <string name="uisettings">Отображение</string>
     <string name="uninstallapp">Удалить приложение</string>
     <string name="unselectall">Отменить выбор</string>
     <string name="unzipping">Распаковка ZIP-архива</string>
     <string name="version">"Версия "</string>
-    <string name="video">Видео</string>
     <string name="viewmode">Вид списка</string>
     <string name="xdaforum">XDA forum</string>
     <string name="zipping">Сжатие в ZIP-архив</string>

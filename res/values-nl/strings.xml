@@ -8,20 +8,20 @@
     <string name="apps">" Apps"</string>
     <string name="backedup">" gebackupt"</string>
     <string name="backup">Backup</string>
-    <string name="backupcomplete">Backup compleet</string>
+    <string name="backupcomplete">Backup voltooid</string>
     <string name="backuperror">Backup niet mogelijk</string>
     <string name="bookmark">Bladwijzers</string>
     <string name="bookmarkadded">Bladwijzer toegevoegd</string>
     <string name="bookmarkexist">Bladwijzer bestaat al!</string>
-    <string name="cancel">Annuleer</string>
+    <string name="cancel">Annuleren</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dit kan niet ongedaan gemaakt worden"</string>
-    <string name="cantopenfile">Cannot open this file</string>
+    <string name="cantopenfile">Kan dit bestand niet openen</string>
     <string name="cantreadfolder">Folder kan niet gelezen worden wegens machtigingen</string>
-    <string name="copiedtoclipboard">gekopieerd naar Klembord</string>
+    <string name="copiedtoclipboard">Gekopieerd naar klembord</string>
     <string name="copy">Kopi\u00EBren</string>
     <string name="copyfail">Kopi\u00EBren mislukt!</string>
     <string name="copying">Bezig met kopi\u00EBren</string>
-    <string name="copysuccsess">succesvol gekopieerd</string>
+    <string name="copysuccsess">Succesvol gekopieerd</string>
     <string name="create">Maak</string>
     <string name="createbookmark">Bladwijzer maken</string>
     <string name="created">" gemaakt"</string>
@@ -30,40 +30,37 @@
     <string name="defaultdir">Standaardlocatie</string>
     <string name="delete">Verwijderen</string>
     <string name="deleteapps">Verwijder Apps</string>
-    <string name="deletesuccess">Delete successful</string>
+    <string name="deletesuccess">Succesvol verwijderd</string>
     <string name="deleting">Bezig met verwijderen</string>
     <string name="desc">desc</string>
     <string name="detailed">Gedetailleerd</string>
     <string name="details">Details</string>
     <string name="dir_info">Map Informatie</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-    <string name="empty">Empty</string>
+    <string name="drawer_open">Open navigatie lade</string>
+    <string name="drawer_close">Sluit navigatie lade</string>
+    <string name="empty">Leeg</string>
     <string name="error">Fout</string>
-    <string name="exit">Exit</string>
+    <string name="exit">Afsluiten</string>
     <string name="extractto">Uitpakken naar</string>
     <string name="file">Bestand</string>
     <string name="filecreated">Bestand is aangemaakt</string>
     <string name="fileexists">Bestand bestaat al</string>
     <string name="files">" Bestanden"</string>
-    <string name="filewasrenamed">Bestand is hernoemt</string>
+    <string name="filewasrenamed">Bestand is hernoemd.</string>
     <string name="foundfiles">Gevonden</string>
     <string name="hiddenfiles">Verborgen bestanden</string>
-    <string name="image">Afbeelding</string>
     <string name="itcouldntbefound">Kon niet gevonden worden</string>
     <string name="LastModified">Laatst Gewijzigd:</string>
     <string name="launch">Start</string>
     <string name="loading">Bezig met laden</string>
     <string name="manage">Beheer</string>
-    <string name="md5">MD5:</string>
+    <string name="md5">MD5</string>
     <string name="move">Verplaatsen</string>
-    <string name="movefail">Moving failed.</string>
-    <string name="movesuccsess">succesvol verplaatst</string>
+    <string name="movefail">Verplaatsen mislukt.</string>
+    <string name="movesuccsess">Succesvol verplaatst.</string>
     <string name="moving">Bezig met verplaatsen</string>
     <string name="multizip">Zip</string>
-    <string name="music">Muziek</string>
     <string name="name">Naam</string>
-    <string name="newd">Nieuwe locatie</string>
     <string name="newfile">Nieuw Bestand</string>
     <string name="newfolderwasnotcreated">Geen nieuwe map aangemaakt</string>
     <string name="noapps">Geen apps geselecteerd</string>
@@ -89,42 +86,40 @@
     <string name="size">Gebruikt:</string>
     <string name="size1">Grootte</string>
     <string name="sort">Sorteer</string>
-    <string name="text">Tekst</string>
     <string name="type">Type</string>
     <string name="uisettings">Bekijk Instellingen</string>
     <string name="uninstallapp">Verwijder App</string>
     <string name="unselectall">Deselecteer Alles</string>
     <string name="unzipping">Uitpakken</string>
     <string name="version">"Versie "</string>
-    <string name="video">Video</string>
     <string name="viewmode">Weergavemodus</string>
     <string name="xdaforum">XDA Forum</string>
     <string name="zipping">Inpakken</string>
 
     <!-- theme -->
-    <string name="theme">Theme</string>
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
+    <string name="theme">Thema</string>
+    <string name="light">Licht</string>
+    <string name="dark">Donker</string>
 
     <!-- permissions -->
-    <string name="owner">Owner:</string>
-    <string name="group">Group:</string>
-    <string name="others">Other:</string>
-    <string name="read">Read</string>
-    <string name="write">Write</string>
-    <string name="execute">Execute</string>
-    <string name="permissionschanged">Permissions changed</string>
+    <string name="owner">Eigenaar:</string>
+    <string name="group">Groep:</string>
+    <string name="others">Overig:</string>
+    <string name="read">Lees</string>
+    <string name="write">Schrijf</string>
+    <string name="execute">Uitvoeren</string>
+    <string name="permissionschanged">Machtigingen zijn gewijzigd</string>
 
     <!-- actionmode -->
-    <string name="_files">\u0020file(s)</string>
-    <string name="_selected">\u0020selected</string>
+    <string name="_files">\u0020bestand(en)</string>
+    <string name="_selected">\u0020geselecteerd</string>
 
     <!-- directory info dialog -->
-    <string name="location">Location:</string>
-    <string name="total">Total space:</string>
-    <string name="free">Free space:</string>
-    <string name="available">Available space:</string>
-    <string name="block_size">Block size:</string>
+    <string name="location">Locatie:</string>
+    <string name="total">Totale ruimte:</string>
+    <string name="free">Vrije ruimte:</string>
+    <string name="available">Beschikbare ruimte:</string>
+    <string name="block_size">Blok grootte:</string>
     <string name="used">Gebruikt:</string>
 
 </resources>
