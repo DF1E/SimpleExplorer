@@ -223,7 +223,6 @@ public class SimpleUtils {
 				return -2;
 
 			try {
-
 				BufferedOutputStream o_stream = new BufferedOutputStream(
 						new FileOutputStream(cp_file));
 				BufferedInputStream i_stream = new BufferedInputStream(
@@ -436,23 +435,26 @@ public class SimpleUtils {
 
 	public static void openFile(final Context context, final File target) {
 		final String mime = MimeTypes.getMimeType(target);
+		final Intent i = new Intent(Intent.ACTION_VIEW);
+
 		if (mime != null) {
-			final Intent i = new Intent(Intent.ACTION_VIEW);
 			i.setDataAndType(Uri.fromFile(target), mime);
-			if (context.getPackageManager().queryIntentActivities(i, 0)
-					.isEmpty()) {
-				Toast.makeText(context, R.string.cantopenfile,
-						Toast.LENGTH_SHORT).show();
-				return;
-			}
-			try {
-				context.startActivity(i);
-			} catch (Exception e) {
-				Toast.makeText(
-						context,
-						context.getString(R.string.cantopenfile)
-								+ e.getMessage(), Toast.LENGTH_SHORT).show();
-			}
+		} else {
+			i.setDataAndType(Uri.fromFile(target), "*/*");
+		}
+
+		if (context.getPackageManager().queryIntentActivities(i, 0).isEmpty()) {
+			Toast.makeText(context, R.string.cantopenfile, Toast.LENGTH_SHORT)
+					.show();
+			return;
+		}
+
+		try {
+			context.startActivity(i);
+		} catch (Exception e) {
+			Toast.makeText(context,
+					context.getString(R.string.cantopenfile) + e.getMessage(),
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 

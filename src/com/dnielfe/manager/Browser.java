@@ -42,22 +42,20 @@ import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
 import android.app.ActionBar;
 import android.app.DialogFragment;
-import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.FileObserver;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,7 +66,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public final class Browser extends ListActivity implements
+public final class Browser extends ThemableActivity implements
 		MultiFileObserver.OnEventListener, OnNavigateListener {
 
 	public static final String ACTION_WIDGET = "com.dnielfe.manager.Main.ACTION_WIDGET";
@@ -92,7 +90,6 @@ public final class Browser extends ListActivity implements
 	public static String mCurrentPath;
 
 	private Cursor mBookmarksCursor;
-	private int mCurrentTheme;
 	private String defaultdir;
 	private LinearLayout mDrawer;
 	private MenuItem mMenuItemPaste;
@@ -105,14 +102,36 @@ public final class Browser extends ListActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if (savedInstanceState == null) {
+			savedInstanceState = getIntent().getBundleExtra(EXTRA_SAVED_STATE);
+		}
+
+		setContentView(R.layout.activity_browser);
+		init();
+		restoreSavedState(savedInstanceState);
+
+		File dir = new File(defaultdir);
+
+		if (dir.exists() && dir.isDirectory())
+			navigateTo(dir.getAbsolutePath());
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
 		Settings.updatePreferences(this);
 
-		initTheme();
+		invalidateOptionsMenu();
+	}
 
-		setContentView(R.layout.home);
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString("location", mCurrentPath);
+	}
 
-		init();
-
+	private void restoreSavedState(final Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
 			// get directory when you rotate your phone
 			defaultdir = savedInstanceState.getString("location");
@@ -140,28 +159,6 @@ public final class Browser extends ListActivity implements
 				defaultdir = Settings.defaultdir;
 			}
 		}
-
-		File dir = new File(defaultdir);
-
-		if (dir.exists() && dir.isDirectory())
-			navigateTo(dir.getAbsolutePath());
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-
-		Settings.updatePreferences(this);
-
-		invalidateOptionsMenu();
-
-		initTheme();
-	}
-
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		outState.putString("location", mCurrentPath);
-		super.onSaveInstanceState(outState);
 	}
 
 	private void init() {
@@ -179,7 +176,6 @@ public final class Browser extends ListActivity implements
 			sHandler = new Handler(this.getMainLooper());
 		}
 
-		checkEnvironment();
 		initActionBar();
 		setupDrawer();
 
@@ -187,11 +183,37 @@ public final class Browser extends ListActivity implements
 
 		// get ListView
 		mListView = (ListView) findViewById(android.R.id.list);
+		mListView.setEmptyView(findViewById(android.R.id.empty));
 		mListView.setAdapter(mListAdapter);
 		mListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
+		mListView.setOnItemClickListener(mOnItemClickListener);
 
 		mActionController.setListView(mListView);
 	}
+
+	private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			final String item = (mListView.getAdapter().getItem(position))
+					.toString();
+			final File file = new File(mCurrentPath + "/" + item);
+
+			if (file.isDirectory()) {
+				navigateTo(file.getAbsolutePath());
+
+				// go to the top of the ListView
+				mListView.setSelection(0);
+
+				if (!mUseBackKey)
+					mUseBackKey = true;
+
+			} else {
+				listItemAction(file, item);
+			}
+		}
+	};
 
 	private void initActionBar() {
 		this.mActionBar = this.getActionBar();
@@ -207,7 +229,9 @@ public final class Browser extends ListActivity implements
 	}
 
 	private void setupDrawer() {
-		final String themeId = Settings.mTheme;
+		final TypedArray array = obtainStyledAttributes(new int[] { R.attr.themeId });
+		final int themeId = array.getInteger(0, SimpleExplorer.THEME_ID_LIGHT);
+		array.recycle();
 
 		mDrawer = (LinearLayout) findViewById(R.id.left_drawer);
 
@@ -227,7 +251,7 @@ public final class Browser extends ListActivity implements
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
 
-		int icon = themeId.contentEquals("light") ? R.drawable.holo_light_ic_drawer
+		int icon = themeId == SimpleExplorer.THEME_ID_LIGHT ? R.drawable.holo_light_ic_drawer
 				: R.drawable.holo_dark_ic_drawer;
 
 		// Add Navigation Drawer to ActionBar
@@ -289,7 +313,22 @@ public final class Browser extends ListActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				selectItem(position);
+				switch (position) {
+				case 0:
+					// start AppManager
+					Intent intent1 = new Intent(Browser.this, AppManager.class);
+					startActivity(intent1);
+					break;
+				case 1:
+					// start Preferences
+					Intent intent2 = new Intent(Browser.this,
+							SettingsActivity.class);
+					startActivity(intent2);
+					break;
+				case 2:
+					// exit
+					finish();
+				}
 			}
 		});
 	}
@@ -322,24 +361,6 @@ public final class Browser extends ListActivity implements
 		mNavigation.setDirectoryButtons(path);
 	}
 
-	private void selectItem(int position) {
-		switch (position) {
-		case 0:
-			// AppManager
-			Intent intent1 = new Intent(Browser.this, AppManager.class);
-			startActivity(intent1);
-			break;
-		case 1:
-			// Preferences
-			Intent intent2 = new Intent(Browser.this, SettingsActivity.class);
-			startActivity(intent2);
-			break;
-		case 2:
-			// exit
-			finish();
-		}
-	}
-
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
@@ -359,17 +380,6 @@ public final class Browser extends ListActivity implements
 		ret.setData(Uri.fromFile(data));
 		setResult(RESULT_OK, ret);
 		finish();
-	}
-
-	// check if SDcard is present
-	private void checkEnvironment() {
-		boolean sdCardExist = Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED);
-
-		if (!sdCardExist) {
-			Toast.makeText(Browser.this, getString(R.string.sdcardnotfound),
-					Toast.LENGTH_SHORT).show();
-		}
 	}
 
 	@Override
@@ -422,27 +432,6 @@ public final class Browser extends ListActivity implements
 		}
 	}
 
-	@Override
-	public void onListItemClick(ListView parent, View view, int position,
-			long id) {
-		final String item = (mListView.getAdapter().getItem(position))
-				.toString();
-		final File file = new File(mCurrentPath + "/" + item);
-
-		if (file.isDirectory()) {
-			navigateTo(file.getAbsolutePath());
-
-			// go to the top of the ListView
-			mListView.setSelection(0);
-
-			if (!mUseBackKey)
-				mUseBackKey = true;
-
-		} else {
-			listItemAction(file, item);
-		}
-	}
-
 	private void listItemAction(File file, String item) {
 		String item_ext = null;
 
@@ -465,12 +454,9 @@ public final class Browser extends ListActivity implements
 		}
 	}
 
-	// Options menu start here
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
+		this.getMenuInflater().inflate(R.menu.main, menu);
 
 		mMenuItemPaste = menu.findItem(R.id.paste);
 		mMenuItemPaste.setVisible(!ClipBoard.isEmpty());
@@ -479,9 +465,9 @@ public final class Browser extends ListActivity implements
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		// update ActionBar navigation view
 		// this is needed when a Bookmark is selected in NavingationDrawer
 		if (!mDrawerLayout.isDrawerOpen(mDrawer)) {
+			// update ActionBar navigation view
 			navigateTo(mCurrentPath);
 		}
 		return super.onPrepareOptionsMenu(menu);
@@ -526,19 +512,6 @@ public final class Browser extends ListActivity implements
 
 		default:
 			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	// TODO fix on resume
-	private void initTheme() {
-		String theme = Settings.mTheme;
-
-		int theme1 = theme.compareTo("light") == 0 ? R.style.ThemeLight
-				: R.style.ThemeDark;
-
-		if (mCurrentTheme != theme1) {
-			mCurrentTheme = theme1;
-			setTheme(theme1);
 		}
 	}
 

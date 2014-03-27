@@ -46,7 +46,7 @@ public class DrawerListAdapter extends BaseAdapter {
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) mContext
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.drawer_listitem, parent,
+			convertView = inflater.inflate(R.layout.item_drawermenu, parent,
 					false);
 			holder = new ViewHolder(convertView);
 			convertView.setTag(holder);

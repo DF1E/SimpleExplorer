@@ -20,51 +20,26 @@
 package com.dnielfe.manager.settings;
 
 import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.ThemableActivity;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.dialogs.EditBookmarksDialog;
+
 import android.app.ActionBar;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends ThemableActivity {
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		initTheme();
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_settings);
 
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.show();
-		
-		addPreferencesFromResource(R.xml.preferences);
 
-		Preference editBookmarks = findPreference("editbookmarks");
-		editBookmarks
-				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-					public boolean onPreferenceClick(Preference pref) {
-						final DialogFragment dialog = new EditBookmarksDialog();
-						dialog.show(getFragmentManager(), "dialog");
-						return false;
-					}
-				});
-	}
-
-	// TODO fix on resume
-	private void initTheme() {
-		String theme = Settings.mTheme;
-
-		int theme1 = theme.compareTo("light") == 0 ? R.style.ThemeLight
-				: R.style.ThemeDark;
-
-		setTheme(theme1);
 	}
 
 	@Override
@@ -79,6 +54,10 @@ public class SettingsActivity extends PreferenceActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return super.onCreateOptionsMenu(menu);
+	}
+
+	void proxyRestart() {
+		restart();
 	}
 
 	@Override

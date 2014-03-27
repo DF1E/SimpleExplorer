@@ -2,6 +2,7 @@
 <resources>
 
     <style name="ThemeLight" parent="android:Theme.Holo.Light">
+        <item name="themeId">1</item>
         <item name="android:windowBackground">@color/holo_light_window_background</item>
         <item name="bookmark_windoBackground">@color/white</item>
         <item name="ic_drawer">@drawable/holo_light_ic_drawer</item>
@@ -12,15 +13,17 @@
         <item name="action_paste">@drawable/actionpaste</item>
         <item name="action_create_file">@drawable/holo_light_ic_menu_file_new</item>
         <item name="action_create_folder">@drawable/holo_light_ic_menu_folder_new</item>
-        <item name="action_multi">@drawable/holo_light_ic_action_select_all</item>
+        <item name="action_multi">@drawable/holo_light_action_select_all</item>
         <item name="action_zip">@drawable/holo_light_ic_storage</item>
         <item name="action_bookmark">@drawable/holo_light_ic_bookmark</item>
+        <item name="action_delete">@drawable/holo_light_action_delete</item>
         <item name="action_remove">@drawable/holo_light_action_remove</item>
         <item name="action_search">@drawable/holo_light_action_search</item>
         <item name="action_share">@drawable/holo_light_action_share</item>
     </style>
 
     <style name="ThemeDark" parent="android:Theme.Holo">
+        <item name="themeId">2</item>
         <item name="android:windowBackground">@color/holo_dark_window_background</item>
         <item name="bookmark_windoBackground">@color/darkgray</item>
         <item name="android:actionBarStyle">@style/actionBarStyleDark</item>
@@ -35,6 +38,7 @@
         <item name="action_multi">@drawable/holo_dark_ic_action_select_all</item>
         <item name="action_zip">@drawable/holo_dark_ic_storage</item>
         <item name="action_bookmark">@drawable/holo_dark_ic_bookmark</item>
+        <item name="action_delete">@drawable/holo_dark_action_delete</item>
         <item name="action_remove">@drawable/holo_dark_action_remove</item>
         <item name="action_search">@drawable/holo_dark_action_search</item>
         <item name="action_share">@drawable/holo_dark_action_share</item>

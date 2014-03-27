@@ -41,7 +41,7 @@ public class SearchListAdapter extends ArrayAdapter<String> {
 
 	public SearchListAdapter(@NotNull final Context context,
 			ArrayList<String> data) {
-		super(context, R.layout.search_row, data);
+		super(context, R.layout.item_search, data);
 		this.mContext = context;
 		this.mData = data;
 	}
@@ -53,7 +53,7 @@ public class SearchListAdapter extends ArrayAdapter<String> {
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) mContext
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.search_row, parent, false);
+			convertView = inflater.inflate(R.layout.item_search, parent, false);
 			holder = new ViewHolder(convertView);
 			convertView.setTag(holder);
 		} else {

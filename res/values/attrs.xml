@@ -8,6 +8,7 @@
     <attr name="action_info" format="reference" />
     <attr name="action_paste" format="reference" />
     <attr name="action_bookmark" format="reference" />
+    <attr name="action_delete" format="reference" />
     <attr name="action_remove" format="reference" />
     <attr name="action_search" format="reference" />
     <attr name="action_share" format="reference" />
@@ -20,5 +21,8 @@
 
     <!-- background -->
     <attr name="bookmark_windoBackground" format="reference" />
+
+    <!-- theme ID -->
+    <attr name="themeId" format="integer" />
 
 </resources>

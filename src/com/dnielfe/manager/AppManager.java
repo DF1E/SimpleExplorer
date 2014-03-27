@@ -34,11 +34,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.io.FileUtils;
 
 import com.dnielfe.manager.dialogs.DeleteFilesDialog;
-import com.dnielfe.manager.settings.Settings;
-
 import android.app.ActionBar;
 import android.app.DialogFragment;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -61,6 +58,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -69,9 +67,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class AppManager extends ListActivity {
+public class AppManager extends ThemableActivity {
 
 	private static final String STAR_STATES = "mylist:star_states";
 	private boolean[] mStarStates = null;
@@ -95,7 +94,7 @@ public class AppManager extends ListActivity {
 	private static final int FINISH_PROGRESS = 0x01;
 	private static final int FLAG_UPDATED_SYS_APP = 0x80;
 
-	private ActionBar actionBar;
+	private ActionBar mActionBar;
 	private MenuItem mMenuItem;
 
 	private ListView mListView;
@@ -121,9 +120,7 @@ public class AppManager extends ListActivity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		initTheme();
-
-		setContentView(R.layout.appmanager);
+		setContentView(R.layout.activity_appmanager);
 
 		initializeDrawbale();
 
@@ -133,9 +130,10 @@ public class AppManager extends ListActivity {
 		// new Adapter
 		mTable = new AppListAdapter(this, mAppList);
 
-		mListView = getListView();
+		mListView = (ListView) findViewById(android.R.id.list);
+		mListView.setOnItemClickListener(mOnItemClickListener);
 		mPackMag = getPackageManager();
-		actionBar = getActionBar();
+		mActionBar = getActionBar();
 
 		registerForContextMenu(mListView);
 
@@ -143,9 +141,9 @@ public class AppManager extends ListActivity {
 
 			@Override
 			protected void onPreExecute() {
-				actionBar.setDisplayHomeAsUpEnabled(true);
-				actionBar.setSubtitle(getString(R.string.loading));
-				actionBar.show();
+				mActionBar.setDisplayHomeAsUpEnabled(true);
+				mActionBar.setSubtitle(getString(R.string.loading));
+				mActionBar.show();
 			}
 
 			@Override
@@ -178,16 +176,6 @@ public class AppManager extends ListActivity {
 				}
 			}
 		}.execute();
-	}
-
-	// TODO fix on resume
-	private void initTheme() {
-		String theme = Settings.mTheme;
-
-		int theme1 = theme.compareTo("light") == 0 ? R.style.ThemeLight
-				: R.style.ThemeDark;
-
-		setTheme(theme1);
 	}
 
 	@Override
@@ -273,8 +261,8 @@ public class AppManager extends ListActivity {
 	}
 
 	public void updateactionbar() {
-		actionBar.setSubtitle(mAppList.size() + getString(R.string.apps));
-		actionBar.show();
+		mActionBar.setSubtitle(mAppList.size() + getString(R.string.apps));
+		mActionBar.show();
 	}
 
 	public void onClick(View view) {
@@ -303,17 +291,20 @@ public class AppManager extends ListActivity {
 		}
 	}
 
-	@Override
-	protected void onListItemClick(ListView lv, View v, final int position,
-			long id) {
-		ViewHolder viewHolder = (ViewHolder) v.getTag();
+	private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
 
-		if (viewHolder.getCheckBox().isChecked()) {
-			viewHolder.getCheckBox().setChecked(false);
-		} else {
-			viewHolder.getCheckBox().setChecked(true);
+		@Override
+		public void onItemClick(AdapterView<?> parent, View v, int position,
+				long id) {
+			ViewHolder viewHolder = (ViewHolder) v.getTag();
+
+			if (viewHolder.getCheckBox().isChecked()) {
+				viewHolder.getCheckBox().setChecked(false);
+			} else {
+				viewHolder.getCheckBox().setChecked(true);
+			}
 		}
-	}
+	};
 
 	private void get_downloaded_apps() {
 		List<ApplicationInfo> all_apps = mPackMag
@@ -441,7 +432,7 @@ public class AppManager extends ListActivity {
 		private ApplicationInfo info;
 
 		private AppListAdapter(Context context, ArrayList<ApplicationInfo> list) {
-			super(context, R.layout.appmanagerrow, list);
+			super(context, R.layout.item_appmanager, list);
 			this.mAppList = list;
 		}
 
@@ -463,7 +454,7 @@ public class AppManager extends ListActivity {
 
 			if (convertView == null) {
 				LayoutInflater inflater = getLayoutInflater();
-				convertView = inflater.inflate(R.layout.appmanagerrow, null);
+				convertView = inflater.inflate(R.layout.item_appmanager, null);
 				holder = new ViewHolder(convertView);
 				convertView.setTag(holder);
 

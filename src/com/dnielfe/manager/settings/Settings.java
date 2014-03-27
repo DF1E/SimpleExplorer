@@ -19,24 +19,20 @@
 
 package com.dnielfe.manager.settings;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.dnielfe.manager.R;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 
 public final class Settings {
 
-	private static final String KEY_BOOKMARKS = "purefm.settings.keys.bookmarks";
-
 	public static boolean thumbnail;
 	public static boolean mShowHiddenFiles;
 	public static int viewmode;
 	public static int mSortType;
-	public static String mTheme;
+	public static int mTheme;
 	public static String defaultdir;
 
 	public static void updatePreferences(Context context) {
@@ -45,7 +41,8 @@ public final class Settings {
 
 		mShowHiddenFiles = p.getBoolean("displayhiddenfiles", true);
 		thumbnail = p.getBoolean("showpreview", true);
-		mTheme = p.getString("preference_theme", "light");
+		mTheme = Integer.parseInt(p.getString("preference_theme",
+				Integer.toString(R.style.ThemeLight)));
 		String sort = p.getString("sort", "1");
 		String mode = p.getString("viewmode", "1");
 		defaultdir = p.getString("defaultdir", Environment
@@ -53,18 +50,5 @@ public final class Settings {
 
 		mSortType = Integer.parseInt(sort);
 		viewmode = Integer.parseInt(mode);
-	}
-
-	public static Set<String> getBookmarks(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context)
-				.getStringSet(KEY_BOOKMARKS, new HashSet<String>());
-	}
-
-	public static void saveBookmarks(Context context, Set<String> bookmarks) {
-		final SharedPreferences p = PreferenceManager
-				.getDefaultSharedPreferences(context);
-		final Editor e = p.edit();
-		e.putStringSet(KEY_BOOKMARKS, bookmarks);
-		e.apply();
 	}
 }

@@ -18,7 +18,7 @@
         android:title="@string/rename"/>
     <item
         android:id="@+id/actiondelete"
-        android:icon="?attr/action_remove"
+        android:icon="?attr/action_delete"
         android:showAsAction="ifRoom"
         android:title="@string/delete"/>
     <item

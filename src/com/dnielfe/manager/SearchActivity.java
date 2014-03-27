@@ -23,12 +23,10 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.dnielfe.manager.adapters.SearchListAdapter;
-import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.utils.ActionBarNavigation;
 import com.dnielfe.manager.utils.SimpleUtils;
 
 import android.app.ActionBar;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Intent;
@@ -38,10 +36,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class SearchActivity extends ListActivity {
+public class SearchActivity extends ThemableActivity {
 
 	private ActionBarNavigation mActionBarNavigation;
 
@@ -56,17 +56,17 @@ public class SearchActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		initTheme();
-
-		setContentView(R.layout.search_layout);
+		setContentView(R.layout.activity_search);
 
 		init();
 
 		mData = new ArrayList<String>();
 		mAdapter = new SearchListAdapter(this, mData);
 
-		mListView = getListView();
+		mListView = (ListView) findViewById(android.R.id.list);
+		mListView.setEmptyView(findViewById(android.R.id.empty));
 		mListView.setAdapter(mAdapter);
+		mListView.setOnItemClickListener(mOnItemClickListener);
 
 		if (savedInstanceState != null) {
 			restart(savedInstanceState);
@@ -85,20 +85,23 @@ public class SearchActivity extends ListActivity {
 		SearchIntent(intent);
 	}
 
-	@Override
-	public void onListItemClick(ListView parent, View view, int position,
-			long id) {
-		Object filepath = mListView.getAdapter().getItem(position);
-		File f = new File(filepath.toString());
+	private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
 
-		if (f.isDirectory()) {
-			finish();
-			Browser.mCurrentPath = f.getPath();
-			mActionBarNavigation.setDirectoryButtons(f.getPath());
-		} else if (f.isFile()) {
-			SimpleUtils.openFile(this, f);
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			Object filepath = mListView.getAdapter().getItem(position);
+			File f = new File(filepath.toString());
+
+			if (f.isDirectory()) {
+				finish();
+				Browser.mCurrentPath = f.getPath();
+				mActionBarNavigation.setDirectoryButtons(f.getPath());
+			} else if (f.isFile()) {
+				SimpleUtils.openFile(SearchActivity.this, f);
+			}
 		}
-	}
+	};
 
 	private void init() {
 		Intent intent = getIntent();
@@ -168,16 +171,6 @@ public class SearchActivity extends ListActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-	}
-
-	// TODO fix on resume
-	private void initTheme() {
-		String theme = Settings.mTheme;
-
-		int theme1 = theme.compareTo("light") == 0 ? R.style.ThemeLight
-				: R.style.ThemeDark;
-
-		setTheme(theme1);
 	}
 
 	private class SearchTask extends AsyncTask<String, Void, ArrayList<String>> {

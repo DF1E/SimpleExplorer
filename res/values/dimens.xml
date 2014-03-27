@@ -10,9 +10,6 @@
     <!-- Navigation drawer width -->
     <dimen name="drawer_width">240dp</dimen>
 
-    <!-- drawer bookmarks item height -->
-    <dimen name="drawer_bookmark_item_height">52dp</dimen>
-
     <!-- drawer menu item height -->
     <dimen name="drawer_menu_item_height">48dp</dimen>
 

@@ -106,8 +106,8 @@ public final class MimeTypes {
 		EXT_ICONS.put("xlsx", Integer.valueOf(R.drawable.type_note));
 
 		// Presentation
-		EXT_ICONS.put("ppt", Integer.valueOf(R.drawable.ppt));
-		EXT_ICONS.put("pptx", Integer.valueOf(R.drawable.ppt));
+		EXT_ICONS.put("ppt", Integer.valueOf(R.drawable.type_note));
+		EXT_ICONS.put("pptx", Integer.valueOf(R.drawable.type_note));
 
 		// PDF
 		EXT_ICONS.put("pdf", Integer.valueOf(R.drawable.type_pdf));

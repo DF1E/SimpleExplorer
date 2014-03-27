@@ -15,36 +15,36 @@
     <string name="bookmarkexist">Marcador ya existe!</string>
     <string name="cancel">Cancelar</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Esto no se puede desechar!"</string>
-    <string name="cantopenfile">Cannot open this file</string>
+    <string name="cantopenfile">No se puede abrir este archivo</string>
     <string name="cantreadfolder">No so puede leer la carpeta debido a permisos.</string>
-    <string name="copiedtoclipboard">Copiado al portapapeles</string>
+    <string name="copiedtoclipboard">Copiado al portapapeles.</string>
     <string name="copy">Copiar</string>
     <string name="copyfail">Copia fracaso!</string>
-    <string name="copying">Copiando...</string>
+    <string name="copying">Copiando</string>
     <string name="copysuccsess">Copia fue exitosa.</string>
     <string name="create">Crear</string>
     <string name="createbookmark">Crear marcador</string>
-    <string name="created">" Creado"</string>
+    <string name="created">" Creado."</string>
     <string name="createmsg">Ajuste un período antes del texto para crear una carpeta ocultada.</string>
     <string name="createnewfolder">Crear nueva carpeta</string>
     <string name="defaultdir">Directorio defecto</string>
     <string name="delete">Borrar</string>
-    <string name="deleteapps">Borrar Apps</string>
-    <string name="deletesuccess">Delete successful</string>
-    <string name="deleting">Borrando...</string>
+    <string name="deleteapps">Borrar Aplicaciónes</string>
+    <string name="deletesuccess">Eliminado correctamente</string>
+    <string name="deleting">Borrando</string>
     <string name="desc">Descendente</string>
     <string name="detailed">Detallado</string>
     <string name="details">Detalles</string>
     <string name="dir_info">Información de carpeta</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-    <string name="empty">Empty</string>
+    <string name="drawer_open">Abrir gaveta de navegación</string>
+    <string name="drawer_close">Cerrar gaveta de navegación</string>
+    <string name="empty">Vacío</string>
     <string name="error">Error</string>
-    <string name="exit">Exit</string>
+    <string name="exit">Cerrar</string>
     <string name="extractto">Extraer a</string>
     <string name="file">Archivo</string>
-    <string name="filecreated">Archivo fue creado</string>
-    <string name="fileexists">Archivo ya existe</string>
+    <string name="filecreated">Archivo fue creado.</string>
+    <string name="fileexists">Archivo ya existe.</string>
     <string name="files">" Archivos"</string>
     <string name="filewasrenamed">Archivo fue renombrado.</string>
     <string name="foundfiles">Localizado</string>
@@ -52,13 +52,13 @@
     <string name="itcouldntbefound">No pudo ser localizado.</string>
     <string name="LastModified">Último modificado:</string>
     <string name="launch">Lanzar</string>
-    <string name="loading">Cargando...</string>
+    <string name="loading">Cargando</string>
     <string name="manage">Administrar</string>
     <string name="md5">MD5:</string>
     <string name="move">Mover</string>
-    <string name="movefail">Moving failed.</string>
-    <string name="movesuccsess">Movida fue exitosa.</string>
-    <string name="moving">Moviendo...</string>
+    <string name="movefail">La transferencia fallo.</string>
+    <string name="movesuccsess">La transferencia fue exitosa.</string>
+    <string name="moving">Transfiriendo</string>
     <string name="multizip">Zip</string>
     <string name="name">Nombre</string>
     <string name="newfile">Nuevo archivo</string>
@@ -80,7 +80,7 @@
     <string name="settings">Ajustes</string>
     <string name="share">Comparir</string>
     <string name="shortcut">Crear atajo</string>
-    <string name="shortcutcreated">Atajo creado</string>
+    <string name="shortcutcreated">Atajo creado.</string>
     <string name="showpreview">Miniaturas</string>
     <string name="simple">Simple</string>
     <string name="size">Usado:</string>
@@ -90,36 +90,36 @@
     <string name="uisettings">Ver ajustes</string>
     <string name="uninstallapp">Desinstalar aplicación</string>
     <string name="unselectall">Deseleccionar todo</string>
-    <string name="unzipping">Extractando...</string>
+    <string name="unzipping">Extractando</string>
     <string name="version">"Versión "</string>
     <string name="viewmode">Modo de ver</string>
     <string name="xdaforum">Foro de XDA</string>
-    <string name="zipping">Comprimiendo...</string>
+    <string name="zipping">Comprimiendo</string>
 
     <!-- theme -->
-    <string name="theme">Theme</string>
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
+    <string name="theme">Tema</string>
+    <string name="light">Claro</string>
+    <string name="dark">Oscuro</string>
 
     <!-- permissions -->
-    <string name="owner">Owner:</string>
-    <string name="group">Group:</string>
-    <string name="others">Other:</string>
-    <string name="read">Read</string>
-    <string name="write">Write</string>
-    <string name="execute">Execute</string>
-    <string name="permissionschanged">Permissions changed</string>
+    <string name="owner">Dueño:</string>
+    <string name="group">Grupo:</string>
+    <string name="others">Otro:</string>
+    <string name="read">Leer</string>
+    <string name="write">Escribir</string>
+    <string name="execute">Ejecutar</string>
+    <string name="permissionschanged">Permisos cambiado</string>
 
     <!-- actionmode -->
-    <string name="_files">\u0020file(s)</string>
-    <string name="_selected">\u0020selected</string>
+    <string name="_files">\u0020archivo(s)</string>
+    <string name="_selected">\u0020seleccionado</string>
 
     <!-- directory info dialog -->
-    <string name="location">Location:</string>
-    <string name="total">Total space:</string>
-    <string name="free">Free space:</string>
-    <string name="available">Available space:</string>
-    <string name="block_size">Block size:</string>
+    <string name="location">Ubicación:</string>
+    <string name="total">Espacio total:</string>
+    <string name="free">Espacio libre:</string>
+    <string name="available">Espacio disponible:</string>
+    <string name="block_size">Tamaño de bloque:</string>
     <string name="used">Usado:</string>
 
 </resources>

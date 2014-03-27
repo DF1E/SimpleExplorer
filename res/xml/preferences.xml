@@ -26,7 +26,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/advancedsettings" >
         <ListPreference
-            android:defaultValue="light"
+            android:defaultValue="0"
             android:entries="@array/themes"
             android:entryValues="@array/appearance_types_values"
             android:key="preference_theme"

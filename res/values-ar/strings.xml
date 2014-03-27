@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="minus" translatable="false">-</string>
+    <string name="app_name">Simple Explorer</string>
+    <string name="advancedsettings">متقدم</string>
+    <string name="appmanager">مدير التطبيقات</string>
+    <string name="apps">"التطبيقات"</string>
+    <string name="backedup">احطياتية</string>
+    <string name="backup">النسخة الاحتياطية</string>
+    <string name="backupcomplete">انتهت النسخة الاحطياطية.</string>
+    <string name="backuperror">النسخة الاحطياتية غير ممكنة.</string>
+    <string name="bookmark">الإشارة المرجعية</string>
+    <string name="bookmarkadded">أضيفت أشارة مرجعية</string>
+    <string name="bookmarkexist">الاشارة المرجعية موجودة بالفعل!</string>
+    <string name="cancel">إلغاء</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">"هذا لا يمكنة التراجع!"</string>
+    <string name="cantopenfile">غير قادر على فتح هذا الملف</string>
+    <string name="cantreadfolder">لا يمكنة قراءة مجلد بسبب الوصول</string>
+    <string name="copiedtoclipboard">نسخت إلى الحافظة.</string>
+    <string name="copy">نسخ</string>
+    <string name="copyfail">فشل النسخ!</string>
+    <string name="copying">جاري النقل </string>
+    <string name="copysuccsess">نقل بنجاح.</string>
+    <string name="create">انشاء</string>
+    <string name="createbookmark">انشاء اشارة مرجعية</string>
+    <string name="created">"انشاء".</string>
+    <string name="createmsg">تحديد فترة قبل النص لنشاء ملف مخفي.</string>
+    <string name="createnewfolder">انشاء ملف جديد</string>
+    <string name="defaultdir">المسار الافتراضي </string>
+    <string name="delete">حذف</string>
+    <string name="deleteapps">حذف التطبيقات</string>
+    <string name="deletesuccess">حذفت بنجاح</string>
+    <string name="deleting">جاري المسح</string>
+    <string name="desc">وصف</string>
+    <string name="detailed">مفصل</string>
+    <string name="details">تفاصيل</string>
+    <string name="dir_info">معلومات المجلد</string>
+    <string name="drawer_open">فتح درج التنقل</string>
+    <string name="drawer_close">غلق درج التنقل</string>
+    <string name="empty">فارغ</string>
+    <string name="error">خطأ</string>
+    <string name="exit">خروج</string>
+    <string name="extractto">فك ضغط الي </string>
+    <string name="file">ملف</string>
+    <string name="filecreated">ملف قد انشئ</string>
+    <string name="fileexists">ملف موجود بالفعل</string>
+    <string name="files">"ملفات"</string>
+    <string name="filewasrenamed">
+تم تغيير اسم الملف.</string>
+    <string name="foundfiles">موجود</string>
+    <string name="hiddenfiles">ملفات مخفية</string>
+    <string name="itcouldntbefound">تعذر العثور عليه.</string>
+    <string name="LastModified">اخر تعديل:</string>
+    <string name="launch">إطلاق</string>
+    <string name="loading">تحميل</string>
+    <string name="manage">إدارة</string>
+    <string name="md5">MD5:</string>
+    <string name="move">نقل</string>
+    <string name="movefail">فشل النقل.</string>
+    <string name="movesuccsess">نقل بنجاح.</string>
+    <string name="moving">جاري النقل</string>
+    <string name="multizip">Zip</string>
+    <string name="name">الاسن</string>
+    <string name="newfile">ملف جديد</string>
+    <string name="newfolderwasnotcreated">لم يتم انشاء ملف جديد.</string>
+    <string name="noapps">لا توجود تطبيقات مختارة.</string>
+    <string name="of">"من"</string>
+    <string name="ok">موافق</string>
+    <string name="options">خيارات</string>
+    <string name="packing">حزم</string>
+    <string name="paste">Paste</string>
+    <string name="permissions">Persmissions</string>
+    <string name="playstore">Play Store</string>
+    <string name="pressbackagaintoquit">Press back again to exit.</string>
+    <string name="rename">Rename</string>
+    <string name="sdcardnotfound">Couldnt find SD card!</string>
+    <string name="search">Search</string>
+    <string name="searchtext">Search</string>
+    <string name="selectall">Select all</string>
+    <string name="settings">Settings</string>
+    <string name="share">Share</string>
+    <string name="shortcut">Create shortcut</string>
+    <string name="shortcutcreated">Shortcut created.</string>
+    <string name="showpreview">Thumbnails</string>
+    <string name="simple">Simple</string>
+    <string name="size">Used:</string>
+    <string name="size1">Size</string>
+    <string name="sort">Sort</string>
+    <string name="type">Type</string>
+    <string name="uisettings">View settings</string>
+    <string name="uninstallapp">Uninstall App</string>
+    <string name="unselectall">Unselect all</string>
+    <string name="unzipping">Extracting</string>
+    <string name="version">"Version "</string>
+    <string name="viewmode">View mode</string>
+    <string name="xdaforum">XDA forum</string>
+    <string name="zipping">Compressing</string>
+
+    <!-- theme -->
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
+    <!-- permissions -->
+    <string name="owner">Owner:</string>
+    <string name="group">Group:</string>
+    <string name="others">Other:</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="execute">Execute</string>
+    <string name="permissionschanged">Permissions changed</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file(s)</string>
+    <string name="_selected">\u0020selected</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Location:</string>
+    <string name="total">Total space:</string>
+    <string name="free">Free space:</string>
+    <string name="available">Available space:</string>
+    <string name="block_size">Block size:</string>
+    <string name="used">Used:</string>
+
+</resources>
