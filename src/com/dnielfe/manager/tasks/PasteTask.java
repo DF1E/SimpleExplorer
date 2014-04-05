@@ -19,6 +19,7 @@
 
 package com.dnielfe.manager.tasks;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +45,14 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 
 	private String location;
 
+	private String[] content;
+
 	private boolean success = false;
 
-	public PasteTask(final Activity activity, String currentDir) {
+	public PasteTask(final Activity activity, String currentDir, String[] array) {
 		this.activity = new WeakReference<Activity>(activity);
 		this.location = currentDir;
+		this.content = array;
 	}
 
 	@Override
@@ -81,9 +85,7 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 	@Override
 	protected List<String> doInBackground(String... files) {
 		final List<String> failed = new ArrayList<String>();
-
-		String[] content = ClipBoard.getClipBoardContents();
-
+		final Activity activity = this.activity.get();
 		int len = content.length;
 
 		if (len == 0) {
@@ -106,6 +108,9 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 				}
 			}
 		}
+
+		SimpleUtils.requestMediaScanner(activity,
+				new File(location).listFiles());
 		return failed;
 	}
 

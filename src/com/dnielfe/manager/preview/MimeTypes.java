@@ -83,6 +83,7 @@ public final class MimeTypes {
 		// Properties
 		EXT_ICONS.put("properties", Integer.valueOf(R.drawable.type_config));
 		EXT_ICONS.put("conf", Integer.valueOf(R.drawable.type_config));
+		EXT_ICONS.put("config", Integer.valueOf(R.drawable.type_config));
 		EXT_ICONS.put("prop", Integer.valueOf(R.drawable.type_config));
 
 		// HTML
@@ -113,7 +114,7 @@ public final class MimeTypes {
 		EXT_ICONS.put("pdf", Integer.valueOf(R.drawable.type_pdf));
 		EXT_ICONS.put("fdf", Integer.valueOf(R.drawable.type_pdf));
 
-		// Compress
+		// Package
 		EXT_ICONS.put("ace", Integer.valueOf(R.drawable.type_package));
 		EXT_ICONS.put("bz", Integer.valueOf(R.drawable.type_package));
 		EXT_ICONS.put("bz2", Integer.valueOf(R.drawable.type_package));
@@ -132,9 +133,7 @@ public final class MimeTypes {
 		EXT_ICONS.put("7z", Integer.valueOf(R.drawable.type_package));
 		EXT_ICONS.put("rar", Integer.valueOf(R.drawable.type_package));
 		EXT_ICONS.put("tar", Integer.valueOf(R.drawable.type_package));
-
-		// JAR
-		EXT_ICONS.put("jar", Integer.valueOf(R.drawable.jar32));
+		EXT_ICONS.put("jar", Integer.valueOf(R.drawable.type_package));
 
 		// Image
 		EXT_ICONS.put("bmp", Integer.valueOf(R.drawable.type_pic));
@@ -246,7 +245,7 @@ public final class MimeTypes {
 		EXT_ICONS.put("mkv", Integer.valueOf(R.drawable.type_video));
 
 		// Application
-		EXT_ICONS.put("apk", Integer.valueOf(R.drawable.appicon));
+		EXT_ICONS.put("apk", Integer.valueOf(R.drawable.type_apk));
 
 		/*
 		 * ================= MIME TYPES ====================
@@ -328,14 +327,6 @@ public final class MimeTypes {
 	public static int getIconForExt(String ext) {
 		final Integer res = EXT_ICONS.get(ext);
 		return res == null ? 0 : res.intValue();
-	}
-
-	public static int getTypeIcon(File file) {
-		final String extension = FilenameUtils.getExtension(file.getName());
-		if (extension != null && !extension.isEmpty()) {
-			return getIconForExt(extension);
-		}
-		return 0;
 	}
 
 	@Nullable

@@ -9,24 +9,20 @@
     <string name="backedup">" gespeichert"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup abgeschlossen</string>
-    <string name="backuperror">Fehler beim Backup</string>
-    <string name="bookmark">Lesezeichen</string>
-    <string name="bookmarkadded">Lesezeichen hinzugefügt</string>
-    <string name="bookmarkexist">Lesezeichen bereits vorhanden</string>
+    <string name="backuperror">Backup fehlgeschlagen.</string>
     <string name="cancel">Abbrechen</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dies kann nicht rückgängig gemacht werden!"</string>
     <string name="cantopenfile">Datei kann nicht geöffnet werden</string>
-    <string name="cantreadfolder">Kann wegen fehlender Zugriffsrechte nicht gelesen werden</string>
+    <string name="cantreadfolder">Ordner kann wegen fehlender Berechtigung nicht gelesen werden</string>
     <string name="copiedtoclipboard">In die Zwischenablage kopiert.</string>
     <string name="copy">Kopieren</string>
     <string name="copyfail">Kopieren fehlgeschlagen!</string>
     <string name="copying">Kopiere</string>
     <string name="copysuccsess">Kopieren erfolgreich</string>
     <string name="create">Erstellen</string>
-    <string name="createbookmark">Lesezeichen erstellen</string>
     <string name="created">" erstellt"</string>
     <string name="createmsg">Setze Punkt vor dem Text um versteckten Ordner zu erstellen.</string>
-    <string name="createnewfolder">Neuer Ordner</string>
+    <string name="createnewfolder">Neuen Ordner erstellen</string>
     <string name="defaultdir">Standard Verzeichnis</string>
     <string name="delete">Löschen</string>
     <string name="deleteapps">Apps löschen</string>
@@ -35,10 +31,11 @@
     <string name="desc">absteigend</string>
     <string name="detailed">Detailliert</string>
     <string name="details">Details</string>
-    <string name="dir_info">Ordner-Informationen</string>
+    <string name="dir_info">Ordner Informationen</string>
     <string name="drawer_open">Drawer öffnen</string>
     <string name="drawer_close">Drawer schließen</string>
     <string name="empty">Leer</string>
+    <string name="enter_name">Namen eingeben</string>
     <string name="error">Error</string>
     <string name="exit">Beenden</string>
     <string name="extractto">Extrahieren nach</string>
@@ -46,7 +43,7 @@
     <string name="filecreated">Datei wurde erstellt</string>
     <string name="fileexists">Datei existiert bereits</string>
     <string name="files">" Dateien"</string>
-    <string name="filewasrenamed">Datei umbenannt</string>
+    <string name="filewasrenamed">Umbenennen erfolgreich</string>
     <string name="foundfiles">Gefunden</string>
     <string name="hiddenfiles">Versteckte Dateien</string>
     <string name="itcouldntbefound">Die Sucheingabe konnte nicht gefunden werden</string>
@@ -90,7 +87,7 @@
     <string name="uisettings">Oberfläche</string>
     <string name="uninstallapp">App deinstallieren</string>
     <string name="unselectall">Alle abwählen</string>
-    <string name="unzipping">Entpacke</string>
+    <string name="unzipping">Entpacken</string>
     <string name="version">"Version "</string>
     <string name="viewmode">Ansichtsmodus</string>
     <string name="xdaforum">XDA Forum</string>
@@ -121,5 +118,22 @@
     <string name="available">Verfügbarer Speicher:</string>
     <string name="block_size">Block Größe:</string>
     <string name="used">Verwendet:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">Lesezeichen</string>
+    <string name="bookmark_name">Lesezeichen Name</string>
+    <string name="bookmark_path">Lesezeichen Pfad</string>
+    <string name="bookmarkadded">Lesezeichen hinzugefügt</string>
+    <string name="bookmarkexist">Lesezeichen bereits vorhanden</string>
+    <string name="createbookmark">Lesezeichen erstellen</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Zieldatei existiert bereits</string>
+    <string name="overwrite_source">Quelle</string>
+    <string name="overwrite_destination">Ziel</string>
+    <string name="overwrite_skip">Überspringen</string>
+    <string name="overwrite_skip_all">Alle überspringen</string>
+    <string name="overwrite_replace">Ersetzen</string>
+    <string name="overwrite_replace_all">Alle ersetzen</string>
 
 </resources>

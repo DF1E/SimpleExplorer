@@ -10,9 +10,6 @@
     <string name="backup">백업</string>
     <string name="backupcomplete">백업 완료.</string>
     <string name="backuperror">백업을 할수 없습니다</string>
-    <string name="bookmark">북마크</string>
-    <string name="bookmarkadded">북마크 추가.</string>
-    <string name="bookmarkexist">북마크가 이미 존재합니다!</string>
     <string name="cancel">취소</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">This cannot be undone!</string>
     <string name="cantopenfile">이 파일을 열 수 없습니다</string>
@@ -23,7 +20,6 @@
     <string name="copying">복사중</string>
     <string name="copysuccsess">성공적으로 복사되었습니다</string>
     <string name="create">생성</string>
-    <string name="createbookmark">북마크 생성</string>
     <string name="created">" 생성되었습니다."</string>
     <string name="createmsg">Set a period before the text to create hidden folder.</string>
     <string name="createnewfolder">새로운 폴더 생성</string>
@@ -39,6 +35,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="empty">Empty</string>
+    <string name="enter_name">Enter name</string>
     <string name="error">에러</string>
     <string name="exit">나가기</string>
     <string name="extractto">압축해제 </string>
@@ -121,5 +118,22 @@
     <string name="available">Available space:</string>
     <string name="block_size">Block size:</string>
     <string name="used">Used:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">북마크</string>
+    <string name="bookmark_name">Bookmark name</string>
+    <string name="bookmark_path">Bookmark path</string>
+    <string name="bookmarkadded">북마크 추가.</string>
+    <string name="bookmarkexist">북마크가 이미 존재합니다!</string>
+    <string name="createbookmark">북마크 생성</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Target file already exists</string>
+    <string name="overwrite_source">Source</string>
+    <string name="overwrite_destination">Destination</string>
+    <string name="overwrite_skip">Skip</string>
+    <string name="overwrite_skip_all">Skip all</string>
+    <string name="overwrite_replace">Replace</string>
+    <string name="overwrite_replace_all">Replace all</string>
 
 </resources>

@@ -31,6 +31,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 
 import com.dnielfe.manager.Browser;
@@ -42,6 +43,7 @@ import com.dnielfe.manager.settings.Settings;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
@@ -52,43 +54,16 @@ public class SimpleUtils {
 	private static long mDirSize = 0;
 	private static int fileCount = 0;
 
-	// Inspired by org.apache.commons.io.FileUtils.isSymlink()
-	private static boolean isSymlink(File file) throws IOException {
-		File fileInCanonicalDir = null;
-		if (file.getParent() == null) {
-			fileInCanonicalDir = file;
-		} else {
-			File canonicalDir = file.getParentFile().getCanonicalFile();
-			fileInCanonicalDir = new File(canonicalDir, file.getName());
+	// scan file after move/copy
+	public static void requestMediaScanner(@NotNull final Context context,
+			@NotNull final File... files) {
+		final String[] paths = new String[files.length];
+		int i = 0;
+		for (final File file : files) {
+			paths[i] = file.getPath();
+			i++;
 		}
-		return !fileInCanonicalDir.getCanonicalFile().equals(
-				fileInCanonicalDir.getAbsoluteFile());
-	}
-
-	/*
-	 * 
-	 * @param path
-	 */
-	private static void get_dir_size(File path) {
-		File[] list = path.listFiles();
-		int len;
-
-		if (list != null) {
-			len = list.length;
-
-			for (int i = 0; i < len; i++) {
-				try {
-					if (list[i].isFile() && list[i].canRead()) {
-						mDirSize += list[i].length();
-
-					} else if (list[i].isDirectory() && list[i].canRead()
-							&& !isSymlink(list[i])) {
-						get_dir_size(list[i]);
-					}
-				} catch (IOException e) {
-				}
-			}
-		}
+		MediaScannerConnection.scanFile(context, paths, null, null);
 	}
 
 	/*
@@ -195,20 +170,43 @@ public class SimpleUtils {
 		return mDirContent;
 	}
 
-	public static long getDirSize(String path) {
-		get_dir_size(new File(path));
+	public static long getDirSize(File path) {
+		getDirectorySize(path);
 		return mDirSize;
+	}
+
+	/**
+	 * @param path
+	 *            of directory
+	 */
+	public static void getDirectorySize(File path) {
+		File[] list = path.listFiles();
+		int len;
+
+		if (list != null) {
+			len = list.length;
+			for (int i = 0; i < len; i++) {
+				try {
+					if (list[i].isFile() && list[i].canRead()) {
+						mDirSize += list[i].length();
+					} else if (list[i].isDirectory() && list[i].canRead()
+							&& !FileUtils.isSymlink(list[i])) {
+						getDirectorySize(list[i]);
+					}
+				} catch (IOException e) {
+				}
+			}
+		}
 	}
 
 	/**
 	 * 
 	 * @param old
-	 *            the file to be copied
+	 *            the file to be copied/ moved
 	 * @param newDir
-	 *            the directory to move the file to
-	 * @return
+	 *            the directory to copy/move the file to
 	 */
-	public static int copyToDirectory(String old, String newDir) {
+	public static void copyToDirectory(String old, String newDir) {
 		File old_file = new File(old);
 		File temp_dir = new File(newDir);
 		byte[] data = new byte[BUFFER];
@@ -218,9 +216,6 @@ public class SimpleUtils {
 			String file_name = old
 					.substring(old.lastIndexOf("/"), old.length());
 			File cp_file = new File(newDir + file_name);
-
-			if (cp_file.exists())
-				return -2;
 
 			try {
 				BufferedOutputStream o_stream = new BufferedOutputStream(
@@ -234,17 +229,14 @@ public class SimpleUtils {
 				o_stream.flush();
 				i_stream.close();
 				o_stream.close();
-
 			} catch (FileNotFoundException e) {
 				Log.e("FileNotFoundException", e.getMessage());
-				return -1;
+				return;
 
 			} catch (IOException e) {
 				Log.e("IOException", e.getMessage());
-				return -1;
-
+				return;
 			}
-
 		} else if (old_file.isDirectory() && temp_dir.isDirectory()
 				&& temp_dir.canWrite()) {
 			String files[] = old_file.list();
@@ -253,23 +245,18 @@ public class SimpleUtils {
 			int len = files.length;
 
 			if (!new File(dir).mkdir())
-				return -1;
+				return;
 
 			for (int i = 0; i < len; i++)
 				copyToDirectory(old + "/" + files[i], dir);
 
 		} else if (old_file.isFile() && !temp_dir.canWrite()) {
-			int root = RootCommands.moveCopyRoot(old, newDir);
-
-			if (root == 0)
-				return 0;
-			else
-				return -1;
-
+			RootCommands.moveCopyRoot(old, newDir);
+			return;
 		} else if (!temp_dir.canWrite())
-			return -1;
+			return;
 
-		return 0;
+		return;
 	}
 
 	public static void createZipFile(String path, String zipName) {
@@ -358,21 +345,20 @@ public class SimpleUtils {
 	 *            name
 	 * @param dir
 	 */
-	public static int deleteTarget(String path, String dir) {
+	public static void deleteTarget(String path, String dir) {
 		File target = new File(path);
 
-		if (target.exists() && target.isFile() && target.canWrite()) {
+		if (!target.exists()) {
+			return;
+		} else if (target.isFile() && target.canWrite()) {
 			target.delete();
-			return 0;
-		}
-
-		else if (target.exists() && target.isDirectory() && target.canRead()) {
+			return;
+		} else if (target.isDirectory() && target.canRead()) {
 			String[] file_list = target.list();
 
 			if (file_list != null && file_list.length == 0) {
 				target.delete();
-				return 0;
-
+				return;
 			} else if (file_list != null && file_list.length > 0) {
 
 				for (int i = 0; i < file_list.length; i++) {
@@ -385,16 +371,14 @@ public class SimpleUtils {
 						temp_f.delete();
 				}
 			}
+
 			if (target.exists())
 				if (target.delete())
-					return 0;
-		}
-
-		else if (target.exists() && !target.delete()) {
+					return;
+		} else if (target.exists() && !target.delete()) {
 			RootCommands.DeleteFileRoot(path, dir);
-			return 0;
 		}
-		return -1;
+		return;
 	}
 
 	/**
@@ -470,7 +454,9 @@ public class SimpleUtils {
 				Toast.LENGTH_SHORT).show();
 	}
 
-	public static void createShortcut(Activity main, String path, String name) {
+	public static void createShortcut(Activity main, String path) {
+		File file = new File(path);
+
 		try {
 			// Create the intent that will handle the shortcut
 			Intent shortcutIntent = new Intent(main, Browser.class);
@@ -481,7 +467,7 @@ public class SimpleUtils {
 			// The intent to send to broadcast for register the shortcut intent
 			Intent intent = new Intent();
 			intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-			intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
+			intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, file.getName());
 			intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
 					Intent.ShortcutIconResource.fromContext(main,
 							R.drawable.ic_launcher));

@@ -10,9 +10,6 @@
     <string name="backup">Yedek</string>
     <string name="backupcomplete">Yedekleme tamamlandı</string>
     <string name="backuperror">Yedeklenemiyor</string>
-    <string name="bookmark">Sık Kullanılanlar</string>
-    <string name="bookmarkadded">Sık Kullanılanlara eklendi</string>
-    <string name="bookmarkexist">Sık Kullanılanlarda var!</string>
     <string name="cancel">İptal</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Bu işlem geri alınamaz"</string>
     <string name="cantopenfile">Cannot open this file</string>
@@ -23,7 +20,6 @@
     <string name="copying">Kopyalıyor</string>
     <string name="copysuccsess">Kopyalama başarılı</string>
     <string name="create">Oluştur</string>
-    <string name="createbookmark">Sık kullanılan oluştur</string>
     <string name="created">" Oluşturuldu"</string>
     <string name="createmsg">Gizli dosya oluşturmak için metinden önce nokta koy.</string>
     <string name="createnewfolder">Yeni Klasör oluştur</string>
@@ -39,6 +35,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="empty">Empty</string>
+    <string name="enter_name">Enter name</string>
     <string name="error">Hata</string>
     <string name="exit">Exit</string>
     <string name="extractto">Buraya çıkar</string>
@@ -121,5 +118,22 @@
     <string name="available">Available space:</string>
     <string name="block_size">Block size:</string>
     <string name="used">Kullanılan:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">Sık Kullanılanlar</string>
+    <string name="bookmark_name">Bookmark name</string>
+    <string name="bookmark_path">Bookmark path</string>
+    <string name="bookmarkadded">Sık Kullanılanlara eklendi</string>
+    <string name="bookmarkexist">Sık Kullanılanlarda var!</string>
+    <string name="createbookmark">Sık kullanılan oluştur</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Target file already exists</string>
+    <string name="overwrite_source">Source</string>
+    <string name="overwrite_destination">Destination</string>
+    <string name="overwrite_skip">Skip</string>
+    <string name="overwrite_skip_all">Skip all</string>
+    <string name="overwrite_replace">Replace</string>
+    <string name="overwrite_replace_all">Replace all</string>
 
 </resources>

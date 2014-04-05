@@ -13,6 +13,7 @@ tmp/
 *~.nib
 local.properties
 .classpath
+.refactorings
 .settings/
 .loadpath
 

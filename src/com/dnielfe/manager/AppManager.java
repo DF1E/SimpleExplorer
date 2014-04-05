@@ -47,7 +47,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.ContextMenu;
@@ -75,10 +74,7 @@ public class AppManager extends ThemableActivity {
 	private static final String STAR_STATES = "mylist:star_states";
 	private boolean[] mStarStates = null;
 
-	private static final String BACKUP_LOC = Environment
-			.getExternalStorageDirectory().getPath() + "/Simple Explorer/Apps/";
-
-	private static AppListAdapter mTable;
+	private static AppListAdapter mAdapter;
 	private static ArrayList<ApplicationInfo> multiSelectData = null;
 	private static ArrayList<ApplicationInfo> mAppList = null;
 	private static PackageManager mPackMag = null;
@@ -99,83 +95,48 @@ public class AppManager extends ThemableActivity {
 
 	private ListView mListView;
 
-	// Our handler object that will update the GUI from our background thread.
-	private Handler mHandler = new Handler() {
-		public void handleMessage(Message msg) {
-
-			switch (msg.what) {
-			case SET_PROGRESS:
-				mDialog.setMessage((String) msg.obj);
-				break;
-			case FINISH_PROGRESS:
-				mDialog.cancel();
-				Toast.makeText(AppManager.this,
-						getString(R.string.backupcomplete), Toast.LENGTH_SHORT)
-						.show();
-				break;
-			}
-		}
-	};
-
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_appmanager);
 
-		initializeDrawbale();
+		mPackMag = getPackageManager();
+		mActionBar = getActionBar();
 
+		initializeDrawbale();
+		initActionBar();
+		init();
+
+		if (savedInstanceState != null) {
+			mStarStates = savedInstanceState.getBooleanArray(STAR_STATES);
+		} else {
+			mStarStates = new boolean[mAppList.size()];
+		}
+	}
+
+	private void init() {
 		mAppList = new ArrayList<ApplicationInfo>();
 		multiSelectData = new ArrayList<ApplicationInfo>();
 
 		// new Adapter
-		mTable = new AppListAdapter(this, mAppList);
+		mAdapter = new AppListAdapter(this, mAppList);
+
+		// get user apps
+		get_downloaded_apps();
 
 		mListView = (ListView) findViewById(android.R.id.list);
 		mListView.setOnItemClickListener(mOnItemClickListener);
-		mPackMag = getPackageManager();
-		mActionBar = getActionBar();
-
+		mListView.setAdapter(mAdapter);
 		registerForContextMenu(mListView);
 
-		new AsyncTask<String[], Long, Long>() {
+		updateactionbar();
 
-			@Override
-			protected void onPreExecute() {
-				mActionBar.setDisplayHomeAsUpEnabled(true);
-				mActionBar.setSubtitle(getString(R.string.loading));
-				mActionBar.show();
-			}
-
-			@Override
-			protected Long doInBackground(String[]... params) {
-				File dir = new File(BACKUP_LOC);
-
-				if (!dir.exists())
-					dir.mkdirs();
-
-				get_downloaded_apps();
-				return null;
-			}
-
-			@Override
-			protected void onPostExecute(Long result) {
-				mListView.setAdapter(mTable);
-
-				if (savedInstanceState != null) {
-					mStarStates = savedInstanceState
-							.getBooleanArray(STAR_STATES);
-				} else {
-					mStarStates = new boolean[mAppList.size()];
-				}
-				updateactionbar();
-				// This enable fast-scroll divider
-				if (mAppList.size() > 40) {
-					mListView.setFastScrollEnabled(true);
-				} else {
-					mListView.setFastScrollEnabled(false);
-				}
-			}
-		}.execute();
+		// This enable fast-scroll divider
+		if (mAppList.size() > 40) {
+			mListView.setFastScrollEnabled(true);
+		} else {
+			mListView.setFastScrollEnabled(false);
+		}
 	}
 
 	@Override
@@ -204,7 +165,6 @@ public class AppManager extends ThemableActivity {
 		int index = info.position;
 
 		switch (item.getItemId()) {
-
 		case ID_LAUNCH:
 			Intent i = mPackMag
 					.getLaunchIntentForPackage(mAppList.get(index).packageName);
@@ -253,10 +213,16 @@ public class AppManager extends ThemableActivity {
 		return false;
 	}
 
+	private void initActionBar() {
+		mActionBar.setDisplayHomeAsUpEnabled(true);
+		mActionBar.setSubtitle(getString(R.string.loading));
+		mActionBar.show();
+	}
+
 	public void refreshList() {
 		mAppList.clear();
 		get_downloaded_apps();
-		mTable.notifyDataSetChanged();
+		mAdapter.notifyDataSetChanged();
 		updateactionbar();
 	}
 
@@ -268,8 +234,8 @@ public class AppManager extends ThemableActivity {
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.backup_button_all:
-
 			multiSelectData.clear();
+
 			for (int i = 0; i < mAppList.size(); i++) {
 				if (mStarStates[i]) {
 					multiSelectData.add(mAppList.get(i));
@@ -278,10 +244,7 @@ public class AppManager extends ThemableActivity {
 				}
 			}
 			if (multiSelectData.size() > 0 && multiSelectData != null) {
-				mDialog = ProgressDialog.show(AppManager.this,
-						getString(R.string.backup), "", true, false);
-
-				BackgroundWork all = new BackgroundWork(multiSelectData);
+				BackupTask all = new BackupTask(multiSelectData);
 				all.execute();
 			} else {
 				Toast.makeText(AppManager.this, getString(R.string.noapps),
@@ -328,29 +291,26 @@ public class AppManager extends ThemableActivity {
 	 * background thread, while updating the user via a message being sent to
 	 * our handler object.
 	 */
-	private class BackgroundWork extends AsyncTask<File, Void, Boolean> {
+	private class BackupTask extends AsyncTask<File, Void, Boolean> {
 
 		private ArrayList<ApplicationInfo> mDataSource;
 		private static final int BUFFER = 2048;
-		private File mDir = new File(BACKUP_LOC);
 		private byte[] mData;
 
-		public BackgroundWork(ArrayList<ApplicationInfo> data) {
+		public BackupTask(ArrayList<ApplicationInfo> data) {
 			mDataSource = data;
 			mData = new byte[BUFFER];
 
+			File d = new File(SimpleExplorer.BACKUP_LOC);
 			// create directory if needed
-			File d = new File(BACKUP_LOC);
-			if (!d.exists()) {
-				d.mkdir();
+			if (!d.exists())
+				d.mkdirs();
+		}
 
-				// then create this directory
-				mDir.mkdir();
-
-			} else {
-				if (!mDir.exists())
-					mDir.mkdir();
-			}
+		@Override
+		public void onPreExecute() {
+			mDialog = ProgressDialog.show(AppManager.this,
+					getString(R.string.backup), "", true, false);
 		}
 
 		@Override
@@ -369,7 +329,7 @@ public class AppManager extends ThemableActivity {
 					mBuffIn = new BufferedInputStream(new FileInputStream(
 							source_dir));
 					mBuffOut = new BufferedOutputStream(new FileOutputStream(
-							BACKUP_LOC + out_file));
+							SimpleExplorer.BACKUP_LOC + out_file));
 
 					while ((read = mBuffIn.read(mData, 0, BUFFER)) != -1)
 						mBuffOut.write(mData, 0, read);
@@ -404,6 +364,24 @@ public class AppManager extends ThemableActivity {
 				mHandler.sendEmptyMessage(FINISH_PROGRESS);
 			unselectAll();
 		}
+
+		// this handler will update the GUI from this background thread.
+		private Handler mHandler = new Handler() {
+			public void handleMessage(Message msg) {
+
+				switch (msg.what) {
+				case SET_PROGRESS:
+					mDialog.setMessage((String) msg.obj);
+					break;
+				case FINISH_PROGRESS:
+					mDialog.cancel();
+					Toast.makeText(AppManager.this,
+							getString(R.string.backupcomplete),
+							Toast.LENGTH_SHORT).show();
+					break;
+				}
+			}
+		};
 	}
 
 	private class ViewHolder {
@@ -483,17 +461,17 @@ public class AppManager extends ThemableActivity {
 		public ApplicationInfo getItem(int position) {
 			return mAppList.get(position);
 		}
-	}
 
-	private OnCheckedChangeListener mStarCheckedChanceChangeListener = new OnCheckedChangeListener() {
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
-			final int position = mListView.getPositionForView(buttonView);
-			if (position != ListView.INVALID_POSITION) {
-				mStarStates[position] = isChecked;
+		private OnCheckedChangeListener mStarCheckedChanceChangeListener = new OnCheckedChangeListener() {
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				final int position = mListView.getPositionForView(buttonView);
+				if (position != ListView.INVALID_POSITION) {
+					mStarStates[position] = isChecked;
+				}
 			}
-		}
-	};
+		};
+	}
 
 	public static class AppIconManager {
 		private static ConcurrentHashMap<String, Drawable> cache;
@@ -521,7 +499,7 @@ public class AppManager extends ThemableActivity {
 				AppIconManager.cache.put(packagename, drawable);
 
 			} catch (NameNotFoundException e) {
-				return getResources().getDrawable(R.drawable.appicon);
+				return getResources().getDrawable(R.drawable.type_apk);
 			}
 			return drawable;
 		}
@@ -551,7 +529,7 @@ public class AppManager extends ThemableActivity {
 
 		case R.id.deleteapps:
 			final DialogFragment dialog1 = DeleteFilesDialog
-					.instantiate(new String[] { BACKUP_LOC });
+					.instantiate(new String[] { SimpleExplorer.BACKUP_LOC });
 			dialog1.show(getFragmentManager(), "dialog");
 			return true;
 
@@ -593,7 +571,7 @@ public class AppManager extends ThemableActivity {
 				getString(R.string.appmanager));
 		addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
 				Intent.ShortcutIconResource.fromContext(AppManager.this,
-						R.drawable.app_manager));
+						R.drawable.type_apk));
 		addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
 		AppManager.this.sendBroadcast(addIntent);
 

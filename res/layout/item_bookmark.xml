@@ -8,14 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/imageButton_remove"
         android:orientation="vertical"
-        android:padding="5dp" >
+        android:paddingLeft="6dp" >
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:paddingTop="3dp"
             android:singleLine="true"
             android:text="@string/desc"
             android:textIsSelectable="false"
@@ -26,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:paddingBottom="4dp"
             android:singleLine="true"
             android:text="@string/desc"
             android:textColor="@color/gray"
@@ -35,11 +38,12 @@
     <ImageButton
         android:id="@+id/imageButton_remove"
         style="?android:attr/actionButtonStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="42dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:contentDescription="@null"
+        android:scaleType="fitCenter"
         android:src="?attr/action_remove" />
 
 </RelativeLayout>

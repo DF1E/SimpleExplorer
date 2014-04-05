@@ -19,16 +19,13 @@
 
 package com.dnielfe.manager.settings;
 
-import com.dnielfe.manager.dialogs.EditBookmarksDialog;
 import com.dnielfe.manager.R;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.Preference.OnPreferenceClickListener;
 
 public final class SettingsFragment extends PreferenceFragment {
 
@@ -54,15 +51,6 @@ public final class SettingsFragment extends PreferenceFragment {
 
 	private void init() {
 		// final SettingsActivity parent = (SettingsActivity) getActivity();
-		Preference editBookmarks = findPreference("editbookmarks");
-		editBookmarks
-				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-					public boolean onPreferenceClick(Preference pref) {
-						final DialogFragment dialog = new EditBookmarksDialog();
-						dialog.show(getFragmentManager(), "dialog");
-						return false;
-					}
-				});
 		final ListPreference theme = (ListPreference) findPreference("preference_theme");
 		theme.setEntryValues(THEMES_VALUES);
 		theme.setValue(String.valueOf(Settings.mTheme));

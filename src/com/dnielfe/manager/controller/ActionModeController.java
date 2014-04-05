@@ -23,26 +23,23 @@ import java.io.File;
 import java.util.ArrayList;
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AbsListView;
-import android.widget.Toast;
 import android.widget.AbsListView.MultiChoiceModeListener;
 
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.adapters.BookmarksAdapter;
 import com.dnielfe.manager.dialogs.DeleteFilesDialog;
 import com.dnielfe.manager.dialogs.FilePropertiesDialog;
 import com.dnielfe.manager.dialogs.RenameDialog;
 import com.dnielfe.manager.dialogs.ZipFilesDialog;
 import com.dnielfe.manager.preview.MimeTypes;
-import com.dnielfe.manager.utils.Bookmarks;
 import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
 
@@ -55,6 +52,8 @@ public final class ActionModeController {
 	private AbsListView mListView;
 
 	private ActionMode mActionMode;
+
+	private BookmarksAdapter mAdapter;
 
 	public ActionModeController(final Activity activity) {
 		this.mActivity = activity;
@@ -180,8 +179,7 @@ public final class ActionModeController {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
 						SimpleUtils.createShortcut(mActivity, currentDir + "/"
-								+ mListView.getAdapter().getItem(key),
-								mListView.getAdapter().getItem(key) + "");
+								+ mListView.getAdapter().getItem(key));
 						mode.finish();
 						break;
 					}
@@ -193,24 +191,10 @@ public final class ActionModeController {
 					if (items.get(key)) {
 						String path = currentDir + "/"
 								+ mListView.getAdapter().getItem(key);
-						Cursor query = mActivity.getContentResolver().query(
-								Bookmarks.CONTENT_URI,
-								new String[] { Bookmarks._ID },
-								Bookmarks.PATH + "=?", new String[] { path },
-								null);
-						if (!query.moveToFirst()) {
-							ContentValues values = new ContentValues();
-							values.put(Bookmarks.NAME, mListView.getAdapter()
-									.getItem(key) + "");
-							values.put(Bookmarks.PATH, path);
-							mActivity.getContentResolver().insert(
-									Bookmarks.CONTENT_URI, values);
-							Toast.makeText(mActivity, R.string.bookmarkadded,
-									Toast.LENGTH_SHORT).show();
-						} else {
-							Toast.makeText(mActivity, R.string.bookmarkexist,
-									Toast.LENGTH_SHORT).show();
-						}
+
+						mAdapter = Browser.getBookmarksAdapter();
+						mAdapter.createBookmark(mActivity, path,
+								(String) mListView.getAdapter().getItem(key));
 						mode.finish();
 						break;
 					}
@@ -235,8 +219,8 @@ public final class ActionModeController {
 						final DialogFragment dialog3 = RenameDialog
 								.instantiate(currentDir + "/"
 										+ mListView.getAdapter().getItem(key),
-										mListView.getAdapter().getItem(key)
-												+ "");
+										(String) mListView.getAdapter()
+												.getItem(key));
 						mode.finish();
 						dialog3.show(mActivity.getFragmentManager(), "dialog");
 						break;

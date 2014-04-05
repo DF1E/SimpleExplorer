@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dnielfe.manager"
     android:installLocation="auto"
-    android:versionCode="37"
-    android:versionName="2.0 beta4" >
+    android:versionCode="38"
+    android:versionName="2.0 beta5" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -65,7 +65,7 @@
         </activity>
         <activity
             android:name=".AppManager"
-            android:icon="@drawable/app_manager"
+            android:icon="@drawable/type_apk"
             android:label="@string/appmanager" >
             <intent-filter>
                 <action android:name="android.intent.action.APPBACKUP" />

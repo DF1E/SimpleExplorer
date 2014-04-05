@@ -10,9 +10,6 @@
     <string name="backup">النسخة الاحتياطية</string>
     <string name="backupcomplete">انتهت النسخة الاحطياطية.</string>
     <string name="backuperror">النسخة الاحطياتية غير ممكنة.</string>
-    <string name="bookmark">الإشارة المرجعية</string>
-    <string name="bookmarkadded">أضيفت أشارة مرجعية</string>
-    <string name="bookmarkexist">الاشارة المرجعية موجودة بالفعل!</string>
     <string name="cancel">إلغاء</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"هذا لا يمكنة التراجع!"</string>
     <string name="cantopenfile">غير قادر على فتح هذا الملف</string>
@@ -23,7 +20,6 @@
     <string name="copying">جاري النقل </string>
     <string name="copysuccsess">نقل بنجاح.</string>
     <string name="create">انشاء</string>
-    <string name="createbookmark">انشاء اشارة مرجعية</string>
     <string name="created">"انشاء".</string>
     <string name="createmsg">تحديد فترة قبل النص لنشاء ملف مخفي.</string>
     <string name="createnewfolder">انشاء ملف جديد</string>
@@ -39,6 +35,7 @@
     <string name="drawer_open">فتح درج التنقل</string>
     <string name="drawer_close">غلق درج التنقل</string>
     <string name="empty">فارغ</string>
+    <string name="enter_name">Enter name</string>
     <string name="error">خطأ</string>
     <string name="exit">خروج</string>
     <string name="extractto">فك ضغط الي </string>
@@ -122,5 +119,22 @@
     <string name="available">Available space:</string>
     <string name="block_size">Block size:</string>
     <string name="used">Used:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">الإشارة المرجعية</string>
+    <string name="bookmark_name">Bookmark name</string>
+    <string name="bookmark_path">Bookmark path</string>
+    <string name="bookmarkadded">أضيفت أشارة مرجعية</string>
+    <string name="bookmarkexist">الاشارة المرجعية موجودة بالفعل!</string>
+    <string name="createbookmark">انشاء اشارة مرجعية</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Target file already exists</string>
+    <string name="overwrite_source">Source</string>
+    <string name="overwrite_destination">Destination</string>
+    <string name="overwrite_skip">Skip</string>
+    <string name="overwrite_skip_all">Skip all</string>
+    <string name="overwrite_replace">Replace</string>
+    <string name="overwrite_replace_all">Replace all</string>
 
 </resources>

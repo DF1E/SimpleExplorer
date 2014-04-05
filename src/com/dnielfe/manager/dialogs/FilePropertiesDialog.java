@@ -294,7 +294,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 				} else if (file3.isFile()) {
 					size = file3.length();
 				} else {
-					size = SimpleUtils.getDirSize(file3.getPath());
+					size = SimpleUtils.getDirSize(file3);
 				}
 
 				mDisplaySize = FileUtils.byteCountToDisplaySize(size);

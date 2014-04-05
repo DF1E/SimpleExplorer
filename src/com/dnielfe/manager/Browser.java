@@ -32,9 +32,10 @@ import com.dnielfe.manager.dialogs.DirectoryInfoDialog;
 import com.dnielfe.manager.dialogs.UnzipDialog;
 import com.dnielfe.manager.fileobserver.FileObserverCache;
 import com.dnielfe.manager.fileobserver.MultiFileObserver;
+import com.dnielfe.manager.fileobserver.MultiFileObserver.OnEventListener;
 import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.settings.SettingsActivity;
-import com.dnielfe.manager.tasks.PasteTask;
+import com.dnielfe.manager.tasks.PasteTaskExecutor;
 import com.dnielfe.manager.utils.ActionBarNavigation;
 import com.dnielfe.manager.utils.ActionBarNavigation.OnNavigateListener;
 import com.dnielfe.manager.utils.Bookmarks;
@@ -48,7 +49,6 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.FileObserver;
 import android.os.Handler;
@@ -66,16 +66,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public final class Browser extends ThemableActivity implements
-		MultiFileObserver.OnEventListener, OnNavigateListener {
+public final class Browser extends ThemableActivity implements OnEventListener,
+		OnNavigateListener {
 
 	public static final String ACTION_WIDGET = "com.dnielfe.manager.Main.ACTION_WIDGET";
 	public static final String EXTRA_SHORTCUT = "shortcut_path";
 
-	private ActionModeController mActionController;
 	private static Handler sHandler;
-	private MultiFileObserver mObserver;
 	private static ActionBarNavigation mNavigation;
+	private ActionModeController mActionController;
+	private MultiFileObserver mObserver;
 	private FileObserverCache mObserverCache;
 	private Runnable mLastRunnable;
 
@@ -102,11 +102,12 @@ public final class Browser extends ThemableActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_browser);
+
 		if (savedInstanceState == null) {
 			savedInstanceState = getIntent().getBundleExtra(EXTRA_SAVED_STATE);
 		}
 
-		setContentView(R.layout.activity_browser);
 		init();
 		restoreSavedState(savedInstanceState);
 
@@ -119,10 +120,15 @@ public final class Browser extends ThemableActivity implements
 	@Override
 	public void onResume() {
 		super.onResume();
-
 		Settings.updatePreferences(this);
 
 		invalidateOptionsMenu();
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		mObserver.stopWatching();
 	}
 
 	@Override
@@ -223,7 +229,7 @@ public final class Browser extends ThemableActivity implements
 
 		// set custom ActionBar layout
 		final View mActionView = getLayoutInflater().inflate(
-				R.layout.actionbar, null);
+				R.layout.activity_browser_actionbar, null);
 		this.mActionBar.setCustomView(mActionView);
 		this.mActionBar.show();
 	}
@@ -240,11 +246,7 @@ public final class Browser extends ThemableActivity implements
 		mMenuAdapter = new DrawerListAdapter(this);
 		mDrawerList.setAdapter(mMenuAdapter);
 
-		// init bookmark list
-		mBookmarkList = (ListView) findViewById(R.id.bookmark_list);
-		mBookmarksCursor = getBookmarksCursor();
-		mBookmarksAdapter = new BookmarksAdapter(this, mBookmarksCursor, 0);
-		mBookmarkList.setAdapter(mBookmarksAdapter);
+		initBookmarks();
 
 		// Set shadow of navigation drawer
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -282,6 +284,36 @@ public final class Browser extends ThemableActivity implements
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
+		mDrawerList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				switch (position) {
+				case 0:
+					// start AppManager
+					Intent intent1 = new Intent(Browser.this, AppManager.class);
+					startActivity(intent1);
+					break;
+				case 1:
+					// start Preferences
+					Intent intent2 = new Intent(Browser.this,
+							SettingsActivity.class);
+					startActivity(intent2);
+					break;
+				case 2:
+					// exit
+					finish();
+				}
+			}
+		});
+	}
+
+	private void initBookmarks() {
+		mBookmarksCursor = getBookmarksCursor();
+		mBookmarksAdapter = new BookmarksAdapter(this, mBookmarksCursor);
+
+		mBookmarkList = (ListView) findViewById(R.id.bookmark_list);
+		mBookmarkList.setAdapter(mBookmarksAdapter);
 		mBookmarkList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -305,29 +337,6 @@ public final class Browser extends ThemableActivity implements
 				} else {
 					Toast.makeText(Browser.this, getString(R.string.error),
 							Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
-
-		mDrawerList.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				switch (position) {
-				case 0:
-					// start AppManager
-					Intent intent1 = new Intent(Browser.this, AppManager.class);
-					startActivity(intent1);
-					break;
-				case 1:
-					// start Preferences
-					Intent intent2 = new Intent(Browser.this,
-							SettingsActivity.class);
-					startActivity(intent2);
-					break;
-				case 2:
-					// exit
-					finish();
 				}
 			}
 		});
@@ -506,13 +515,18 @@ public final class Browser extends ThemableActivity implements
 			this.onSearchRequested();
 			return true;
 		case R.id.paste:
-			final PasteTask ptc = new PasteTask(this, mCurrentPath);
-			ptc.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+			final PasteTaskExecutor ptc = new PasteTaskExecutor(this,
+					mCurrentPath);
+			ptc.start();
 			return true;
 
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	public static BookmarksAdapter getBookmarksAdapter() {
+		return mBookmarksAdapter;
 	}
 
 	private Cursor getBookmarksCursor() {

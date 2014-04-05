@@ -22,7 +22,9 @@ package com.dnielfe.manager.adapters;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.Bookmarks;
 
+import android.app.Activity;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -33,51 +35,82 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BookmarksAdapter extends SimpleCursorAdapter {
 
 	private static String[] fromColumns = { Bookmarks.NAME, Bookmarks.PATH };
 	private static int[] toViews = { R.id.title, R.id.path };
-
+	private Cursor mCursor;
+	private Context mContext;
 	private LayoutInflater mLayoutInflater;
 
-	public BookmarksAdapter(Context context, Cursor c, int i) {
-		super(context, R.layout.item_bookmark, c, fromColumns, toViews, i);
+	private int mTitleIndex, mPathIndex;
+
+	public BookmarksAdapter(Context context, Cursor c) {
+		super(context, R.layout.item_bookmark, c, fromColumns, toViews, 0);
 		this.mLayoutInflater = LayoutInflater.from(context);
+		this.mContext = context;
+		this.mCursor = c;
+		this.mTitleIndex = c.getColumnIndexOrThrow(Bookmarks.NAME);
+		this.mPathIndex = c.getColumnIndexOrThrow(Bookmarks.PATH);
 	}
 
 	@Override
-	public View newView(Context ctx, Cursor cursor, ViewGroup parent) {
-		View view = mLayoutInflater.inflate(R.layout.item_bookmark, parent,
-				false);
-		view.setTag(new ViewHolder(view));
-		return view;
-	}
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		if (mCursor.moveToPosition(position)) {
+			ViewHolder viewHolder;
 
-	@Override
-	public void bindView(final View v, final Context ctx, final Cursor c) {
-		ViewHolder vh = (ViewHolder) v.getTag();
-
-		int Title_index = c.getColumnIndexOrThrow(Bookmarks.NAME);
-		int Path_index = c.getColumnIndexOrThrow(Bookmarks.PATH);
-
-		vh.title.setText(c.getString(Title_index));
-		vh.path.setText(c.getString(Path_index));
-		vh.remove.setOnClickListener(new OnClickListener() {
-
-			@SuppressWarnings("deprecation")
-			@Override
-			public void onClick(View arg0) {
-				// TODO fix delete
-				Uri deleteUri = ContentUris.withAppendedId(
-						Bookmarks.CONTENT_URI,
-						c.getInt(c.getColumnIndex(Bookmarks._ID)));
-
-				ctx.getContentResolver().delete(deleteUri, null, null);
-				c.requery();
-				notifyDataSetChanged();
+			if (convertView == null) {
+				convertView = mLayoutInflater.inflate(R.layout.item_bookmark,
+						parent, false);
+				viewHolder = new ViewHolder(convertView);
+				convertView.setTag(viewHolder);
+			} else {
+				viewHolder = (ViewHolder) convertView.getTag();
 			}
-		});
+
+			viewHolder.title.setText(mCursor.getString(mTitleIndex));
+			viewHolder.path.setText(mCursor.getString(mPathIndex));
+			viewHolder.remove.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					Uri deleteUri = ContentUris.withAppendedId(
+							Bookmarks.CONTENT_URI, getItemId(position));
+					mContext.getContentResolver().delete(deleteUri, null, null);
+					update(mCursor);
+				}
+			});
+		}
+		return convertView;
+	}
+
+	// TODO fix refresh
+	public void createBookmark(Activity a, String path, String key) {
+		Cursor c = a.getContentResolver().query(Bookmarks.CONTENT_URI,
+				new String[] { Bookmarks._ID }, Bookmarks.PATH + "=?",
+				new String[] { path }, null);
+
+		if (!c.moveToFirst()) {
+			ContentValues values = new ContentValues();
+			values.put(Bookmarks.NAME, String.valueOf(key));
+			values.put(Bookmarks.PATH, path);
+			a.getContentResolver().insert(Bookmarks.CONTENT_URI, values);
+			Toast.makeText(a, R.string.bookmarkadded, Toast.LENGTH_SHORT)
+					.show();
+		} else {
+			Toast.makeText(a, R.string.bookmarkexist, Toast.LENGTH_SHORT)
+					.show();
+		}
+
+		update(c);
+	}
+
+	@SuppressWarnings("deprecation")
+	private void update(Cursor c) {
+		c.requery();
+		notifyDataSetChanged();
 	}
 
 	private class ViewHolder {

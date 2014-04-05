@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Simple Explorer
+ * Copyright (C) 2014 Simple Explorer
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,12 +20,10 @@
 package com.dnielfe.manager.utils;
 
 import android.content.ContentProvider;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
@@ -37,21 +35,22 @@ public class Bookmarks extends ContentProvider implements BaseColumns {
 	public static final String TB_NAME = "bookmarks";
 	public static final String NAME = "name";
 	public static final String PATH = "path";
+
 	// Only because of multiple choice delete dialog
 	public static final String CHECKED = "checked";
+
+	private static final String BASE_PATH = "bookmarks";
 	public static final String PROVIDER_NAME = "com.dnielfe.manager.bookmarks";
 	public static final Uri CONTENT_URI = Uri.parse("content://"
-			+ PROVIDER_NAME);
-	public static final String BOOKMARK_MIMETYPE = "vnd.android.cursor.item/vnd.mirrorlabs.bookmark";
-	public static final String BOOKMARKS_MIMETYPE = "vnd.android.cursor.dir/vnd.mirrorlabs.bookmark";
+			+ PROVIDER_NAME + "/" + BASE_PATH);
 
 	private static final int BOOKMARKS = 1;
 	private static final int BOOKMARK_ID = 2;
 	private static final UriMatcher uriMatcher;
 	static {
 		uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-		uriMatcher.addURI(PROVIDER_NAME, null, BOOKMARKS);
-		uriMatcher.addURI(PROVIDER_NAME, "#", BOOKMARK_ID);
+		uriMatcher.addURI(PROVIDER_NAME, BASE_PATH, BOOKMARKS);
+		uriMatcher.addURI(PROVIDER_NAME, BASE_PATH + "/#", BOOKMARK_ID);
 	}
 
 	private DatabaseHelper dbHelper;
@@ -64,6 +63,112 @@ public class Bookmarks extends ContentProvider implements BaseColumns {
 
 	private static final String DATABASE_NAME = "com.dnielfe.manager";
 	private static final int DATABASE_VERSION = 2;
+
+	@Override
+	public boolean onCreate() {
+		dbHelper = new DatabaseHelper(getContext());
+		db = dbHelper.getWritableDatabase();
+		return (db == null) ? false : true;
+	}
+
+	@Override
+	public int delete(Uri uri, String selection, String[] selectionArgs) {
+		int uriType = uriMatcher.match(uri);
+		int rowsDeleted = 0;
+
+		switch (uriType) {
+		case BOOKMARKS:
+			rowsDeleted = db.delete(TB_NAME, selection, selectionArgs);
+			break;
+		case BOOKMARK_ID:
+			String id = uri.getLastPathSegment();
+			if (TextUtils.isEmpty(selection)) {
+				rowsDeleted = db.delete(TB_NAME, _ID + "=" + id, null);
+			} else {
+				rowsDeleted = db.delete(TB_NAME, _ID + "=" + id + " and "
+						+ selection, selectionArgs);
+			}
+			break;
+		default:
+			throw new IllegalArgumentException("Unknown URI: " + uri);
+		}
+
+		getContext().getContentResolver().notifyChange(uri, null);
+		return rowsDeleted;
+	}
+
+	@Override
+	public String getType(Uri uri) {
+		return null;
+	}
+
+	@Override
+	public Uri insert(Uri uri, ContentValues values) {
+		int uriType = uriMatcher.match(uri);
+		long id = 0;
+
+		switch (uriType) {
+		case BOOKMARKS:
+			id = db.insert(TB_NAME, null, values);
+			break;
+		default:
+			throw new IllegalArgumentException("Unknown URI: " + uri);
+		}
+
+		getContext().getContentResolver().notifyChange(uri, null);
+		return Uri.parse(BASE_PATH + "/" + id);
+	}
+
+	@Override
+	public Cursor query(Uri uri, String[] projection, String selection,
+			String[] selectionArgs, String sortOrder) {
+		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+		queryBuilder.setTables(TB_NAME);
+
+		int uriType = uriMatcher.match(uri);
+		switch (uriType) {
+		case BOOKMARKS:
+			break;
+		case BOOKMARK_ID:
+			// adding the ID to the original query
+			queryBuilder.appendWhere(_ID + "=" + uri.getLastPathSegment());
+			break;
+		default:
+			throw new IllegalArgumentException("Unknown URI: " + uri);
+		}
+
+		Cursor c = queryBuilder.query(db, projection, selection, selectionArgs,
+				null, null, sortOrder);
+		c.setNotificationUri(getContext().getContentResolver(), uri);
+		return c;
+	}
+
+	@Override
+	public int update(Uri uri, ContentValues values, String selection,
+			String[] selectionArgs) {
+		int uriType = uriMatcher.match(uri);
+		int rowsUpdated = 0;
+
+		switch (uriType) {
+		case BOOKMARKS:
+			rowsUpdated = db.update(TB_NAME, values, selection, selectionArgs);
+			break;
+		case BOOKMARK_ID:
+			String id = uri.getLastPathSegment();
+			if (TextUtils.isEmpty(selection)) {
+				rowsUpdated = db.update(TB_NAME, values, _ID + "=" + id, null);
+			} else {
+				rowsUpdated = db.update(TB_NAME, values, _ID + "=" + id
+						+ " and " + selection, selectionArgs);
+			}
+			break;
+		default:
+			throw new IllegalArgumentException("Unknown URI: " + uri);
+		}
+
+		getContext().getContentResolver().notifyChange(uri, null);
+		return rowsUpdated;
+	}
 
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -85,101 +190,5 @@ public class Bookmarks extends ContentProvider implements BaseColumns {
 			db.execSQL("DROP TABLE IF EXISTS " + TB_NAME);
 			onCreate(db);
 		}
-	}
-
-	@Override
-	public int delete(Uri arg0, String arg1, String[] arg2) {
-		int count = 0;
-		switch (uriMatcher.match(arg0)) {
-		case BOOKMARKS:
-			count = db.delete(TB_NAME, arg1, arg2);
-			break;
-		case BOOKMARK_ID:
-			String id = arg0.getPathSegments().get(0);
-			count = db.delete(TB_NAME,
-					_ID
-							+ " = "
-							+ id
-							+ (!TextUtils.isEmpty(arg1) ? " AND (" + arg1 + ')'
-									: ""), arg2);
-			break;
-		default:
-			throw new IllegalArgumentException("Unknown URI " + arg0);
-		}
-		getContext().getContentResolver().notifyChange(arg0, null);
-		return count;
-	}
-
-	@Override
-	public String getType(Uri uri) {
-		switch (uriMatcher.match(uri)) {
-		case BOOKMARKS:
-			return BOOKMARKS_MIMETYPE;
-		case BOOKMARK_ID:
-			return BOOKMARK_MIMETYPE;
-		default:
-			throw new IllegalArgumentException("Unsupported URI: " + uri);
-		}
-	}
-
-	@Override
-	public Uri insert(Uri uri, ContentValues values) {
-		long rowID = db.insert(TB_NAME, "", values);
-		if (rowID > 0) {
-			Uri _uri = ContentUris.withAppendedId(CONTENT_URI, rowID);
-			getContext().getContentResolver().notifyChange(_uri, null);
-			return _uri;
-		}
-		throw new SQLException("Failed to insert row into " + uri);
-	}
-
-	@Override
-	public boolean onCreate() {
-		dbHelper = new DatabaseHelper(getContext());
-		db = dbHelper.getWritableDatabase();
-		return (db == null) ? false : true;
-	}
-
-	@Override
-	public Cursor query(Uri uri, String[] projection, String selection,
-			String[] selectionArgs, String sortOrder) {
-		SQLiteQueryBuilder sqlBuilder = new SQLiteQueryBuilder();
-		sqlBuilder.setTables(TB_NAME);
-		if (uriMatcher.match(uri) == BOOKMARK_ID) {
-			sqlBuilder.appendWhere(_ID + " = " + uri.getPathSegments().get(0));
-		}
-
-		if (sortOrder == null || sortOrder == "")
-			sortOrder = _ID;
-
-		Cursor c = sqlBuilder.query(db, projection, selection, selectionArgs,
-				null, null, sortOrder);
-		c.setNotificationUri(getContext().getContentResolver(), uri);
-		return c;
-	}
-
-	@Override
-	public int update(Uri uri, ContentValues values, String selection,
-			String[] selectionArgs) {
-		int count;
-		switch (uriMatcher.match(uri)) {
-		case BOOKMARKS:
-			count = db.update(TB_NAME, values, selection, selectionArgs);
-			break;
-		case BOOKMARK_ID:
-			count = db.update(
-					TB_NAME,
-					values,
-					_ID
-							+ " = "
-							+ uri.getPathSegments().get(0)
-							+ (!TextUtils.isEmpty(selection) ? " AND ("
-									+ selection + ')' : ""), selectionArgs);
-			break;
-		default:
-			throw new IllegalArgumentException("Unknown URI " + uri);
-		}
-		getContext().getContentResolver().notifyChange(uri, null);
-		return count;
 	}
 }

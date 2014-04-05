@@ -77,12 +77,14 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 		String[] list = file.list();
 
 		if (list != null)
+			// get number of files in directory
 			num_items = list.length;
 
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) mContext
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.item_browserlist, parent, false);
+			convertView = inflater.inflate(R.layout.item_browserlist, parent,
+					false);
 			mViewHolder = new ViewHolder(convertView);
 			convertView.setTag(mViewHolder);
 		} else {
@@ -127,7 +129,7 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 		return mDataSource.get(pos);
 	}
 
-	protected final void setIcon(final File file, final ImageView icon) {
+	private final void setIcon(final File file, final ImageView icon) {
 		final boolean isImage = MimeTypes.isPicture(file);
 		final boolean isVideo = MimeTypes.isVideo(file);
 		final boolean isApk = file.getName().endsWith(".apk");

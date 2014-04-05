@@ -76,9 +76,9 @@ public class RootCommands {
 			return -1;
 
 		try {
-			if (!readReadWriteFile()) {
+			if (!readReadWriteFile())
 				RootTools.remount(path, "rw");
-			}
+
 			execute("mkdir " + dir.getAbsolutePath());
 			return 0;
 		} catch (Exception e) {
@@ -87,21 +87,19 @@ public class RootCommands {
 	}
 
 	// Move or Copy with Root Access using RootTools library
-	public static int moveCopyRoot(String old, String newDir) {
+	public static void moveCopyRoot(String old, String newDir) {
 		try {
 			if (RootTools.isRootAvailable()) {
-				if (!readReadWriteFile()) {
+				if (!readReadWriteFile())
 					RootTools.remount(newDir, "rw");
-				}
 
 				RootTools.copyFile(old, newDir, true, true);
-				return 0;
+				return;
 			} else {
-				return -1;
+				return;
 			}
-
 		} catch (Exception e) {
-			return -1;
+			return;
 		}
 	}
 
@@ -116,9 +114,9 @@ public class RootCommands {
 			return -1;
 
 		try {
-			if (!readReadWriteFile()) {
+			if (!readReadWriteFile())
 				RootTools.remount(path, "rw");
-			}
+
 			execute("mv " + file.getAbsolutePath() + " "
 					+ newf.getAbsolutePath());
 
@@ -132,9 +130,9 @@ public class RootCommands {
 	public static void DeleteFileRoot(String path, String dir) {
 
 		try {
-			if (!readReadWriteFile()) {
+			if (!readReadWriteFile())
 				RootTools.remount(path, "rw");
-			}
+
 			if (new File(path).isDirectory()) {
 				execute("rm -f -r " + path);
 
@@ -157,9 +155,9 @@ public class RootCommands {
 			return;
 
 		try {
-			if (!readReadWriteFile()) {
+			if (!readReadWriteFile())
 				RootTools.remount(cdir, "rw");
-			}
+
 			execute("touch " + dir.getAbsolutePath());
 			return;
 		} catch (Exception e) {
@@ -243,9 +241,9 @@ public class RootCommands {
 
 	public static Boolean applyPermissions(File file, Permissions permissions) {
 		try {
-			if (!readReadWriteFile()) {
+			if (!readReadWriteFile())
 				RootTools.remount(file.getAbsolutePath(), "rw");
-			}
+
 			execute("chmod " + toOctalPermission(permissions) + " "
 					+ getCommandLineString(file.getAbsolutePath()));
 			return true;

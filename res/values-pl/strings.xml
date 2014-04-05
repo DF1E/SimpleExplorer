@@ -10,9 +10,6 @@
     <string name="backup">Utwórz kopię</string>
     <string name="backupcomplete">Tworzenie kopii zakończone.</string>
     <string name="backuperror">Nie można utworzyć kopii.</string>
-    <string name="bookmark">Zakładki</string>
-    <string name="bookmarkadded">Zakładka dodana.</string>
-    <string name="bookmarkexist">Zakładka już istnieje!</string>
     <string name="cancel">Anuluj</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Operacja nie może być cofnięta!"</string>
     <string name="cantopenfile">Nie można otworzyć pliku</string>
@@ -23,7 +20,6 @@
     <string name="copying">Kopiowanie</string>
     <string name="copysuccsess">Skopiowano pomyślnie.</string>
     <string name="create">Utwórz</string>
-    <string name="createbookmark">Utwórz zakładkę</string>
     <string name="created">" Utworzono."</string>
     <string name="createmsg">Wpisz kropkę przed nazwą, aby utworzyć ukryty folder.</string>
     <string name="createnewfolder">Utwórz nowy folder</string>
@@ -33,12 +29,13 @@
     <string name="deletesuccess">Usuwanie pomyślne</string>
     <string name="deleting">Usuwanie</string>
     <string name="desc">malejąco</string>
-    <string name="detailed">Szczegółowo</string>
+    <string name="detailed">Szczegółowy</string>
     <string name="details">Szczegóły</string>
     <string name="dir_info">Informacje o folderze</string>
     <string name="drawer_open">Otwórz drawer nawigacyjny</string>
     <string name="drawer_close">Zamknij drawer nawigacyjny</string>
-    <string name="empty">Pusto</string>
+    <string name="empty">Brak wyników</string>
+    <string name="enter_name">Wprowadź nazwę</string>
     <string name="error">Błąd</string>
     <string name="exit">Wyjdź</string>
     <string name="extractto">Wypakuj do</string>
@@ -75,14 +72,14 @@
     <string name="rename">Zmień nazwę</string>
     <string name="sdcardnotfound">Nie można odnaleźć Karty SD.</string>
     <string name="search">Wyszukaj</string>
-    <string name="searchtext">Wyszukaj tekst</string>
+    <string name="searchtext">Wyszukaj</string>
     <string name="selectall">Zaznacz wszystkie</string>
     <string name="settings">Ustawienia</string>
     <string name="share">Udostępnij</string>
     <string name="shortcut">Utwórz skrót</string>
     <string name="shortcutcreated">Skrót utworzony.</string>
     <string name="showpreview">Miniatury</string>
-    <string name="simple">Prosty</string>
+    <string name="simple">Uproszczony</string>
     <string name="size">Zajmowane miejsce:</string>
     <string name="size1">Rozmiar</string>
     <string name="sort">Sortuj</string>
@@ -120,6 +117,23 @@
     <string name="free">Wolna przestrzeń:</string>
     <string name="available">Dostępna przestrzeń:</string>
     <string name="block_size">Rozmiar bloku:</string>
-    <string name="used">Zajmowanie:</string>
+    <string name="used">Zajmowane:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">Zakładki</string>
+    <string name="bookmark_name">Nazwa zakładki</string>
+    <string name="bookmark_path">Ścieżka zakładki</string>
+    <string name="bookmarkadded">Zakładka dodana.</string>
+    <string name="bookmarkexist">Zakładka już istnieje!</string>
+    <string name="createbookmark">Utwórz zakładkę</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Plik docelowy już istnieje</string>
+    <string name="overwrite_source">Żródło</string>
+    <string name="overwrite_destination">Przeznaczenie</string>
+    <string name="overwrite_skip">Pomiń</string>
+    <string name="overwrite_skip_all">Pomiń wszystkie</string>
+    <string name="overwrite_replace">Zamień</string>
+    <string name="overwrite_replace_all">Zamień wszystkie</string>
 
 </resources>

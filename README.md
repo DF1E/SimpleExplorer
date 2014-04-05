@@ -1,7 +1,7 @@
 Simple Explorer
 ===========
 
-Simple Explorer is an Open Source file explorer. There are inspirations from [Android-File-Manager](https://github.com/nexes/Android-File-Manager) and
+Simple Explorer is an Open Source file explorer. There are inspirations from [CM Filemanager](https://github.com/CyanogenMod/android_packages_apps_CMFileManager/) and 
 [PureFM](https://github.com/Doctoror/PureFM)
 
 This program licensed under http://www.gnu.org/licenses/gpl-2.0.html

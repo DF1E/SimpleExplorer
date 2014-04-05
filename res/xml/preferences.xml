@@ -36,10 +36,6 @@
             android:dialogTitle="@string/defaultdir"
             android:key="defaultdir"
             android:title="@string/defaultdir" />
-
-        <Preference
-            android:key="editbookmarks"
-            android:title="@string/bookmark" />
     </PreferenceCategory>
 
     <PreferenceScreen android:title="@string/xdaforum" >

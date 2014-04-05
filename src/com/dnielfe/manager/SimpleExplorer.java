@@ -29,6 +29,9 @@ public final class SimpleExplorer extends Application {
 	public static final int THEME_ID_LIGHT = 1;
 	public static final int THEME_ID_DARK = 2;
 
+	public static final String BACKUP_LOC = Environment
+			.getExternalStorageDirectory().getPath() + "/Simple Explorer/Apps/";
+
 	@Override
 	public void onCreate() {
 		super.onCreate();

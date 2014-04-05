@@ -61,6 +61,11 @@ public final class CreateFolderDialog extends DialogFragment {
 								getString(R.string.newfolderwasnotcreated),
 								Toast.LENGTH_SHORT).show();
 					}
+				} else {
+					dialog.dismiss();
+					Toast.makeText(a,
+							getString(R.string.newfolderwasnotcreated),
+							Toast.LENGTH_SHORT).show();
 				}
 
 				dialog.dismiss();

@@ -15,8 +15,9 @@
         android:layout_centerVertical="true"
         android:contentDescription="@string/desc"
         android:cropToPadding="true"
-        android:padding="6dp"
-        android:scaleType="centerCrop" />
+        android:padding="5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/type_unknown" />
 
     <LinearLayout
         android:id="@+id/detail_content"

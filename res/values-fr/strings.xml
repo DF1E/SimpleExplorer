@@ -10,9 +10,6 @@
     <string name="backup">Sauvegarde</string>
     <string name="backupcomplete">Sauvegarde complète.</string>
     <string name="backuperror">Sauvegarde impossible.</string>
-    <string name="bookmark">Favoris</string>
-    <string name="bookmarkadded">Favori ajouté.</string>
-    <string name="bookmarkexist">Ce favori existe déjà!</string>
     <string name="cancel">Annuler</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Annulation impossible!"</string>
     <string name="cantopenfile">Ne peut ouvrir ce fichier</string>
@@ -23,7 +20,6 @@
     <string name="copying">Copie en cours</string>
     <string name="copysuccsess">Copié avec succès.</string>
     <string name="create">Création</string>
-    <string name="createbookmark">Créer un favori</string>
     <string name="created">" Créé."</string>
     <string name="createmsg">Fixer un délai avant le texte pour créer un dossier caché.</string>
     <string name="createnewfolder">Créer un nouveau dossier</string>
@@ -39,6 +35,7 @@
     <string name="drawer_open">Ouvrir le tiroir de navigation</string>
     <string name="drawer_close">Fermer le tiroir de navigation</string>
     <string name="empty">Vide</string>
+    <string name="enter_name">Enter name</string>
     <string name="error">Erreur</string>
     <string name="exit">Quitter</string>
     <string name="extractto">Extraire vers</string>
@@ -121,5 +118,22 @@
     <string name="available">Espace disponible:</string>
     <string name="block_size">Taille de bloc:</string>
     <string name="used">Utilisé:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">Favoris</string>
+    <string name="bookmark_name">Bookmark name</string>
+    <string name="bookmark_path">Bookmark path</string>
+    <string name="bookmarkadded">Favori ajouté.</string>
+    <string name="bookmarkexist">Ce favori existe déjà!</string>
+    <string name="createbookmark">Créer un favori</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Target file already exists</string>
+    <string name="overwrite_source">Source</string>
+    <string name="overwrite_destination">Destination</string>
+    <string name="overwrite_skip">Skip</string>
+    <string name="overwrite_skip_all">Skip all</string>
+    <string name="overwrite_replace">Replace</string>
+    <string name="overwrite_replace_all">Replace all</string>
 
 </resources>
