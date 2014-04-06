@@ -193,8 +193,8 @@ public final class ActionModeController {
 								+ mListView.getAdapter().getItem(key);
 
 						mAdapter = Browser.getBookmarksAdapter();
-						mAdapter.createBookmark(mActivity, path,
-								(String) mListView.getAdapter().getItem(key));
+						mAdapter.createBookmark(path, (String) mListView
+								.getAdapter().getItem(key));
 						mode.finish();
 						break;
 					}
