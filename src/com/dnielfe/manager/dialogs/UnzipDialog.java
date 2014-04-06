@@ -47,12 +47,12 @@ public final class UnzipDialog extends DialogFragment {
 	public Dialog onCreateDialog(Bundle state) {
 		final Activity a = getActivity();
 
-		final AlertDialog.Builder b = new AlertDialog.Builder(a);
-
 		// Set an EditText view to get user input
 		final EditText inputf = new EditText(a);
+		inputf.setHint(R.string.enter_name);
 		inputf.setText(Browser.mCurrentPath);
 
+		final AlertDialog.Builder b = new AlertDialog.Builder(a);
 		b.setTitle(R.string.extractto);
 		b.setView(inputf);
 

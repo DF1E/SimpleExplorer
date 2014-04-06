@@ -39,7 +39,6 @@ import java.lang.ref.WeakReference;
 public final class DirectoryInfoDialog extends DialogFragment {
 
 	private static File mFile;
-	private PartitionInfoTask mTask;
 	private View mView;
 
 	public static DialogFragment instantiate(final File file) {
@@ -56,27 +55,15 @@ public final class DirectoryInfoDialog extends DialogFragment {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 		builder.setTitle(R.string.dir_info);
 		builder.setView(mView);
-		builder.setNeutralButton(R.string.cancel, null);
+		builder.setNeutralButton(R.string.ok, null);
 		return builder.create();
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
-		if (mTask == null) {
-			mTask = new PartitionInfoTask(mView);
-		}
-		if (mTask.getStatus() != AsyncTask.Status.RUNNING) {
-			mTask.execute(mFile);
-		}
-	}
-
-	@Override
-	public void onStop() {
-		super.onStop();
-		if (mTask != null && mTask.getStatus() == AsyncTask.Status.RUNNING) {
-			mTask.cancel(false);
-		}
+		PartitionInfoTask mTask = new PartitionInfoTask(mView);
+		mTask.execute(mFile);
 	}
 
 	private static final class PartitionInfo {

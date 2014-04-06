@@ -559,8 +559,8 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		mListAdapter.notifyDataSetChanged();
 	}
 
-	// need it to update from other classes
 	public static void refreshDir(String dir) {
+		// this is needed for update directory from other classes
 		updateDirectory(setDirectory(dir));
 	}
 
@@ -573,7 +573,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		return mNavigation;
 	}
 
-	// On back pressed Actions
 	@Override
 	public boolean onKeyDown(int keycode, KeyEvent event) {
 		File file = new File(mCurrentPath);

@@ -152,7 +152,7 @@ containing a value of this type.
         public static final int holo_light_ic_menu_folder_new=0x7f02001c;
         public static final int holo_light_ic_storage=0x7f02001d;
         public static final int ic_launcher=0x7f02001e;
-        public static final int listmore=0x7f02001f;
+        public static final int list_more=0x7f02001f;
         public static final int tab_indicator_holo=0x7f020020;
         public static final int tab_selected_holo=0x7f020021;
         public static final int tab_unselected_holo=0x7f020022;

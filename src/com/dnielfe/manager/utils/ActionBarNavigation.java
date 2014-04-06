@@ -88,7 +88,7 @@ public class ActionBarNavigation {
 
 			FrameLayout fv1 = new FrameLayout(mActivity);
 			fv1.setBackground(mActivity.getResources().getDrawable(
-					R.drawable.listmore));
+					R.drawable.list_more));
 			fv1.setLayoutParams(new FrameLayout.LayoutParams(WRAP_CONTENT,
 					MATCH_PARENT, Gravity.CENTER_VERTICAL));
 

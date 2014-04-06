@@ -38,13 +38,13 @@ public final class CreateFolderDialog extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		final Activity a = getActivity();
 
+		// Set an EditText view to get user input
+		final EditText inputf = new EditText(a);
+		inputf.setHint(R.string.enter_name);
+
 		final AlertDialog.Builder b = new AlertDialog.Builder(a);
 		b.setTitle(R.string.createnewfolder);
 		b.setMessage(R.string.createmsg);
-
-		// Set an EditText view to get user input
-		final EditText inputf = new EditText(a);
-
 		b.setView(inputf);
 		b.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 			@Override

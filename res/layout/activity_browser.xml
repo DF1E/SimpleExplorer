@@ -16,7 +16,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:drawSelectorOnTop="true"
-            android:fastScrollEnabled="true"
             android:longClickable="true"
             android:scrollbarStyle="outsideOverlay"
             android:smoothScrollbar="true" />

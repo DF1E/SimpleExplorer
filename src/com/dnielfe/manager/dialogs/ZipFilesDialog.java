@@ -51,12 +51,12 @@ public final class ZipFilesDialog extends DialogFragment {
 		final String zipfile = Browser.mCurrentPath + "/" + "zipfile.zip";
 		final int size = files.length;
 
-		final AlertDialog.Builder b = new AlertDialog.Builder(a);
-
 		// Set an EditText view to get user input
 		final EditText inputf = new EditText(a);
+		inputf.setHint(R.string.enter_name);
 		inputf.setText(zipfile);
 
+		final AlertDialog.Builder b = new AlertDialog.Builder(a);
 		b.setTitle(getString(R.string.packing) + " (" + String.valueOf(size)
 				+ ")");
 		b.setView(inputf);

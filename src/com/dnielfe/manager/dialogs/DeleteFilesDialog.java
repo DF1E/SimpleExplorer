@@ -47,17 +47,18 @@ public final class DeleteFilesDialog extends DialogFragment {
 		final int size = files.length;
 
 		final AlertDialog.Builder b = new AlertDialog.Builder(a);
-		b.setTitle(getString(R.string.delete) + " (" + String.valueOf(size)
-				+ ")");
+		b.setTitle(String.valueOf(size) + getString(R.string._files));
 		b.setMessage(R.string.cannotbeundoneareyousureyouwanttodelete);
-		b.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-				final DeleteTask task = new DeleteTask(a);
-				task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, files);
-			}
-		});
+		b.setPositiveButton(R.string.delete,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						final DeleteTask task = new DeleteTask(a);
+						task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+								files);
+					}
+				});
 		b.setNegativeButton(R.string.cancel,
 				new DialogInterface.OnClickListener() {
 					@Override

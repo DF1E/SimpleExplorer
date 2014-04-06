@@ -242,8 +242,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 			if (mView != null) {
 				if (mTask == null) {
 					mTask = new LoadFsTask();
-				}
-				if (mTask.getStatus() != AsyncTask.Status.RUNNING) {
 					mTask.execute(mFile);
 				}
 			}
@@ -252,7 +250,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 		@Override
 		public void onStop() {
 			if (mTask != null && mTask.getStatus() == AsyncTask.Status.RUNNING) {
-				mTask.cancel(false);
+				mTask.cancel(true);
 			}
 		}
 
@@ -266,9 +264,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 		private final class LoadFsTask extends AsyncTask<File, Void, String> {
 			private String mDisplaySize;
 			private long size = 0;
-
-			private LoadFsTask() {
-			}
 
 			@Override
 			protected void onPreExecute() {

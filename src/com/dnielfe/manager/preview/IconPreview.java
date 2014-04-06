@@ -142,7 +142,6 @@ public enum IconPreview {
 		String path = file.getAbsolutePath();
 
 		if (isImage) {
-
 			BitmapFactory.Options o = new BitmapFactory.Options();
 			o.inJustDecodeBounds = true;
 

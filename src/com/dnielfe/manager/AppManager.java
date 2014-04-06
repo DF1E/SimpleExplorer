@@ -130,13 +130,6 @@ public class AppManager extends ThemableActivity {
 		registerForContextMenu(mListView);
 
 		updateactionbar();
-
-		// This enable fast-scroll divider
-		if (mAppList.size() > 40) {
-			mListView.setFastScrollEnabled(true);
-		} else {
-			mListView.setFastScrollEnabled(false);
-		}
 	}
 
 	@Override
@@ -516,45 +509,47 @@ public class AppManager extends ThemableActivity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem menu) {
-		switch (menu.getItemId()) {
-
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
 		case android.R.id.home:
 			finish();
 			return true;
-
 		case R.id.shortcut:
 			createshortcut();
 			return true;
-
 		case R.id.deleteapps:
 			final DialogFragment dialog1 = DeleteFilesDialog
 					.instantiate(new String[] { SimpleExplorer.BACKUP_LOC });
 			dialog1.show(getFragmentManager(), "dialog");
 			return true;
-
 		case R.id.actionselect:
-			if (mMenuItem.getTitle().toString()
-					.equals(getString(R.string.selectall))) {
-				for (int i = 0; i < mAppList.size(); i++) {
-					mStarStates[i] = true;
-					multiSelectData.add(mAppList.get(i));
-				}
-				refreshList();
-				mMenuItem.setTitle(getString(R.string.unselectall));
-			} else {
+			if (multiSelectData.size() < mAppList.size())
+				selectAll();
+			else
 				unselectAll();
-			}
-			break;
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-		return false;
+	}
+
+	private void selectAll() {
+		for (int i = 0; i < mAppList.size(); i++) {
+			mStarStates[i] = true;
+			multiSelectData.add(mAppList.get(i));
+		}
+
+		mMenuItem.setTitle(getString(R.string.unselectall));
+		refreshList();
 	}
 
 	private void unselectAll() {
 		for (int i = 0; i < mAppList.size(); i++) {
 			mStarStates[i] = false;
-			multiSelectData.remove(mAppList.get(i));
 		}
+
+		multiSelectData.clear();
+
 		mMenuItem.setTitle(getString(R.string.selectall));
 		refreshList();
 	}

@@ -40,12 +40,12 @@ public final class CreateFileDialog extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		final Activity a = getActivity();
 
-		final AlertDialog.Builder b = new AlertDialog.Builder(a);
-		b.setTitle(R.string.newfile);
-
 		// Set an EditText view to get user input
 		final EditText inputf = new EditText(a);
+		inputf.setHint(R.string.enter_name);
 
+		final AlertDialog.Builder b = new AlertDialog.Builder(a);
+		b.setTitle(R.string.newfile);
 		b.setView(inputf);
 		b.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
