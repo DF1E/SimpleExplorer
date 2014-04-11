@@ -93,6 +93,9 @@
     <string name="uninstallapp">Odinštalovať aplikáciu</string>
     <string name="unselectall">Zrušiť výber</string>
     <string name="unzipping">Rozbaľovanie</string>
+    <string name="theme">Téma</string>
+    <string name="light">Svetlá</string>
+    <string name="dark">Tmavá</string>
     <string name="version">"Verzia "</string>
     <string name="video">Video</string>
     <string name="viewmode">Režim zobrazenia</string>
@@ -119,5 +122,22 @@
     <string name="available">Dostupné mesto:</string>
     <string name="block_size">Veľkosť bloku:</string>
     <string name="used">Využité:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">Záložky</string>
+    <string name="bookmark_name">Názov záložky</string>
+    <string name="bookmark_path">Cesta záložky</string>
+    <string name="bookmarkadded">Záložka bola pridaná.</string>
+    <string name="bookmarkexist">Záložka už existuje!</string>
+    <string name="createbookmark">Vytvoriť záložku</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Cieľový súbor už existuje</string>
+    <string name="overwrite_source">Zdroj</string>
+    <string name="overwrite_destination">Cieľ</string>
+    <string name="overwrite_skip">Preskočiť</string>
+    <string name="overwrite_skip_all">Preskočiť všetko</string>
+    <string name="overwrite_replace">Nahradiť</string>
+    <string name="overwrite_replace_all">Nahradiť všetko</string>
 
 </resources>
