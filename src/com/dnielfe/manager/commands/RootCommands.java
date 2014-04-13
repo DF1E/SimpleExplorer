@@ -209,6 +209,14 @@ public class RootCommands {
 	}
 
 	@NotNull
+	
+	public static boolean containsIllegals(String toExamine) {
+		//checks for "+" sign so the program dd doesn't throw an error when its not erroring.
+	    Pattern pattern = Pattern.compile("[+]");
+	    Matcher matcher = pattern.matcher(toExamine);
+	    return matcher.find();
+	}
+	
 	public static BufferedReader execute(String cmd) {
 		BufferedReader reader = null;
 		try {
@@ -223,7 +231,7 @@ public class RootCommands {
 					process.getErrorStream()))).readLine();
 			os.flush();
 
-			if (process.waitFor() != 0 || (!"".equals(err) && null != err)) {
+			if (process.waitFor() != 0 || (!"".equals(err) && null != err) && containsIllegals(err) != true) {
 				Log.e("Root Error", err);
 				return null;
 			}
