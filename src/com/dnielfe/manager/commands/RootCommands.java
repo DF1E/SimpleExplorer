@@ -283,7 +283,7 @@ public class RootCommands {
 					new InputStreamReader(proc.getInputStream()));
 			String line = "";
 			while ((line = in.readLine()) != null) {
-				info = formatFileInfo(line.split("\\s+"));
+				info = getAttrs(line);
 			}
 			proc.waitFor();
 			in.close();
@@ -296,17 +296,38 @@ public class RootCommands {
 	}
 
 	@NotNull
-	private static String[] formatFileInfo(String... args) {
-		String[] info = null;
-
-		if (args.length == 6) {
-			info = new String[] { args[0], args[1], args[2],
-					args[3] + " " + args[4], args[5] };
-		} else if (args.length == 7) {
-			info = new String[] { args[0], args[1], args[2], args[3],
-					args[4] + " " + args[5], args[6] };
+	private static String[] getAttrs(String string) {
+		if (string.length() < 44) {
+			throw new IllegalArgumentException("Bad ls -l output: " + string);
 		}
-		return info;
+		final char[] chars = string.toCharArray();
+
+		final String[] results = new String[11];
+		int ind = 0;
+		final StringBuilder current = new StringBuilder();
+
+		Loop: for (int i = 0; i < chars.length; i++) {
+			switch (chars[i]) {
+			case ' ':
+			case '\t':
+				if (current.length() != 0) {
+					results[ind] = current.toString();
+					ind++;
+					current.setLength(0);
+					if (ind == 10) {
+						results[ind] = string.substring(i).trim();
+						break Loop;
+					}
+				}
+				break;
+
+			default:
+				current.append(chars[i]);
+				break;
+			}
+		}
+
+		return results;
 	}
 
 	/**
