@@ -39,12 +39,10 @@
     <string name="error">에러</string>
     <string name="exit">나가기</string>
     <string name="extractto">압축해제 </string>
-    <string name="file">파일</string>
     <string name="filecreated">파일이 생성되었습니다.</string>
     <string name="fileexists">파일이 이미 존재합니다.</string>
     <string name="files">" 파일들"</string>
     <string name="filewasrenamed">파일의 이름이 변경되었습니다.</string>
-    <string name="foundfiles">발견</string>
     <string name="hiddenfiles">숨겨진 파일</string>
     <string name="itcouldntbefound">It couldnt be found.</string>
     <string name="LastModified">Last modified:</string>
@@ -66,7 +64,6 @@
     <string name="options">Options</string>
     <string name="packing">Packing</string>
     <string name="paste">Paste</string>
-    <string name="permissions">Persmissions:</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Press back again to exit.</string>
     <string name="rename">Rename</string>
@@ -99,6 +96,7 @@
     <string name="dark">Dark</string>
 
     <!-- permissions -->
+    <string name="permissions">Permissions</string>
     <string name="owner">Owner:</string>
     <string name="group">Group:</string>
     <string name="others">Other:</string>

@@ -155,7 +155,7 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 		ClipBoard.clear();
 		activity.invalidateOptionsMenu();
 
-		Browser.refreshDir(location);
+		Browser.listDirectory(location);
 
 		if (activity != null && !failed.isEmpty()) {
 			Toast.makeText(activity, activity.getString(R.string.cantopenfile),

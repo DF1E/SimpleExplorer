@@ -39,12 +39,10 @@
     <string name="error">Error</string>
     <string name="exit">Salir</string>
     <string name="extractto">Extraer a</string>
-    <string name="file">Archivo</string>
     <string name="filecreated">El archivo fue creado.</string>
     <string name="fileexists">El archivo ya existe.</string>
     <string name="files">" Archivos"</string>
     <string name="filewasrenamed">Archivo fue renombrado.</string>
-    <string name="foundfiles">Localizado</string>
     <string name="hiddenfiles">Archivos ocultados</string>
     <string name="itcouldntbefound">No pudo ser localizado.</string>
     <string name="LastModified">Último modificado:</string>
@@ -66,7 +64,6 @@
     <string name="options">Opciones</string>
     <string name="packing">Empacando</string>
     <string name="paste">Pegar</string>
-    <string name="permissions">Permisos:</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Presionar atrás de nuevo para salir.</string>
     <string name="rename">Renombrar</string>
@@ -99,6 +96,7 @@
     <string name="dark">Oscuro</string>
 
     <!-- permissions -->
+    <string name="permissions">Permisos</string>
     <string name="owner">Dueño:</string>
     <string name="group">Grupo:</string>
     <string name="others">Otro:</string>

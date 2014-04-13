@@ -39,12 +39,10 @@
     <string name="error">Błąd</string>
     <string name="exit">Wyjdź</string>
     <string name="extractto">Wypakuj do</string>
-    <string name="file">Plik</string>
     <string name="filecreated">Plik został utworzony.</string>
     <string name="fileexists">Plik już istnieje.</string>
     <string name="files">" Pliki</string>
     <string name="filewasrenamed">Nazwa pliku została zmieniona.</string>
-    <string name="foundfiles">Znaleziono</string>
     <string name="hiddenfiles">Ukryte pliki</string>
     <string name="itcouldntbefound">Nie znaleziono.</string>
     <string name="LastModified">Ostatnia modyfikacja:</string>
@@ -66,7 +64,6 @@
     <string name="options">Ustawienia</string>
     <string name="packing">Pakowanie</string>
     <string name="paste">Wklej</string>
-    <string name="permissions">Pozwolenia</string>
     <string name="playstore">Sklep Play</string>
     <string name="pressbackagaintoquit">Naciśnij klawisz powrotu ponownie, aby wyjść.</string>
     <string name="rename">Zmień nazwę</string>
@@ -99,6 +96,7 @@
     <string name="dark">Ciemny</string>
 
     <!-- permissions -->
+    <string name="permissions">Permissions</string>
     <string name="owner">Właściciel:</string>
     <string name="group">Grupa:</string>
     <string name="others">Inne:</string>

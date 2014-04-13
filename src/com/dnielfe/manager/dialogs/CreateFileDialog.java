@@ -47,44 +47,45 @@ public final class CreateFileDialog extends DialogFragment {
 		final AlertDialog.Builder b = new AlertDialog.Builder(a);
 		b.setTitle(R.string.newfile);
 		b.setView(inputf);
-		b.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				String name = inputf.getText().toString();
+		b.setPositiveButton(R.string.create,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String name = inputf.getText().toString();
 
-				File file = new File(Browser.mCurrentPath + File.separator
-						+ name);
+						File file = new File(Browser.mCurrentPath
+								+ File.separator + name);
 
-				if (file.exists()) {
-					Toast.makeText(a, getString(R.string.fileexists),
-							Toast.LENGTH_SHORT).show();
-				} else {
-					try {
-						if (name.length() >= 1) {
-							file.createNewFile();
-
-							Toast.makeText(a, R.string.filecreated,
+						if (file.exists()) {
+							Toast.makeText(a, getString(R.string.fileexists),
 									Toast.LENGTH_SHORT).show();
 						} else {
-							Toast.makeText(a, R.string.error,
-									Toast.LENGTH_SHORT).show();
+							try {
+								if (name.length() >= 1) {
+									file.createNewFile();
+
+									Toast.makeText(a, R.string.filecreated,
+											Toast.LENGTH_SHORT).show();
+								} else {
+									Toast.makeText(a, R.string.error,
+											Toast.LENGTH_SHORT).show();
+								}
+							} catch (Exception e) {
+								if (RootTools.isRootAvailable()) {
+									RootCommands.createRootFile(
+											Browser.mCurrentPath, name);
+									Toast.makeText(a, R.string.filecreated,
+											Toast.LENGTH_SHORT).show();
+								} else {
+									Toast.makeText(a, R.string.error,
+											Toast.LENGTH_SHORT).show();
+								}
+							}
 						}
-					} catch (Exception e) {
-						if (RootTools.isRootAvailable()) {
-							RootCommands.createRootFile(Browser.mCurrentPath,
-									name);
-							Toast.makeText(a, R.string.filecreated,
-									Toast.LENGTH_SHORT).show();
-						} else {
-							Toast.makeText(a, R.string.error,
-									Toast.LENGTH_SHORT).show();
-						}
+
+						dialog.dismiss();
 					}
-				}
-
-				dialog.dismiss();
-			}
-		});
+				});
 		b.setNegativeButton(R.string.cancel,
 				new DialogInterface.OnClickListener() {
 					@Override

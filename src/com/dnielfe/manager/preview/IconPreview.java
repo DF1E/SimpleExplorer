@@ -130,10 +130,6 @@ public enum IconPreview {
 		}
 	}
 
-	public void clearCache() {
-		cache.clear();
-	}
-
 	private Bitmap getPreview(File file) {
 		final boolean isImage = MimeTypes.isPicture(file);
 		final boolean isVideo = MimeTypes.isVideo(file);

@@ -22,6 +22,8 @@ package com.dnielfe.manager.dialogs;
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.SimpleExplorer;
+import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.utils.StatFsCompat;
 
 import android.app.Activity;
@@ -68,7 +70,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
 
 	private static final class PartitionInfo {
 		final CharSequence mPath;
-
+		final CharSequence mPermissionText;
 		final CharSequence mTotalBytesText;
 		final CharSequence mBlockSizeText;
 		final CharSequence mFreeBytesText;
@@ -80,10 +82,10 @@ public final class DirectoryInfoDialog extends DialogFragment {
 		final long mUsedSpace;
 
 		private PartitionInfo(@NotNull final CharSequence path,
-				final long totalBytes, final long blockSize,
-				final long freeBytes, final long usedSpace) {
+				final CharSequence permission, final long totalBytes,
+				final long blockSize, final long freeBytes, final long usedSpace) {
 			this.mPath = path;
-
+			this.mPermissionText = permission;
 			this.mTotalBytes = totalBytes;
 			this.mBlockSize = blockSize;
 			this.mFreeBytes = freeBytes;
@@ -125,8 +127,14 @@ public final class DirectoryInfoDialog extends DialogFragment {
 			final long valueTotal = statFs.getTotalBytes();
 			final long valueAvail = statFs.getAvailableBytes();
 			final long valueUsed = valueTotal - valueAvail;
-			return new PartitionInfo(path, valueTotal,
-					statFs.getBlockSizeLong(), statFs.getFreeBytes(), valueUsed);
+			String[] permission = null;
+
+			if (SimpleExplorer.rootAccess)
+				permission = RootCommands.getFileProperties(params[0]);
+
+			return new PartitionInfo(path, permission != null ? permission[0]
+					: "", valueTotal, statFs.getBlockSizeLong(),
+					statFs.getFreeBytes(), valueUsed);
 		}
 
 		@Override
@@ -136,6 +144,12 @@ public final class DirectoryInfoDialog extends DialogFragment {
 				final TextView title = (TextView) view
 						.findViewById(R.id.location);
 				title.setText(partitionInfo.mPath);
+
+				if (partitionInfo.mPermissionText.length() != 0L) {
+					final TextView perm = (TextView) view
+							.findViewById(R.id.dir_permission);
+					perm.setText(partitionInfo.mPermissionText);
+				}
 
 				if (partitionInfo.mTotalBytes != 0L) {
 					final TextView total = (TextView) view

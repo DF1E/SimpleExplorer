@@ -48,6 +48,7 @@ public class SearchListAdapter extends ArrayAdapter<String> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		final File f = new File(getItem(position));
 		ViewHolder holder;
 
 		if (convertView == null) {
@@ -59,9 +60,6 @@ public class SearchListAdapter extends ArrayAdapter<String> {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
-		final String filepath = getItem(position);
-		File f = new File(filepath);
 
 		String filename = f.getName().toLowerCase();
 		String mQuery = SearchActivity.mQuery;

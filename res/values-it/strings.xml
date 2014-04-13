@@ -39,12 +39,10 @@
     <string name="error">Errore</string>
     <string name="exit">Esci</string>
     <string name="extractto">Estrai in</string>
-    <string name="file">File</string>
     <string name="filecreated">Il File è stato creato</string>
     <string name="fileexists">Il File esiste già</string>
     <string name="files">" Files"</string>
     <string name="filewasrenamed">Il File è stato rinominato</string>
-    <string name="foundfiles">Trovato</string>
     <string name="hiddenfiles">File Nascosti</string>
     <string name="itcouldntbefound">Non è stato possibile trovare niente</string>
     <string name="LastModified">Ultima Modifica:</string>
@@ -66,7 +64,6 @@
     <string name="options">Opzioni</string>
     <string name="packing">Comprimendo</string>
     <string name="paste">Incolla</string>
-    <string name="permissions">Permessi:</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Premi indietro un\'altra volta per uscire</string>
     <string name="rename">Rinomina</string>
@@ -99,6 +96,7 @@
     <string name="dark">Scuro</string>
 
     <!-- permissions -->
+    <string name="permissions">Permissions</string>
     <string name="owner">Proprietario:</string>
     <string name="group">Gruppo:</string>
     <string name="others">Altri:</string>

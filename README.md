@@ -12,6 +12,7 @@ This program licensed under http://www.gnu.org/licenses/gpl-2.0.html
 + SealQ - polish
 + adamslast - turkish
 + youngbrod - english, spanish
++ DF1E - german
 + mirhl - italian
 + muamers - bosnian
 + kaizokan - dutch

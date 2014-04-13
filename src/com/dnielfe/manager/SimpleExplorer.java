@@ -20,6 +20,8 @@
 package com.dnielfe.manager;
 
 import com.dnielfe.manager.settings.Settings;
+import com.stericson.RootTools.RootTools;
+
 import android.app.Application;
 import android.os.Environment;
 import android.widget.Toast;
@@ -32,12 +34,17 @@ public final class SimpleExplorer extends Application {
 	public static final String BACKUP_LOC = Environment
 			.getExternalStorageDirectory().getPath() + "/Simple Explorer/Apps/";
 
+	public static boolean rootAccess;
+	public static String busybox;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		// get default preferences
 		Settings.updatePreferences(this);
 		checkEnvironment();
+
+		rootAccess = RootTools.isAccessGiven();
 	}
 
 	// check if a SDCard exists

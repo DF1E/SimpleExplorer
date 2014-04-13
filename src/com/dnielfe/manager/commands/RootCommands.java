@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jetbrains.annotations.NotNull;
 import android.util.Log;
@@ -49,7 +51,7 @@ public class RootCommands {
 
 		try {
 			String[] cmd = new String[] { "su", "-c", "ls", "-a",
-					RootCommands.getCommandLineString(path) };
+					getCommandLineString(path) };
 			Process p = Runtime.getRuntime().exec(cmd);
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					p.getInputStream()));
@@ -71,19 +73,20 @@ public class RootCommands {
 	}
 
 	// Create Directory with root
-	public static int createRootdir(File dir, String path) {
+	public static void createRootdir(File dir, String path) {
 		if (dir.exists())
-			return -1;
+			return;
 
 		try {
 			if (!readReadWriteFile())
 				RootTools.remount(path, "rw");
 
-			execute("mkdir " + dir.getAbsolutePath());
-			return 0;
+			execute("mkdir " + getCommandLineString(dir.getAbsolutePath()));
 		} catch (Exception e) {
-			return -1;
+			e.printStackTrace();
 		}
+
+		return;
 	}
 
 	// Move or Copy with Root Access using RootTools library
@@ -106,12 +109,12 @@ public class RootCommands {
 	// path = currentDir
 	// oldName = currentDir + "/" + selected Item
 	// name = new name
-	public static int renameRootTarget(String path, String oldname, String name) {
+	public static void renameRootTarget(String path, String oldname, String name) {
 		File file = new File(path + "/" + oldname);
 		File newf = new File(path + "/" + name);
 
 		if (name.length() < 1)
-			return -1;
+			return;
 
 		try {
 			if (!readReadWriteFile())
@@ -119,11 +122,11 @@ public class RootCommands {
 
 			execute("mv " + file.getAbsolutePath() + " "
 					+ newf.getAbsolutePath());
-
-			return 0;
 		} catch (Exception e) {
-			return -1;
+			e.printStackTrace();
 		}
+
+		return;
 	}
 
 	// Delete file with root
@@ -158,7 +161,7 @@ public class RootCommands {
 			if (!readReadWriteFile())
 				RootTools.remount(cdir, "rw");
 
-			execute("touch " + dir.getAbsolutePath());
+			execute("touch " + getCommandLineString(dir.getAbsolutePath()));
 			return;
 		} catch (Exception e) {
 			return;
@@ -209,14 +212,14 @@ public class RootCommands {
 	}
 
 	@NotNull
-	
 	public static boolean containsIllegals(String toExamine) {
-		//checks for "+" sign so the program dd doesn't throw an error when its not erroring.
-	    Pattern pattern = Pattern.compile("[+]");
-	    Matcher matcher = pattern.matcher(toExamine);
-	    return matcher.find();
+		// checks for "+" sign so the program doesn't throw an error when its
+		// not erroring.
+		Pattern pattern = Pattern.compile("[+]");
+		Matcher matcher = pattern.matcher(toExamine);
+		return matcher.find();
 	}
-	
+
 	public static BufferedReader execute(String cmd) {
 		BufferedReader reader = null;
 		try {
@@ -231,7 +234,8 @@ public class RootCommands {
 					process.getErrorStream()))).readLine();
 			os.flush();
 
-			if (process.waitFor() != 0 || (!"".equals(err) && null != err) && containsIllegals(err) != true) {
+			if (process.waitFor() != 0 || (!"".equals(err) && null != err)
+					&& containsIllegals(err) != true) {
 				Log.e("Root Error", err);
 				return null;
 			}
@@ -247,7 +251,7 @@ public class RootCommands {
 		return null;
 	}
 
-	public static Boolean applyPermissions(File file, Permissions permissions) {
+	public static boolean applyPermissions(File file, Permissions permissions) {
 		try {
 			if (!readReadWriteFile())
 				RootTools.remount(file.getAbsolutePath(), "rw");
@@ -256,8 +260,10 @@ public class RootCommands {
 					+ getCommandLineString(file.getAbsolutePath()));
 			return true;
 		} catch (Exception e) {
-			return false;
+			e.printStackTrace();
 		}
+
+		return false;
 	}
 
 	@NotNull

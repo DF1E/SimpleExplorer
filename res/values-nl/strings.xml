@@ -39,12 +39,10 @@
     <string name="error">Fout</string>
     <string name="exit">Afsluiten</string>
     <string name="extractto">Uitpakken naar</string>
-    <string name="file">Bestand</string>
     <string name="filecreated">Bestand is aangemaakt</string>
     <string name="fileexists">Bestand bestaat al</string>
     <string name="files">" Bestanden"</string>
     <string name="filewasrenamed">Bestand is hernoemd.</string>
-    <string name="foundfiles">Gevonden</string>
     <string name="hiddenfiles">Verborgen bestanden</string>
     <string name="itcouldntbefound">Kon niet gevonden worden</string>
     <string name="LastModified">Laatst Gewijzigd:</string>
@@ -66,7 +64,6 @@
     <string name="options">Opties</string>
     <string name="packing">Inpakken</string>
     <string name="paste">Plakken</string>
-    <string name="permissions">Machtigingen:</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Tik nogmaals terug om af te sluiten</string>
     <string name="rename">Hernoem</string>
@@ -99,6 +96,7 @@
     <string name="dark">Donker</string>
 
     <!-- permissions -->
+    <string name="permissions">Permissions</string>
     <string name="owner">Eigenaar:</string>
     <string name="group">Groep:</string>
     <string name="others">Overig:</string>

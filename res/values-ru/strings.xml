@@ -39,12 +39,10 @@
     <string name="error">Ошибка</string>
     <string name="exit">Exit</string>
     <string name="extractto">Распаковать в...</string>
-    <string name="file">Прочее</string>
     <string name="filecreated">Файл создан.</string>
     <string name="fileexists">Файл с таким именем уже существует!</string>
     <string name="files">" файлов"</string>
     <string name="filewasrenamed">Файл переименован.</string>
-    <string name="foundfiles">Найдено</string>
     <string name="hiddenfiles">Скрытые файлы</string>
     <string name="itcouldntbefound">Ничего не найдено!</string>
     <string name="LastModified">Изменён:</string>
@@ -66,7 +64,6 @@
     <string name="options">Действия</string>
     <string name="packing">Сжатие в TAR-архив</string>
     <string name="paste">Вставить</string>
-    <string name="permissions">Разрешения:</string>
     <string name="playstore">В Google Play Маркет</string>
     <string name="pressbackagaintoquit">Для выхода нажмите ещё раз.</string>
     <string name="rename">Переименовать</string>
@@ -99,6 +96,7 @@
     <string name="dark">Dark</string>
 
     <!-- permissions -->
+    <string name="permissions">Permissions</string>
     <string name="owner">Owner:</string>
     <string name="group">Group:</string>
     <string name="others">Other:</string>

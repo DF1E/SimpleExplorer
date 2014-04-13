@@ -6,7 +6,7 @@
     <string name="advancedsettings">Erweitert</string>
     <string name="appmanager">App Manager</string>
     <string name="apps">" Apps"</string>
-    <string name="backedup">" gespeichert"</string>
+    <string name="backedup">" gesichert"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup abgeschlossen</string>
     <string name="backuperror">Backup fehlgeschlagen.</string>
@@ -39,12 +39,10 @@
     <string name="error">Error</string>
     <string name="exit">Beenden</string>
     <string name="extractto">Extrahieren nach</string>
-    <string name="file">Datei</string>
     <string name="filecreated">Datei wurde erstellt</string>
     <string name="fileexists">Datei existiert bereits</string>
     <string name="files">" Dateien"</string>
     <string name="filewasrenamed">Umbenennen erfolgreich</string>
-    <string name="foundfiles">Gefunden</string>
     <string name="hiddenfiles">Versteckte Dateien</string>
     <string name="itcouldntbefound">Die Sucheingabe konnte nicht gefunden werden</string>
     <string name="LastModified">Zuletzt Geändert:</string>
@@ -66,7 +64,6 @@
     <string name="options">Optionen</string>
     <string name="packing">Verpacken</string>
     <string name="paste">Einfügen</string>
-    <string name="permissions">Berechtigungen</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Erneut klicken, um das Programm zu beenden</string>
     <string name="rename">Umbenennen</string>
@@ -99,6 +96,7 @@
     <string name="dark">Dunkel</string>
 
     <!-- permissions -->
+    <string name="permissions">Berechtigungen</string>
     <string name="owner">Besitzer:</string>
     <string name="group">Gruppe:</string>
     <string name="others">Andere:</string>

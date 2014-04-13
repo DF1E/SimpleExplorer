@@ -311,31 +311,24 @@ public class SimpleUtils {
 
 	// path = currentDir
 	// name = new name
-	public static int createDir(String path, String name) {
-		int len = path.length();
-		File folder = new File(path + name);
+	public static boolean createDir(String path, String name) {
+		File folder = new File(path, name);
 
 		if (folder.exists())
-			return -1;
+			return false;
 
-		if (len < 1 || len < 1)
-			return -1;
-
-		if (path.charAt(len - 1) != '/')
-			path += "/";
-
-		if (new File(path + name).mkdir())
-			return 0;
+		if (folder.mkdir())
+			return true;
 		else {
-			File dir = new File(path + "/" + name);
-
 			try {
-				RootCommands.createRootdir(dir, path);
-				return 0;
+				RootCommands.createRootdir(folder, path);
+				return true;
 			} catch (Exception e) {
-				return -1;
+				e.printStackTrace();
 			}
 		}
+
+		return false;
 	}
 
 	/**

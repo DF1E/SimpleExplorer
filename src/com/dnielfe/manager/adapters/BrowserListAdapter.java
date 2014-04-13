@@ -140,7 +140,7 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 			else
 				icon.setImageResource(R.drawable.type_folder_empty);
 		} else {
-			if (Settings.thumbnail) {
+			if (Settings.showthumbnail) {
 				if (isImage) {
 					// IconPreview.INSTANCE.setPlaceholder(bitmap);
 					icon.setTag(file.getAbsolutePath());

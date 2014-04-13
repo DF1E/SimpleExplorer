@@ -39,12 +39,10 @@
     <string name="error">错误</string>
     <string name="exit">退出</string>
     <string name="extractto">提取到…</string>
-    <string name="file">文件</string>
     <string name="filecreated">文件新建成功。</string>
     <string name="fileexists">文件已存在！</string>
     <string name="files">"个文件"</string>
     <string name="filewasrenamed">文件已重命名。</string>
-    <string name="foundfiles">搜索结果</string>
     <string name="hiddenfiles">隐藏文件</string>
     <string name="itcouldntbefound">无搜索结果！</string>
     <string name="LastModified">修改时间：</string>
@@ -66,7 +64,6 @@
     <string name="options">选项</string>
     <string name="packing">正在打包…</string>
     <string name="paste">粘贴</string>
-    <string name="permissions">权限</string>
     <string name="playstore">应用商店</string>
     <string name="pressbackagaintoquit">再次点击返回退出。</string>
     <string name="rename">重命名</string>
@@ -99,6 +96,7 @@
     <string name="dark">暗色调</string>
 
     <!-- permissions -->
+    <string name="permissions">Permissions</string>
     <string name="owner">所有者：</string>
     <string name="group">用户组：</string>
     <string name="others">其他：</string>

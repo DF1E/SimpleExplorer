@@ -43,7 +43,6 @@ public class BookmarksAdapter extends SimpleCursorAdapter {
 	private Cursor mCursor;
 	private Context mContext;
 	private LayoutInflater mLayoutInflater;
-
 	private int mTitleIndex, mPathIndex;
 
 	public BookmarksAdapter(Context context, Cursor c) {

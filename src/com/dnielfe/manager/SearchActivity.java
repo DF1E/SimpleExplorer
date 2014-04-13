@@ -58,15 +58,8 @@ public class SearchActivity extends ThemableActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
 
-		init();
-
-		mData = new ArrayList<String>();
-		mAdapter = new SearchListAdapter(this, mData);
-
-		mListView = (ListView) findViewById(android.R.id.list);
-		mListView.setEmptyView(findViewById(android.R.id.empty));
-		mListView.setAdapter(mAdapter);
-		mListView.setOnItemClickListener(mOnItemClickListener);
+		init(getIntent());
+		initList();
 
 		if (savedInstanceState != null) {
 			restart(savedInstanceState);
@@ -83,6 +76,36 @@ public class SearchActivity extends ThemableActivity {
 	public void onNewIntent(Intent intent) {
 		setIntent(intent);
 		SearchIntent(intent);
+	}
+
+	private void init(Intent intent) {
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.show();
+
+		mActionBarNavigation = Browser.getNavigation();
+
+		if (intent != null) {
+			mSearchDirectory = intent.getStringExtra("current");
+			mQuery = intent.getStringExtra("query");
+
+			if (mQuery != null) {
+				mTask = new SearchTask();
+				mTask.execute(mQuery);
+			}
+		}
+
+		SearchIntent(intent);
+	}
+
+	private void initList() {
+		mData = new ArrayList<String>();
+		mAdapter = new SearchListAdapter(this, mData);
+
+		mListView = (ListView) findViewById(android.R.id.list);
+		mListView.setEmptyView(findViewById(android.R.id.empty));
+		mListView.setAdapter(mAdapter);
+		mListView.setOnItemClickListener(mOnItemClickListener);
 	}
 
 	private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
@@ -102,28 +125,6 @@ public class SearchActivity extends ThemableActivity {
 			}
 		}
 	};
-
-	private void init() {
-		Intent intent = getIntent();
-
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.show();
-
-		mActionBarNavigation = Browser.getNavigation();
-
-		if (intent != null) {
-			mSearchDirectory = intent.getStringExtra("current");
-			mQuery = intent.getStringExtra("query");
-
-			if (mQuery != null) {
-				mTask = new SearchTask();
-				mTask.execute(mQuery);
-			}
-		}
-
-		SearchIntent(intent);
-	}
 
 	// this is needed when phone will be rotated
 	private void restart(Bundle savedInstanceState) {

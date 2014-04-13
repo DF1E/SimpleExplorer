@@ -39,12 +39,10 @@
     <string name="error">Hata</string>
     <string name="exit">Exit</string>
     <string name="extractto">Buraya çıkar</string>
-    <string name="file">Dosya</string>
     <string name="filecreated">Dosya oluşturuldu</string>
     <string name="fileexists">Dosya önceden var</string>
     <string name="files">" Dosyalar"</string>
     <string name="filewasrenamed">Dosya yeniden adlandırıldı</string>
-    <string name="foundfiles">Bulundu</string>
     <string name="hiddenfiles">Gizli Dosyalar</string>
     <string name="itcouldntbefound">Bulunamadı</string>
     <string name="LastModified">Son değişiklik:</string>
@@ -66,7 +64,6 @@
     <string name="options">Tercihler</string>
     <string name="packing">Paket</string>
     <string name="paste">Yapıştır</string>
-    <string name="permissions">İzinler:</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Çıkmak için Geri tuşuna bas</string>
     <string name="rename">Yeniden adlandır</string>
@@ -99,6 +96,7 @@
     <string name="dark">Dark</string>
 
     <!-- permissions -->
+    <string name="permissions">Permissions</string>
     <string name="owner">Owner:</string>
     <string name="group">Group:</string>
     <string name="others">Other:</string>
