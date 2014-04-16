@@ -26,23 +26,23 @@ import java.util.Set;
 import android.app.Activity;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
+import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.dnielfe.manager.R;
 
 public class ActionBarNavigation {
 
 	public Set<OnNavigateListener> listeners;
+	private LinearLayout mView;
+	private Activity mActivity;
 
 	int WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT;
 	int MATCH_PARENT = FrameLayout.LayoutParams.MATCH_PARENT;
-	private static int directorytextsize = 16;
-
-	private LinearLayout mDirectoryButtons;
-	private Activity mActivity;
+	int textsize = 16;
 
 	public interface OnNavigateListener {
 		void onNavigate(String path);
@@ -59,20 +59,21 @@ public class ActionBarNavigation {
 
 		HorizontalScrollView scrolltext = (HorizontalScrollView) mActivity
 				.findViewById(R.id.scroll_text);
-		mDirectoryButtons = (LinearLayout) mActivity
-				.findViewById(R.id.directory_buttons);
-		mDirectoryButtons.removeAllViews();
+		mView = (LinearLayout) mActivity.findViewById(R.id.directory_buttons);
+		mView.removeAllViews();
 
 		String[] parts = currentDirectory.getAbsolutePath().split("/");
 
-		// Add home button separately
-		Button bt = new Button(mActivity, null,
-				android.R.attr.borderlessButtonStyle);
-		bt.setText("/");
-		bt.setTextSize(directorytextsize);
-		bt.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT,
-				WRAP_CONTENT, Gravity.CENTER_VERTICAL));
-		bt.setOnClickListener(new View.OnClickListener() {
+		// Add home view separately
+		TextView t0 = new TextView(mActivity, null,
+				android.R.attr.actionButtonStyle);
+		t0.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT,
+				MATCH_PARENT, Gravity.CENTER_VERTICAL));
+		t0.setText("/");
+		t0.setTextSize(textsize);
+		t0.setTag(dir);
+		t0.setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View view) {
 				for (final OnNavigateListener listener : listeners) {
 					listener.onNavigate("/");
@@ -80,26 +81,30 @@ public class ActionBarNavigation {
 			}
 		});
 
-		mDirectoryButtons.addView(bt);
+		mView.addView(t0);
 
 		// Add other buttons
 		for (int i = 1; i < parts.length; i++) {
 			dir += "/" + parts[i];
 
+			// add a LinearLayout as a divider
 			FrameLayout fv1 = new FrameLayout(mActivity);
-			fv1.setBackground(mActivity.getResources().getDrawable(
-					R.drawable.list_more));
+			LinearLayout divider = (LinearLayout) mActivity.getLayoutInflater()
+					.inflate(R.layout.activity_browser_actionbar_divider, null);
+			fv1.addView(divider);
 			fv1.setLayoutParams(new FrameLayout.LayoutParams(WRAP_CONTENT,
-					MATCH_PARENT, Gravity.CENTER_VERTICAL));
-
-			Button b = new Button(mActivity, null,
-					android.R.attr.borderlessButtonStyle);
-			b.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT,
 					WRAP_CONTENT, Gravity.CENTER_VERTICAL));
-			b.setText(parts[i]);
-			b.setTextSize(directorytextsize);
-			b.setTag(dir);
-			b.setOnClickListener(new View.OnClickListener() {
+
+			// add clickable TextView
+			TextView t2 = new TextView(mActivity, null,
+					android.R.attr.actionButtonStyle);
+			t2.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT,
+					MATCH_PARENT, Gravity.CENTER_VERTICAL));
+			t2.setText(parts[i].toString());
+			t2.setTextSize(textsize);
+			t2.setTag(dir);
+			t2.setOnClickListener(new OnClickListener() {
+				@Override
 				public void onClick(View view) {
 					String dir1 = (String) view.getTag();
 					for (final OnNavigateListener listener : listeners) {
@@ -108,7 +113,7 @@ public class ActionBarNavigation {
 				}
 			});
 
-			b.setOnLongClickListener(new View.OnLongClickListener() {
+			t2.setOnLongClickListener(new View.OnLongClickListener() {
 				public boolean onLongClick(View view) {
 					String dir1 = (String) view.getTag();
 					SimpleUtils.savetoClipBoard(mActivity, dir1);
@@ -116,8 +121,8 @@ public class ActionBarNavigation {
 				}
 			});
 
-			mDirectoryButtons.addView(fv1);
-			mDirectoryButtons.addView(b);
+			mView.addView(fv1);
+			mView.addView(t2);
 			scrolltext.postDelayed(new Runnable() {
 				public void run() {
 					HorizontalScrollView hv = (HorizontalScrollView) mActivity

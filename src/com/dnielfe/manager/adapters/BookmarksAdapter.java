@@ -22,7 +22,6 @@ package com.dnielfe.manager.adapters;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.Bookmarks;
 
-import android.app.Activity;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -44,7 +43,6 @@ public class BookmarksAdapter extends SimpleCursorAdapter {
 	private Cursor mCursor;
 	private Context mContext;
 	private LayoutInflater mLayoutInflater;
-
 	private int mTitleIndex, mPathIndex;
 
 	public BookmarksAdapter(Context context, Cursor c) {
@@ -86,9 +84,8 @@ public class BookmarksAdapter extends SimpleCursorAdapter {
 		return convertView;
 	}
 
-	// TODO fix refresh
-	public void createBookmark(Activity a, String path, String key) {
-		Cursor c = a.getContentResolver().query(Bookmarks.CONTENT_URI,
+	public void createBookmark(String path, String key) {
+		Cursor c = mContext.getContentResolver().query(Bookmarks.CONTENT_URI,
 				new String[] { Bookmarks._ID }, Bookmarks.PATH + "=?",
 				new String[] { path }, null);
 
@@ -96,15 +93,15 @@ public class BookmarksAdapter extends SimpleCursorAdapter {
 			ContentValues values = new ContentValues();
 			values.put(Bookmarks.NAME, String.valueOf(key));
 			values.put(Bookmarks.PATH, path);
-			a.getContentResolver().insert(Bookmarks.CONTENT_URI, values);
-			Toast.makeText(a, R.string.bookmarkadded, Toast.LENGTH_SHORT)
+			mContext.getContentResolver().insert(Bookmarks.CONTENT_URI, values);
+			Toast.makeText(mContext, R.string.bookmarkadded, Toast.LENGTH_SHORT)
 					.show();
 		} else {
-			Toast.makeText(a, R.string.bookmarkexist, Toast.LENGTH_SHORT)
+			Toast.makeText(mContext, R.string.bookmarkexist, Toast.LENGTH_SHORT)
 					.show();
 		}
 
-		update(c);
+		update(mCursor);
 	}
 
 	@SuppressWarnings("deprecation")

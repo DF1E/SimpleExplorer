@@ -36,6 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.settings.Settings;
@@ -232,7 +233,6 @@ public class SimpleUtils {
 			} catch (FileNotFoundException e) {
 				Log.e("FileNotFoundException", e.getMessage());
 				return;
-
 			} catch (IOException e) {
 				Log.e("IOException", e.getMessage());
 				return;
@@ -250,9 +250,9 @@ public class SimpleUtils {
 			for (int i = 0; i < len; i++)
 				copyToDirectory(old + "/" + files[i], dir);
 
-		} else if (old_file.isFile() && !temp_dir.canWrite()) {
+		} else if (old_file.isFile() && !temp_dir.canWrite()
+				&& SimpleExplorer.rootAccess) {
 			RootCommands.moveCopyRoot(old, newDir);
-			return;
 		} else if (!temp_dir.canWrite())
 			return;
 
@@ -311,31 +311,24 @@ public class SimpleUtils {
 
 	// path = currentDir
 	// name = new name
-	public static int createDir(String path, String name) {
-		int len = path.length();
-		File folder = new File(path + name);
+	public static boolean createDir(String path, String name) {
+		File folder = new File(path, name);
 
 		if (folder.exists())
-			return -1;
+			return false;
 
-		if (len < 1 || len < 1)
-			return -1;
-
-		if (path.charAt(len - 1) != '/')
-			path += "/";
-
-		if (new File(path + name).mkdir())
-			return 0;
+		if (folder.mkdir())
+			return true;
 		else {
-			File dir = new File(path + "/" + name);
-
 			try {
-				RootCommands.createRootdir(dir, path);
-				return 0;
+				RootCommands.createRootdir(folder, path);
+				return true;
 			} catch (Exception e) {
-				return -1;
+				e.printStackTrace();
 			}
 		}
+
+		return false;
 	}
 
 	/**

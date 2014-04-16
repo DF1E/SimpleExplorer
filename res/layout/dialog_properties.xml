@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:paddingLeft="1dp"
                 android:textIsSelectable="true"
                 android:textSize="15sp" />

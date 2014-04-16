@@ -109,17 +109,18 @@ public final class ActionModeController {
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			final SparseBooleanArray items = mListView
 					.getCheckedItemPositions();
+			final int checkedItemSize = items.size();
 			final String[] files = new String[mListView.getCheckedItemCount()];
 			final String currentDir = Browser.mCurrentPath;
 			int index = -1;
 
 			switch (item.getItemId()) {
 			case R.id.actionmove:
-				for (int i = 0; i < items.size(); i++) {
+				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
 						files[++index] = currentDir + "/"
-								+ mListView.getAdapter().getItem(key);
+								+ mListView.getItemAtPosition(key);
 					}
 				}
 				ClipBoard.cutMove(files);
@@ -127,11 +128,11 @@ public final class ActionModeController {
 				mActivity.invalidateOptionsMenu();
 				return true;
 			case R.id.actioncopy:
-				for (int i = 0; i < items.size(); i++) {
+				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
 						files[++index] = currentDir + "/"
-								+ mListView.getAdapter().getItem(key);
+								+ mListView.getItemAtPosition(key);
 					}
 				}
 				ClipBoard.cutCopy(files);
@@ -139,11 +140,11 @@ public final class ActionModeController {
 				mActivity.invalidateOptionsMenu();
 				return true;
 			case R.id.actiondelete:
-				for (int i = 0; i < items.size(); i++) {
+				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
 						files[++index] = currentDir + "/"
-								+ mListView.getAdapter().getItem(key);
+								+ mListView.getItemAtPosition(key);
 					}
 				}
 				final DialogFragment dialog1 = DeleteFilesDialog
@@ -154,11 +155,11 @@ public final class ActionModeController {
 			case R.id.actionshare:
 				final ArrayList<Uri> uris = new ArrayList<Uri>(
 						mListView.getCheckedItemCount());
-				for (int i = 0; i < items.size(); i++) {
+				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
 						final File selected = new File(currentDir + "/"
-								+ mListView.getAdapter().getItem(key));
+								+ mListView.getItemAtPosition(key));
 						if (selected != null && !selected.isDirectory()) {
 							uris.add(Uri.fromFile(selected));
 						}
@@ -175,37 +176,37 @@ public final class ActionModeController {
 						mActivity.getString(R.string.share)));
 				return true;
 			case R.id.actionshortcut:
-				for (int i = 0; i < items.size(); i++) {
+				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
 						SimpleUtils.createShortcut(mActivity, currentDir + "/"
-								+ mListView.getAdapter().getItem(key));
+								+ mListView.getItemAtPosition(key));
 						mode.finish();
 						break;
 					}
 				}
 				return true;
 			case R.id.actionbookmark:
-				for (int i = 0; i < items.size(); i++) {
+				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
-						String path = currentDir + "/"
-								+ mListView.getAdapter().getItem(key);
+						File file = new File(currentDir,
+								(String) mListView.getItemAtPosition(key));
 
 						mAdapter = Browser.getBookmarksAdapter();
-						mAdapter.createBookmark(mActivity, path,
-								(String) mListView.getAdapter().getItem(key));
+						mAdapter.createBookmark(file.getPath(),
+								(String) mListView.getItemAtPosition(key));
 						mode.finish();
 						break;
 					}
 				}
 				return true;
 			case R.id.actionzip:
-				for (int i = 0; i < items.size(); i++) {
+				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
 						files[++index] = currentDir + "/"
-								+ mListView.getAdapter().getItem(key);
+								+ mListView.getItemAtPosition(key);
 					}
 				}
 				final DialogFragment dialog = ZipFilesDialog.instantiate(files);
@@ -213,14 +214,17 @@ public final class ActionModeController {
 				dialog.show(mActivity.getFragmentManager(), "dialog");
 				return true;
 			case R.id.actionrename:
-				for (int i = 0; i < items.size(); i++) {
+				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
 						final DialogFragment dialog3 = RenameDialog
-								.instantiate(currentDir + "/"
-										+ mListView.getAdapter().getItem(key),
-										(String) mListView.getAdapter()
-												.getItem(key));
+								.instantiate(
+										currentDir
+												+ "/"
+												+ mListView
+														.getItemAtPosition(key),
+										(String) mListView
+												.getItemAtPosition(key));
 						mode.finish();
 						dialog3.show(mActivity.getFragmentManager(), "dialog");
 						break;
@@ -228,12 +232,12 @@ public final class ActionModeController {
 				}
 				return true;
 			case R.id.actiondetails:
-				for (int i = 0; i < items.size(); i++) {
+				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
 						final DialogFragment dialog4 = FilePropertiesDialog
 								.instantiate(new File(currentDir + "/"
-										+ mListView.getAdapter().getItem(key)));
+										+ mListView.getItemAtPosition(key)));
 						mode.finish();
 						dialog4.show(mActivity.getFragmentManager(), "dialog");
 						break;

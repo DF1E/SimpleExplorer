@@ -19,13 +19,7 @@
 
 package com.dnielfe.manager;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,9 +28,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.io.FileUtils;
 
 import com.dnielfe.manager.dialogs.DeleteFilesDialog;
+import com.dnielfe.manager.tasks.BackupTask;
+
 import android.app.ActionBar;
 import android.app.DialogFragment;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -45,10 +40,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -71,14 +63,13 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class AppManager extends ThemableActivity {
 
-	private static final String STAR_STATES = "mylist:star_states";
+	private static final String STAR_STATES = "selected_items";
 	private boolean[] mStarStates = null;
 
-	private static AppListAdapter mAdapter;
 	private static ArrayList<ApplicationInfo> multiSelectData = null;
 	private static ArrayList<ApplicationInfo> mAppList = null;
-	private static PackageManager mPackMag = null;
-	private static ProgressDialog mDialog = null;
+	private static AppListAdapter mAdapter;
+	private static PackageManager mPackMag;
 
 	private static final int ID_LAUNCH = 1;
 	private static final int ID_MANAGE = 2;
@@ -86,13 +77,8 @@ public class AppManager extends ThemableActivity {
 	private static final int ID_SEND = 4;
 	private static final int ID_MARKET = 5;
 
-	private static final int SET_PROGRESS = 0x00;
-	private static final int FINISH_PROGRESS = 0x01;
-	private static final int FLAG_UPDATED_SYS_APP = 0x80;
-
 	private ActionBar mActionBar;
 	private MenuItem mMenuItem;
-
 	private ListView mListView;
 
 	@Override
@@ -103,7 +89,6 @@ public class AppManager extends ThemableActivity {
 		mPackMag = getPackageManager();
 		mActionBar = getActionBar();
 
-		initializeDrawbale();
 		initActionBar();
 		init();
 
@@ -236,8 +221,9 @@ public class AppManager extends ThemableActivity {
 					multiSelectData.remove(mAppList.get(i));
 				}
 			}
+
 			if (multiSelectData.size() > 0 && multiSelectData != null) {
-				BackupTask all = new BackupTask(multiSelectData);
+				BackupTask all = new BackupTask(this, mPackMag, multiSelectData);
 				all.execute();
 			} else {
 				Toast.makeText(AppManager.this, getString(R.string.noapps),
@@ -268,7 +254,7 @@ public class AppManager extends ThemableActivity {
 
 		for (ApplicationInfo appInfo : all_apps) {
 			if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0
-					&& (appInfo.flags & FLAG_UPDATED_SYS_APP) == 0
+					&& (appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 0
 					&& appInfo.flags != 0)
 
 				mAppList.add(appInfo);
@@ -277,104 +263,6 @@ public class AppManager extends ThemableActivity {
 		// Sorting ListView showing Installed Applications
 		Collections.sort(mAppList, new ApplicationInfo.DisplayNameComparator(
 				mPackMag));
-	}
-
-	/*
-	 * This private inner class will perform the backup of applications on a
-	 * background thread, while updating the user via a message being sent to
-	 * our handler object.
-	 */
-	private class BackupTask extends AsyncTask<File, Void, Boolean> {
-
-		private ArrayList<ApplicationInfo> mDataSource;
-		private static final int BUFFER = 2048;
-		private byte[] mData;
-
-		public BackupTask(ArrayList<ApplicationInfo> data) {
-			mDataSource = data;
-			mData = new byte[BUFFER];
-
-			File d = new File(SimpleExplorer.BACKUP_LOC);
-			// create directory if needed
-			if (!d.exists())
-				d.mkdirs();
-		}
-
-		@Override
-		public void onPreExecute() {
-			mDialog = ProgressDialog.show(AppManager.this,
-					getString(R.string.backup), "", true, false);
-		}
-
-		@Override
-		protected Boolean doInBackground(File... arg0) {
-			BufferedInputStream mBuffIn;
-			BufferedOutputStream mBuffOut;
-			Message msg;
-			int len = mDataSource.size();
-			int read;
-
-			for (int i = 0; i < len; i++) {
-				ApplicationInfo info = mDataSource.get(i);
-				String source_dir = info.sourceDir;
-				String out_file = info.loadLabel(mPackMag).toString() + ".apk";
-				try {
-					mBuffIn = new BufferedInputStream(new FileInputStream(
-							source_dir));
-					mBuffOut = new BufferedOutputStream(new FileOutputStream(
-							SimpleExplorer.BACKUP_LOC + out_file));
-
-					while ((read = mBuffIn.read(mData, 0, BUFFER)) != -1)
-						mBuffOut.write(mData, 0, read);
-
-					mBuffOut.flush();
-					mBuffIn.close();
-					mBuffOut.close();
-
-					msg = new Message();
-					msg.what = SET_PROGRESS;
-					msg.obj = i + getString(R.string.of) + len
-							+ getString(R.string.backedup);
-					mHandler.sendMessage(msg);
-				} catch (FileNotFoundException e) {
-					Toast.makeText(AppManager.this,
-							getString(R.string.backuperror), Toast.LENGTH_SHORT)
-							.show();
-					return false;
-				} catch (IOException e) {
-					Toast.makeText(AppManager.this,
-							getString(R.string.backuperror), Toast.LENGTH_SHORT)
-							.show();
-					return false;
-				}
-			}
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-			if (result)
-				mHandler.sendEmptyMessage(FINISH_PROGRESS);
-			unselectAll();
-		}
-
-		// this handler will update the GUI from this background thread.
-		private Handler mHandler = new Handler() {
-			public void handleMessage(Message msg) {
-
-				switch (msg.what) {
-				case SET_PROGRESS:
-					mDialog.setMessage((String) msg.obj);
-					break;
-				case FINISH_PROGRESS:
-					mDialog.cancel();
-					Toast.makeText(AppManager.this,
-							getString(R.string.backupcomplete),
-							Toast.LENGTH_SHORT).show();
-					break;
-				}
-			}
-		};
 	}
 
 	private class ViewHolder {
@@ -398,6 +286,7 @@ public class AppManager extends ThemableActivity {
 	}
 
 	private class AppListAdapter extends ArrayAdapter<ApplicationInfo> {
+		private ConcurrentHashMap<String, Drawable> mIconCache;
 		private ArrayList<ApplicationInfo> mAppList;
 		private PackageInfo appinfo;
 		private ApplicationInfo info;
@@ -405,6 +294,8 @@ public class AppManager extends ThemableActivity {
 		private AppListAdapter(Context context, ArrayList<ApplicationInfo> list) {
 			super(context, R.layout.item_appmanager, list);
 			this.mAppList = list;
+
+			mIconCache = new ConcurrentHashMap<String, Drawable>();
 		}
 
 		@Override
@@ -464,37 +355,29 @@ public class AppManager extends ThemableActivity {
 				}
 			}
 		};
-	}
 
-	public static class AppIconManager {
-		private static ConcurrentHashMap<String, Drawable> cache;
-	}
-
-	private void initializeDrawbale() {
-		AppIconManager.cache = new ConcurrentHashMap<String, Drawable>();
-	}
-
-	public Drawable getDrawableFromCache(String url) {
-		if (AppIconManager.cache.containsKey(url)) {
-			return AppIconManager.cache.get(url);
-		}
-		return null;
-	}
-
-	public Drawable getAppIcon(String packagename) {
-		Drawable drawable;
-		drawable = getDrawableFromCache(packagename);
-		if (drawable != null) {
-			return drawable;
-		} else {
-			try {
-				drawable = mPackMag.getApplicationIcon(packagename);
-				AppIconManager.cache.put(packagename, drawable);
-
-			} catch (NameNotFoundException e) {
-				return getResources().getDrawable(R.drawable.type_apk);
+		public Drawable getDrawableFromCache(String url) {
+			if (mIconCache.containsKey(url)) {
+				return mIconCache.get(url);
 			}
-			return drawable;
+			return null;
+		}
+
+		public Drawable getAppIcon(String packagename) {
+			Drawable drawable;
+			drawable = getDrawableFromCache(packagename);
+			if (drawable != null) {
+				return drawable;
+			} else {
+				try {
+					drawable = mPackMag.getApplicationIcon(packagename);
+					mIconCache.put(packagename, drawable);
+
+				} catch (NameNotFoundException e) {
+					return getResources().getDrawable(R.drawable.type_apk);
+				}
+				return drawable;
+			}
 		}
 	}
 

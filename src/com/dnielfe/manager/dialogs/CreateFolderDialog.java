@@ -46,31 +46,33 @@ public final class CreateFolderDialog extends DialogFragment {
 		b.setTitle(R.string.createnewfolder);
 		b.setMessage(R.string.createmsg);
 		b.setView(inputf);
-		b.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				String name = inputf.getText().toString();
+		b.setPositiveButton(R.string.create,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String name = inputf.getText().toString();
 
-				if (name.length() >= 1) {
-					try {
-						SimpleUtils.createDir(Browser.mCurrentPath + "/", name);
-						Toast.makeText(a, name + getString(R.string.created),
-								Toast.LENGTH_LONG).show();
-					} catch (Exception e) {
-						Toast.makeText(a,
-								getString(R.string.newfolderwasnotcreated),
-								Toast.LENGTH_SHORT).show();
+						if (name.length() >= 1) {
+							if (SimpleUtils.createDir(Browser.mCurrentPath,
+									name))
+								Toast.makeText(a,
+										name + getString(R.string.created),
+										Toast.LENGTH_LONG).show();
+							else
+								Toast.makeText(
+										a,
+										getString(R.string.newfolderwasnotcreated),
+										Toast.LENGTH_SHORT).show();
+						} else {
+							dialog.dismiss();
+							Toast.makeText(a,
+									getString(R.string.newfolderwasnotcreated),
+									Toast.LENGTH_SHORT).show();
+						}
+
+						dialog.dismiss();
 					}
-				} else {
-					dialog.dismiss();
-					Toast.makeText(a,
-							getString(R.string.newfolderwasnotcreated),
-							Toast.LENGTH_SHORT).show();
-				}
-
-				dialog.dismiss();
-			}
-		});
+				});
 		b.setNegativeButton(R.string.cancel,
 				new DialogInterface.OnClickListener() {
 					@Override

@@ -91,7 +91,7 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 			mViewHolder = (ViewHolder) convertView.getTag();
 		}
 
-		if (Settings.viewmode > 0) {
+		if (Settings.mListAppearance > 0) {
 			mViewHolder.dateview.setVisibility(TextView.VISIBLE);
 		} else {
 			mViewHolder.dateview.setVisibility(TextView.GONE);
@@ -140,7 +140,7 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 			else
 				icon.setImageResource(R.drawable.type_folder_empty);
 		} else {
-			if (Settings.thumbnail) {
+			if (Settings.showthumbnail) {
 				if (isImage) {
 					// IconPreview.INSTANCE.setPlaceholder(bitmap);
 					icon.setTag(file.getAbsolutePath());

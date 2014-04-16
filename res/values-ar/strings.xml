@@ -39,13 +39,11 @@
     <string name="error">خطأ</string>
     <string name="exit">خروج</string>
     <string name="extractto">فك ضغط الي </string>
-    <string name="file">ملف</string>
     <string name="filecreated">ملف قد انشئ</string>
     <string name="fileexists">ملف موجود بالفعل</string>
     <string name="files">"ملفات"</string>
     <string name="filewasrenamed">
 تم تغيير اسم الملف.</string>
-    <string name="foundfiles">موجود</string>
     <string name="hiddenfiles">ملفات مخفية</string>
     <string name="itcouldntbefound">تعذر العثور عليه.</string>
     <string name="LastModified">اخر تعديل:</string>
@@ -58,7 +56,6 @@
     <string name="movesuccsess">نقل بنجاح.</string>
     <string name="moving">جاري النقل</string>
     <string name="multizip">Zip</string>
-    <string name="name">الاسن</string>
     <string name="newfile">ملف جديد</string>
     <string name="newfolderwasnotcreated">لم يتم انشاء ملف جديد.</string>
     <string name="noapps">لا توجود تطبيقات مختارة.</string>
@@ -67,7 +64,6 @@
     <string name="options">خيارات</string>
     <string name="packing">حزم</string>
     <string name="paste">Paste</string>
-    <string name="permissions">Persmissions</string>
     <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Press back again to exit.</string>
     <string name="rename">Rename</string>
@@ -82,9 +78,7 @@
     <string name="showpreview">Thumbnails</string>
     <string name="simple">Simple</string>
     <string name="size">Used:</string>
-    <string name="size1">Size</string>
     <string name="sort">Sort</string>
-    <string name="type">Type</string>
     <string name="uisettings">View settings</string>
     <string name="uninstallapp">Uninstall App</string>
     <string name="unselectall">Unselect all</string>
@@ -94,12 +88,19 @@
     <string name="xdaforum">XDA forum</string>
     <string name="zipping">Compressing</string>
 
+    <!-- sort list type -->
+    <string name="sort_name">Name</string>
+    <string name="sort_size">Size</string>
+    <string name="sort_type">Type</string>
+    <string name="sort_date">Date</string>
+
     <!-- theme -->
     <string name="theme">Theme</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
 
     <!-- permissions -->
+    <string name="permissions">Permissions</string>
     <string name="owner">Owner:</string>
     <string name="group">Group:</string>
     <string name="others">Other:</string>

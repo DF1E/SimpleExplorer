@@ -97,7 +97,7 @@ public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
 			this.dialog.dismiss();
 		}
 
-		Browser.refreshDir(Browser.mCurrentPath);
+		Browser.listDirectory(Browser.mCurrentPath);
 
 		final Activity activity = this.activity.get();
 		if (activity != null && !failed.isEmpty()) {

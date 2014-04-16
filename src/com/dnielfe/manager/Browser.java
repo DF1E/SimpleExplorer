@@ -90,7 +90,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	public static String mCurrentPath;
 
 	private Cursor mBookmarksCursor;
-	private String defaultdir;
 	private LinearLayout mDrawer;
 	private MenuItem mMenuItemPaste;
 	private DrawerLayout mDrawerLayout;
@@ -104,17 +103,14 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_browser);
 
+		Intent intent = getIntent();
+
 		if (savedInstanceState == null) {
-			savedInstanceState = getIntent().getBundleExtra(EXTRA_SAVED_STATE);
+			savedInstanceState = intent.getBundleExtra(EXTRA_SAVED_STATE);
 		}
 
-		init();
-		restoreSavedState(savedInstanceState);
-
-		File dir = new File(defaultdir);
-
-		if (dir.exists() && dir.isDirectory())
-			navigateTo(dir.getAbsolutePath());
+		init(intent);
+		initDirectory(savedInstanceState, intent);
 	}
 
 	@Override
@@ -132,25 +128,39 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	}
 
 	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if (mObserver != null) {
+			mObserver.stopWatching();
+			mObserver.removeOnEventListener(this);
+		}
+
+		if (mNavigation != null)
+			mNavigation.removeOnNavigateListener(this);
+	}
+
+	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putString("location", mCurrentPath);
 	}
 
-	private void restoreSavedState(final Bundle savedInstanceState) {
+	private void initDirectory(Bundle savedInstanceState, Intent intent) {
+		String defaultdir;
+
 		if (savedInstanceState != null) {
 			// get directory when you rotate your phone
 			defaultdir = savedInstanceState.getString("location");
 		} else {
 			// If other apps want to choose a file you do it with this action
-			if (getIntent().getAction().equals(Intent.ACTION_GET_CONTENT)) {
+			if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)) {
 				mReturnIntent = true;
-			} else if (getIntent().getAction().equals(ACTION_WIDGET)) {
-				navigateTo(getIntent().getExtras().getString("folder"));
+			} else if (intent.getAction().equals(ACTION_WIDGET)) {
+				defaultdir = intent.getExtras().getString("folder");
 			}
 
 			try {
-				String shortcut = getIntent().getStringExtra(EXTRA_SHORTCUT);
+				String shortcut = intent.getStringExtra(EXTRA_SHORTCUT);
 				File dir = new File(shortcut);
 
 				if (dir.exists() && dir.isDirectory()) {
@@ -165,18 +175,21 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 				defaultdir = Settings.defaultdir;
 			}
 		}
+
+		File dir = new File(defaultdir);
+
+		if (dir.exists() && dir.isDirectory())
+			navigateTo(dir.getAbsolutePath());
 	}
 
-	private void init() {
+	private void init(Intent intent) {
 		mDataSource = new ArrayList<String>();
+		mObserverCache = FileObserverCache.getInstance();
+		mNavigation = new ActionBarNavigation(this);
+		mActionController = new ActionModeController(this);
 
 		// new ArrayAdapter
 		mListAdapter = new BrowserListAdapter(this, mDataSource);
-
-		mObserverCache = FileObserverCache.getInstance();
-		mNavigation = new ActionBarNavigation(this);
-
-		this.mActionController = new ActionModeController(this);
 
 		if (sHandler == null) {
 			sHandler = new Handler(this.getMainLooper());
@@ -184,10 +197,11 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 		initActionBar();
 		setupDrawer();
+		initDrawerLists();
 
-		SearchIntent(getIntent());
+		SearchIntent(intent);
 
-		// get ListView
+		// get the browser list
 		mListView = (ListView) findViewById(android.R.id.list);
 		mListView.setEmptyView(findViewById(android.R.id.empty));
 		mListView.setAdapter(mListAdapter);
@@ -241,13 +255,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 		mDrawer = (LinearLayout) findViewById(R.id.left_drawer);
 
-		// init drawer menu list
-		mDrawerList = (ListView) findViewById(R.id.drawer_list);
-		mMenuAdapter = new DrawerListAdapter(this);
-		mDrawerList.setAdapter(mMenuAdapter);
-
-		initBookmarks();
-
 		// Set shadow of navigation drawer
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
@@ -283,7 +290,17 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		};
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
+	}
 
+	// TODO both lists in one
+	private void initDrawerLists() {
+		mBookmarksCursor = getBookmarksCursor();
+		mBookmarksAdapter = new BookmarksAdapter(this, mBookmarksCursor);
+		mMenuAdapter = new DrawerListAdapter(this);
+
+		// initialize menu list
+		mDrawerList = (ListView) findViewById(R.id.drawer_list);
+		mDrawerList.setAdapter(mMenuAdapter);
 		mDrawerList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -306,12 +323,8 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 				}
 			}
 		});
-	}
 
-	private void initBookmarks() {
-		mBookmarksCursor = getBookmarksCursor();
-		mBookmarksAdapter = new BookmarksAdapter(this, mBookmarksCursor);
-
+		// initialize bookmarks list
 		mBookmarkList = (ListView) findViewById(R.id.bookmark_list);
 		mBookmarkList.setAdapter(mBookmarksAdapter);
 		mBookmarkList.setOnItemClickListener(new OnItemClickListener() {
@@ -351,7 +364,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		}
 
 		try {
-			updateDirectory(setDirectory(path));
+			listDirectory(path);
 		} catch (Exception e) {
 			Toast.makeText(Browser.this, getString(R.string.cantreadfolder),
 					Toast.LENGTH_SHORT).show();
@@ -545,28 +558,21 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 		@Override
 		public void run() {
-			updateDirectory(setDirectory(target));
+			listDirectory(target);
 		}
 	}
 
-	private static void updateDirectory(ArrayList<String> content) {
+	public static void listDirectory(String path) {
+		ArrayList<String> ab = SimpleUtils.listFiles(path);
+		mCurrentPath = path;
+
 		if (!mDataSource.isEmpty())
 			mDataSource.clear();
 
-		for (String data : content)
+		for (String data : ab)
 			mDataSource.add(data);
 
 		mListAdapter.notifyDataSetChanged();
-	}
-
-	public static void refreshDir(String dir) {
-		// this is needed for update directory from other classes
-		updateDirectory(setDirectory(dir));
-	}
-
-	private static ArrayList<String> setDirectory(String path) {
-		mCurrentPath = path;
-		return SimpleUtils.listFiles(path);
 	}
 
 	public static ActionBarNavigation getNavigation() {
@@ -576,7 +582,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	@Override
 	public boolean onKeyDown(int keycode, KeyEvent event) {
 		File file = new File(mCurrentPath);
-		String parent = file.getParent();
 
 		if (mDrawerLayout.isDrawerOpen(mDrawer)) {
 			mDrawerLayout.closeDrawer(mDrawer);
@@ -584,7 +589,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		} else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
 				&& !mCurrentPath.equals("/")) {
 
-			navigateTo(parent);
+			navigateTo(file.getParent());
 
 			// go to the top of the ListView
 			mListView.setSelection(0);
@@ -606,15 +611,10 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 		} else if (keycode == KeyEvent.KEYCODE_BACK && !mUseBackKey
 				&& mCurrentPath.equals("/")) {
-			if (mObserver != null) {
-				mObserver.stopWatching();
-				mObserver.removeOnEventListener(this);
-			}
-
-			mNavigation.removeOnNavigateListener(this);
 			finish();
 			return false;
 		}
-		return false;
+
+		return super.onKeyDown(keycode, event);
 	}
 }

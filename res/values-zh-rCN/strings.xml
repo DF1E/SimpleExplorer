@@ -39,12 +39,10 @@
     <string name="error">错误</string>
     <string name="exit">退出</string>
     <string name="extractto">提取到…</string>
-    <string name="file">文件</string>
     <string name="filecreated">文件新建成功。</string>
     <string name="fileexists">文件已存在！</string>
     <string name="files">"个文件"</string>
     <string name="filewasrenamed">文件已重命名。</string>
-    <string name="foundfiles">搜索结果</string>
     <string name="hiddenfiles">隐藏文件</string>
     <string name="itcouldntbefound">无搜索结果！</string>
     <string name="LastModified">修改时间：</string>
@@ -57,7 +55,6 @@
     <string name="movesuccsess">移动成功。</string>
     <string name="moving">正在移动…</string>
     <string name="multizip">压缩至ZIP</string>
-    <string name="name">名称</string>
     <string name="newfile">新文件</string>
     <string name="newfolderwasnotcreated">新建文件夹失败！</string>
     <string name="noapps">未选择应用！</string>
@@ -66,7 +63,6 @@
     <string name="options">选项</string>
     <string name="packing">正在打包…</string>
     <string name="paste">粘贴</string>
-    <string name="permissions">权限</string>
     <string name="playstore">应用商店</string>
     <string name="pressbackagaintoquit">再次点击返回退出。</string>
     <string name="rename">重命名</string>
@@ -81,9 +77,7 @@
     <string name="showpreview">预览图</string>
     <string name="simple">简略</string>
     <string name="size">占用空间：</string>
-    <string name="size1">大小</string>
     <string name="sort">排列顺序</string>
-    <string name="type">类型</string>
     <string name="uisettings">显示设置</string>
     <string name="uninstallapp">卸载应用</string>
     <string name="unselectall">取消已选择</string>
@@ -93,12 +87,19 @@
     <string name="xdaforum">XDA主页</string>
     <string name="zipping">压缩</string>
 
+    <!-- sort list type -->
+    <string name="sort_name">Name</string>
+    <string name="sort_size">Size</string>
+    <string name="sort_type">Type</string>
+    <string name="sort_date">Date</string>
+
     <!-- theme -->
     <string name="theme">主题</string>
     <string name="light">亮色调</string>
     <string name="dark">暗色调</string>
 
     <!-- permissions -->
+    <string name="permissions">Permissions</string>
     <string name="owner">所有者：</string>
     <string name="group">用户组：</string>
     <string name="others">其他：</string>

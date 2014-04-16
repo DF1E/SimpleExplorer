@@ -28,27 +28,24 @@ import android.preference.PreferenceManager;
 
 public final class Settings {
 
-	public static boolean thumbnail;
+	public static boolean showthumbnail;
 	public static boolean mShowHiddenFiles;
-	public static int viewmode;
+	public static int mListAppearance;
 	public static int mSortType;
 	public static int mTheme;
 	public static String defaultdir;
+	private static SharedPreferences p;
 
 	public static void updatePreferences(Context context) {
-		final SharedPreferences p = PreferenceManager
-				.getDefaultSharedPreferences(context);
+		p = PreferenceManager.getDefaultSharedPreferences(context);
 
 		mShowHiddenFiles = p.getBoolean("displayhiddenfiles", true);
-		thumbnail = p.getBoolean("showpreview", true);
+		showthumbnail = p.getBoolean("showpreview", true);
 		mTheme = Integer.parseInt(p.getString("preference_theme",
 				Integer.toString(R.style.ThemeLight)));
-		String sort = p.getString("sort", "1");
-		String mode = p.getString("viewmode", "1");
+		mSortType = Integer.parseInt(p.getString("sort", "1"));
+		mListAppearance = Integer.parseInt(p.getString("viewmode", "1"));
 		defaultdir = p.getString("defaultdir", Environment
 				.getExternalStorageDirectory().getPath());
-
-		mSortType = Integer.parseInt(sort);
-		viewmode = Integer.parseInt(mode);
 	}
 }

@@ -39,12 +39,10 @@
     <string name="error">Errore</string>
     <string name="exit">Esci</string>
     <string name="extractto">Estrai in</string>
-    <string name="file">File</string>
     <string name="filecreated">Il File è stato creato</string>
     <string name="fileexists">Il File esiste già</string>
     <string name="files">" Files"</string>
     <string name="filewasrenamed">Il File è stato rinominato</string>
-    <string name="foundfiles">Trovato</string>
     <string name="hiddenfiles">File Nascosti</string>
     <string name="itcouldntbefound">Non è stato possibile trovare niente</string>
     <string name="LastModified">Ultima Modifica:</string>
@@ -57,7 +55,6 @@
     <string name="movesuccsess">spostato con successo</string>
     <string name="moving">Spostamento</string>
     <string name="multizip">Comprimi</string>
-    <string name="name">Nome</string>
     <string name="newfile">Nuovo file</string>
     <string name="newfolderwasnotcreated">La nuova cartella non è stata creata</string>
     <string name="noapps">Nessun App selezionata</string>
@@ -66,7 +63,6 @@
     <string name="options">Opzioni</string>
     <string name="packing">Comprimendo</string>
     <string name="paste">Incolla</string>
-    <string name="permissions">Permessi:</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Premi indietro un\'altra volta per uscire</string>
     <string name="rename">Rinomina</string>
@@ -81,9 +77,7 @@
     <string name="showpreview">Anteprime</string>
     <string name="simple">Semplice</string>
     <string name="size">Usati:</string>
-    <string name="size1">Dimensione</string>
     <string name="sort">Ordina</string>
-    <string name="type">Tipo</string>
     <string name="uisettings">Impostazioni Vista</string>
     <string name="uninstallapp">Disinstalla App</string>
     <string name="unselectall">Deseleziona Tutto</string>
@@ -93,12 +87,19 @@
     <string name="xdaforum">Forum XDA</string>
     <string name="zipping">Comprimendo</string>
 
+    <!-- sort list type -->
+    <string name="sort_name">Name</string>
+    <string name="sort_size">Size</string>
+    <string name="sort_type">Type</string>
+    <string name="sort_date">Date</string>
+
     <!-- theme -->
     <string name="theme">Tema</string>
     <string name="light">Chiaro</string>
     <string name="dark">Scuro</string>
 
     <!-- permissions -->
+    <string name="permissions">Permissions</string>
     <string name="owner">Proprietario:</string>
     <string name="group">Gruppo:</string>
     <string name="others">Altri:</string>

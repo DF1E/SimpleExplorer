@@ -39,12 +39,10 @@
     <string name="error">Fout</string>
     <string name="exit">Afsluiten</string>
     <string name="extractto">Uitpakken naar</string>
-    <string name="file">Bestand</string>
     <string name="filecreated">Bestand is aangemaakt</string>
     <string name="fileexists">Bestand bestaat al</string>
     <string name="files">" Bestanden"</string>
     <string name="filewasrenamed">Bestand is hernoemd.</string>
-    <string name="foundfiles">Gevonden</string>
     <string name="hiddenfiles">Verborgen bestanden</string>
     <string name="itcouldntbefound">Kon niet gevonden worden</string>
     <string name="LastModified">Laatst Gewijzigd:</string>
@@ -57,7 +55,6 @@
     <string name="movesuccsess">Succesvol verplaatst.</string>
     <string name="moving">Bezig met verplaatsen</string>
     <string name="multizip">Zip</string>
-    <string name="name">Naam</string>
     <string name="newfile">Nieuw Bestand</string>
     <string name="newfolderwasnotcreated">Geen nieuwe map aangemaakt</string>
     <string name="noapps">Geen apps geselecteerd</string>
@@ -66,7 +63,6 @@
     <string name="options">Opties</string>
     <string name="packing">Inpakken</string>
     <string name="paste">Plakken</string>
-    <string name="permissions">Machtigingen:</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Tik nogmaals terug om af te sluiten</string>
     <string name="rename">Hernoem</string>
@@ -81,9 +77,7 @@
     <string name="showpreview">Miniatuurafbeeldingen</string>
     <string name="simple">Simpel</string>
     <string name="size">Gebruikt:</string>
-    <string name="size1">Grootte</string>
     <string name="sort">Sorteer</string>
-    <string name="type">Type</string>
     <string name="uisettings">Bekijk Instellingen</string>
     <string name="uninstallapp">Verwijder App</string>
     <string name="unselectall">Deselecteer Alles</string>
@@ -93,12 +87,19 @@
     <string name="xdaforum">XDA Forum</string>
     <string name="zipping">Inpakken</string>
 
+    <!-- sort list type -->
+    <string name="sort_name">Naam</string>
+    <string name="sort_size">Grootte</string>
+    <string name="sort_type">Type</string>
+    <string name="sort_date">Datum</string>
+
     <!-- theme -->
     <string name="theme">Thema</string>
     <string name="light">Licht</string>
     <string name="dark">Donker</string>
 
     <!-- permissions -->
+    <string name="permissions">Machtigingen</string>
     <string name="owner">Eigenaar:</string>
     <string name="group">Groep:</string>
     <string name="others">Overig:</string>

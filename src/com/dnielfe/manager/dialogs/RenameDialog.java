@@ -35,9 +35,6 @@ public final class RenameDialog extends DialogFragment {
 	private static String filepath;
 	private static String name;
 
-	public static final String EXTRA_FILE = null;
-	public static final String EXTRA_NAME = null;
-
 	public static DialogFragment instantiate(String dir, String name1) {
 		filepath = dir;
 		name = name1;
