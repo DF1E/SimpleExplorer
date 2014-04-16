@@ -7,11 +7,15 @@ Simple Explorer is an Open Source file explorer. There are inspirations from [CM
 This program licensed under http://www.gnu.org/licenses/gpl-2.0.html
 
 
-**Thanks for translations to (XDA Members):**
+**Credits:**
++ [Zedd.](http://forum.xda-developers.com/member.php?u=4112951) for the handsome icons.
+
+Thanks for translations (XDA and Getlocalization):
 + fabiobatera - brazil
 + SealQ - polish
 + adamslast - turkish
-+ youngbrod - english, spanish
++ youngbrod - english
++ youngbrod - spanish
 + DF1E - german
 + mirhl - italian
 + muamers - bosnian
@@ -23,6 +27,7 @@ This program licensed under http://www.gnu.org/licenses/gpl-2.0.html
 + hoangnguyen - vietnamese
 + scweeny - korean
 + logpc - french
++ atlasslusho - thai
 
 
 **Now you can help to translate this app at [getlocalization.com](http://www.getlocalization.com/Simple_Explorer)!**

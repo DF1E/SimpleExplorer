@@ -23,7 +23,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.settings.Settings;
 
 public class SortUtils {
@@ -31,36 +30,31 @@ public class SortUtils {
 	private static final int SORT_ALPHA = 0;
 	private static final int SORT_TYPE = 1;
 	private static final int SORT_SIZE = 2;
+	private static final int SORT_DATE = 3;
+	private static String mCurrendDir;
 
 	public static ArrayList<String> sortList(ArrayList<String> content,
 			String current) {
+		mCurrendDir = current;
+		int len = content != null ? content.size() : 0;
+		int index = 0;
+		String[] items = new String[len];
+		content.toArray(items);
 
 		switch (Settings.mSortType) {
 		case SORT_ALPHA:
-			int len2 = content != null ? content.size() : 0;
-			String[] alph_ar;
-
-			alph_ar = new String[len2];
-
-			content.toArray(alph_ar);
-			Arrays.sort(alph_ar, Comparator_ALPH);
+			Arrays.sort(items, Comparator_ALPH);
 			content.clear();
 
-			for (String a : alph_ar) {
+			for (String a : items) {
 				content.add(a);
 			}
 			break;
 		case SORT_SIZE:
-			int len = content != null ? content.size() : 0;
-			int index = 0;
-			String[] size_ar;
-
-			size_ar = new String[len];
-			content.toArray(size_ar);
-			Arrays.sort(size_ar, Comparator_SIZE);
+			Arrays.sort(items, Comparator_SIZE);
 			content.clear();
 
-			for (String a : size_ar) {
+			for (String a : items) {
 				if (new File(current + "/" + a).isDirectory())
 					content.add(index++, a);
 				else
@@ -68,18 +62,24 @@ public class SortUtils {
 			}
 			break;
 		case SORT_TYPE:
-			int len1 = content != null ? content.size() : 0;
-			int dirindex = 0;
-			String[] items1;
-
-			items1 = new String[len1];
-			content.toArray(items1);
-			Arrays.sort(items1, Comparator_TYPE);
+			Arrays.sort(items, Comparator_TYPE);
 			content.clear();
 
-			for (String a : items1) {
+			for (String a : items) {
 				if (new File(current + "/" + a).isDirectory())
-					content.add(dirindex++, a);
+					content.add(index++, a);
+				else
+					content.add(a);
+			}
+			break;
+
+		case SORT_DATE:
+			Arrays.sort(items, Comparator_DATE);
+			content.clear();
+
+			for (String a : items) {
+				if (new File(current + "/" + a).isDirectory())
+					content.add(index++, a);
 				else
 					content.add(a);
 			}
@@ -101,9 +101,8 @@ public class SortUtils {
 
 		@Override
 		public int compare(String arg0, String arg1) {
-			String dir = Browser.mCurrentPath;
-			Long first = new File(dir + "/" + arg0).length();
-			Long second = new File(dir + "/" + arg1).length();
+			Long first = new File(mCurrendDir + "/" + arg0).length();
+			Long second = new File(mCurrendDir + "/" + arg1).length();
 
 			return first.compareTo(second);
 		}
@@ -132,6 +131,17 @@ public class SortUtils {
 				return arg0.toLowerCase().compareTo(arg1.toLowerCase());
 
 			return ret;
+		}
+	};
+
+	private final static Comparator<? super String> Comparator_DATE = new Comparator<String>() {
+
+		@Override
+		public int compare(String arg0, String arg1) {
+			Long first = new File(mCurrendDir + "/" + arg0).lastModified();
+			Long second = new File(mCurrendDir + "/" + arg1).lastModified();
+
+			return first.compareTo(second);
 		}
 	};
 }

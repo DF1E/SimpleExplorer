@@ -55,7 +55,6 @@
     <string name="movesuccsess">Successfully moved.</string>
     <string name="moving">Moving</string>
     <string name="multizip">Zip</string>
-    <string name="name">Name</string>
     <string name="newfile">New file</string>
     <string name="newfolderwasnotcreated">New folder was not created.</string>
     <string name="noapps">No Apps selected.</string>
@@ -78,9 +77,7 @@
     <string name="showpreview">Thumbnails</string>
     <string name="simple">Simple</string>
     <string name="size">Used:</string>
-    <string name="size1">Size</string>
     <string name="sort">Sort</string>
-    <string name="type">Type</string>
     <string name="uisettings">View settings</string>
     <string name="uninstallapp">Uninstall App</string>
     <string name="unselectall">Unselect all</string>
@@ -89,6 +86,12 @@
     <string name="viewmode">View mode</string>
     <string name="xdaforum">XDA forum</string>
     <string name="zipping">Compressing</string>
+
+    <!-- sort list type -->
+    <string name="sort_name">Name</string>
+    <string name="sort_size">Size</string>
+    <string name="sort_type">Type</string>
+    <string name="sort_date">Date</string>
 
     <!-- theme -->
     <string name="theme">Theme</string>

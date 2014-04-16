@@ -55,7 +55,6 @@
     <string name="movesuccsess">Movido correctamente.</string>
     <string name="moving">Moviendo</string>
     <string name="multizip">Zip</string>
-    <string name="name">Nombre</string>
     <string name="newfile">Nuevo archivo</string>
     <string name="newfolderwasnotcreated">Nueva carpeta no fue creada.</string>
     <string name="noapps">Aplicaciónes no fueron seleccionadas.</string>
@@ -78,9 +77,7 @@
     <string name="showpreview">Miniaturas</string>
     <string name="simple">Simple</string>
     <string name="size">Usado:</string>
-    <string name="size1">Tamaño</string>
     <string name="sort">Ordenar</string>
-    <string name="type">Tipo</string>
     <string name="uisettings">Ver ajustes</string>
     <string name="uninstallapp">Desinstalar aplicación</string>
     <string name="unselectall">Deseleccionar todo</string>
@@ -89,6 +86,12 @@
     <string name="viewmode">Modo de vista</string>
     <string name="xdaforum">Foro de XDA</string>
     <string name="zipping">Comprimiendo</string>
+
+    <!-- sort list type -->
+    <string name="sort_name">Nombre</string>
+    <string name="sort_size">Tamaño</string>
+    <string name="sort_type">Tipo</string>
+    <string name="sort_date">Fecha</string>
 
     <!-- theme -->
     <string name="theme">Tema</string>

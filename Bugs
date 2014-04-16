@@ -1,6 +1,0 @@
-Bugs:
-
-1. can't copy/move to directory which needs root (you can copy when name have no spaces for example helloworld)
-2. files and folders in /data or other directory witch need root are not correctly shown
-3. In directories that require root access the file observer doesnt work
-4. sometimes the AppManager will fc while backing up particular apps

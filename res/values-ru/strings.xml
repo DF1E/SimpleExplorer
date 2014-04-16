@@ -55,7 +55,6 @@
     <string name="movesuccsess">Перемещено успешно.</string>
     <string name="moving">Перемещение</string>
     <string name="multizip">Сжать в архив...</string>
-    <string name="name">По имени</string>
     <string name="newfile">Создать файл</string>
     <string name="newfolderwasnotcreated">Папка не создана!</string>
     <string name="noapps">Приложения не выбраны!</string>
@@ -78,9 +77,7 @@
     <string name="showpreview">Эскизы</string>
     <string name="simple">Простой</string>
     <string name="size">Размер:</string>
-    <string name="size1">По размеру</string>
     <string name="sort">Сортировка</string>
-    <string name="type">По типу</string>
     <string name="uisettings">Отображение</string>
     <string name="uninstallapp">Удалить приложение</string>
     <string name="unselectall">Отменить выбор</string>
@@ -89,6 +86,12 @@
     <string name="viewmode">Вид списка</string>
     <string name="xdaforum">XDA forum</string>
     <string name="zipping">Сжатие в ZIP-архив</string>
+
+    <!-- sort list type -->
+    <string name="sort_name">Name</string>
+    <string name="sort_size">Size</string>
+    <string name="sort_type">Type</string>
+    <string name="sort_date">Date</string>
 
     <!-- theme -->
     <string name="theme">Theme</string>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Pokročilé</string>
     <string name="appmanager">Správca aplikácií</string>
@@ -34,17 +35,15 @@
     <string name="drawer_open">Otvoriť navigačnú ponuku</string>
     <string name="drawer_close">Zatvoriť navigačnú ponuku</string>
     <string name="empty">Prázdne</string>
+    <string name="enter_name">Enter name</string>
     <string name="error">Chyba</string>
     <string name="exit">Ukončiť</string>
     <string name="extractto">Rozbaliť do</string>
-    <string name="file">Súbor</string>
     <string name="filecreated">Súbor bol vytvorený.</string>
     <string name="fileexists">Súbor už existuje.</string>
     <string name="files">" súb."</string>
     <string name="filewasrenamed">Súbor bol premenovaný.</string>
-    <string name="foundfiles">Najdené</string>
     <string name="hiddenfiles">Skryté súbory</string>
-    <string name="image">Obrázok</string>
     <string name="itcouldntbefound">Nenašlo sa.</string>
     <string name="LastModified">Naposledy upravené:</string>
     <string name="launch">Spustiť</string>
@@ -56,9 +55,6 @@
     <string name="movesuccsess">Úspešne presunuté.</string>
     <string name="moving">Presúvanie</string>
     <string name="multizip">Zip</string>
-    <string name="music">Hudba</string>
-    <string name="name">Názov</string>
-    <string name="newd">Nový adresár</string>
     <string name="newfile">Nový súbor</string>
     <string name="newfolderwasnotcreated">Nový priečinok nemohol byť vytvorený.</string>
     <string name="noapps">Nevybrané žiadne aplikácie.</string>
@@ -67,7 +63,6 @@
     <string name="options">Možnosti</string>
     <string name="packing">Balenie</string>
     <string name="paste">Prilepiť</string>
-    <string name="permissions">Oprávnenia</string>
     <string name="playstore">Obchod Play</string>
     <string name="pressbackagaintoquit">Stlačte znova tlačidlo Späť pre ukončenie.</string>
     <string name="rename">Premenovať</string>
@@ -81,24 +76,30 @@
     <string name="shortcutcreated">Skratka bola vytvorená.</string>
     <string name="showpreview">Náhľady</string>
     <string name="simple">Jednoduchý</string>
-    <string name="size1">Veľkosť</string>
+    <string name="size">Used:</string>
     <string name="sort">Zoradiť</string>
-    <string name="text">Text</string>
-    <string name="type">Typ</string>
     <string name="uisettings">Zobraziť nastavenia</string>
     <string name="uninstallapp">Odinštalovať aplikáciu</string>
     <string name="unselectall">Zrušiť výber</string>
     <string name="unzipping">Rozbaľovanie</string>
-    <string name="theme">Téma</string>
-    <string name="light">Svetlá</string>
-    <string name="dark">Tmavá</string>
     <string name="version">"Verzia "</string>
-    <string name="video">Video</string>
     <string name="viewmode">Režim zobrazenia</string>
     <string name="xdaforum">Fórum XDA</string>
     <string name="zipping">Balenie</string>
 
+    <!-- sort list type -->
+    <string name="sort_name">Name</string>
+    <string name="sort_size">Size</string>
+    <string name="sort_type">Type</string>
+    <string name="sort_date">Date</string>
+
+    <!-- theme -->
+    <string name="theme">Téma</string>
+    <string name="light">Svetlá</string>
+    <string name="dark">Tmavá</string>
+
     <!-- permissions -->
+    <string name="permissions">Oprávnenia</string>
     <string name="owner">Vlastník:</string>
     <string name="group">Spupina:</string>
     <string name="others">Ostatní:</string>

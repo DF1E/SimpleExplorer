@@ -55,7 +55,6 @@
     <string name="movesuccsess">移动成功。</string>
     <string name="moving">正在移动…</string>
     <string name="multizip">压缩至ZIP</string>
-    <string name="name">名称</string>
     <string name="newfile">新文件</string>
     <string name="newfolderwasnotcreated">新建文件夹失败！</string>
     <string name="noapps">未选择应用！</string>
@@ -78,9 +77,7 @@
     <string name="showpreview">预览图</string>
     <string name="simple">简略</string>
     <string name="size">占用空间：</string>
-    <string name="size1">大小</string>
     <string name="sort">排列顺序</string>
-    <string name="type">类型</string>
     <string name="uisettings">显示设置</string>
     <string name="uninstallapp">卸载应用</string>
     <string name="unselectall">取消已选择</string>
@@ -89,6 +86,12 @@
     <string name="viewmode">视图模式</string>
     <string name="xdaforum">XDA主页</string>
     <string name="zipping">压缩</string>
+
+    <!-- sort list type -->
+    <string name="sort_name">Name</string>
+    <string name="sort_size">Size</string>
+    <string name="sort_type">Type</string>
+    <string name="sort_date">Date</string>
 
     <!-- theme -->
     <string name="theme">主题</string>

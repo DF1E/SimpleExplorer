@@ -66,9 +66,9 @@ public class AppManager extends ThemableActivity {
 	private static final String STAR_STATES = "selected_items";
 	private boolean[] mStarStates = null;
 
-	private static AppListAdapter mAdapter;
 	private static ArrayList<ApplicationInfo> multiSelectData = null;
 	private static ArrayList<ApplicationInfo> mAppList = null;
+	private static AppListAdapter mAdapter;
 	private static PackageManager mPackMag;
 
 	private static final int ID_LAUNCH = 1;
@@ -77,11 +77,8 @@ public class AppManager extends ThemableActivity {
 	private static final int ID_SEND = 4;
 	private static final int ID_MARKET = 5;
 
-	private static final int FLAG_UPDATED_SYS_APP = 0x80;
-
 	private ActionBar mActionBar;
 	private MenuItem mMenuItem;
-
 	private ListView mListView;
 
 	@Override
@@ -257,7 +254,7 @@ public class AppManager extends ThemableActivity {
 
 		for (ApplicationInfo appInfo : all_apps) {
 			if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0
-					&& (appInfo.flags & FLAG_UPDATED_SYS_APP) == 0
+					&& (appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 0
 					&& appInfo.flags != 0)
 
 				mAppList.add(appInfo);

@@ -36,6 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.settings.Settings;
@@ -232,7 +233,6 @@ public class SimpleUtils {
 			} catch (FileNotFoundException e) {
 				Log.e("FileNotFoundException", e.getMessage());
 				return;
-
 			} catch (IOException e) {
 				Log.e("IOException", e.getMessage());
 				return;
@@ -250,9 +250,9 @@ public class SimpleUtils {
 			for (int i = 0; i < len; i++)
 				copyToDirectory(old + "/" + files[i], dir);
 
-		} else if (old_file.isFile() && !temp_dir.canWrite()) {
+		} else if (old_file.isFile() && !temp_dir.canWrite()
+				&& SimpleExplorer.rootAccess) {
 			RootCommands.moveCopyRoot(old, newDir);
-			return;
 		} else if (!temp_dir.canWrite())
 			return;
 

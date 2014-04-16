@@ -55,7 +55,6 @@
     <string name="movesuccsess">spostato con successo</string>
     <string name="moving">Spostamento</string>
     <string name="multizip">Comprimi</string>
-    <string name="name">Nome</string>
     <string name="newfile">Nuovo file</string>
     <string name="newfolderwasnotcreated">La nuova cartella non è stata creata</string>
     <string name="noapps">Nessun App selezionata</string>
@@ -78,9 +77,7 @@
     <string name="showpreview">Anteprime</string>
     <string name="simple">Semplice</string>
     <string name="size">Usati:</string>
-    <string name="size1">Dimensione</string>
     <string name="sort">Ordina</string>
-    <string name="type">Tipo</string>
     <string name="uisettings">Impostazioni Vista</string>
     <string name="uninstallapp">Disinstalla App</string>
     <string name="unselectall">Deseleziona Tutto</string>
@@ -89,6 +86,12 @@
     <string name="viewmode">Modalità Vista</string>
     <string name="xdaforum">Forum XDA</string>
     <string name="zipping">Comprimendo</string>
+
+    <!-- sort list type -->
+    <string name="sort_name">Name</string>
+    <string name="sort_size">Size</string>
+    <string name="sort_type">Type</string>
+    <string name="sort_date">Date</string>
 
     <!-- theme -->
     <string name="theme">Tema</string>

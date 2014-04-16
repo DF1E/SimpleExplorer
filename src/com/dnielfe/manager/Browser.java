@@ -103,12 +103,14 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_browser);
 
+		Intent intent = getIntent();
+
 		if (savedInstanceState == null) {
-			savedInstanceState = getIntent().getBundleExtra(EXTRA_SAVED_STATE);
+			savedInstanceState = intent.getBundleExtra(EXTRA_SAVED_STATE);
 		}
 
-		init();
-		initDirectory(savedInstanceState, getIntent());
+		init(intent);
+		initDirectory(savedInstanceState, intent);
 	}
 
 	@Override
@@ -180,16 +182,14 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 			navigateTo(dir.getAbsolutePath());
 	}
 
-	private void init() {
+	private void init(Intent intent) {
 		mDataSource = new ArrayList<String>();
+		mObserverCache = FileObserverCache.getInstance();
+		mNavigation = new ActionBarNavigation(this);
+		mActionController = new ActionModeController(this);
 
 		// new ArrayAdapter
 		mListAdapter = new BrowserListAdapter(this, mDataSource);
-
-		mObserverCache = FileObserverCache.getInstance();
-		mNavigation = new ActionBarNavigation(this);
-
-		this.mActionController = new ActionModeController(this);
 
 		if (sHandler == null) {
 			sHandler = new Handler(this.getMainLooper());
@@ -197,10 +197,11 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 		initActionBar();
 		setupDrawer();
+		initDrawerLists();
 
-		SearchIntent(getIntent());
+		SearchIntent(intent);
 
-		// get ListView
+		// get the browser list
 		mListView = (ListView) findViewById(android.R.id.list);
 		mListView.setEmptyView(findViewById(android.R.id.empty));
 		mListView.setAdapter(mListAdapter);
@@ -254,13 +255,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 		mDrawer = (LinearLayout) findViewById(R.id.left_drawer);
 
-		// init drawer menu list
-		mDrawerList = (ListView) findViewById(R.id.drawer_list);
-		mMenuAdapter = new DrawerListAdapter(this);
-		mDrawerList.setAdapter(mMenuAdapter);
-
-		initBookmarks();
-
 		// Set shadow of navigation drawer
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
@@ -296,7 +290,17 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		};
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
+	}
 
+	// TODO both lists in one
+	private void initDrawerLists() {
+		mBookmarksCursor = getBookmarksCursor();
+		mBookmarksAdapter = new BookmarksAdapter(this, mBookmarksCursor);
+		mMenuAdapter = new DrawerListAdapter(this);
+
+		// initialize menu list
+		mDrawerList = (ListView) findViewById(R.id.drawer_list);
+		mDrawerList.setAdapter(mMenuAdapter);
 		mDrawerList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -319,12 +323,8 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 				}
 			}
 		});
-	}
 
-	private void initBookmarks() {
-		mBookmarksCursor = getBookmarksCursor();
-		mBookmarksAdapter = new BookmarksAdapter(this, mBookmarksCursor);
-
+		// initialize bookmarks list
 		mBookmarkList = (ListView) findViewById(R.id.bookmark_list);
 		mBookmarkList.setAdapter(mBookmarksAdapter);
 		mBookmarkList.setOnItemClickListener(new OnItemClickListener() {

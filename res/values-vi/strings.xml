@@ -55,7 +55,6 @@
     <string name="movesuccsess">Đã chuyển thành công.</string>
     <string name="moving">Đang chuyển</string>
     <string name="multizip">Zip</string>
-    <string name="name">Tên</string>
     <string name="newfile">Tập tin mới</string>
     <string name="newfolderwasnotcreated">Thư mục mới chưa được tạo.</string>
     <string name="noapps">Không có ứng dụng được chọn.</string>
@@ -78,9 +77,7 @@
     <string name="showpreview">Hình thu nhỏ</string>
     <string name="simple">Đơn giản</string>
     <string name="size">Đã sử dụng:</string>
-    <string name="size1">Kích thước</string>
     <string name="sort">Sắp xếp</string>
-    <string name="type">Loại</string>
     <string name="uisettings">Cài đặt xem</string>
     <string name="uninstallapp">Gỡ cài đặt ứng dụng</string>
     <string name="unselectall">Bỏ chọn tất cả</string>
@@ -89,6 +86,12 @@
     <string name="viewmode">Chế độ xem</string>
     <string name="xdaforum">Diễn đàn XDA</string>
     <string name="zipping">Đang nén</string>
+
+    <!-- sort list type -->
+    <string name="sort_name">Name</string>
+    <string name="sort_size">Size</string>
+    <string name="sort_type">Type</string>
+    <string name="sort_date">Date</string>
 
     <!-- theme -->
     <string name="theme">Theme</string>

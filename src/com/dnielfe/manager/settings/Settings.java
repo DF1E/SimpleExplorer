@@ -30,7 +30,7 @@ public final class Settings {
 
 	public static boolean showthumbnail;
 	public static boolean mShowHiddenFiles;
-	public static int viewmode;
+	public static int mListAppearance;
 	public static int mSortType;
 	public static int mTheme;
 	public static String defaultdir;
@@ -44,7 +44,7 @@ public final class Settings {
 		mTheme = Integer.parseInt(p.getString("preference_theme",
 				Integer.toString(R.style.ThemeLight)));
 		mSortType = Integer.parseInt(p.getString("sort", "1"));
-		viewmode = Integer.parseInt(p.getString("viewmode", "1"));
+		mListAppearance = Integer.parseInt(p.getString("viewmode", "1"));
 		defaultdir = p.getString("defaultdir", Environment
 				.getExternalStorageDirectory().getPath());
 	}

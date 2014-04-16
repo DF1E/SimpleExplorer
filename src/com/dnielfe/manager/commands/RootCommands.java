@@ -92,18 +92,16 @@ public class RootCommands {
 	// Move or Copy with Root Access using RootTools library
 	public static void moveCopyRoot(String old, String newDir) {
 		try {
-			if (RootTools.isRootAvailable()) {
-				if (!readReadWriteFile())
-					RootTools.remount(newDir, "rw");
+			if (!readReadWriteFile())
+				RootTools.remount(newDir, "rw");
 
-				RootTools.copyFile(old, newDir, true, true);
-				return;
-			} else {
-				return;
-			}
+			RootTools.copyFile(getCommandLineString(old),
+					getCommandLineString(newDir), true, true);
 		} catch (Exception e) {
-			return;
+			e.printStackTrace();
 		}
+
+		return;
 	}
 
 	// path = currentDir
@@ -137,12 +135,10 @@ public class RootCommands {
 				RootTools.remount(path, "rw");
 
 			if (new File(path).isDirectory()) {
-				execute("rm -f -r " + path);
-
+				execute("rm -f -r " + getCommandLineString(path));
 			} else {
-				execute("rm -r " + path);
+				execute("rm -r " + getCommandLineString(path));
 			}
-
 		} catch (Exception e) {
 			return;
 		}
