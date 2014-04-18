@@ -26,16 +26,16 @@
     <string name="defaultdir">Directory predefinita</string>
     <string name="delete">Elimina</string>
     <string name="deleteapps">Elimina Apps</string>
-    <string name="deletesuccess">Delete successful</string>
+    <string name="deletesuccess">Eliminazione completata</string>
     <string name="deleting">Eliminazione in corso</string>
     <string name="desc">decr</string>
     <string name="detailed">Dettagliata</string>
     <string name="details">Dettagli</string>
     <string name="dir_info">Informazioni Cartella</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
+    <string name="drawer_open">Apri pannello navigazione</string>
+    <string name="drawer_close">Chiudi pannello navigazione</string>
     <string name="empty">Vuoto</string>
-    <string name="enter_name">Enter name</string>
+    <string name="enter_name">Inserisci nome</string>
     <string name="error">Errore</string>
     <string name="exit">Esci</string>
     <string name="extractto">Estrai in</string>
@@ -44,21 +44,21 @@
     <string name="files">" Files"</string>
     <string name="filewasrenamed">Il File è stato rinominato</string>
     <string name="hiddenfiles">File Nascosti</string>
-    <string name="itcouldntbefound">Non è stato possibile trovare niente</string>
+    <string name="itcouldntbefound">Non è stato trovato.</string>
     <string name="LastModified">Ultima Modifica:</string>
-    <string name="launch">Avvia</string>
-    <string name="loading">Caricamento..</string>
-    <string name="manage">Gestisci</string>
-    <string name="md5">MD5:</string>
+    <string name="launch">Esegui</string>
+    <string name="loading">Caricamento</string>
+    <string name="manage">Gestione</string>
+    <string name="md5">MD5</string>
     <string name="move">Sposta</string>
-    <string name="movefail">Spostamento fallito</string>
-    <string name="movesuccsess">spostato con successo</string>
-    <string name="moving">Spostamento</string>
-    <string name="multizip">Comprimi</string>
+    <string name="movefail">Spostamento fallito.</string>
+    <string name="movesuccsess">Spostamento completato.</string>
+    <string name="moving">Spsotamento</string>
+    <string name="multizip">ZIP</string>
     <string name="newfile">Nuovo file</string>
-    <string name="newfolderwasnotcreated">La nuova cartella non è stata creata</string>
-    <string name="noapps">Nessun App selezionata</string>
-    <string name="of">" di "</string>
+    <string name="newfolderwasnotcreated">Nuova cartella non creata.</string>
+    <string name="noapps">Nessuna app selezionata.</string>
+    <string name="of">" di"</string>
     <string name="ok">OK</string>
     <string name="options">Opzioni</string>
     <string name="packing">Comprimendo</string>
@@ -88,10 +88,10 @@
     <string name="zipping">Comprimendo</string>
 
     <!-- sort list type -->
-    <string name="sort_name">Name</string>
-    <string name="sort_size">Size</string>
-    <string name="sort_type">Type</string>
-    <string name="sort_date">Date</string>
+    <string name="sort_name">Nome</string>
+    <string name="sort_size">Dimensione</string>
+    <string name="sort_type">Tipo</string>
+    <string name="sort_date">Data</string>
 
     <!-- theme -->
     <string name="theme">Tema</string>
@@ -99,9 +99,9 @@
     <string name="dark">Scuro</string>
 
     <!-- permissions -->
-    <string name="permissions">Permissions</string>
-    <string name="owner">Proprietario:</string>
-    <string name="group">Gruppo:</string>
+    <string name="permissions">Permessi</string>
+    <string name="owner">Proprietario</string>
+    <string name="group">Gruppo</string>
     <string name="others">Altri:</string>
     <string name="read">Lettura</string>
     <string name="write">Scrittura</string>
@@ -122,19 +122,19 @@
 
     <!-- bookmarks -->
     <string name="bookmark">Preferiti</string>
-    <string name="bookmark_name">Bookmark name</string>
-    <string name="bookmark_path">Bookmark path</string>
+    <string name="bookmark_name">Nome segnalibro</string>
+    <string name="bookmark_path">Percorso segnalibro</string>
     <string name="bookmarkadded">Preferito aggiunto</string>
     <string name="bookmarkexist">Il preferito esiste già!</string>
     <string name="createbookmark">Crea Preferito</string>
 
     <!-- overwrite dialog -->
-    <string name="overwrite_title">Target file already exists</string>
-    <string name="overwrite_source">Source</string>
-    <string name="overwrite_destination">Destination</string>
-    <string name="overwrite_skip">Skip</string>
-    <string name="overwrite_skip_all">Skip all</string>
-    <string name="overwrite_replace">Replace</string>
-    <string name="overwrite_replace_all">Replace all</string>
+    <string name="overwrite_title">Il file destinazione esiste già</string>
+    <string name="overwrite_source">Sorgente</string>
+    <string name="overwrite_destination">Destinazione</string>
+    <string name="overwrite_skip">Salta</string>
+    <string name="overwrite_skip_all">Salta tutti</string>
+    <string name="overwrite_replace">Sostituisci</string>
+    <string name="overwrite_replace_all">Sostituisci tutti</string>
 
 </resources>

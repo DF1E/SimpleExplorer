@@ -41,7 +41,7 @@
     <string name="extractto">Çıkart...</string>
     <string name="filecreated">Dosya oluşturuldu.</string>
     <string name="fileexists">Dosya zaten var.</string>
-    <string name="files">" Dosyaları"</string>
+    <string name="files">Dosya</string>
     <string name="filewasrenamed">Dosya yeniden adlandırıldı.</string>
     <string name="hiddenfiles">Gizli Dosyalar</string>
     <string name="itcouldntbefound">Bulunamadı.</string>
