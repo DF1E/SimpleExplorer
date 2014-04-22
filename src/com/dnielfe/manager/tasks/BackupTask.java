@@ -43,7 +43,6 @@ public class BackupTask extends AsyncTask<File, Void, Boolean> {
 
 	private static final int SET_PROGRESS = 01;
 	private static final int FINISH_PROGRESS = 02;
-	private static final int BACKUP_ERROR = 03;
 
 	private ProgressDialog mDialog = null;
 	private ArrayList<ApplicationInfo> mDataSource;
@@ -103,10 +102,8 @@ public class BackupTask extends AsyncTask<File, Void, Boolean> {
 				mHandler.sendMessage(msg);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				return false;
 			} catch (IOException e) {
 				e.printStackTrace();
-				return false;
 			}
 		}
 		return true;
@@ -114,10 +111,7 @@ public class BackupTask extends AsyncTask<File, Void, Boolean> {
 
 	@Override
 	protected void onPostExecute(Boolean result) {
-		if (result)
-			mHandler.sendEmptyMessage(FINISH_PROGRESS);
-		else
-			mHandler.sendEmptyMessage(BACKUP_ERROR);
+		mHandler.sendEmptyMessage(FINISH_PROGRESS);
 	}
 
 	// this handler will update the GUI from this background thread.
@@ -131,11 +125,6 @@ public class BackupTask extends AsyncTask<File, Void, Boolean> {
 			case FINISH_PROGRESS:
 				Toast.makeText(mActivity,
 						mActivity.getString(R.string.backupcomplete),
-						Toast.LENGTH_SHORT).show();
-				break;
-			case BACKUP_ERROR:
-				Toast.makeText(mActivity,
-						mActivity.getString(R.string.backuperror),
 						Toast.LENGTH_SHORT).show();
 				break;
 			}

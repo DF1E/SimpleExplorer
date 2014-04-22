@@ -35,7 +35,7 @@
     <string name="drawer_open">Otvoriť navigačnú ponuku</string>
     <string name="drawer_close">Zatvoriť navigačnú ponuku</string>
     <string name="empty">Prázdne</string>
-    <string name="enter_name">Enter name</string>
+    <string name="enter_name">Zadajte názov</string>
     <string name="error">Chyba</string>
     <string name="exit">Ukončiť</string>
     <string name="extractto">Rozbaliť do</string>
@@ -54,7 +54,7 @@
     <string name="movefail">Presun zlyhal.</string>
     <string name="movesuccsess">Úspešne presunuté.</string>
     <string name="moving">Presúvanie</string>
-    <string name="multizip">Zip</string>
+    <string name="multizip">Zabaliť</string>
     <string name="newfile">Nový súbor</string>
     <string name="newfolderwasnotcreated">Nový priečinok nemohol byť vytvorený.</string>
     <string name="noapps">Nevybrané žiadne aplikácie.</string>
@@ -76,9 +76,9 @@
     <string name="shortcutcreated">Skratka bola vytvorená.</string>
     <string name="showpreview">Náhľady</string>
     <string name="simple">Jednoduchý</string>
-    <string name="size">Used:</string>
+    <string name="size">Využité:</string>
     <string name="sort">Zoradiť</string>
-    <string name="uisettings">Zobraziť nastavenia</string>
+    <string name="uisettings">Nastavenia zobrazenia</string>
     <string name="uninstallapp">Odinštalovať aplikáciu</string>
     <string name="unselectall">Zrušiť výber</string>
     <string name="unzipping">Rozbaľovanie</string>
@@ -88,10 +88,10 @@
     <string name="zipping">Balenie</string>
 
     <!-- sort list type -->
-    <string name="sort_name">Name</string>
-    <string name="sort_size">Size</string>
-    <string name="sort_type">Type</string>
-    <string name="sort_date">Date</string>
+    <string name="sort_name">Názov</string>
+    <string name="sort_size">Veľkosť</string>
+    <string name="sort_type">Typ</string>
+    <string name="sort_date">Dátum</string>
 
     <!-- theme -->
     <string name="theme">Téma</string>

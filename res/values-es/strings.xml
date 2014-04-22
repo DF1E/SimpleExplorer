@@ -39,7 +39,7 @@
     <string name="error">Error</string>
     <string name="exit">Salir</string>
     <string name="extractto">Extraer a</string>
-    <string name="filecreated">El archivo fue creado.</string>
+    <string name="filecreated">El archivo ha sido creado.</string>
     <string name="fileexists">El archivo ya existe.</string>
     <string name="files">" Archivos"</string>
     <string name="filewasrenamed">Archivo fue renombrado.</string>

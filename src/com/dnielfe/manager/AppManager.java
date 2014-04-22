@@ -69,7 +69,7 @@ public class AppManager extends ThemableActivity {
 	private static ArrayList<ApplicationInfo> multiSelectData = null;
 	private static ArrayList<ApplicationInfo> mAppList = null;
 	private static AppListAdapter mAdapter;
-	private static PackageManager mPackMag;
+	private static PackageManager pm;
 
 	private static final int ID_LAUNCH = 1;
 	private static final int ID_MANAGE = 2;
@@ -86,10 +86,9 @@ public class AppManager extends ThemableActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_appmanager);
 
-		mPackMag = getPackageManager();
+		pm = getPackageManager();
 		mActionBar = getActionBar();
 
-		initActionBar();
 		init();
 
 		if (savedInstanceState != null) {
@@ -113,8 +112,6 @@ public class AppManager extends ThemableActivity {
 		mListView.setOnItemClickListener(mOnItemClickListener);
 		mListView.setAdapter(mAdapter);
 		registerForContextMenu(mListView);
-
-		updateactionbar();
 	}
 
 	@Override
@@ -144,7 +141,7 @@ public class AppManager extends ThemableActivity {
 
 		switch (item.getItemId()) {
 		case ID_LAUNCH:
-			Intent i = mPackMag
+			Intent i = pm
 					.getLaunchIntentForPackage(mAppList.get(index).packageName);
 			startActivity(i);
 			break;
@@ -159,7 +156,7 @@ public class AppManager extends ThemableActivity {
 			Intent i1 = new Intent(Intent.ACTION_DELETE);
 			i1.setData(Uri.parse("package:" + mAppList.get(index).packageName));
 			startActivity(i1);
-			refreshList();
+			get_downloaded_apps();
 			break;
 
 		case ID_MARKET:
@@ -171,7 +168,7 @@ public class AppManager extends ThemableActivity {
 
 		case ID_SEND:
 			try {
-				ApplicationInfo info1 = mPackMag.getApplicationInfo(
+				ApplicationInfo info1 = pm.getApplicationInfo(
 						mAppList.get(index).packageName, 0);
 				String source_dir = info1.sourceDir;
 				File file = new File(source_dir);
@@ -191,20 +188,8 @@ public class AppManager extends ThemableActivity {
 		return false;
 	}
 
-	private void initActionBar() {
+	public void initActionBar() {
 		mActionBar.setDisplayHomeAsUpEnabled(true);
-		mActionBar.setSubtitle(getString(R.string.loading));
-		mActionBar.show();
-	}
-
-	public void refreshList() {
-		mAppList.clear();
-		get_downloaded_apps();
-		mAdapter.notifyDataSetChanged();
-		updateactionbar();
-	}
-
-	public void updateactionbar() {
 		mActionBar.setSubtitle(mAppList.size() + getString(R.string.apps));
 		mActionBar.show();
 	}
@@ -223,7 +208,7 @@ public class AppManager extends ThemableActivity {
 			}
 
 			if (multiSelectData.size() > 0 && multiSelectData != null) {
-				BackupTask all = new BackupTask(this, mPackMag, multiSelectData);
+				BackupTask all = new BackupTask(this, pm, multiSelectData);
 				all.execute();
 			} else {
 				Toast.makeText(AppManager.this, getString(R.string.noapps),
@@ -249,20 +234,26 @@ public class AppManager extends ThemableActivity {
 	};
 
 	private void get_downloaded_apps() {
-		List<ApplicationInfo> all_apps = mPackMag
-				.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+		List<ApplicationInfo> all_apps = pm
+				.getInstalledApplications(PackageManager.GET_META_DATA);
+
+		if (!mAppList.isEmpty())
+			mAppList.clear();
 
 		for (ApplicationInfo appInfo : all_apps) {
 			if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0
 					&& (appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 0
 					&& appInfo.flags != 0)
-
 				mAppList.add(appInfo);
 		}
 
 		// Sorting ListView showing Installed Applications
-		Collections.sort(mAppList, new ApplicationInfo.DisplayNameComparator(
-				mPackMag));
+		Collections.sort(mAppList,
+				new ApplicationInfo.DisplayNameComparator(pm));
+
+		// update UI
+		initActionBar();
+		mAdapter.notifyDataSetChanged();
 	}
 
 	private class ViewHolder {
@@ -304,8 +295,8 @@ public class AppManager extends ThemableActivity {
 			info = getItem(position);
 
 			try {
-				info = mPackMag.getApplicationInfo(info.packageName, 0);
-				appinfo = mPackMag.getPackageInfo(info.packageName, 0);
+				info = pm.getApplicationInfo(info.packageName, 0);
+				appinfo = pm.getPackageInfo(info.packageName, 0);
 			} catch (NameNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -324,7 +315,7 @@ public class AppManager extends ThemableActivity {
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			String appname = info.loadLabel(mPackMag).toString();
+			String appname = info.loadLabel(pm).toString();
 			String version = appinfo.versionName;
 
 			holder.select.setOnCheckedChangeListener(null);
@@ -370,7 +361,7 @@ public class AppManager extends ThemableActivity {
 				return drawable;
 			} else {
 				try {
-					drawable = mPackMag.getApplicationIcon(packagename);
+					drawable = pm.getApplicationIcon(packagename);
 					mIconCache.put(packagename, drawable);
 
 				} catch (NameNotFoundException e) {
@@ -423,7 +414,7 @@ public class AppManager extends ThemableActivity {
 		}
 
 		mMenuItem.setTitle(getString(R.string.unselectall));
-		refreshList();
+		get_downloaded_apps();
 	}
 
 	private void unselectAll() {
@@ -434,7 +425,7 @@ public class AppManager extends ThemableActivity {
 		multiSelectData.clear();
 
 		mMenuItem.setTitle(getString(R.string.selectall));
-		refreshList();
+		get_downloaded_apps();
 	}
 
 	private void createshortcut() {
@@ -465,7 +456,7 @@ public class AppManager extends ThemableActivity {
 				mStarStates[i] = false;
 				multiSelectData.remove(mAppList.get(i));
 			}
-			refreshList();
+			get_downloaded_apps();
 			mMenuItem.setTitle(getString(R.string.selectall));
 		} else {
 			finish();

@@ -128,13 +128,16 @@ public final class DirectoryInfoDialog extends DialogFragment {
 			final long valueAvail = statFs.getAvailableBytes();
 			final long valueUsed = valueTotal - valueAvail;
 			String[] permission = null;
+			String perm;
 
 			if (SimpleExplorer.rootAccess)
 				permission = RootCommands.getFileProperties(params[0]);
 
-			return new PartitionInfo(path, permission != null ? permission[0]
-					: "", valueTotal, statFs.getBlockSizeLong(),
-					statFs.getFreeBytes(), valueUsed);
+			perm = permission != null ? permission[0]
+					: getFilePermissions(params[0]);
+
+			return new PartitionInfo(path, perm, valueTotal,
+					statFs.getBlockSizeLong(), statFs.getFreeBytes(), valueUsed);
 		}
 
 		@Override
@@ -176,5 +179,17 @@ public final class DirectoryInfoDialog extends DialogFragment {
 				}
 			}
 		}
+	}
+
+	// use this as alternative if no root is avaible
+	private static String getFilePermissions(File file) {
+		String per = "";
+
+		per += file.isDirectory() ? "d" : "-";
+		per += file.canRead() ? "r" : "-";
+		per += file.canWrite() ? "w" : "-";
+		per += file.canExecute() ? "x" : "-";
+
+		return per;
 	}
 }
