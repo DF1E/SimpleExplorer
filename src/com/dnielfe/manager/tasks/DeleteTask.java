@@ -69,12 +69,14 @@ public final class DeleteTask extends AsyncTask<String, Void, List<String>> {
 	@NotNull
 	@Override
 	protected List<String> doInBackground(String... files) {
+		final Activity activity = this.activity.get();
 		final List<String> failed = new ArrayList<String>();
 		final int size = files.length;
 
 		for (int i = 0; i < size; i++) {
 			try {
-				SimpleUtils.deleteTarget(files[i], Browser.mCurrentPath);
+				SimpleUtils.deleteTarget(activity, files[i],
+						Browser.mCurrentPath);
 			} catch (Exception e) {
 				failed.add(files[i]);
 			}

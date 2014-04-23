@@ -19,8 +19,13 @@
 
 package com.dnielfe.manager.dialogs;
 
+import java.io.File;
+
+import org.apache.commons.io.FilenameUtils;
+
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.tasks.UnRarTask;
 import com.dnielfe.manager.tasks.UnZipTask;
 
 import android.app.Activity;
@@ -32,14 +37,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.EditText;
 
-public final class UnzipDialog extends DialogFragment {
+public final class UnpackDialog extends DialogFragment {
 
-	private static String file;
+	private static File file;
+	private static String ext;
 
-	public static DialogFragment instantiate(String file1) {
+	public static DialogFragment instantiate(File file1) {
 		file = file1;
+		ext = FilenameUtils.getExtension(file1.getName());
 
-		final UnzipDialog dialog = new UnzipDialog();
+		final UnpackDialog dialog = new UnpackDialog();
 		return dialog;
 	}
 
@@ -55,16 +62,24 @@ public final class UnzipDialog extends DialogFragment {
 		final AlertDialog.Builder b = new AlertDialog.Builder(a);
 		b.setTitle(R.string.extractto);
 		b.setView(inputf);
-
 		b.setPositiveButton(getString(R.string.ok),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						String newpath = inputf.getText().toString();
 
 						dialog.dismiss();
-						final UnZipTask task = new UnZipTask(a);
-						task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-								file, newpath);
+
+						if (ext.equals("zip")) {
+							final UnZipTask task = new UnZipTask(a);
+							task.executeOnExecutor(
+									AsyncTask.THREAD_POOL_EXECUTOR,
+									file.getPath(), newpath);
+						} else if (ext.equals("rar")) {
+							final UnRarTask task = new UnRarTask(a);
+							task.executeOnExecutor(
+									AsyncTask.THREAD_POOL_EXECUTOR,
+									file.getPath(), newpath);
+						}
 					}
 				});
 		b.setNegativeButton(R.string.cancel,

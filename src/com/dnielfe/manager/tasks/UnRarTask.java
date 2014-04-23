@@ -32,18 +32,17 @@ import android.widget.Toast;
 
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.utils.Decompress;
 import com.dnielfe.manager.utils.SimpleUtils;
-
+import com.github.junrar.extract.ExtractArchive;
 import org.jetbrains.annotations.NotNull;
 
-public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
+public final class UnRarTask extends AsyncTask<String, Void, List<String>> {
 
 	private final WeakReference<Activity> activity;
 
 	private ProgressDialog dialog;
 
-	public UnZipTask(final Activity activity) {
+	public UnRarTask(final Activity activity) {
 		this.activity = new WeakReference<Activity>(activity);
 	}
 
@@ -70,19 +69,24 @@ public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
 
 	@NotNull
 	@Override
-	protected List<String> doInBackground(String... files) {
+	protected List<String> doInBackground(String... file) {
 		final Activity activity = this.activity.get();
 		final List<String> failed = new ArrayList<String>();
+		final File rar = new File(file[0]);
+		final File destinationFolder = new File(file[1]);
 
-		final Decompress decompress = new Decompress(files[0], files[1]);
+		if (!destinationFolder.exists())
+			destinationFolder.mkdirs();
+
 		try {
-			decompress.unzip();
+			ExtractArchive extractArchive = new ExtractArchive();
+			extractArchive.extractArchive(rar, destinationFolder);
 		} catch (Exception e) {
-			failed.add(files.toString());
+			failed.add(file[0]);
 		}
 
-		SimpleUtils.requestMediaScanner(activity,
-				new File(files[1]).listFiles());
+		SimpleUtils
+				.requestMediaScanner(activity, destinationFolder.listFiles());
 		return failed;
 	}
 
@@ -109,9 +113,6 @@ public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
 		if (activity != null && !failed.isEmpty()) {
 			Toast.makeText(activity, activity.getString(R.string.cantopenfile),
 					Toast.LENGTH_SHORT).show();
-			if (!activity.isFinishing()) {
-				dialog.show();
-			}
 		}
 	}
 }

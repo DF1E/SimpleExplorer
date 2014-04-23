@@ -95,7 +95,7 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 			SimpleUtils.copyToDirectory(content[0], location);
 			success = true;
 			if (ClipBoard.isMove()) {
-				SimpleUtils.deleteTarget(content[0], location);
+				SimpleUtils.deleteTarget(activity, content[0], location);
 				success = true;
 			}
 		} else {
@@ -103,7 +103,7 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 				SimpleUtils.copyToDirectory(content[i], location);
 				success = true;
 				if (ClipBoard.isMove()) {
-					SimpleUtils.deleteTarget(content[i], location);
+					SimpleUtils.deleteTarget(activity, content[i], location);
 					success = true;
 				}
 			}

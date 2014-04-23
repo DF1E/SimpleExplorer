@@ -138,38 +138,36 @@ public class AppManager extends ThemableActivity {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
 		int index = info.position;
+		String packagename = mAppList.get(index).packageName;
 
 		switch (item.getItemId()) {
 		case ID_LAUNCH:
-			Intent i = pm
-					.getLaunchIntentForPackage(mAppList.get(index).packageName);
+			Intent i = pm.getLaunchIntentForPackage(packagename);
 			startActivity(i);
 			break;
 
 		case ID_MANAGE:
 			startActivity(new Intent(
 					android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-					Uri.parse("package:" + mAppList.get(index).packageName)));
+					Uri.parse("package:" + packagename)));
 			break;
 
 		case ID_UNINSTALL:
 			Intent i1 = new Intent(Intent.ACTION_DELETE);
-			i1.setData(Uri.parse("package:" + mAppList.get(index).packageName));
+			i1.setData(Uri.parse("package:" + packagename));
 			startActivity(i1);
 			get_downloaded_apps();
 			break;
 
 		case ID_MARKET:
 			Intent intent1 = new Intent(Intent.ACTION_VIEW);
-			intent1.setData(Uri.parse("market://details?id="
-					+ mAppList.get(index).packageName));
+			intent1.setData(Uri.parse("market://details?id=" + packagename));
 			startActivity(intent1);
 			break;
 
 		case ID_SEND:
 			try {
-				ApplicationInfo info1 = pm.getApplicationInfo(
-						mAppList.get(index).packageName, 0);
+				ApplicationInfo info1 = pm.getApplicationInfo(packagename, 0);
 				String source_dir = info1.sourceDir;
 				File file = new File(source_dir);
 				Uri uri11 = Uri.fromFile(file.getAbsoluteFile());

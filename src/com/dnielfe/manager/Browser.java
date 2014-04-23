@@ -22,6 +22,8 @@ package com.dnielfe.manager;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.apache.commons.io.FilenameUtils;
+
 import com.dnielfe.manager.adapters.BookmarksAdapter;
 import com.dnielfe.manager.adapters.DrawerListAdapter;
 import com.dnielfe.manager.adapters.BrowserListAdapter;
@@ -29,7 +31,7 @@ import com.dnielfe.manager.controller.ActionModeController;
 import com.dnielfe.manager.dialogs.CreateFileDialog;
 import com.dnielfe.manager.dialogs.CreateFolderDialog;
 import com.dnielfe.manager.dialogs.DirectoryInfoDialog;
-import com.dnielfe.manager.dialogs.UnzipDialog;
+import com.dnielfe.manager.dialogs.UnpackDialog;
 import com.dnielfe.manager.fileobserver.FileObserverCache;
 import com.dnielfe.manager.fileobserver.MultiFileObserver;
 import com.dnielfe.manager.fileobserver.MultiFileObserver.OnEventListener;
@@ -455,20 +457,16 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	}
 
 	private void listItemAction(File file, String item) {
-		String item_ext = null;
+		String item_ext = FilenameUtils.getExtension(file.getName());
 
-		try {
-			item_ext = item.substring(item.lastIndexOf("."), item.length());
-		} catch (IndexOutOfBoundsException e) {
-			item_ext = "";
-		}
-
-		if (item_ext.equalsIgnoreCase(".zip")) {
+		if (item_ext.equalsIgnoreCase("zip")
+				|| item_ext.equalsIgnoreCase("rar")) {
 			if (mReturnIntent) {
 				returnIntentResults(file);
 			} else {
 				final String zipPath = mCurrentPath + "/" + item;
-				final DialogFragment dialog = UnzipDialog.instantiate(zipPath);
+				final DialogFragment dialog = UnpackDialog
+						.instantiate(new File(zipPath));
 				dialog.show(getFragmentManager(), "dialog");
 			}
 		} else {

@@ -49,14 +49,14 @@
     <string name="launch">Esegui</string>
     <string name="loading">Caricamento</string>
     <string name="manage">Gestione</string>
-    <string name="md5">MD5</string>
+    <string name="md5">MD5:</string>
     <string name="move">Sposta</string>
     <string name="movefail">Spostamento fallito.</string>
     <string name="movesuccsess">Spostamento completato.</string>
     <string name="moving">Spsotamento</string>
-    <string name="multizip">ZIP</string>
+    <string name="multizip">Comprimi</string>
     <string name="newfile">Nuovo file</string>
-    <string name="newfolderwasnotcreated">Nuova cartella non creata.</string>
+    <string name="newfolderwasnotcreated">La nuova cartella non è stata creata</string>
     <string name="noapps">Nessuna app selezionata.</string>
     <string name="of">" di"</string>
     <string name="ok">OK</string>
@@ -64,7 +64,7 @@
     <string name="packing">Comprimendo</string>
     <string name="paste">Incolla</string>
     <string name="playstore">Playstore</string>
-    <string name="pressbackagaintoquit">Premi indietro un\'altra volta per uscire</string>
+    <string name="pressbackagaintoquit">Premi indietro un\'altra volta per uscire.</string>
     <string name="rename">Rinomina</string>
     <string name="sdcardnotfound">Impossibile trovare la Scheda SD!</string>
     <string name="search">Cerca</string>
@@ -73,17 +73,17 @@
     <string name="settings">Impostazioni</string>
     <string name="share">Condividi</string>
     <string name="shortcut">Crea Collegamento</string>
-    <string name="shortcutcreated">Collegamento creato</string>
+    <string name="shortcutcreated">Collegamento creato.</string>
     <string name="showpreview">Anteprime</string>
     <string name="simple">Semplice</string>
     <string name="size">Usati:</string>
     <string name="sort">Ordina</string>
-    <string name="uisettings">Impostazioni Vista</string>
+    <string name="uisettings">Impostazioni vista</string>
     <string name="uninstallapp">Disinstalla App</string>
-    <string name="unselectall">Deseleziona Tutto</string>
+    <string name="unselectall">Deseleziona tutto</string>
     <string name="unzipping">Scomprimendo</string>
     <string name="version">"Versione "</string>
-    <string name="viewmode">Modalità Vista</string>
+    <string name="viewmode">Modalità vista</string>
     <string name="xdaforum">Forum XDA</string>
     <string name="zipping">Comprimendo</string>
 
@@ -100,8 +100,8 @@
 
     <!-- permissions -->
     <string name="permissions">Permessi</string>
-    <string name="owner">Proprietario</string>
-    <string name="group">Gruppo</string>
+    <string name="owner">Proprietario:</string>
+    <string name="group">Gruppo:</string>
     <string name="others">Altri:</string>
     <string name="read">Lettura</string>
     <string name="write">Scrittura</string>
@@ -129,7 +129,7 @@
     <string name="createbookmark">Crea Preferito</string>
 
     <!-- overwrite dialog -->
-    <string name="overwrite_title">Il file destinazione esiste già</string>
+    <string name="overwrite_title">Il file di destinazione esiste già</string>
     <string name="overwrite_source">Sorgente</string>
     <string name="overwrite_destination">Destinazione</string>
     <string name="overwrite_skip">Salta</string>
