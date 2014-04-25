@@ -150,7 +150,7 @@ public final class ActionModeController {
 				final DialogFragment dialog1 = DeleteFilesDialog
 						.instantiate(files);
 				mode.finish();
-				dialog1.show(mActivity.getFragmentManager(), "dialog");
+				dialog1.show(mActivity.getFragmentManager(), Browser.TAG_DIALOG);
 				return true;
 			case R.id.actionshare:
 				final ArrayList<Uri> uris = new ArrayList<Uri>(
@@ -211,7 +211,7 @@ public final class ActionModeController {
 				}
 				final DialogFragment dialog = ZipFilesDialog.instantiate(files);
 				mode.finish();
-				dialog.show(mActivity.getFragmentManager(), "dialog");
+				dialog.show(mActivity.getFragmentManager(), Browser.TAG_DIALOG);
 				return true;
 			case R.id.actionrename:
 				for (int i = 0; i < checkedItemSize; i++) {
@@ -226,7 +226,8 @@ public final class ActionModeController {
 										(String) mListView
 												.getItemAtPosition(key));
 						mode.finish();
-						dialog3.show(mActivity.getFragmentManager(), "dialog");
+						dialog3.show(mActivity.getFragmentManager(),
+								Browser.TAG_DIALOG);
 						break;
 					}
 				}
@@ -239,7 +240,8 @@ public final class ActionModeController {
 								.instantiate(new File(currentDir + "/"
 										+ mListView.getItemAtPosition(key)));
 						mode.finish();
-						dialog4.show(mActivity.getFragmentManager(), "dialog");
+						dialog4.show(mActivity.getFragmentManager(),
+								Browser.TAG_DIALOG);
 						break;
 					}
 				}

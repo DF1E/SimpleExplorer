@@ -45,6 +45,8 @@ import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
 import android.app.ActionBar;
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -73,6 +75,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 	public static final String ACTION_WIDGET = "com.dnielfe.manager.Main.ACTION_WIDGET";
 	public static final String EXTRA_SHORTCUT = "shortcut_path";
+	public static final String TAG_DIALOG = "dialog";
 
 	private static Handler sHandler;
 	private static ActionBarNavigation mNavigation;
@@ -127,6 +130,14 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	public void onPause() {
 		super.onPause();
 		mObserver.stopWatching();
+
+		final FragmentManager fm = getFragmentManager();
+		final Fragment f = fm.findFragmentByTag(TAG_DIALOG);
+
+		if (f != null) {
+			fm.beginTransaction().remove(f).commit();
+			fm.executePendingTransactions();
+		}
 	}
 
 	@Override
@@ -467,7 +478,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 				final String zipPath = mCurrentPath + "/" + item;
 				final DialogFragment dialog = UnpackDialog
 						.instantiate(new File(zipPath));
-				dialog.show(getFragmentManager(), "dialog");
+				dialog.show(getFragmentManager(), TAG_DIALOG);
 			}
 		} else {
 			SimpleUtils.openFile(this, file);
@@ -508,19 +519,19 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 				mDrawerLayout.closeDrawer(mDrawer);
 
 			final DialogFragment dialog1 = new CreateFileDialog();
-			dialog1.show(getFragmentManager(), "dialog");
+			dialog1.show(getFragmentManager(), TAG_DIALOG);
 			return true;
 		case R.id.createfolder:
 			if (mDrawerLayout.isDrawerOpen(mDrawer))
 				mDrawerLayout.closeDrawer(mDrawer);
 
 			final DialogFragment dialog2 = new CreateFolderDialog();
-			dialog2.show(getFragmentManager(), "dialog");
+			dialog2.show(getFragmentManager(), TAG_DIALOG);
 			return true;
 		case R.id.folderinfo:
 			final DialogFragment pid = DirectoryInfoDialog
 					.instantiate(new File(mCurrentPath));
-			pid.show(getFragmentManager(), "dialog");
+			pid.show(getFragmentManager(), TAG_DIALOG);
 			return true;
 		case R.id.search:
 			this.onSearchRequested();
