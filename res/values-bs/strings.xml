@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Napredno</string>
     <string name="appmanager">Menedger aplikacije</string>
@@ -9,9 +10,6 @@
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup zavr�en</string>
     <string name="backuperror">Backup onemogu�en</string>
-    <string name="bookmark">Zabilje�ke</string>
-    <string name="bookmarkadded">Zabilje�ka dodana</string>
-    <string name="bookmarkexist">Zabilje�ka ve� postoji!</string>
     <string name="cancel">Otka�i</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Ovo ne mo�e biti poni�teno zbog dozvole"</string>
     <string name="cantopenfile">Cannot open this file</string>
@@ -22,13 +20,13 @@
     <string name="copying">Kopiranje</string>
     <string name="copysuccsess">Uspje�no kopirano</string>
     <string name="create">Kreiraj</string>
-    <string name="createbookmark">Kreiraj zabilje�ku</string>
     <string name="created">" Kreirano"</string>
     <string name="createmsg">Stavi ta�ku prije teksta kako bi kreirao skriveni folder.</string>
     <string name="createnewfolder">Kreiraj novi Folder</string>
     <string name="defaultdir">Standardni direktorij</string>
     <string name="delete">Izbri�i</string>
     <string name="deleteapps">Izbri�i aplikacije</string>
+    <string name="deletesuccess">Delete successful</string>
     <string name="deleting">Brisanje</string>
     <string name="desc">desc</string>
     <string name="detailed">Detaljno</string>
@@ -36,30 +34,27 @@
     <string name="dir_info">Informacije Foldera</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="empty">Empty</string>
+    <string name="enter_name">Enter name</string>
     <string name="error">Gre�ka</string>
     <string name="exit">Exit</string>
     <string name="extractto">Ekstrahiraj u</string>
-    <string name="file">Fajl</string>
     <string name="filecreated">Fajl kreiran</string>
     <string name="fileexists">Fajl ve� postoji</string>
     <string name="files">" Fajlovi"</string>
     <string name="filewasrenamed">Fajl preimenovan</string>
-    <string name="foundfiles">Prona�en</string>
     <string name="hiddenfiles">Skriveni Fajlovi</string>
-    <string name="image">Slika</string>
     <string name="itcouldntbefound">Nije prona�eno</string>
     <string name="LastModified">Zadnji put modificirano:</string>
     <string name="launch">Pokreni</string>
     <string name="loading">U�itavanje..</string>
     <string name="manage">Upravljanje</string>
+    <string name="md5">MD5:</string>
     <string name="move">Premjesti</string>
     <string name="movefail">Moving failed.</string>
     <string name="movesuccsess">premje�tanje uspje�no</string>
     <string name="moving">Premje�tanje</string>
     <string name="multizip">Zip</string>
-    <string name="music">Muzika</string>
-    <string name="name">Ime</string>
-    <string name="newd">Novi Direktorij</string>
     <string name="newfile">Novi Fajl</string>
     <string name="newfolderwasnotcreated">Novi Folder nije kreiran</string>
     <string name="noapps">Nijedna aplikacija nije odabrana</string>
@@ -68,7 +63,6 @@
     <string name="options">Opcije</string>
     <string name="packing">Pakiranje</string>
     <string name="paste">Zalijepi</string>
-    <string name="permissions">Dozvole</string>
     <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Pritisni ponovo "natrag" za izlaz</string>
     <string name="rename">Preimenuj</string>
@@ -83,19 +77,64 @@
     <string name="showpreview">Sli�ice</string>
     <string name="simple">Jednostavno</string>
     <string name="size">Iskori�teno:</string>
-    <string name="size1">Veli�ina</string>
     <string name="sort">Sortirati</string>
-    <string name="text">Tekst</string>
-    <string name="type">Tip</string>
     <string name="uisettings">Postavke pregleda</string>
     <string name="uninstallapp">Deinstaliraj Aplikaciju</string>
     <string name="unselectall">Isklju�i sve</string>
     <string name="unzipping">Raspakiranje</string>
-    <string name="used">Iskori�teno:</string>
     <string name="version">"Verzija "</string>
-    <string name="video">Video</string>
     <string name="viewmode">Na�in prikaza</string>
     <string name="xdaforum">XDA Forum</string>
     <string name="zipping">Pakiranje</string>
+
+    <!-- sort list type -->
+    <string name="sort_name">Name</string>
+    <string name="sort_size">Size</string>
+    <string name="sort_type">Type</string>
+    <string name="sort_date">Date</string>
+
+    <!-- theme -->
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
+    <!-- permissions -->
+    <string name="permissions">Dozvole</string>
+    <string name="owner">Owner:</string>
+    <string name="group">Group:</string>
+    <string name="others">Other:</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="execute">Execute</string>
+    <string name="permissionschanged">Permissions changed</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file(s)</string>
+    <string name="_selected">\u0020selected</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Location:</string>
+    <string name="total">Total space:</string>
+    <string name="free">Free space:</string>
+    <string name="available">Available space:</string>
+    <string name="block_size">Block size:</string>
+    <string name="used">Iskori�teno:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">Zabilje�ke</string>
+    <string name="bookmark_name">Bookmark name</string>
+    <string name="bookmark_path">Bookmark path</string>
+    <string name="bookmarkadded">Zabilje�ka dodana</string>
+    <string name="bookmarkexist">Zabilje�ka ve� postoji!</string>
+    <string name="createbookmark">Kreiraj zabilje�ku</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Target file already exists</string>
+    <string name="overwrite_source">Source</string>
+    <string name="overwrite_destination">Destination</string>
+    <string name="overwrite_skip">Skip</string>
+    <string name="overwrite_skip_all">Skip all</string>
+    <string name="overwrite_replace">Replace</string>
+    <string name="overwrite_replace_all">Replace all</string>
 
 </resources>
