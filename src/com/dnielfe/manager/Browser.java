@@ -52,7 +52,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.FileObserver;
 import android.os.Handler;
@@ -73,7 +72,6 @@ import android.widget.Toast;
 public final class Browser extends ThemableActivity implements OnEventListener,
 		OnNavigateListener {
 
-	public static final String ACTION_WIDGET = "com.dnielfe.manager.Main.ACTION_WIDGET";
 	public static final String EXTRA_SHORTCUT = "shortcut_path";
 	public static final String TAG_DIALOG = "dialog";
 
@@ -88,7 +86,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	private static BrowserListAdapter mListAdapter;
 	private static DrawerListAdapter mMenuAdapter;
 
-	private boolean mReturnIntent = false;
 	private boolean mUseBackKey = true;
 
 	public static ArrayList<String> mDataSource;
@@ -165,13 +162,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 			// get directory when you rotate your phone
 			defaultdir = savedInstanceState.getString("location");
 		} else {
-			// If other apps want to choose a file you do it with this action
-			if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)) {
-				mReturnIntent = true;
-			} else if (intent.getAction().equals(ACTION_WIDGET)) {
-				defaultdir = intent.getExtras().getString("folder");
-			}
-
 			try {
 				String shortcut = intent.getStringExtra(EXTRA_SHORTCUT);
 				File dir = new File(shortcut);
@@ -407,15 +397,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
-	// Returns the file that was selected to the intent that called this
-	// activity. usually from the caller is another application.
-	private void returnIntentResults(File data) {
-		Intent ret = new Intent();
-		ret.setData(Uri.fromFile(data));
-		setResult(RESULT_OK, ret);
-		finish();
-	}
-
 	@Override
 	protected void onNewIntent(Intent intent) {
 		setIntent(intent);
@@ -471,14 +452,10 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 		if (item_ext.equalsIgnoreCase("zip")
 				|| item_ext.equalsIgnoreCase("rar")) {
-			if (mReturnIntent) {
-				returnIntentResults(file);
-			} else {
-				final String zipPath = mCurrentPath + "/" + item;
-				final DialogFragment dialog = UnpackDialog
-						.instantiate(new File(zipPath));
-				dialog.show(fm, TAG_DIALOG);
-			}
+			final String zipPath = mCurrentPath + "/" + item;
+			final DialogFragment dialog = UnpackDialog.instantiate(new File(
+					zipPath));
+			dialog.show(fm, TAG_DIALOG);
 		} else {
 			SimpleUtils.openFile(this, file);
 		}
