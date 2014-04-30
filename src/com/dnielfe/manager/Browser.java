@@ -94,6 +94,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	public static ArrayList<String> mDataSource;
 	public static String mCurrentPath;
 
+	private FragmentManager fm;
 	private Cursor mBookmarksCursor;
 	private LinearLayout mDrawer;
 	private MenuItem mMenuItemPaste;
@@ -131,7 +132,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		super.onPause();
 		mObserver.stopWatching();
 
-		final FragmentManager fm = getFragmentManager();
 		final Fragment f = fm.findFragmentByTag(TAG_DIALOG);
 
 		if (f != null) {
@@ -196,6 +196,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	}
 
 	private void init(Intent intent) {
+		fm = getFragmentManager();
 		mDataSource = new ArrayList<String>();
 		mObserverCache = FileObserverCache.getInstance();
 		mNavigation = new ActionBarNavigation(this);
@@ -285,7 +286,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 				super.onDrawerOpened(view);
 				mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
 						| ActionBar.DISPLAY_HOME_AS_UP
-						| ActionBar.DISPLAY_USE_LOGO
 						| ActionBar.DISPLAY_SHOW_TITLE);
 				mActionBar.setTitle(R.string.app_name);
 				invalidateOptionsMenu();
@@ -296,8 +296,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 				super.onDrawerClosed(view);
 				mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
 						| ActionBar.DISPLAY_HOME_AS_UP
-						| ActionBar.DISPLAY_SHOW_CUSTOM
-						| ActionBar.DISPLAY_USE_LOGO);
+						| ActionBar.DISPLAY_SHOW_CUSTOM);
 				invalidateOptionsMenu();
 			}
 		};
@@ -305,7 +304,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 	}
 
-	// TODO both lists in one
+	// TODO improve
 	private void initDrawerLists() {
 		mBookmarksCursor = getBookmarksCursor();
 		mBookmarksAdapter = new BookmarksAdapter(this, mBookmarksCursor);
@@ -478,7 +477,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 				final String zipPath = mCurrentPath + "/" + item;
 				final DialogFragment dialog = UnpackDialog
 						.instantiate(new File(zipPath));
-				dialog.show(getFragmentManager(), TAG_DIALOG);
+				dialog.show(fm, TAG_DIALOG);
 			}
 		} else {
 			SimpleUtils.openFile(this, file);
@@ -515,23 +514,16 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 			}
 			return true;
 		case R.id.createfile:
-			if (mDrawerLayout.isDrawerOpen(mDrawer))
-				mDrawerLayout.closeDrawer(mDrawer);
-
 			final DialogFragment dialog1 = new CreateFileDialog();
-			dialog1.show(getFragmentManager(), TAG_DIALOG);
+			dialog1.show(fm, TAG_DIALOG);
 			return true;
 		case R.id.createfolder:
-			if (mDrawerLayout.isDrawerOpen(mDrawer))
-				mDrawerLayout.closeDrawer(mDrawer);
-
 			final DialogFragment dialog2 = new CreateFolderDialog();
-			dialog2.show(getFragmentManager(), TAG_DIALOG);
+			dialog2.show(fm, TAG_DIALOG);
 			return true;
 		case R.id.folderinfo:
-			final DialogFragment pid = DirectoryInfoDialog
-					.instantiate(new File(mCurrentPath));
-			pid.show(getFragmentManager(), TAG_DIALOG);
+			final DialogFragment dirInfo = new DirectoryInfoDialog();
+			dirInfo.show(fm, TAG_DIALOG);
 			return true;
 		case R.id.search:
 			this.onSearchRequested();
@@ -590,20 +582,15 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 	@Override
 	public boolean onKeyDown(int keycode, KeyEvent event) {
-		File file = new File(mCurrentPath);
 
-		if (mDrawerLayout.isDrawerOpen(mDrawer)) {
-			mDrawerLayout.closeDrawer(mDrawer);
-
-		} else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
+		if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
 				&& !mCurrentPath.equals("/")) {
-
+			File file = new File(mCurrentPath);
 			navigateTo(file.getParent());
 
 			// go to the top of the ListView
 			mListView.setSelection(0);
 			return true;
-
 		} else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
 				&& mCurrentPath.equals("/")) {
 			Toast.makeText(Browser.this,
@@ -617,7 +604,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 			mUseBackKey = false;
 			return false;
-
 		} else if (keycode == KeyEvent.KEYCODE_BACK && !mUseBackKey
 				&& mCurrentPath.equals("/")) {
 			finish();

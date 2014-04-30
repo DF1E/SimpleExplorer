@@ -9,7 +9,6 @@
     <string name="backedup">" резервировано"</string>
     <string name="backup">Резервное копирование</string>
     <string name="backupcomplete">Резервное копирование выполнено.</string>
-    <string name="backuperror">Невозможно выполнить резервное копирование!</string>
     <string name="cancel">Отмена</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Вы уверены? Это необратимо!"</string>
     <string name="cantopenfile">Cannot open this file</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">Ничего не найдено!</string>
     <string name="LastModified">Изменён:</string>
     <string name="launch">Запустить</string>
-    <string name="loading">Загрузка</string>
     <string name="manage">О приложении</string>
     <string name="md5">MD5:</string>
     <string name="move">Вырезать</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">Закладки</string>
-    <string name="bookmark_name">Bookmark name</string>
-    <string name="bookmark_path">Bookmark path</string>
     <string name="bookmarkadded">Закладка добалена.</string>
     <string name="bookmarkexist">Закладка уже существует!</string>
     <string name="createbookmark">Создать закладку</string>

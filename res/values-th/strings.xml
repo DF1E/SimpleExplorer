@@ -9,7 +9,6 @@
     <string name="backedup">" สำรองข้อมูล"</string>
     <string name="backup">สำรองข้อมูล</string>
     <string name="backupcomplete">สำรองข้อมูลเรียบร้อย</string>
-    <string name="backuperror">ไม่สามารถสำรองข้อมูลได้</string>
     <string name="cancel">ยกเลิก</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"การทำงานซึ่งยังกระทำไม่สำเร็จ"</string>
     <string name="cantopenfile">ไม่สามารถเปิดไฟล์นี้ได้</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">ไม่สามารถหาได้</string>
     <string name="LastModified">แก้ไขครั้งสุดท้าย:</string>
     <string name="launch">เริ่ม</string>
-    <string name="loading">กำลังโหลด</string>
     <string name="manage">จัดการ</string>
     <string name="md5">MD5:</string>
     <string name="move">ย้าย</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">บุ๊กมาร์ก</string>
-    <string name="bookmark_name">ชื่อบุ๊กมาร์ก</string>
-    <string name="bookmark_path">ตำแหน่งบุ๊กมาร์ก</string>
     <string name="bookmarkadded">บุ๊กมาร์กถูกเพิ่ม</string>
     <string name="bookmarkexist">บุ๊กมาร์กนี้มีอยู่แล้ว</string>
     <string name="createbookmark">สร้างบุ๊กมาร์ก</string>

@@ -122,8 +122,8 @@ public final class PasteTaskExecutor implements OnClickListener {
 
 					mToProcess.toArray(array);
 
-					final PasteTask task = new PasteTask(a, mTargetFile, array);
-					task.execute();
+					final PasteTask task = new PasteTask(a, mTargetFile);
+					task.execute(array);
 				}
 			} else {
 				final String key = mExisting.keySet().iterator().next();

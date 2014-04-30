@@ -9,7 +9,6 @@
     <string name="backedup">" Reservado"</string>
     <string name="backup">Reserva</string>
     <string name="backupcomplete">Reserva completa.</string>
-    <string name="backuperror">Incapaz de resevar.</string>
     <string name="cancel">Cancelar</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Esto no se puede desechar!"</string>
     <string name="cantopenfile">No se puede abrir este archivo</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">No pudo ser localizado.</string>
     <string name="LastModified">Último modificado:</string>
     <string name="launch">Lanzar</string>
-    <string name="loading">Cargando</string>
     <string name="manage">Administrar</string>
     <string name="md5">MD5:</string>
     <string name="move">Mover</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">Marcadores</string>
-    <string name="bookmark_name">Nombre del marcador</string>
-    <string name="bookmark_path">Ruta del marcador</string>
     <string name="bookmarkadded">Marcador agregado.</string>
     <string name="bookmarkexist">Marcador ya existe!</string>
     <string name="createbookmark">Crear marcador</string>

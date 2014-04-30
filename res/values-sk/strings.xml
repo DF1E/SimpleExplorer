@@ -9,7 +9,6 @@
     <string name="backedup">" záloh."</string>
     <string name="backup">Zálohovať</string>
     <string name="backupcomplete">Záloha bola dokončená.</string>
-    <string name="backuperror">Nemožno zálohovať.</string>
     <string name="cancel">Zrušiť</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">Túto akciu nie je možné vrátiť!</string>
     <string name="cantopenfile">Nemožno otvoriť tento priečinok</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">Nenašlo sa.</string>
     <string name="LastModified">Naposledy upravené:</string>
     <string name="launch">Spustiť</string>
-    <string name="loading">Načítavanie</string>
     <string name="manage">Spravovať</string>
     <string name="md5">MD5:</string>
     <string name="move">Presunúť</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">Záložky</string>
-    <string name="bookmark_name">Názov záložky</string>
-    <string name="bookmark_path">Cesta záložky</string>
     <string name="bookmarkadded">Záložka bola pridaná.</string>
     <string name="bookmarkexist">Záložka už existuje!</string>
     <string name="createbookmark">Vytvoriť záložku</string>

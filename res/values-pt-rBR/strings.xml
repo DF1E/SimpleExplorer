@@ -9,7 +9,6 @@
     <string name="backedup">"backup"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup completo</string>
-    <string name="backuperror">Incapaz de realizar backup</string>
     <string name="cancel">Cancelar</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">Isso não pode ser desfeito</string>
     <string name="cantopenfile">Não é possível abrir este arquivo</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">Não pôde ser encontrado</string>
     <string name="LastModified">Última Alteração:</string>
     <string name="launch">Launcher</string>
-    <string name="loading">Carregando..</string>
     <string name="manage">Gerenciar</string>
     <string name="md5">MD5:</string>
     <string name="move">Mover</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">Favoritos</string>
-    <string name="bookmark_name">Nome do bookmark</string>
-    <string name="bookmark_path">Patch do bookmark</string>
     <string name="bookmarkadded">Favorito adicionado</string>
     <string name="bookmarkexist">Favorito ja existente!</string>
     <string name="createbookmark">Criar favorito</string>

@@ -9,7 +9,6 @@
     <string name="backedup">" backupirano"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup zavr�en</string>
-    <string name="backuperror">Backup onemogu�en</string>
     <string name="cancel">Otka�i</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Ovo ne mo�e biti poni�teno zbog dozvole"</string>
     <string name="cantopenfile">Cannot open this file</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">Nije prona�eno</string>
     <string name="LastModified">Zadnji put modificirano:</string>
     <string name="launch">Pokreni</string>
-    <string name="loading">U�itavanje..</string>
     <string name="manage">Upravljanje</string>
     <string name="md5">MD5:</string>
     <string name="move">Premjesti</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">Zabilje�ke</string>
-    <string name="bookmark_name">Bookmark name</string>
-    <string name="bookmark_path">Bookmark path</string>
     <string name="bookmarkadded">Zabilje�ka dodana</string>
     <string name="bookmarkexist">Zabilje�ka ve� postoji!</string>
     <string name="createbookmark">Kreiraj zabilje�ku</string>

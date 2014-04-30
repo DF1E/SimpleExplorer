@@ -9,7 +9,6 @@
     <string name="backedup">"个已备份"</string>
     <string name="backup">备份</string>
     <string name="backupcomplete">备份完成。</string>
-    <string name="backuperror">无法备份！</string>
     <string name="cancel">取消</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"删除后将无法恢复！"</string>
     <string name="cantopenfile">无法打开文件！</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">无搜索结果！</string>
     <string name="LastModified">修改时间：</string>
     <string name="launch">启动</string>
-    <string name="loading">正在载入…</string>
     <string name="manage">管理</string>
     <string name="md5">MD5值：</string>
     <string name="move">移动</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">书签</string>
-    <string name="bookmark_name">Bookmark name</string>
-    <string name="bookmark_path">Bookmark path</string>
     <string name="bookmarkadded">书签新增成功。</string>
     <string name="bookmarkexist">书签已存在！</string>
     <string name="createbookmark">新增书签</string>

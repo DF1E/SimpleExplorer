@@ -21,6 +21,8 @@ package com.dnielfe.manager.dialogs;
 
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
+
+import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.commands.RootCommands;
@@ -43,13 +45,6 @@ public final class DirectoryInfoDialog extends DialogFragment {
 	private static File mFile;
 	private View mView;
 
-	public static DialogFragment instantiate(final File file) {
-		mFile = file;
-
-		final DirectoryInfoDialog d = new DirectoryInfoDialog();
-		return d;
-	}
-
 	public Dialog onCreateDialog(final Bundle savedInstanceState) {
 		final Activity activity = this.getActivity();
 		mView = activity.getLayoutInflater().inflate(
@@ -64,6 +59,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
+		mFile = new File(Browser.mCurrentPath);
 		PartitionInfoTask mTask = new PartitionInfoTask(mView);
 		mTask.execute(mFile);
 	}

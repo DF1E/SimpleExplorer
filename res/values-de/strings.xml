@@ -9,7 +9,6 @@
     <string name="backedup">" gesichert"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup abgeschlossen</string>
-    <string name="backuperror">Backup fehlgeschlagen.</string>
     <string name="cancel">Abbrechen</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dies kann nicht rückgängig gemacht werden!"</string>
     <string name="cantopenfile">Datei kann nicht geöffnet werden</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">Die Sucheingabe konnte nicht gefunden werden</string>
     <string name="LastModified">Zuletzt Geändert:</string>
     <string name="launch">Starten</string>
-    <string name="loading">Lade</string>
     <string name="manage">Verwalten</string>
     <string name="md5">MD5:</string>
     <string name="move">Verschieben</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">Lesezeichen</string>
-    <string name="bookmark_name">Lesezeichen Name</string>
-    <string name="bookmark_path">Lesezeichen Pfad</string>
     <string name="bookmarkadded">Lesezeichen hinzugefügt</string>
     <string name="bookmarkexist">Lesezeichen bereits vorhanden</string>
     <string name="createbookmark">Lesezeichen erstellen</string>

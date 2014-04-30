@@ -5,5 +5,4 @@
     <issue id="DrawAllocation" severity="ignore" />
     <issue id="HandlerLeak" severity="ignore" />
     <issue id="NewApi" severity="ignore" />
-    <issue id="SimpleDateFormat" severity="ignore" />
 </lint>

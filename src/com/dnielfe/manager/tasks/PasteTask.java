@@ -45,14 +45,11 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 
 	private String location;
 
-	private String[] content;
-
 	private boolean success = false;
 
-	public PasteTask(final Activity activity, String currentDir, String[] array) {
+	public PasteTask(final Activity activity, String currentDir) {
 		this.activity = new WeakReference<Activity>(activity);
 		this.location = currentDir;
-		this.content = array;
 	}
 
 	@Override
@@ -83,29 +80,16 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 
 	@NotNull
 	@Override
-	protected List<String> doInBackground(String... files) {
+	protected List<String> doInBackground(String... content) {
 		final List<String> failed = new ArrayList<String>();
 		final Activity activity = this.activity.get();
-		int len = content.length;
 
-		if (len == 0) {
-			failed.add(content.toString());
-			return failed;
-		} else if (len == 1) {
-			SimpleUtils.copyToDirectory(content[0], location);
+		for (String target : content) {
+			SimpleUtils.copyToDirectory(target, location);
 			success = true;
 			if (ClipBoard.isMove()) {
-				SimpleUtils.deleteTarget(activity, content[0], location);
+				SimpleUtils.deleteTarget(activity, target, location);
 				success = true;
-			}
-		} else {
-			for (int i = 0; i < len; i++) {
-				SimpleUtils.copyToDirectory(content[i], location);
-				success = true;
-				if (ClipBoard.isMove()) {
-					SimpleUtils.deleteTarget(activity, content[i], location);
-					success = true;
-				}
 			}
 		}
 

@@ -9,7 +9,6 @@
     <string name="backedup">"Đã sao lưu"</string>
     <string name="backup">Sao lưu</string>
     <string name="backupcomplete">Sao lưu hoàn tất.</string>
-    <string name="backuperror">Không thể sao lưu.</string>
     <string name="cancel">Hủy</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Hoạt động này không thể được hoàn tác!"</string>
     <string name="cantopenfile">Không thể mở tập tin này</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">Không thể tìm thấy.</string>
     <string name="LastModified">Ngày sửa đổi:</string>
     <string name="launch">Launch</string>
-    <string name="loading">Đang tải</string>
     <string name="manage">Quản lý</string>
     <string name="md5">MD5:</string>
     <string name="move">Chuyển</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">Ưa thích</string>
-    <string name="bookmark_name">Bookmark name</string>
-    <string name="bookmark_path">Bookmark path</string>
     <string name="bookmarkadded">Mục ưa thích đã được thêm.</string>
     <string name="bookmarkexist">Ưa thích đã tồn tại!</string>
     <string name="createbookmark">Tạo ưa thích</string>

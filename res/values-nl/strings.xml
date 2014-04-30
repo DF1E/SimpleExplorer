@@ -9,7 +9,6 @@
     <string name="backedup">" gebackupt"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup voltooid</string>
-    <string name="backuperror">Backup niet mogelijk</string>
     <string name="cancel">Annuleren</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dit kan niet ongedaan gemaakt worden"</string>
     <string name="cantopenfile">Kan dit bestand niet openen</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">Kon niet gevonden worden</string>
     <string name="LastModified">Laatst Gewijzigd:</string>
     <string name="launch">Start</string>
-    <string name="loading">Bezig met laden</string>
     <string name="manage">Beheer</string>
     <string name="md5">MD5</string>
     <string name="move">Verplaatsen</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">Bladwijzers</string>
-    <string name="bookmark_name">Bladwijzer naam</string>
-    <string name="bookmark_path">Bladwijzer locatie</string>
     <string name="bookmarkadded">Bladwijzer toegevoegd</string>
     <string name="bookmarkexist">Bladwijzer bestaat al!</string>
     <string name="createbookmark">Bladwijzer maken</string>

@@ -9,7 +9,6 @@
     <string name="backedup">" 백업되었습니다"</string>
     <string name="backup">백업</string>
     <string name="backupcomplete">백업 완료.</string>
-    <string name="backuperror">백업을 할수 없습니다</string>
     <string name="cancel">취소</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">This cannot be undone!</string>
     <string name="cantopenfile">이 파일을 열 수 없습니다</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">It couldnt be found.</string>
     <string name="LastModified">Last modified:</string>
     <string name="launch">Launch</string>
-    <string name="loading">Loading</string>
     <string name="manage">Manage</string>
     <string name="md5">MD5:</string>
     <string name="move">Move</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">북마크</string>
-    <string name="bookmark_name">Bookmark name</string>
-    <string name="bookmark_path">Bookmark path</string>
     <string name="bookmarkadded">북마크 추가.</string>
     <string name="bookmarkexist">북마크가 이미 존재합니다!</string>
     <string name="createbookmark">북마크 생성</string>

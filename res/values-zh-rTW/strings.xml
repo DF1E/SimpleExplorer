@@ -9,7 +9,6 @@
     <string name="backedup">" 備份"</string>
     <string name="backup">備份</string>
     <string name="backupcomplete">備份完成.</string>
-    <string name="backuperror">無法備份.</string>
     <string name="cancel">取消</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"無法被還原!"</string>
     <string name="cantopenfile">Cannot open this file</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">它無法被發現.</string>
     <string name="LastModified">最後修改:</string>
     <string name="launch">開展</string>
-    <string name="loading">載入</string>
     <string name="manage">管理</string>
     <string name="md5">MD5:</string>
     <string name="move">移動</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">書籤</string>
-    <string name="bookmark_name">Bookmark name</string>
-    <string name="bookmark_path">Bookmark path</string>
     <string name="bookmarkadded">書籤新增完成.</string>
     <string name="bookmarkexist">書籤已存在!</string>
     <string name="createbookmark">建立書籤</string>

@@ -9,7 +9,6 @@
     <string name="backedup">" Zarchiwizowano"</string>
     <string name="backup">Utwórz kopię</string>
     <string name="backupcomplete">Tworzenie kopii zakończone.</string>
-    <string name="backuperror">Nie można utworzyć kopii.</string>
     <string name="cancel">Anuluj</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Operacja nie może być cofnięta!"</string>
     <string name="cantopenfile">Nie można otworzyć pliku</string>
@@ -47,7 +46,6 @@
     <string name="itcouldntbefound">Nie znaleziono.</string>
     <string name="LastModified">Ostatnia modyfikacja:</string>
     <string name="launch">Uruchom</string>
-    <string name="loading">Ładowanie</string>
     <string name="manage">Zarządzaj</string>
     <string name="md5">MD5:</string>
     <string name="move">Przenieś</string>
@@ -122,8 +120,6 @@
 
     <!-- bookmarks -->
     <string name="bookmark">Zakładki</string>
-    <string name="bookmark_name">Nazwa zakładki</string>
-    <string name="bookmark_path">Ścieżka zakładki</string>
     <string name="bookmarkadded">Zakładka dodana.</string>
     <string name="bookmarkexist">Zakładka już istnieje!</string>
     <string name="createbookmark">Utwórz zakładkę</string>
