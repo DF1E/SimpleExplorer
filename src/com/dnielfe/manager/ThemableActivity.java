@@ -41,8 +41,8 @@ public abstract class ThemableActivity extends Activity {
 	}
 
 	@Override
-	protected void onStart() {
-		super.onStart();
+	protected void onResume() {
+		super.onResume();
 		if (mCurrentTheme != Settings.mTheme) {
 			restart();
 		}

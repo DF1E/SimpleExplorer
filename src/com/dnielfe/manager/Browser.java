@@ -47,7 +47,6 @@ import android.app.ActionBar;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -202,8 +201,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		initActionBar();
 		setupDrawer();
 		initDrawerLists();
-
-		SearchIntent(intent);
 
 		// get the browser list
 		mListView = (ListView) findViewById(android.R.id.list);
@@ -398,12 +395,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	}
 
 	@Override
-	protected void onNewIntent(Intent intent) {
-		setIntent(intent);
-		SearchIntent(intent);
-	}
-
-	@Override
 	public void onEvent(int event, String path) {
 		// this will automatically update the directory when an action like this
 		// will be performed
@@ -429,22 +420,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		navigateTo(path);
 		// go to the top of the ListView
 		mListView.setSelection(0);
-	}
-
-	private void SearchIntent(Intent intent) {
-		setIntent(intent);
-
-		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-			String query = intent.getStringExtra(SearchManager.QUERY);
-
-			if (query.length() > 0) {
-				// open a new class
-				Intent intent1 = new Intent(Browser.this, SearchActivity.class);
-				intent1.putExtra("current", mCurrentPath);
-				intent1.putExtra("query", query);
-				startActivity(intent1);
-			}
-		}
 	}
 
 	private void listItemAction(File file, String item) {
@@ -503,7 +478,8 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 			dirInfo.show(fm, TAG_DIALOG);
 			return true;
 		case R.id.search:
-			this.onSearchRequested();
+			Intent sintent = new Intent(Browser.this, SearchActivity.class);
+			startActivity(sintent);
 			return true;
 		case R.id.paste:
 			final PasteTaskExecutor ptc = new PasteTaskExecutor(this,

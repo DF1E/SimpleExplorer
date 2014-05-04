@@ -29,7 +29,6 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
@@ -43,16 +42,10 @@ public final class RenameTask extends AsyncTask<String, Void, List<String>> {
 
 	private ProgressDialog dialog;
 
-	private String filepath, name, newname;
-
 	private boolean succes = false;
 
-	public RenameTask(final Activity activity, String filepath, String name,
-			String newname) {
+	public RenameTask(final Activity activity) {
 		this.activity = new WeakReference<Activity>(activity);
-		this.filepath = filepath;
-		this.name = name;
-		this.newname = newname;
 	}
 
 	@Override
@@ -82,17 +75,16 @@ public final class RenameTask extends AsyncTask<String, Void, List<String>> {
 		final List<String> failed = new ArrayList<String>();
 
 		try {
-			if (SimpleUtils.renameTarget(filepath, newname)) {
+			if (SimpleUtils.renameTarget(files[0], files[2])) {
 				succes = true;
 			} else {
 				if (RootTools.isRootAvailable()) {
-					RootCommands.renameRootTarget(Browser.mCurrentPath, name,
-							newname);
+					RootCommands.renameRootTarget(files[0], files[1], files[2]);
 					succes = true;
 				}
 			}
 		} catch (Exception e) {
-			failed.add(name);
+			failed.add(files[1]);
 			succes = false;
 		}
 		return failed;

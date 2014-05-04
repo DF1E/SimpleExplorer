@@ -354,8 +354,10 @@ public class SimpleUtils {
 
 					if (temp_f.isDirectory())
 						deleteTarget(activity, temp_f.getAbsolutePath(), dir);
-					else if (temp_f.isFile())
+					else if (temp_f.isFile()) {
 						temp_f.delete();
+						requestMediaScanner(activity, temp_f);
+					}
 				}
 			}
 

@@ -51,8 +51,8 @@ public enum IconPreview {
 	private final ExecutorService pool;
 	private Map<ImageView, String> imageViews = Collections
 			.synchronizedMap(new ConcurrentHashMap<ImageView, String>());
-	private static PackageManager packageManager;
-	private static int mSize = 72;
+	private static PackageManager pm;
+	private static int mSize = 64;
 	private Bitmap placeholder;
 
 	IconPreview() {
@@ -116,7 +116,7 @@ public enum IconPreview {
 
 	public void loadApk(final File file1, final ImageView imageView,
 			final Context context) {
-		packageManager = context.getPackageManager();
+		pm = context.getPackageManager();
 		imageViews.put(imageView, file1.getAbsolutePath());
 		Bitmap bitmap = getBitmapFromCache(file1.getAbsolutePath());
 
@@ -154,17 +154,15 @@ public enum IconPreview {
 
 			cache.put(path, mBitmap);
 			return mBitmap;
-
 		} else if (isVideo) {
 			mBitmap = ThumbnailUtils.createVideoThumbnail(path,
 					MediaStore.Video.Thumbnails.MICRO_KIND);
 
 			cache.put(path, mBitmap);
 			return mBitmap;
-
 		} else if (isApk) {
-			final PackageInfo packageInfo = packageManager
-					.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES);
+			final PackageInfo packageInfo = pm.getPackageArchiveInfo(path,
+					PackageManager.GET_ACTIVITIES);
 
 			if (packageInfo != null) {
 				final ApplicationInfo appInfo = packageInfo.applicationInfo;
@@ -172,7 +170,7 @@ public enum IconPreview {
 				if (appInfo != null) {
 					appInfo.sourceDir = path;
 					appInfo.publicSourceDir = path;
-					final Drawable icon = appInfo.loadIcon(packageManager);
+					final Drawable icon = appInfo.loadIcon(pm);
 
 					if (icon != null) {
 						mBitmap = ((BitmapDrawable) icon).getBitmap();

@@ -49,7 +49,6 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 	private Resources mResources;
 	private ArrayList<String> mDataSource;
 
-	private DrawableLruCache<Integer> mDrawableLruCache;
 	private DrawableLruCache<String> mMimeTypeIconCache;
 
 	public BrowserListAdapter(@NotNull final Context context,
@@ -60,9 +59,6 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 		this.mDataSource = data;
 		this.mResources = context.getResources();
 
-		if (mDrawableLruCache == null) {
-			mDrawableLruCache = new DrawableLruCache<Integer>();
-		}
 		if (mMimeTypeIconCache == null) {
 			mMimeTypeIconCache = new DrawableLruCache<String>();
 		}
@@ -97,7 +93,10 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 			mViewHolder.dateview.setVisibility(TextView.GONE);
 		}
 
-		setIcon(file, mViewHolder.icon);
+		if (Settings.showthumbnail)
+			setIcon(file, mViewHolder.icon);
+		else
+			loadFromRes(file, mViewHolder.icon);
 
 		// Shows the size of File
 		if (file.isFile()) {
@@ -134,43 +133,37 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 		final boolean isVideo = MimeTypes.isVideo(file);
 		final boolean isApk = file.getName().endsWith(".apk");
 
-		if (file != null && file.isDirectory()) {
-			if (file.canRead() && file.list().length > 0)
-				icon.setImageResource(R.drawable.type_folder);
-			else
-				icon.setImageResource(R.drawable.type_folder_empty);
+		// you can set a placeholder
+		// IconPreview.INSTANCE.setPlaceholder(bitmap);
+		if (isImage || isVideo) {
+			icon.setTag(file.getAbsolutePath());
+			IconPreview.INSTANCE.loadBitmap(file, icon);
+		} else if (isApk) {
+			icon.setTag(file.getAbsolutePath());
+			IconPreview.INSTANCE.loadApk(file, icon, mContext);
 		} else {
-			if (Settings.showthumbnail) {
-				if (isImage) {
-					// IconPreview.INSTANCE.setPlaceholder(bitmap);
-					icon.setTag(file.getAbsolutePath());
-					IconPreview.INSTANCE.loadBitmap(file, icon);
-				} else if (isVideo) {
-					// IconPreview.INSTANCE.setPlaceholder(bitmap);
-					icon.setTag(file.getAbsolutePath());
-					IconPreview.INSTANCE.loadBitmap(file, icon);
-				} else if (isApk) {
-					// IconPreview.INSTANCE.setPlaceholder(bitmap);
-					icon.setTag(file.getAbsolutePath());
-					IconPreview.INSTANCE.loadApk(file, icon, mContext);
-				} else {
-					loadFromRes(file, icon);
-				}
-			} else {
-				loadFromRes(file, icon);
-			}
+			loadFromRes(file, icon);
 		}
 	}
 
 	private void loadFromRes(final File file, final ImageView icon) {
-		final String fileExt = FilenameUtils.getExtension(file.getName());
-		Drawable mimeIcon = mMimeTypeIconCache.get(fileExt);
+		Drawable mimeIcon = null;
 
-		if (mimeIcon == null) {
-			final int mimeIconId = MimeTypes.getIconForExt(fileExt);
-			if (mimeIconId != 0) {
-				mimeIcon = mResources.getDrawable(mimeIconId);
-				mMimeTypeIconCache.put(fileExt, mimeIcon);
+		if (file != null && file.isDirectory()) {
+			if (file.canRead() && file.list().length > 0)
+				mimeIcon = mResources.getDrawable(R.drawable.type_folder);
+			else
+				mimeIcon = mResources.getDrawable(R.drawable.type_folder_empty);
+		} else {
+			final String fileExt = FilenameUtils.getExtension(file.getName());
+			mimeIcon = mMimeTypeIconCache.get(fileExt);
+
+			if (mimeIcon == null) {
+				final int mimeIconId = MimeTypes.getIconForExt(fileExt);
+				if (mimeIconId != 0) {
+					mimeIcon = mResources.getDrawable(mimeIconId);
+					mMimeTypeIconCache.put(fileExt, mimeIcon);
+				}
 			}
 		}
 

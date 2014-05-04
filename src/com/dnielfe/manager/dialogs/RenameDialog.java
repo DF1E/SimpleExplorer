@@ -65,9 +65,9 @@ public final class RenameDialog extends DialogFragment {
 							dialog.dismiss();
 
 						dialog.dismiss();
-						final RenameTask task = new RenameTask(a, filepath,
-								name, newname);
-						task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+						final RenameTask task = new RenameTask(a);
+						task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+								filepath, name, newname);
 					}
 				});
 		b.setNegativeButton(R.string.cancel,

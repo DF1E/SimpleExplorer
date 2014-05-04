@@ -29,6 +29,7 @@ import com.dnielfe.manager.utils.SimpleUtils;
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,7 +47,7 @@ public class SearchActivity extends ThemableActivity {
 	private ActionBarNavigation mActionBarNavigation;
 
 	public static String mQuery;
-	private static String mSearchDirectory;
+	private static String mDirectory;
 
 	private ListView mListView;
 	private SearchTask mTask;
@@ -84,17 +85,7 @@ public class SearchActivity extends ThemableActivity {
 		actionBar.show();
 
 		mActionBarNavigation = Browser.getNavigation();
-
-		if (intent != null) {
-			mSearchDirectory = intent.getStringExtra("current");
-			mQuery = intent.getStringExtra("query");
-
-			if (mQuery != null) {
-				mTask = new SearchTask();
-				mTask.execute(mQuery);
-			}
-		}
-
+		mDirectory = Browser.mCurrentPath;
 		SearchIntent(intent);
 	}
 
@@ -118,7 +109,7 @@ public class SearchActivity extends ThemableActivity {
 
 			if (f.isDirectory()) {
 				finish();
-				Browser.mCurrentPath = f.getPath();
+				Browser.listDirectory(f.getPath());
 				mActionBarNavigation.setDirectoryButtons(f.getPath());
 			} else if (f.isFile()) {
 				SimpleUtils.openFile(SearchActivity.this, f);
@@ -144,7 +135,7 @@ public class SearchActivity extends ThemableActivity {
 			mQuery = intent.getStringExtra(SearchManager.QUERY);
 
 			if (mQuery.toString().length() > 0) {
-				mTask = new SearchTask();
+				mTask = new SearchTask(this);
 				mTask.execute(mQuery);
 			} else {
 				return;
@@ -177,13 +168,15 @@ public class SearchActivity extends ThemableActivity {
 	private class SearchTask extends AsyncTask<String, Void, ArrayList<String>> {
 		public ProgressDialog pr_dialog = null;
 		private String file_name;
+		private Context context;
 
-		private SearchTask() {
+		private SearchTask(Context c) {
+			context = c;
 		}
 
 		@Override
 		protected void onPreExecute() {
-			pr_dialog = ProgressDialog.show(SearchActivity.this, "",
+			pr_dialog = ProgressDialog.show(context, "",
 					getString(R.string.search));
 			pr_dialog.setCanceledOnTouchOutside(true);
 		}
@@ -192,8 +185,8 @@ public class SearchActivity extends ThemableActivity {
 		protected ArrayList<String> doInBackground(String... params) {
 			file_name = params[0];
 
-			ArrayList<String> found = SimpleUtils.searchInDirectory(
-					mSearchDirectory, file_name);
+			ArrayList<String> found = SimpleUtils.searchInDirectory(mDirectory,
+					file_name);
 			return found;
 		}
 
@@ -202,7 +195,7 @@ public class SearchActivity extends ThemableActivity {
 			int len = files != null ? files.size() : 0;
 
 			if (len == 0) {
-				Toast.makeText(SearchActivity.this, R.string.itcouldntbefound,
+				Toast.makeText(context, R.string.itcouldntbefound,
 						Toast.LENGTH_SHORT).show();
 			} else {
 				if (!mData.isEmpty())
