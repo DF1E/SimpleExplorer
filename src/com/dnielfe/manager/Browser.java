@@ -346,9 +346,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 							listItemAction(file, path);
 						}
 					}
-				} else {
-					Toast.makeText(Browser.this, getString(R.string.error),
-							Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -362,12 +359,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 			mObserver.removeOnEventListener(this);
 		}
 
-		try {
-			listDirectory(path);
-		} catch (Exception e) {
-			Toast.makeText(Browser.this, getString(R.string.cantreadfolder),
-					Toast.LENGTH_SHORT).show();
-		}
+		listDirectory(path);
 
 		mObserver = mObserverCache.getOrCreate(path);
 
@@ -549,11 +541,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 			Toast.makeText(Browser.this,
 					getString(R.string.pressbackagaintoquit),
 					Toast.LENGTH_SHORT).show();
-
-			if (!ClipBoard.isEmpty()) {
-				ClipBoard.unlock();
-				ClipBoard.clear();
-			}
 
 			mUseBackKey = false;
 			return false;

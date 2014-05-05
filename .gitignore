@@ -38,40 +38,8 @@ ipch/
 *.sdf
 *.cachefile
 
-# Visual Studio profiler
-*.psess
-*.vsp
-*.vspx
-
-# Click-Once directory
-publish/
-
-# Publish Web Output
-*.Publish.xml
-*.pubxml
-
-# NuGet Packages Directory
-## TODO: If you have NuGet Package Restore enabled, uncomment the next line
-#packages/
-
-# Windows Azure Build Output
-csx
-*.build.csdef
-
 # Windows Store app package directory
 AppPackages/
-
-# Others
-sql/
-*.Cache
-ClientBin/
-[Ss]tyle[Cc]op.*
-~$*
-*~
-*.dbmdl
-*.[Pp]ublish.xml
-*.pfx
-*.publishsettings
 
 #############
 ## Windows detritus
@@ -89,40 +57,3 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
-
-#############
-## Python
-#############
-
-*.py[co]
-
-# Packages
-*.egg
-*.egg-info
-dist/
-build/
-eggs/
-parts/
-var/
-sdist/
-develop-eggs/
-.installed.cfg
-
-# Installer logs
-pip-log.txt
-
-# Unit test / coverage reports
-.coverage
-.tox
-
-#Translations
-*.mo
-
-#Mr Developer
-.mr.developer.cfg
-
-#############
-## MyCostum
-#############
-
-TODO

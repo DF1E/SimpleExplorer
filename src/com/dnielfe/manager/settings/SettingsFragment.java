@@ -68,9 +68,4 @@ public final class SettingsFragment extends PreferenceFragment {
 			}
 		});
 	}
-
-	@Override
-	public void onStop() {
-		super.onStop();
-	}
 }

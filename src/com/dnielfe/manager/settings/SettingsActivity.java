@@ -26,7 +26,6 @@ import com.dnielfe.manager.R;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 public class SettingsActivity extends ThemableActivity {
@@ -49,11 +48,6 @@ public class SettingsActivity extends ThemableActivity {
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 		return;
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return super.onCreateOptionsMenu(menu);
 	}
 
 	void proxyRestart() {

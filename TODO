@@ -1,0 +1,23 @@
+TODO:
+==========================================================
+-	fix fileobserver not working some dirs (e.g. /data)
+
+-	fix preview if file is = null
+
+-	improve navigation drawer
+
+-	improve appmanager
+
+-	use commons io fileutils
+
+-	add gridview
+
+-	improve shortcut
+
+-	delete dialog show files to delete
+
+-	show progress on asynctasks
+
+-	search everywhere
+
+-	search preferences
