@@ -17,6 +17,7 @@ local.properties
 .refactorings
 .settings/
 .loadpath
+lint.xml
 
 # External tool builders
 .externalToolBuilders/
