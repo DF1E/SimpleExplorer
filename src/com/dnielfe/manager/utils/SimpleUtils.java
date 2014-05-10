@@ -27,10 +27,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
-import java.util.zip.ZipOutputStream;
-
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -46,7 +42,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
 
 public class SimpleUtils {
@@ -65,40 +60,6 @@ public class SimpleUtils {
 			i++;
 		}
 		MediaScannerConnection.scanFile(context, paths, null, null);
-	}
-
-	/*
-	 * 
-	 * @param file
-	 * 
-	 * @param zout
-	 * 
-	 * @throws IOException
-	 */
-	private static void zip_folder(File file, ZipOutputStream zout)
-			throws ZipException, IOException {
-		byte[] data = new byte[BUFFER];
-		int read;
-
-		if (file.isFile()) {
-			ZipEntry entry = new ZipEntry(file.getName());
-			zout.putNextEntry(entry);
-			BufferedInputStream instream = new BufferedInputStream(
-					new FileInputStream(file));
-
-			while ((read = instream.read(data, 0, BUFFER)) != -1)
-				zout.write(data, 0, read);
-
-			zout.closeEntry();
-			instream.close();
-
-		} else if (file.isDirectory()) {
-			String[] list = file.list();
-			int len = list.length;
-
-			for (int i = 0; i < len; i++)
-				zip_folder(new File(file.getPath() + "/" + list[i]), zout);
-		}
 	}
 
 	/*
@@ -231,10 +192,10 @@ public class SimpleUtils {
 				i_stream.close();
 				o_stream.close();
 			} catch (FileNotFoundException e) {
-				Log.e("FileNotFoundException", e.getMessage());
+				e.printStackTrace();
 				return;
 			} catch (IOException e) {
-				Log.e("IOException", e.getMessage());
+				e.printStackTrace();
 				return;
 			}
 		} else if (old_file.isDirectory() && temp_dir.isDirectory()
@@ -257,40 +218,6 @@ public class SimpleUtils {
 			return;
 
 		return;
-	}
-
-	public static void createZipFile(String path, String zipName) {
-		File dir = new File(path);
-
-		String[] list = dir.list();
-		String _path;
-
-		if (!dir.canRead() || !dir.canWrite())
-			return;
-
-		int len = list.length;
-
-		if (path.charAt(path.length() - 1) != '/')
-			_path = path + "/";
-		else
-			_path = path;
-
-		try {
-			ZipOutputStream zip_out = new ZipOutputStream(
-					new BufferedOutputStream(new FileOutputStream(zipName),
-							BUFFER));
-
-			for (int i = 0; i < len; i++)
-				zip_folder(new File(_path + list[i]), zip_out);
-
-			zip_out.close();
-
-		} catch (FileNotFoundException e) {
-			Log.e("File not found", e.getMessage());
-
-		} catch (IOException e) {
-			Log.e("IOException", e.getMessage());
-		}
 	}
 
 	// filePath = currentDir + "/" + item

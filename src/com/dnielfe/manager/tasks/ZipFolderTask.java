@@ -30,7 +30,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.utils.SimpleUtils;
+import com.dnielfe.manager.utils.ZipUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -75,7 +75,7 @@ public final class ZipFolderTask extends
 		final ArrayList<String> failed = new ArrayList<String>();
 
 		try {
-			SimpleUtils.createZipFile(files[0], zipname);
+			ZipUtils.createZipFile(files[0], zipname);
 		} catch (Exception e) {
 			failed.add(files.toString());
 		}

@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.utils.Compress;
+import com.dnielfe.manager.utils.ZipUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -74,10 +74,8 @@ public final class ZipTask extends AsyncTask<String, Void, List<String>> {
 	protected List<String> doInBackground(String... files) {
 		final List<String> failed = new ArrayList<String>();
 
-		final Compress compress = new Compress(files, zipname);
-
 		try {
-			compress.zip(Browser.mCurrentPath);
+			ZipUtils.createZip(files, zipname, Browser.mCurrentPath);
 		} catch (Exception e) {
 			failed.add(files.toString());
 		}

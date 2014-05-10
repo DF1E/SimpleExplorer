@@ -32,8 +32,8 @@ import android.widget.Toast;
 
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.utils.Decompress;
 import com.dnielfe.manager.utils.SimpleUtils;
+import com.dnielfe.manager.utils.ZipUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -74,9 +74,8 @@ public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
 		final Activity activity = this.activity.get();
 		final List<String> failed = new ArrayList<String>();
 
-		final Decompress decompress = new Decompress(files[0], files[1]);
 		try {
-			decompress.unzip();
+			ZipUtils.unpackZip(files[0], files[1]);
 		} catch (Exception e) {
 			failed.add(files.toString());
 		}
