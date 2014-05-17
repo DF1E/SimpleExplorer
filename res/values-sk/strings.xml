@@ -5,7 +5,7 @@
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Pokročilé</string>
     <string name="appmanager">Správca aplikácií</string>
-    <string name="apps">" aplik."</string>
+    <string name="apps">" aplikácií"</string>
     <string name="backedup">" záloh."</string>
     <string name="backup">Zálohovať</string>
     <string name="backupcomplete">Záloha bola dokončená.</string>
@@ -40,7 +40,7 @@
     <string name="extractto">Rozbaliť do</string>
     <string name="filecreated">Súbor bol vytvorený.</string>
     <string name="fileexists">Súbor už existuje.</string>
-    <string name="files">" súb."</string>
+    <string name="files">" súborov"</string>
     <string name="filewasrenamed">Súbor bol premenovaný.</string>
     <string name="hiddenfiles">Skryté súbory</string>
     <string name="itcouldntbefound">Nenašlo sa.</string>
@@ -108,7 +108,7 @@
 
     <!-- actionmode -->
     <string name="_files">\u0020súb.</string>
-    <string name="_selected">\u0020vybran.</string>
+    <string name="_selected">\u0020vybraných</string>
 
     <!-- directory info dialog -->
     <string name="location">Umiestnenie:</string>
