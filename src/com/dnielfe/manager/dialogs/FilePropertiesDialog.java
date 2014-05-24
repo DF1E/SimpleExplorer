@@ -440,10 +440,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 					if (file == null) {
 						item.disableBoxes();
 					}
-					item.mView.findViewById(android.R.id.progress)
-							.setVisibility(View.GONE);
-					item.mView.findViewById(R.id.content).setVisibility(
-							View.VISIBLE);
 				}
 			}
 		}
