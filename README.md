@@ -32,6 +32,4 @@ Thanks for translations (XDA and Getlocalization):
 + atlasslusho - thai
 
 
-**Now you can help to translate this app at [getlocalization.com](http://www.getlocalization.com/SimpleExplorer)!**
-
 Discussion Thread: http://forum.xda-developers.com/showthread.php?t=2330864

@@ -47,7 +47,7 @@ public final class SimpleExplorer extends Application {
 		rootAccess = RootTools.isAccessGiven();
 	}
 
-	// check if a SDCard exists
+	// check for external storage exists
 	private void checkEnvironment() {
 		boolean sdCardExist = Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED);

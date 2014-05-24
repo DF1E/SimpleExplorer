@@ -291,7 +291,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 	}
 
-	// TODO improve
+	// TODO improve - currently there are two ListViews in one Layout
 	private void initDrawerLists() {
 		mBookmarksCursor = getBookmarksCursor();
 		mBookmarksAdapter = new BookmarksAdapter(this, mBookmarksCursor);

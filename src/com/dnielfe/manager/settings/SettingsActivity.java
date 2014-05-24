@@ -38,7 +38,6 @@ public class SettingsActivity extends ThemableActivity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.show();
-
 	}
 
 	@Override
