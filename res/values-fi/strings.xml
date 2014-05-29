@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="minus" translatable="false">-</string>
+    <string name="app_name">Tiedostoselain</string>
+    <string name="advancedsettings">Kehittyneet asetukset</string>
+    <string name="appmanager">Sovellusten hallinta</string>
+    <string name="apps">" sovellusta"</string>
+    <string name="backedup">" varmuuskopioitu"</string>
+    <string name="backup">Varmuuskopioi</string>
+    <string name="backupcomplete">Varmuuskopiointi onnistui.</string>
+    <string name="cancel">Peruuta</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">"Tätä toimintoa ei voi perua!"</string>
+    <string name="cantopenfile">Tämän tiedoston avaaminen ei onnistu</string>
+    <string name="cantreadfolder">Tätä kansiota ei voi lukea käyttöoikeuksista johtuen</string>
+    <string name="copiedtoclipboard">Kopioitu leikepöydälle.</string>
+    <string name="copy">Kopioi</string>
+    <string name="copyfail">Kopioiminen epäonnistui!</string>
+    <string name="copying">Kopioidaan</string>
+    <string name="copysuccsess">Kopiointi onnistui.</string>
+    <string name="create">Luo</string>
+    <string name="created">" luotu."</string>
+    <string name="createmsg">Lisää kansion nimen eteen piste luodaksesi piilotetun kansion.</string>
+    <string name="createnewfolder">Luo uusi kansio</string>
+    <string name="defaultdir">Oletushakemisto</string>
+    <string name="delete">Poista</string>
+    <string name="deleteapps">Poista sovelluksia</string>
+    <string name="deletesuccess">Poistaminen onnistui</string>
+    <string name="deleting">Poistetaan</string>
+    <string name="desc">kuvaus</string>
+    <string name="detailed">Yksityiskohtainen</string>
+    <string name="details">Tiedot</string>
+    <string name="dir_info">Kansion tiedot</string>
+    <string name="drawer_open">Avaa navigaatiovalikko</string>
+    <string name="drawer_close">Sulje navigaatiovalikko</string>
+    <string name="empty">Tyhjä</string>
+    <string name="enter_name">Anna nimi</string>
+    <string name="error">Virhe</string>
+    <string name="exit">Poistu</string>
+    <string name="extractto">Pura kansioon</string>
+    <string name="filecreated">Tiedosto luotiin.</string>
+    <string name="fileexists">Tiedosto on jo olemassa.</string>
+    <string name="files">" tiedostoa"</string>
+    <string name="filewasrenamed">Tiedosto nimettiin uudelleen.</string>
+    <string name="hiddenfiles">Piilotetut tiedostot</string>
+    <string name="itcouldntbefound">Sitä ei löytynyt.</string>
+    <string name="LastModified">Viimeisin muokkaus:</string>
+    <string name="launch">Käynnistä</string>
+    <string name="manage">Hallinnoi</string>
+    <string name="md5">MD5:</string>
+    <string name="move">Siirrä</string>
+    <string name="movefail">Siirto epäonnistui.</string>
+    <string name="movesuccsess">Siirto onnistui.</string>
+    <string name="moving">Siirretään</string>
+    <string name="multizip">Pakkaa</string>
+    <string name="newfile">Uusi tiedosto</string>
+    <string name="newfolderwasnotcreated">Uutta kansiota ei luotu.</string>
+    <string name="noapps">Ei valittuja sovelluksia.</string>
+    <string name="of">" / "</string>
+    <string name="ok">OK</string>
+    <string name="options">Toiminnot</string>
+    <string name="packing">Pakkaus</string>
+    <string name="paste">Liitä</string>
+    <string name="playstore">Play-kauppa</string>
+    <string name="pressbackagaintoquit">Paina takaisin-painiketta uudelleen poistuaksesi.</string>
+    <string name="rename">Nimeä uudelleen</string>
+    <string name="sdcardnotfound">Muistikorttia ei löytynyt!</string>
+    <string name="search">Hae</string>
+    <string name="searchtext">Hae</string>
+    <string name="selectall">Valitse kaikki</string>
+    <string name="settings">Asetukset</string>
+    <string name="share">Jaa</string>
+    <string name="shortcut">Luo pikakuvake</string>
+    <string name="shortcutcreated">Pikakuvake luotu.</string>
+    <string name="showpreview">Pikkukuvat</string>
+    <string name="simple">Yksinkertainen</string>
+    <string name="size">Koko:</string>
+    <string name="sort">Lajittelutapa</string>
+    <string name="uisettings">Näyttöasetukset</string>
+    <string name="uninstallapp">Poista sovellus</string>
+    <string name="unselectall">Poista valinta kaikista</string>
+    <string name="unzipping">Puretaan</string>
+    <string name="version">"Versio "</string>
+    <string name="viewmode">Näyttötapa</string>
+    <string name="xdaforum">XDA-keskustelupalsta</string>
+    <string name="zipping">Pakataan</string>
+
+    <!-- sort list type -->
+    <string name="sort_name">Nimi</string>
+    <string name="sort_size">Koko</string>
+    <string name="sort_type">Tyyppi</string>
+    <string name="sort_date">Päiväys</string>
+
+    <!-- theme -->
+    <string name="theme">Teema</string>
+    <string name="light">Kirkas</string>
+    <string name="dark">Hämärä</string>
+
+    <!-- permissions -->
+    <string name="permissions">Käyttöoikeudet</string>
+    <string name="owner">Omistaja:</string>
+    <string name="group">Ryhmä:</string>
+    <string name="others">Muu:</string>
+    <string name="read">Luku</string>
+    <string name="write">Kirjoitus</string>
+    <string name="execute">Suoritus</string>
+    <string name="permissionschanged">Käyttöoikeuksien muutos onnistui</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020tiedosto(a)</string>
+    <string name="_selected">\u0020valittu</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Sijainti:</string>
+    <string name="total">Koko yhteensä:</string>
+    <string name="free">Vapaa tila:</string>
+    <string name="available">Käytettävissä oleva tila:</string>
+    <string name="block_size">Lohkon koko:</string>
+    <string name="used">Käytössä:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">Kirjanmerkit</string>
+    <string name="bookmarkadded">Kirjanmerkki lisätty.</string>
+    <string name="bookmarkexist">Kirjanmerkki on jo olemassa!</string>
+    <string name="createbookmark">Luo kirjanmerkki</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Kohdetiedosto on jo olemassa</string>
+    <string name="overwrite_source">Lähde</string>
+    <string name="overwrite_destination">Kohde</string>
+    <string name="overwrite_skip">Ohita</string>
+    <string name="overwrite_skip_all">Ohita kaikki</string>
+    <string name="overwrite_replace">Korvaa</string>
+    <string name="overwrite_replace_all">Korvaa kaikki</string>
+
+</resources>
