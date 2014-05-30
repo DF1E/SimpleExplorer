@@ -111,7 +111,6 @@ public final class ActionModeController {
 					.getCheckedItemPositions();
 			final int checkedItemSize = items.size();
 			final String[] files = new String[mListView.getCheckedItemCount()];
-			final String currentDir = Browser.mCurrentPath;
 			int index = -1;
 
 			switch (item.getItemId()) {
@@ -119,8 +118,8 @@ public final class ActionModeController {
 				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
-						files[++index] = currentDir + "/"
-								+ mListView.getItemAtPosition(key);
+						files[++index] = (String) mListView
+								.getItemAtPosition(key);
 					}
 				}
 				ClipBoard.cutMove(files);
@@ -131,8 +130,8 @@ public final class ActionModeController {
 				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
-						files[++index] = currentDir + "/"
-								+ mListView.getItemAtPosition(key);
+						files[++index] = (String) mListView
+								.getItemAtPosition(key);
 					}
 				}
 				ClipBoard.cutCopy(files);
@@ -143,8 +142,8 @@ public final class ActionModeController {
 				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
-						files[++index] = currentDir + "/"
-								+ mListView.getItemAtPosition(key);
+						files[++index] = (String) mListView
+								.getItemAtPosition(key);
 					}
 				}
 				final DialogFragment dialog1 = DeleteFilesDialog
@@ -158,8 +157,8 @@ public final class ActionModeController {
 				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
-						final File selected = new File(currentDir + "/"
-								+ mListView.getItemAtPosition(key));
+						final File selected = new File(
+								(String) mListView.getItemAtPosition(key));
 						if (selected != null && !selected.isDirectory()) {
 							uris.add(Uri.fromFile(selected));
 						}
@@ -179,8 +178,8 @@ public final class ActionModeController {
 				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
-						SimpleUtils.createShortcut(mActivity, currentDir + "/"
-								+ mListView.getItemAtPosition(key));
+						SimpleUtils.createShortcut(mActivity,
+								(String) mListView.getItemAtPosition(key));
 						mode.finish();
 						break;
 					}
@@ -190,7 +189,7 @@ public final class ActionModeController {
 				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
-						File file = new File(currentDir,
+						File file = new File(Browser.mCurrentPath,
 								(String) mListView.getItemAtPosition(key));
 
 						mAdapter = Browser.getBookmarksAdapter();
@@ -205,8 +204,8 @@ public final class ActionModeController {
 				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
-						files[++index] = currentDir + "/"
-								+ mListView.getItemAtPosition(key);
+						files[++index] = (String) mListView
+								.getItemAtPosition(key);
 					}
 				}
 				final DialogFragment dialog = ZipFilesDialog.instantiate(files);
@@ -218,13 +217,8 @@ public final class ActionModeController {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
 						final DialogFragment dialog3 = RenameDialog
-								.instantiate(
-										currentDir
-												+ "/"
-												+ mListView
-														.getItemAtPosition(key),
-										(String) mListView
-												.getItemAtPosition(key));
+								.instantiate(new File((String) mListView
+										.getItemAtPosition(key)).getName());
 						mode.finish();
 						dialog3.show(mActivity.getFragmentManager(),
 								Browser.TAG_DIALOG);
@@ -237,8 +231,8 @@ public final class ActionModeController {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
 						final DialogFragment dialog4 = FilePropertiesDialog
-								.instantiate(new File(currentDir + "/"
-										+ mListView.getItemAtPosition(key)));
+								.instantiate(new File((String) mListView
+										.getItemAtPosition(key)));
 						mode.finish();
 						dialog4.show(mActivity.getFragmentManager(),
 								Browser.TAG_DIALOG);

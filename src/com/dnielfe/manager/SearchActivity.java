@@ -22,7 +22,7 @@ package com.dnielfe.manager;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.dnielfe.manager.adapters.SearchListAdapter;
+import com.dnielfe.manager.adapters.BrowserListAdapter;
 import com.dnielfe.manager.utils.ActionBarNavigation;
 import com.dnielfe.manager.utils.SimpleUtils;
 
@@ -49,10 +49,11 @@ public class SearchActivity extends ThemableActivity {
 	public static String mQuery;
 	private static String mDirectory;
 
+	private ActionBar mActionBar;
 	private ListView mListView;
 	private SearchTask mTask;
 	private ArrayList<String> mData;
-	private SearchListAdapter mAdapter;
+	private BrowserListAdapter mAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -80,9 +81,9 @@ public class SearchActivity extends ThemableActivity {
 	}
 
 	private void init(Intent intent) {
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.show();
+		mActionBar = getActionBar();
+		mActionBar.setDisplayHomeAsUpEnabled(true);
+		mActionBar.show();
 
 		mActionBarNavigation = Browser.getNavigation();
 		mDirectory = Browser.mCurrentPath;
@@ -91,7 +92,7 @@ public class SearchActivity extends ThemableActivity {
 
 	private void initList() {
 		mData = new ArrayList<String>();
-		mAdapter = new SearchListAdapter(this, mData);
+		mAdapter = new BrowserListAdapter(this, mData);
 
 		mListView = (ListView) findViewById(android.R.id.list);
 		mListView.setEmptyView(findViewById(android.R.id.empty));
@@ -176,7 +177,7 @@ public class SearchActivity extends ThemableActivity {
 
 		@Override
 		protected void onPreExecute() {
-			pr_dialog = ProgressDialog.show(context, "",
+			pr_dialog = ProgressDialog.show(context, null,
 					getString(R.string.search));
 			pr_dialog.setCanceledOnTouchOutside(true);
 		}
@@ -194,20 +195,24 @@ public class SearchActivity extends ThemableActivity {
 		protected void onPostExecute(final ArrayList<String> files) {
 			int len = files != null ? files.size() : 0;
 
+			if (!mData.isEmpty())
+				mData.clear();
+
+			pr_dialog.dismiss();
+
 			if (len == 0) {
 				Toast.makeText(context, R.string.itcouldntbefound,
 						Toast.LENGTH_SHORT).show();
+				mActionBar.setSubtitle(null);
 			} else {
-				if (!mData.isEmpty())
-					mData.clear();
-
 				for (String data : files)
 					mData.add(data);
 
-				mAdapter.notifyDataSetChanged();
+				mActionBar.setSubtitle(String.valueOf(len)
+						+ getString(R.string._files));
 			}
 
-			pr_dialog.dismiss();
+			mAdapter.notifyDataSetChanged();
 		}
 	}
 

@@ -60,9 +60,9 @@ public class RootCommands {
 			while ((line = in.readLine()) != null) {
 				if (!showhidden) {
 					if (line.toString().charAt(0) != '.')
-						mDirContent.add(line);
+						mDirContent.add(path + "/" + line);
 				} else {
-					mDirContent.add(line);
+					mDirContent.add(path + "/" + line);
 				}
 			}
 		} catch (IOException e) {

@@ -32,11 +32,9 @@ import android.widget.EditText;
 
 public final class RenameDialog extends DialogFragment {
 
-	private static String filepath;
 	private static String name;
 
-	public static DialogFragment instantiate(String dir, String name1) {
-		filepath = dir;
+	public static DialogFragment instantiate(String name1) {
 		name = name1;
 
 		final RenameDialog dialog = new RenameDialog();
@@ -67,7 +65,7 @@ public final class RenameDialog extends DialogFragment {
 						dialog.dismiss();
 						final RenameTask task = new RenameTask(a);
 						task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-								filepath, name, newname);
+								name, newname);
 					}
 				});
 		b.setNegativeButton(R.string.cancel,

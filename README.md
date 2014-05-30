@@ -30,6 +30,7 @@ Thanks for translations (XDA and Getlocalization):
 + scweeny - korean
 + logpc - french
 + atlasslusho - thai
++ mary-kate - finnish
 
 
 Discussion Thread: http://forum.xda-developers.com/showthread.php?t=2330864

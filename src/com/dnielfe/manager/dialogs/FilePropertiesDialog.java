@@ -22,6 +22,7 @@ package com.dnielfe.manager.dialogs;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.dnielfe.manager.R;
@@ -169,8 +170,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 				@NotNull final File file) {
 			mLayoutInflater = context.getLayoutInflater();
 			mFile = file;
-			mItems = new PagerItem[] {
-					new FilePropertiesPagerItem(context, mFile),
+			mItems = new PagerItem[] { new FilePropertiesPagerItem(mFile),
 					new FilePermissionsPagerItem(mFile) };
 		}
 
@@ -219,13 +219,11 @@ public final class FilePropertiesDialog extends DialogFragment {
 
 	private static final class FilePropertiesPagerItem implements PagerItem {
 		private File file3;
-		private Context mContext;
 		private TextView mPathLabel, mTimeLabel, mSizeLabel, mMD5Label;
 		private View mView;
 		private LoadFsTask mTask;
 
-		private FilePropertiesPagerItem(Activity ac, File file) {
-			this.mContext = ac;
+		private FilePropertiesPagerItem(File file) {
 			this.file3 = file;
 		}
 
@@ -275,13 +273,9 @@ public final class FilePropertiesDialog extends DialogFragment {
 
 			@Override
 			protected String doInBackground(final File... params) {
-				DateFormat dateFormat = android.text.format.DateFormat
-						.getDateFormat(mContext.getApplicationContext());
-				DateFormat timeFormat = android.text.format.DateFormat
-						.getTimeFormat(mContext.getApplicationContext());
+				DateFormat df = DateFormat.getDateTimeInstance();
 
-				mTimeLabel.setText(dateFormat.format(file3.lastModified())
-						+ " " + timeFormat.format(file3.lastModified()));
+				mTimeLabel.setText(df.format(file3.lastModified()));
 
 				if (!file3.canRead()) {
 					mDisplaySize = "---";

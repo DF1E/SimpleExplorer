@@ -1,6 +1,8 @@
 Changelog:
 v2.0.2
-support for multi-window devices
+readded support for multi-window devices (only tested on TouchWiz)
+add finnish language
+improved search
 minor fixes and improvements
 updated translations
 

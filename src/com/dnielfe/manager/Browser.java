@@ -162,14 +162,13 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 			defaultdir = savedInstanceState.getString("location");
 		} else {
 			try {
-				String shortcut = intent.getStringExtra(EXTRA_SHORTCUT);
-				File dir = new File(shortcut);
+				File dir = new File(intent.getStringExtra(EXTRA_SHORTCUT));
 
 				if (dir.exists() && dir.isDirectory()) {
-					defaultdir = shortcut;
+					defaultdir = dir.getAbsolutePath();
 				} else {
 					if (dir.exists() && dir.isFile())
-						listItemAction(dir, shortcut);
+						listItemAction(dir);
 					// you need to call it when shortcut-dir not exists
 					defaultdir = Settings.defaultdir;
 				}
@@ -217,9 +216,8 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			final String item = (mListView.getAdapter().getItem(position))
-					.toString();
-			final File file = new File(mCurrentPath + "/" + item);
+			final File file = new File(
+					(mListView.getAdapter().getItem(position)).toString());
 
 			if (file.isDirectory()) {
 				navigateTo(file.getAbsolutePath());
@@ -231,22 +229,22 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 					mUseBackKey = true;
 
 			} else {
-				listItemAction(file, item);
+				listItemAction(file);
 			}
 		}
 	};
 
 	private void initActionBar() {
-		this.mActionBar = this.getActionBar();
-		this.mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
+		mActionBar = this.getActionBar();
+		mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
 				| ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO
 				| ActionBar.DISPLAY_HOME_AS_UP);
 
 		// set custom ActionBar layout
 		final View mActionView = getLayoutInflater().inflate(
 				R.layout.activity_browser_actionbar, null);
-		this.mActionBar.setCustomView(mActionView);
-		this.mActionBar.show();
+		mActionBar.setCustomView(mActionView);
+		mActionBar.show();
 	}
 
 	private void setupDrawer() {
@@ -334,16 +332,16 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 					mDrawerLayout.closeDrawer(mDrawer);
 
 				if (mBookmarksCursor.moveToPosition(position)) {
-					String path = mBookmarksCursor.getString(mBookmarksCursor
-							.getColumnIndex(Bookmarks.PATH));
-					File file = new File(path);
+					File file = new File(mBookmarksCursor
+							.getString(mBookmarksCursor
+									.getColumnIndex(Bookmarks.PATH)));
 					if (file != null) {
 						if (file.isDirectory()) {
-							mCurrentPath = path;
+							mCurrentPath = file.getAbsolutePath();
 							// go to the top of the ListView
 							mListView.setSelection(0);
 						} else {
-							listItemAction(file, path);
+							listItemAction(file);
 						}
 					}
 				}
@@ -393,7 +391,6 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		switch (event & FileObserver.ALL_EVENTS) {
 		case FileObserver.CREATE:
 		case FileObserver.CLOSE_WRITE:
-		case FileObserver.MODIFY:
 		case FileObserver.MOVE_SELF:
 		case FileObserver.MOVED_TO:
 		case FileObserver.MOVED_FROM:
@@ -414,14 +411,12 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		mListView.setSelection(0);
 	}
 
-	private void listItemAction(File file, String item) {
+	private void listItemAction(File file) {
 		String item_ext = FilenameUtils.getExtension(file.getName());
 
 		if (item_ext.equalsIgnoreCase("zip")
 				|| item_ext.equalsIgnoreCase("rar")) {
-			final String zipPath = mCurrentPath + "/" + item;
-			final DialogFragment dialog = UnpackDialog.instantiate(new File(
-					zipPath));
+			final DialogFragment dialog = UnpackDialog.instantiate(file);
 			dialog.show(fm, TAG_DIALOG);
 		} else {
 			SimpleUtils.openFile(this, file);

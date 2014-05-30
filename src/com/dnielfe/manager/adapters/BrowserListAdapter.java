@@ -22,12 +22,12 @@ package com.dnielfe.manager.adapters;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
 
-import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.preview.DrawableLruCache;
 import com.dnielfe.manager.preview.IconPreview;
@@ -68,13 +68,9 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final ViewHolder mViewHolder;
 		int num_items = 0;
-		final File file = new File(Browser.mCurrentPath + "/"
-				+ this.getItem(position));
-		String[] list = file.list();
-
-		if (list != null)
-			// get number of files in directory
-			num_items = list.length;
+		final File file = new File(getItem(position));
+		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT,
+				DateFormat.SHORT, Locale.getDefault());
 
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) mContext
@@ -98,27 +94,23 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 		else
 			loadFromRes(file, mViewHolder.icon);
 
-		// Shows the size of File
 		if (file.isFile()) {
-			long size = file.length();
-
+			// Shows the size of File
 			mViewHolder.bottomView.setText(FileUtils
-					.byteCountToDisplaySize(size));
+					.byteCountToDisplaySize(file.length()));
 		} else {
-			// Shows the number of Files in Folder
-			String s = mContext.getString(R.string.files);
-			mViewHolder.bottomView.setText(num_items + s);
+			String[] list = file.list();
+
+			if (list != null)
+				num_items = list.length;
+
+			// show the number of files in Folder
+			mViewHolder.bottomView.setText(num_items
+					+ mResources.getString(R.string.files));
 		}
 
-		DateFormat dateFormat = android.text.format.DateFormat
-				.getDateFormat(mContext);
-		DateFormat timeFormat = android.text.format.DateFormat
-				.getTimeFormat(mContext);
-
 		mViewHolder.topView.setText(file.getName());
-
-		mViewHolder.dateview.setText(dateFormat.format(file.lastModified())
-				+ " " + timeFormat.format(file.lastModified()));
+		mViewHolder.dateview.setText(df.format(file.lastModified()));
 
 		return convertView;
 	}

@@ -113,9 +113,9 @@ public class SimpleUtils {
 			for (int i = 0; i < len; i++) {
 				if (!showhidden) {
 					if (list[i].toString().charAt(0) != '.')
-						mDirContent.add(list[i]);
+						mDirContent.add(path + "/" + list[i]);
 				} else {
-					mDirContent.add(list[i]);
+					mDirContent.add(path + "/" + list[i]);
 				}
 			}
 		} else {
@@ -224,11 +224,9 @@ public class SimpleUtils {
 	// newName = new name
 	public static boolean renameTarget(String filePath, String newName) {
 		File src = new File(filePath);
-		File dest;
 
 		String temp = filePath.substring(0, filePath.lastIndexOf("/"));
-
-		dest = new File(temp + "/" + newName);
+		File dest = new File(temp + "/" + newName);
 
 		if (src.renameTo(dest))
 			return true;

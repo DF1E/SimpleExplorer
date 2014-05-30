@@ -44,7 +44,6 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -372,9 +371,7 @@ public class AppManager extends ThemableActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.appmanager, menu);
+		getMenuInflater().inflate(R.menu.appmanager, menu);
 
 		mMenuItem = menu.findItem(R.id.actionselect);
 		return true;
