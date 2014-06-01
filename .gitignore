@@ -43,7 +43,7 @@ ipch/
 AppPackages/
 
 #############
-## Windows detritus
+## OS / System created files
 #############
 
 # Windows image file caches
@@ -58,3 +58,6 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
+
+# Linux
+.directory
