@@ -19,6 +19,8 @@
 
 package com.dnielfe.manager.adapters;
 
+import java.io.File;
+
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.Bookmarks;
 
@@ -84,15 +86,15 @@ public class BookmarksAdapter extends SimpleCursorAdapter {
 		return convertView;
 	}
 
-	public void createBookmark(String path, String key) {
+	public void createBookmark(File file) {
 		Cursor c = mContext.getContentResolver().query(Bookmarks.CONTENT_URI,
 				new String[] { Bookmarks._ID }, Bookmarks.PATH + "=?",
-				new String[] { path }, null);
+				new String[] { file.getPath() }, null);
 
 		if (!c.moveToFirst()) {
 			ContentValues values = new ContentValues();
-			values.put(Bookmarks.NAME, String.valueOf(key));
-			values.put(Bookmarks.PATH, path);
+			values.put(Bookmarks.NAME, file.getName());
+			values.put(Bookmarks.PATH, file.getPath());
 			mContext.getContentResolver().insert(Bookmarks.CONTENT_URI, values);
 			Toast.makeText(mContext, R.string.bookmarkadded, Toast.LENGTH_SHORT)
 					.show();

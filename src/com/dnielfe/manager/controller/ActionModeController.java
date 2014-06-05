@@ -189,12 +189,11 @@ public final class ActionModeController {
 				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
 					if (items.get(key)) {
-						File file = new File(Browser.mCurrentPath,
+						File file = new File(
 								(String) mListView.getItemAtPosition(key));
 
 						mAdapter = Browser.getBookmarksAdapter();
-						mAdapter.createBookmark(file.getPath(),
-								(String) mListView.getItemAtPosition(key));
+						mAdapter.createBookmark(file);
 						mode.finish();
 						break;
 					}
