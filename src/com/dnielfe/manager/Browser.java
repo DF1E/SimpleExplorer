@@ -27,6 +27,7 @@ import org.apache.commons.io.FilenameUtils;
 import com.dnielfe.manager.adapters.BookmarksAdapter;
 import com.dnielfe.manager.adapters.DrawerListAdapter;
 import com.dnielfe.manager.adapters.BrowserListAdapter;
+import com.dnielfe.manager.adapters.MergeAdapter;
 import com.dnielfe.manager.controller.ActionModeController;
 import com.dnielfe.manager.dialogs.CreateFileDialog;
 import com.dnielfe.manager.dialogs.CreateFolderDialog;
@@ -64,7 +65,6 @@ import android.view.MenuItem;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -82,6 +82,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	private Runnable mLastRunnable;
 
 	private static BookmarksAdapter mBookmarksAdapter;
+	private static MergeAdapter mMergeAdapter;
 	private static BrowserListAdapter mListAdapter;
 	private static DrawerListAdapter mMenuAdapter;
 
@@ -92,10 +93,9 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 	private FragmentManager fm;
 	private Cursor mBookmarksCursor;
-	private LinearLayout mDrawer;
+	private ListView mDrawer;
 	private MenuItem mMenuItemPaste;
 	private DrawerLayout mDrawerLayout;
-	private ListView mDrawerList, mBookmarkList;
 	private AbsListView mListView;
 	private ActionBar mActionBar;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -199,7 +199,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 		initActionBar();
 		setupDrawer();
-		initDrawerLists();
+		initDrawerList();
 
 		// get the browser list
 		mListView = (ListView) findViewById(android.R.id.list);
@@ -252,7 +252,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		final int themeId = array.getInteger(0, SimpleExplorer.THEME_ID_LIGHT);
 		array.recycle();
 
-		mDrawer = (LinearLayout) findViewById(R.id.left_drawer);
+		mDrawer = (ListView) findViewById(R.id.left_drawer);
 
 		// Set shadow of navigation drawer
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -289,60 +289,58 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 	}
 
-	// TODO improve - currently there are two ListViews in one Layout
-	private void initDrawerLists() {
+	private void initDrawerList() {
 		mBookmarksCursor = getBookmarksCursor();
 		mBookmarksAdapter = new BookmarksAdapter(this, mBookmarksCursor);
 		mMenuAdapter = new DrawerListAdapter(this);
 
-		// initialize menu list
-		mDrawerList = (ListView) findViewById(R.id.drawer_list);
-		mDrawerList.setAdapter(mMenuAdapter);
-		mDrawerList.setOnItemClickListener(new OnItemClickListener() {
+		// create MergeAdapter to combine multiple adapter
+		mMergeAdapter = new MergeAdapter();
+		mMergeAdapter.addAdapter(mBookmarksAdapter);
+		mMergeAdapter.addAdapter(mMenuAdapter);
+
+		mDrawer.setAdapter(mMergeAdapter);
+		mDrawer.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				switch (position) {
-				case 0:
-					// start AppManager
-					Intent intent1 = new Intent(Browser.this, AppManager.class);
-					startActivity(intent1);
-					break;
-				case 1:
-					// start Preferences
-					Intent intent2 = new Intent(Browser.this,
-							SettingsActivity.class);
-					startActivity(intent2);
-					break;
-				case 2:
-					// exit
-					finish();
-				}
-			}
-		});
+				if (mMergeAdapter.getAdapter(position)
+						.equals(mBookmarksAdapter)) {
+					// handle bookmark items
+					if (mDrawerLayout.isDrawerOpen(mDrawer))
+						mDrawerLayout.closeDrawer(mDrawer);
 
-		// initialize bookmarks list
-		mBookmarkList = (ListView) findViewById(R.id.bookmark_list);
-		mBookmarkList.setAdapter(mBookmarksAdapter);
-		mBookmarkList.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				if (mDrawerLayout.isDrawerOpen(mDrawer))
-					mDrawerLayout.closeDrawer(mDrawer);
+					if (mBookmarksCursor.moveToPosition((int) position)) {
+						File file = new File(mBookmarksCursor
+								.getString(mBookmarksCursor
+										.getColumnIndex(Bookmarks.PATH)));
 
-				if (mBookmarksCursor.moveToPosition(position)) {
-					File file = new File(mBookmarksCursor
-							.getString(mBookmarksCursor
-									.getColumnIndex(Bookmarks.PATH)));
-					if (file != null) {
-						if (file.isDirectory()) {
-							mCurrentPath = file.getAbsolutePath();
-							// go to the top of the ListView
-							mListView.setSelection(0);
-						} else {
-							listItemAction(file);
+						if (file != null) {
+							if (file.isDirectory()) {
+								mCurrentPath = file.getAbsolutePath();
+								// go to the top of the ListView
+								mListView.setSelection(0);
+							} else {
+								listItemAction(file);
+							}
 						}
+					}
+				} else if (mMergeAdapter.getAdapter(position).equals(
+						mMenuAdapter)) {
+					// handle menu items
+					switch ((int) mMergeAdapter.getItemId(position)) {
+					case 0:
+						Intent intent1 = new Intent(Browser.this,
+								AppManager.class);
+						startActivity(intent1);
+						break;
+					case 1:
+						Intent intent2 = new Intent(Browser.this,
+								SettingsActivity.class);
+						startActivity(intent2);
+						break;
+					case 2:
+						finish();
 					}
 				}
 			}
