@@ -5,14 +5,14 @@
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Avanzate</string>
     <string name="appmanager">Gestore App</string>
-    <string name="apps">" Apps"</string>
+    <string name="apps">" App"</string>
     <string name="backedup">" backuppato"</string>
     <string name="backup">Backup</string>
     <string name="backupcomplete">Backup eseguito</string>
     <string name="cancel">Annulla</string>
-    <string name="cannotbeundoneareyousureyouwanttodelete">"Questa operazione non può essere annullata"</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">Questa operazione non può essere annullata</string>
     <string name="cantopenfile">Impossibile aprire questo file</string>
-    <string name="cantreadfolder">Impossibile accedere alla cartella per mancanza di permessi</string>
+    <string name="cantreadfolder">Impossibile accedere alla cartella per mancanza permessi</string>
     <string name="copiedtoclipboard">copiato negli Appunti</string>
     <string name="copy">Copia</string>
     <string name="copyfail">Copia fallita!</string>
@@ -21,16 +21,16 @@
     <string name="create">Crea</string>
     <string name="created">" creato"</string>
     <string name="createmsg">Inserisci un punto prima del testo per creare una cartella nascosta.</string>
-    <string name="createnewfolder">Crea una nuova Cartella</string>
-    <string name="defaultdir">Directory predefinita</string>
+    <string name="createnewfolder">Crea una nuova cartella</string>
+    <string name="defaultdir">Cartella predefinita</string>
     <string name="delete">Elimina</string>
-    <string name="deleteapps">Elimina Apps</string>
+    <string name="deleteapps">Elimina app</string>
     <string name="deletesuccess">Eliminazione completata</string>
-    <string name="deleting">Eliminazione in corso</string>
-    <string name="desc">decr</string>
+    <string name="deleting">Eliminazione</string>
+    <string name="desc">descr</string>
     <string name="detailed">Dettagliata</string>
     <string name="details">Dettagli</string>
-    <string name="dir_info">Informazioni Cartella</string>
+    <string name="dir_info">Informazioni cartella</string>
     <string name="drawer_open">Apri pannello navigazione</string>
     <string name="drawer_close">Chiudi pannello navigazione</string>
     <string name="empty">Vuoto</string>
@@ -40,11 +40,11 @@
     <string name="extractto">Estrai in</string>
     <string name="filecreated">Il File è stato creato</string>
     <string name="fileexists">Il File esiste già</string>
-    <string name="files">" Files"</string>
-    <string name="filewasrenamed">Il File è stato rinominato</string>
-    <string name="hiddenfiles">File Nascosti</string>
+    <string name="files">" file"</string>
+    <string name="filewasrenamed">Il file è stato rinominato</string>
+    <string name="hiddenfiles">File nascosti</string>
     <string name="itcouldntbefound">Non è stato trovato.</string>
-    <string name="LastModified">Ultima Modifica:</string>
+    <string name="LastModified">Ultima modifica:</string>
     <string name="launch">Esegui</string>
     <string name="manage">Gestione</string>
     <string name="md5">MD5:</string>
@@ -59,15 +59,15 @@
     <string name="of">" di"</string>
     <string name="ok">OK</string>
     <string name="options">Opzioni</string>
-    <string name="packing">Comprimendo</string>
+    <string name="packing">Compressione</string>
     <string name="paste">Incolla</string>
     <string name="playstore">Playstore</string>
-    <string name="pressbackagaintoquit">Premi indietro un\'altra volta per uscire.</string>
+    <string name="pressbackagaintoquit">"Premi [Indietro] un'altra volta per uscire."</string>
     <string name="rename">Rinomina</string>
     <string name="sdcardnotfound">Impossibile trovare la Scheda SD!</string>
     <string name="search">Cerca</string>
     <string name="searchtext">Cerca</string>
-    <string name="selectall">Seleziona Tutto</string>
+    <string name="selectall">Seleziona tutto</string>
     <string name="settings">Impostazioni</string>
     <string name="share">Condividi</string>
     <string name="shortcut">Crea Collegamento</string>
@@ -77,9 +77,9 @@
     <string name="size">Usati:</string>
     <string name="sort">Ordina</string>
     <string name="uisettings">Impostazioni vista</string>
-    <string name="uninstallapp">Disinstalla App</string>
+    <string name="uninstallapp">Disinstalla app</string>
     <string name="unselectall">Deseleziona tutto</string>
-    <string name="unzipping">Scomprimendo</string>
+    <string name="unzipping">Decompressione</string>
     <string name="version">"Versione "</string>
     <string name="viewmode">Modalità vista</string>
     <string name="xdaforum">Forum XDA</string>
@@ -104,28 +104,28 @@
     <string name="read">Lettura</string>
     <string name="write">Scrittura</string>
     <string name="execute">Esecuzione</string>
-    <string name="permissionschanged">Permessi cambiati</string>
+    <string name="permissionschanged">Permessi modificati</string>
 
     <!-- actionmode -->
-    <string name="_files">\u0020file</string>
-    <string name="_selected">\u0020selezionati</string>
+    <string name="_files">"\u0020file"</string>
+    <string name="_selected">"\u0020selezionati"</string>
 
     <!-- directory info dialog -->
     <string name="location">Posizione:</string>
     <string name="total">Spazio totale:</string>
     <string name="free">Spazio libero:</string>
     <string name="available">Spazio disponibile:</string>
-    <string name="block_size">Dimensione dei blocchi:</string>
+    <string name="block_size">Dimensione blocchi:</string>
     <string name="used">Usati:</string>
 
     <!-- bookmarks -->
     <string name="bookmark">Preferiti</string>
-    <string name="bookmarkadded">Preferito aggiunto</string>
+    <string name="bookmarkadded">Aggiunto preferito</string>
     <string name="bookmarkexist">Il preferito esiste già!</string>
-    <string name="createbookmark">Crea Preferito</string>
+    <string name="createbookmark">Crea preferito</string>
 
     <!-- overwrite dialog -->
-    <string name="overwrite_title">Il file di destinazione esiste già</string>
+    <string name="overwrite_title">Il file destinazione esiste già</string>
     <string name="overwrite_source">Sorgente</string>
     <string name="overwrite_destination">Destinazione</string>
     <string name="overwrite_skip">Salta</string>
