@@ -1,4 +1,12 @@
 Changelog:
+---new versoin---
+reduce apk size using proguard
+updated italian
+
+v2.0.3
+fixed bug when creating bookmarks
+improved navigation drawer
+
 v2.0.2
 readded support for multi-window devices (only tested on TouchWiz)
 add finnish language

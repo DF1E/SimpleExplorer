@@ -142,7 +142,8 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 		Drawable mimeIcon = null;
 
 		if (file != null && file.isDirectory()) {
-			if (file.canRead() && file.list().length > 0)
+			String[] files = file.list();
+			if (file.canRead() && files != null && files.length > 0)
 				mimeIcon = mResources.getDrawable(R.drawable.type_folder);
 			else
 				mimeIcon = mResources.getDrawable(R.drawable.type_folder_empty);

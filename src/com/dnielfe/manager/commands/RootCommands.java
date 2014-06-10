@@ -232,7 +232,7 @@ public class RootCommands {
 
 			if (process.waitFor() != 0 || (!"".equals(err) && null != err)
 					&& containsIllegals(err) != true) {
-				Log.e("Root Error", err);
+				Log.e("Root Error, cmd: " + cmd, err);
 				return null;
 			}
 			return reader;

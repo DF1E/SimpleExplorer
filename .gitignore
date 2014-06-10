@@ -8,6 +8,7 @@
 bin/
 tmp/
 gen/
+proguard/
 *.tmp
 *.bak
 *.swp

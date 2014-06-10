@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dnielfe.manager"
     android:installLocation="auto"
-    android:versionCode="49"
+    android:versionCode="50"
     android:versionName="2.0.3" >
 
     <uses-sdk
@@ -71,6 +71,7 @@
             android:authorities="com.dnielfe.manager.bookmarks"
             android:exported="false" />
 
+        <!-- support multi-window for samsung devices -->
         <meta-data
             android:name="com.sec.android.support.multiwindow"
             android:value="true" />
