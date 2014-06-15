@@ -147,7 +147,7 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 				mimeIcon = mResources.getDrawable(R.drawable.type_folder);
 			else
 				mimeIcon = mResources.getDrawable(R.drawable.type_folder_empty);
-		} else {
+		} else if (file != null && file.isFile()) {
 			final String fileExt = FilenameUtils.getExtension(file.getName());
 			mimeIcon = mMimeTypeIconCache.get(fileExt);
 
