@@ -30,7 +30,6 @@ import org.apache.commons.io.FileUtils;
 import com.dnielfe.manager.commands.Permissions;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
-import com.dnielfe.manager.utils.MD5Checksum;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -296,7 +295,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 
 				if (file3.isFile()) {
 					try {
-						mMD5Label.setText(MD5Checksum.getMD5Checksum(file3
+						mMD5Label.setText(SimpleUtils.getMD5Checksum(file3
 								.getPath()));
 					} catch (Exception e) {
 						e.printStackTrace();
