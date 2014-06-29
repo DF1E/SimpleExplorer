@@ -95,9 +95,10 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	private Cursor mBookmarksCursor;
 	private ListView mDrawer;
 	private MenuItem mMenuItemPaste;
-	private DrawerLayout mDrawerLayout;
 	private AbsListView mListView;
+
 	private ActionBar mActionBar;
+	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	@Override
@@ -111,7 +112,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 			savedInstanceState = intent.getBundleExtra(EXTRA_SAVED_STATE);
 		}
 
-		init(intent);
+		init();
 		initDirectory(savedInstanceState, intent);
 	}
 
@@ -183,7 +184,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 			navigateTo(dir.getAbsolutePath());
 	}
 
-	private void init(Intent intent) {
+	private void init() {
 		fm = getFragmentManager();
 		mDataSource = new ArrayList<String>();
 		mObserverCache = FileObserverCache.getInstance();
@@ -526,8 +527,8 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 			File file = new File(mCurrentPath);
 			navigateTo(file.getParent());
 
-			// go to the top of the ListView
-			mListView.setSelection(0);
+			// get position of the previous folder in ListView
+			mListView.setSelection(mListAdapter.getPosition(file.getPath()));
 			return true;
 		} else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
 				&& mCurrentPath.equals("/")) {
