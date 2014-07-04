@@ -1,7 +1,9 @@
 Changelog:
----new versoin---
+2.0.4
 reduce apk size using proguard
-updated italian
+move to position of previous folder when navigate back
+updated italian strings
+fixes
 
 v2.0.3
 fixed bug when creating bookmarks

@@ -247,6 +247,23 @@ public class RootCommands {
 		return null;
 	}
 
+	// TODO create an option to change group/owner in FilePropertiesDialog
+	public static boolean chownCommand(File file, String owner, String group) {
+		try {
+			if (!readReadWriteFile())
+				RootTools.remount(file.getAbsolutePath(), "rw");
+
+			// change <owner>:<group>
+			execute("chown " + owner + ":" + group + " "
+					+ getCommandLineString(file.getAbsolutePath()));
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
 	public static boolean applyPermissions(File file, Permissions permissions) {
 		try {
 			if (!readReadWriteFile())
