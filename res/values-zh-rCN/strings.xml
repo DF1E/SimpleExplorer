@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">SE管理器</string>
     <string name="advancedsettings">高级设置</string>
-    <string name="appmanager">应用管理</string>
-    <string name="apps">"个应用"</string>
-    <string name="backedup">"个已备份"</string>
-    <string name="backup">备份</string>
-    <string name="backupcomplete">备份完成。</string>
     <string name="cancel">取消</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"删除后将无法恢复！"</string>
     <string name="cantopenfile">无法打开文件！</string>
@@ -55,8 +49,6 @@
     <string name="multizip">压缩至ZIP</string>
     <string name="newfile">新文件</string>
     <string name="newfolderwasnotcreated">新建文件夹失败！</string>
-    <string name="noapps">未选择应用！</string>
-    <string name="of">" / "</string>
     <string name="ok">确定</string>
     <string name="options">选项</string>
     <string name="packing">正在打包…</string>

@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Zaawansowane</string>
-    <string name="appmanager">Menedżer Aplikacji</string>
-    <string name="apps">" Aplikacje"</string>
-    <string name="backedup">" Zarchiwizowano"</string>
-    <string name="backup">Utwórz kopię</string>
-    <string name="backupcomplete">Tworzenie kopii zakończone.</string>
     <string name="cancel">Anuluj</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Operacja nie może być cofnięta!"</string>
     <string name="cantopenfile">Nie można otworzyć pliku</string>
@@ -55,8 +49,6 @@
     <string name="multizip">Spakuj do pliku .zip</string>
     <string name="newfile">Nowy plik</string>
     <string name="newfolderwasnotcreated">Nowy folder nie został utworzony.</string>
-    <string name="noapps">Nie wybrano żadnej Aplikacji.</string>
-    <string name="of">" z"</string>
     <string name="ok">OK</string>
     <string name="options">Ustawienia</string>
     <string name="packing">Pakowanie</string>

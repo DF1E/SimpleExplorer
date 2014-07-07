@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Pokročilé</string>
-    <string name="appmanager">Správca aplikácií</string>
-    <string name="apps">" aplikácií"</string>
-    <string name="backedup">" záloh."</string>
-    <string name="backup">Zálohovať</string>
-    <string name="backupcomplete">Záloha bola dokončená.</string>
     <string name="cancel">Zrušiť</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">Túto akciu nie je možné vrátiť!</string>
     <string name="cantopenfile">Nemožno otvoriť tento priečinok</string>
@@ -55,8 +49,6 @@
     <string name="multizip">Zabaliť</string>
     <string name="newfile">Nový súbor</string>
     <string name="newfolderwasnotcreated">Nový priečinok nemohol byť vytvorený.</string>
-    <string name="noapps">Nevybrané žiadne aplikácie.</string>
-    <string name="of">" z "</string>
     <string name="ok">OK</string>
     <string name="options">Možnosti</string>
     <string name="packing">Balenie</string>

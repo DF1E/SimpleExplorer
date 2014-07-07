@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Дополнительно</string>
-    <string name="appmanager">App Manager</string>
-    <string name="apps">" приложений"</string>
-    <string name="backedup">" резервировано"</string>
-    <string name="backup">Резервное копирование</string>
-    <string name="backupcomplete">Резервное копирование выполнено.</string>
     <string name="cancel">Отмена</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Вы уверены? Это необратимо!"</string>
     <string name="cantopenfile">Cannot open this file</string>
@@ -55,8 +49,6 @@
     <string name="multizip">Сжать в архив...</string>
     <string name="newfile">Создать файл</string>
     <string name="newfolderwasnotcreated">Папка не создана!</string>
-    <string name="noapps">Приложения не выбраны!</string>
-    <string name="of">" из "</string>
     <string name="ok">OK</string>
     <string name="options">Действия</string>
     <string name="packing">Сжатие в TAR-архив</string>

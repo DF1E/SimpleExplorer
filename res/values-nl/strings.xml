@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Geavanceerd</string>
-    <string name="appmanager">App beheer</string>
-    <string name="apps">" Apps"</string>
-    <string name="backedup">" gebackupt"</string>
-    <string name="backup">Backup</string>
-    <string name="backupcomplete">Backup voltooid</string>
     <string name="cancel">Annuleren</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dit kan niet ongedaan gemaakt worden"</string>
     <string name="cantopenfile">Kan dit bestand niet openen</string>
@@ -55,8 +49,6 @@
     <string name="multizip">Zip</string>
     <string name="newfile">Nieuw Bestand</string>
     <string name="newfolderwasnotcreated">Geen nieuwe map aangemaakt</string>
-    <string name="noapps">Geen apps geselecteerd</string>
-    <string name="of">" of "</string>
     <string name="ok">OK</string>
     <string name="options">Opties</string>
     <string name="packing">Inpakken</string>

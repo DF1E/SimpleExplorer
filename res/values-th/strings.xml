@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">ขั้นสูง</string>
-    <string name="appmanager">การจัดการแอพ</string>
-    <string name="apps">" แอพ"</string>
-    <string name="backedup">" สำรองข้อมูล"</string>
-    <string name="backup">สำรองข้อมูล</string>
-    <string name="backupcomplete">สำรองข้อมูลเรียบร้อย</string>
     <string name="cancel">ยกเลิก</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"การทำงานซึ่งยังกระทำไม่สำเร็จ"</string>
     <string name="cantopenfile">ไม่สามารถเปิดไฟล์นี้ได้</string>
@@ -55,8 +49,6 @@
     <string name="multizip">บรรจุ</string>
     <string name="newfile">สร้างไฟล์ใหม่</string>
     <string name="newfolderwasnotcreated">โฟลเดอร์ใหม่ไม่สามารถสร้างได้</string>
-    <string name="noapps">ไม่มีแอพที่เลือก</string>
-    <string name="of">" ของ "</string>
     <string name="ok">ตกลง</string>
     <string name="options">ตัวเลือก</string>
     <string name="packing">กำลังรวม</string>

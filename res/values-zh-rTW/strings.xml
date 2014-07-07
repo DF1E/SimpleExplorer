@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">進階</string>
-    <string name="appmanager">App 管理器</string>
-    <string name="apps">" Apps"</string>
-    <string name="backedup">" 備份"</string>
-    <string name="backup">備份</string>
-    <string name="backupcomplete">備份完成.</string>
     <string name="cancel">取消</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"無法被還原!"</string>
     <string name="cantopenfile">Cannot open this file</string>
@@ -55,8 +49,6 @@
     <string name="multizip">Zip</string>
     <string name="newfile">新檔案</string>
     <string name="newfolderwasnotcreated">無法建立新資料夾.</string>
-    <string name="noapps">未選擇 App.</string>
-    <string name="of">" 的 "</string>
     <string name="ok">OK</string>
     <string name="options">選項</string>
     <string name="packing">打包</string>

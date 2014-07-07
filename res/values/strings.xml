@@ -4,11 +4,6 @@
     <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Advanced</string>
-    <string name="appmanager">App Manager</string>
-    <string name="apps">" Apps"</string>
-    <string name="backedup">" Backed up"</string>
-    <string name="backup">Backup</string>
-    <string name="backupcomplete">Backup complete.</string>
     <string name="cancel">Cancel</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"This cannot be undone!"</string>
     <string name="cantopenfile">Cannot open this file</string>
@@ -55,8 +50,6 @@
     <string name="multizip">Zip</string>
     <string name="newfile">New file</string>
     <string name="newfolderwasnotcreated">New folder was not created.</string>
-    <string name="noapps">No Apps selected.</string>
-    <string name="of">" of "</string>
     <string name="ok">OK</string>
     <string name="options">Options</string>
     <string name="packing">Packing</string>

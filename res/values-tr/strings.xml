@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Gelişmiş</string>
-    <string name="appmanager">Uygulama Yöneticisi</string>
-    <string name="apps">" Uygulamalar"</string>
-    <string name="backedup">" yedeklendi"</string>
-    <string name="backup">Yedekle</string>
-    <string name="backupcomplete">Yedekleme Tamam.</string>
     <string name="cancel">İptal</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Bu işlem geri alınamaz!"</string>
     <string name="cantopenfile">Bu dosya açılamıyor</string>
@@ -55,8 +49,6 @@
     <string name="multizip">Zip</string>
     <string name="newfile">Yeni Dosya</string>
     <string name="newfolderwasnotcreated">Yeni klasör oluşturulmadı.</string>
-    <string name="noapps">Uygulama seçilmedi.</string>
-    <string name="of">" of "</string>
     <string name="ok">Tamam</string>
     <string name="options">Seçenekler</string>
     <string name="packing">Paketleme</string>

@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Tiedostoselain</string>
     <string name="advancedsettings">Kehittyneet asetukset</string>
-    <string name="appmanager">Sovellusten hallinta</string>
-    <string name="apps">" sovellusta"</string>
-    <string name="backedup">" varmuuskopioitu"</string>
-    <string name="backup">Varmuuskopioi</string>
-    <string name="backupcomplete">Varmuuskopiointi onnistui.</string>
     <string name="cancel">Peruuta</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Tätä toimintoa ei voi perua!"</string>
     <string name="cantopenfile">Tämän tiedoston avaaminen ei onnistu</string>
@@ -55,8 +49,6 @@
     <string name="multizip">Pakkaa</string>
     <string name="newfile">Uusi tiedosto</string>
     <string name="newfolderwasnotcreated">Uutta kansiota ei luotu.</string>
-    <string name="noapps">Ei valittuja sovelluksia.</string>
-    <string name="of">" / "</string>
     <string name="ok">OK</string>
     <string name="options">Toiminnot</string>
     <string name="packing">Pakkaus</string>

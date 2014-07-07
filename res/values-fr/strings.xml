@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Avancé</string>
-    <string name="appmanager">Gestion Apps</string>
-    <string name="apps">" Apps"</string>
-    <string name="backedup">" Sauvegardé"</string>
-    <string name="backup">Sauvegarde</string>
-    <string name="backupcomplete">Sauvegarde complète.</string>
     <string name="cancel">Annuler</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Annulation impossible!"</string>
     <string name="cantopenfile">Ne peut ouvrir ce fichier</string>
@@ -55,8 +49,6 @@
     <string name="multizip">Zip</string>
     <string name="newfile">Nouveau fichier</string>
     <string name="newfolderwasnotcreated">Nouveau dossier non créé.</string>
-    <string name="noapps">Pas d\'Apps sélectionnés.</string>
-    <string name="of">" de "</string>
     <string name="ok">OK</string>
     <string name="options">Options</string>
     <string name="packing">Packing</string>

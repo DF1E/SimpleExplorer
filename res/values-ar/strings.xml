@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">متقدم</string>
-    <string name="appmanager">مدير التطبيقات</string>
-    <string name="apps">"التطبيقات"</string>
-    <string name="backedup">احطياتية</string>
-    <string name="backup">النسخة الاحتياطية</string>
-    <string name="backupcomplete">انتهت النسخة الاحطياطية.</string>
     <string name="cancel">إلغاء</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"هذا لا يمكنة التراجع!"</string>
     <string name="cantopenfile">غير قادر على فتح هذا الملف</string>
@@ -41,8 +35,7 @@
     <string name="filecreated">ملف قد انشئ</string>
     <string name="fileexists">ملف موجود بالفعل</string>
     <string name="files">"ملفات"</string>
-    <string name="filewasrenamed">
-تم تغيير اسم الملف.</string>
+    <string name="filewasrenamed">تم تغيير اسم الملف.</string>
     <string name="hiddenfiles">ملفات مخفية</string>
     <string name="itcouldntbefound">تعذر العثور عليه.</string>
     <string name="LastModified">اخر تعديل:</string>
@@ -56,8 +49,6 @@
     <string name="multizip">Zip</string>
     <string name="newfile">ملف جديد</string>
     <string name="newfolderwasnotcreated">لم يتم انشاء ملف جديد.</string>
-    <string name="noapps">لا توجود تطبيقات مختارة.</string>
-    <string name="of">"من"</string>
     <string name="ok">موافق</string>
     <string name="options">خيارات</string>
     <string name="packing">حزم</string>

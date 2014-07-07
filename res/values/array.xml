@@ -22,7 +22,6 @@
         <item name="1">1</item>
     </string-array>
     <string-array name="drawerTitles_array">
-        <item>@string/appmanager</item>
         <item>@string/settings</item>
         <item>@string/exit</item>
     </string-array>

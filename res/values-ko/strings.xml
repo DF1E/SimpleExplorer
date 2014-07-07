@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer(파일관리자)</string>
     <string name="advancedsettings">Advanced</string>
-    <string name="appmanager">App Manager(앱 매니저)</string>
-    <string name="apps">" 앱"</string>
-    <string name="backedup">" 백업되었습니다"</string>
-    <string name="backup">백업</string>
-    <string name="backupcomplete">백업 완료.</string>
     <string name="cancel">취소</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">This cannot be undone!</string>
     <string name="cantopenfile">이 파일을 열 수 없습니다</string>
@@ -55,8 +49,6 @@
     <string name="multizip">Zip</string>
     <string name="newfile">New file</string>
     <string name="newfolderwasnotcreated">New folder was not created.</string>
-    <string name="noapps">No Apps selected.</string>
-    <string name="of">" of "</string>
     <string name="ok">OK</string>
     <string name="options">Options</string>
     <string name="packing">Packing</string>

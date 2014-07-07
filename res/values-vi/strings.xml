@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Nâng cao</string>
-    <string name="appmanager">Quản lý ứng dụng</string>
-    <string name="apps">"Ứng dụng"</string>
-    <string name="backedup">"Đã sao lưu"</string>
-    <string name="backup">Sao lưu</string>
-    <string name="backupcomplete">Sao lưu hoàn tất.</string>
     <string name="cancel">Hủy</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Hoạt động này không thể được hoàn tác!"</string>
     <string name="cantopenfile">Không thể mở tập tin này</string>
@@ -55,8 +49,6 @@
     <string name="multizip">Zip</string>
     <string name="newfile">Tập tin mới</string>
     <string name="newfolderwasnotcreated">Thư mục mới chưa được tạo.</string>
-    <string name="noapps">Không có ứng dụng được chọn.</string>
-    <string name="of">" của "</string>
     <string name="ok">OK</string>
     <string name="options">Tùy chọn</string>
     <string name="packing">Đang đóng gói</string>

@@ -331,16 +331,11 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 					// handle menu items
 					switch ((int) mMergeAdapter.getItemId(position)) {
 					case 0:
-						Intent intent1 = new Intent(Browser.this,
-								AppManager.class);
-						startActivity(intent1);
-						break;
-					case 1:
 						Intent intent2 = new Intent(Browser.this,
 								SettingsActivity.class);
 						startActivity(intent2);
 						break;
-					case 2:
+					case 1:
 						finish();
 					}
 				}

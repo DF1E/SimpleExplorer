@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="minus" translatable="false">-</string>
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Napredno</string>
-    <string name="appmanager">Menedger aplikacije</string>
-    <string name="apps">"Aplikacije"</string>
-    <string name="backedup">" backupirano"</string>
-    <string name="backup">Backup</string>
-    <string name="backupcomplete">Backup zavr�en</string>
     <string name="cancel">Otka�i</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Ovo ne mo�e biti poni�teno zbog dozvole"</string>
     <string name="cantopenfile">Cannot open this file</string>
@@ -55,8 +49,6 @@
     <string name="multizip">Zip</string>
     <string name="newfile">Novi Fajl</string>
     <string name="newfolderwasnotcreated">Novi Folder nije kreiran</string>
-    <string name="noapps">Nijedna aplikacija nije odabrana</string>
-    <string name="of">" od "</string>
     <string name="ok">OK</string>
     <string name="options">Opcije</string>
     <string name="packing">Pakiranje</string>
