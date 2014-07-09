@@ -34,7 +34,6 @@ import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.SimpleUtils;
 import com.github.junrar.extract.ExtractArchive;
-import org.jetbrains.annotations.NotNull;
 
 public final class UnRarTask extends AsyncTask<String, Void, List<String>> {
 
@@ -67,7 +66,6 @@ public final class UnRarTask extends AsyncTask<String, Void, List<String>> {
 		}
 	}
 
-	@NotNull
 	@Override
 	protected List<String> doInBackground(String... file) {
 		final Activity activity = this.activity.get();
@@ -91,18 +89,18 @@ public final class UnRarTask extends AsyncTask<String, Void, List<String>> {
 	}
 
 	@Override
-	protected void onPostExecute(@NotNull final List<String> failed) {
+	protected void onPostExecute(final List<String> failed) {
 		super.onPostExecute(failed);
 		this.finish(failed);
 	}
 
 	@Override
-	protected void onCancelled(@NotNull final List<String> failed) {
+	protected void onCancelled(final List<String> failed) {
 		super.onCancelled(failed);
 		this.finish(failed);
 	}
 
-	private void finish(@NotNull final List<String> failed) {
+	private void finish(final List<String> failed) {
 		if (this.dialog != null) {
 			this.dialog.dismiss();
 		}

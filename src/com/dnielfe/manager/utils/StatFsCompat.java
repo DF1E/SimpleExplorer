@@ -23,8 +23,6 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.StatFs;
 
-import org.jetbrains.annotations.NotNull;
-
 /**
  * Backward compatible version of {@link StatFs}
  */
@@ -150,7 +148,7 @@ public final class StatFsCompat {
 	 * the same as re-constructing the object with the same file system path,
 	 * and the new stat values are available upon return.
 	 */
-	public void restat(@NotNull final String path) {
+	public void restat(final String path) {
 		mStatFs.restat(path);
 	}
 }

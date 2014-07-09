@@ -32,8 +32,6 @@ import android.widget.Toast;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.ZipUtils;
 
-import org.jetbrains.annotations.NotNull;
-
 public final class ZipFolderTask extends
 		AsyncTask<String, Void, ArrayList<String>> {
 
@@ -69,7 +67,6 @@ public final class ZipFolderTask extends
 		}
 	}
 
-	@NotNull
 	@Override
 	protected ArrayList<String> doInBackground(String... files) {
 		final ArrayList<String> failed = new ArrayList<String>();
@@ -83,18 +80,18 @@ public final class ZipFolderTask extends
 	}
 
 	@Override
-	protected void onPostExecute(@NotNull final ArrayList<String> failed) {
+	protected void onPostExecute(final ArrayList<String> failed) {
 		super.onPostExecute(failed);
 		this.finish(failed);
 	}
 
 	@Override
-	protected void onCancelled(@NotNull final ArrayList<String> failed) {
+	protected void onCancelled(final ArrayList<String> failed) {
 		super.onCancelled(failed);
 		this.finish(failed);
 	}
 
-	private void finish(@NotNull final List<String> failed) {
+	private void finish(final List<String> failed) {
 		if (this.dialog != null) {
 			this.dialog.dismiss();
 		}

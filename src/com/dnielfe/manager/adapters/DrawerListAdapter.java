@@ -19,8 +19,6 @@
 
 package com.dnielfe.manager.adapters;
 
-import org.jetbrains.annotations.NotNull;
-
 import com.dnielfe.manager.R;
 
 import android.content.Context;
@@ -34,7 +32,7 @@ public class DrawerListAdapter extends BaseAdapter {
 	private Context mContext;
 	private String[] mTitle;
 
-	public DrawerListAdapter(@NotNull final Context context) {
+	public DrawerListAdapter(final Context context) {
 		this.mContext = context;
 		this.mTitle = context.getResources().getStringArray(
 				R.array.drawerTitles_array);

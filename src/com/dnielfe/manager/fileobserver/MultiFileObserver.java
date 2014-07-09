@@ -21,8 +21,6 @@ package com.dnielfe.manager.fileobserver;
 
 import android.os.FileObserver;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,7 +53,6 @@ public final class MultiFileObserver extends FileObserver {
 		this.listeners.remove(listener);
 	}
 
-	@NotNull
 	public String getPath() {
 		return this.path;
 	}

@@ -23,8 +23,6 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 
-import org.jetbrains.annotations.NotNull;
-
 import com.dnielfe.manager.R;
 import org.apache.commons.io.FileUtils;
 import com.dnielfe.manager.commands.Permissions;
@@ -93,7 +91,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 		return dialog;
 	}
 
-	private void initView(@NotNull final View view) {
+	private void initView(final View view) {
 		final ViewPager pager = (ViewPager) view
 				.findViewById(R.id.tabsContainer);
 		pager.setAdapter(mAdapter);
@@ -155,8 +153,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 
 		void onStop();
 
-		@NotNull
-		View onCreateView(@NotNull LayoutInflater inflater);
+		View onCreateView(LayoutInflater inflater);
 	}
 
 	private static final class PropertiesAdapter extends PagerAdapter {
@@ -165,8 +162,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 		private final File mFile;
 		private final PagerItem[] mItems;
 
-		private PropertiesAdapter(@NotNull final Activity context,
-				@NotNull final File file) {
+		private PropertiesAdapter(final Activity context, final File file) {
 			mLayoutInflater = context.getLayoutInflater();
 			mFile = file;
 			mItems = new PagerItem[] { new FilePropertiesPagerItem(mFile),
@@ -185,7 +181,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 			}
 		}
 
-		@NotNull
 		PagerItem getItem(final int position) {
 			return mItems[position];
 		}
@@ -226,9 +221,8 @@ public final class FilePropertiesDialog extends DialogFragment {
 			this.file3 = file;
 		}
 
-		@NotNull
 		@Override
-		public View onCreateView(@NotNull final LayoutInflater inflater) {
+		public View onCreateView(final LayoutInflater inflater) {
 			mView = inflater.inflate(R.layout.dialog_properties, null);
 			initView(mView);
 			return mView;
@@ -352,9 +346,8 @@ public final class FilePropertiesDialog extends DialogFragment {
 			mFile = file;
 		}
 
-		@NotNull
 		@Override
-		public View onCreateView(@NotNull final LayoutInflater inflater) {
+		public View onCreateView(final LayoutInflater inflater) {
 			mView = inflater.inflate(R.layout.dialog_permissions, null);
 			initView(mView);
 			return mView;
@@ -416,7 +409,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 
 			private final WeakReference<FilePermissionsPagerItem> mItemRef;
 
-			private LoadFsTask(@NotNull final FilePermissionsPagerItem item) {
+			private LoadFsTask(final FilePermissionsPagerItem item) {
 				this.mItemRef = new WeakReference<FilePermissionsPagerItem>(
 						item);
 			}

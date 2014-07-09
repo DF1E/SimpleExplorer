@@ -19,8 +19,6 @@
 
 package com.dnielfe.manager.utils;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * Holds references to copied or moved to clipboard files
  */
@@ -82,7 +80,6 @@ public final class ClipBoard {
 		}
 	}
 
-	@Nullable
 	public static String[] getClipBoardContents() {
 		synchronized (LOCK) {
 			return clipBoard;

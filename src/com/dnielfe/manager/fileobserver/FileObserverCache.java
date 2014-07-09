@@ -19,8 +19,6 @@
 
 package com.dnielfe.manager.fileobserver;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +27,6 @@ public final class FileObserverCache {
 
 	private static FileObserverCache instance;
 
-	@NotNull
 	public static FileObserverCache getInstance() {
 		if (instance == null) {
 			instance = new FileObserverCache();
@@ -47,7 +44,6 @@ public final class FileObserverCache {
 		this.cache.clear();
 	}
 
-	@NotNull
 	public MultiFileObserver getOrCreate(final String path) {
 		final WeakReference<MultiFileObserver> reference = cache.get(path);
 		MultiFileObserver observer;

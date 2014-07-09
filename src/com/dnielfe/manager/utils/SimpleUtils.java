@@ -30,7 +30,6 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import org.apache.commons.io.FileUtils;
-import org.jetbrains.annotations.NotNull;
 
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
@@ -53,8 +52,8 @@ public class SimpleUtils {
 	private static int fileCount = 0;
 
 	// scan file after move/copy
-	public static void requestMediaScanner(@NotNull final Context context,
-			@NotNull final File... files) {
+	public static void requestMediaScanner(final Context context,
+			final File... files) {
 		final String[] paths = new String[files.length];
 		int i = 0;
 		for (final File file : files) {
@@ -97,7 +96,6 @@ public class SimpleUtils {
 		}
 	}
 
-	@NotNull
 	public static ArrayList<String> listFiles(String path) {
 		ArrayList<String> mDirContent = new ArrayList<String>();
 		boolean showhidden = Settings.mShowHiddenFiles;

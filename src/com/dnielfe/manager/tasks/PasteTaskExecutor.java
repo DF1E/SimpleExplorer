@@ -33,8 +33,6 @@ import com.dnielfe.manager.R;
 import com.dnielfe.manager.dialogs.FileExistsDialog;
 import com.dnielfe.manager.utils.ClipBoard;
 
-import org.jetbrains.annotations.NotNull;
-
 public final class PasteTaskExecutor implements OnClickListener {
 
 	private final WeakReference<Activity> mActivityReference;
@@ -45,8 +43,7 @@ public final class PasteTaskExecutor implements OnClickListener {
 
 	private String current;
 
-	public PasteTaskExecutor(@NotNull final Activity activity,
-			@NotNull final String targetFile) {
+	public PasteTaskExecutor(final Activity activity, final String targetFile) {
 		this.mActivityReference = new WeakReference<Activity>(activity);
 		this.mTargetFile = targetFile;
 		this.mToProcess = new LinkedList<String>();

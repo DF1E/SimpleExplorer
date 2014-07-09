@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jetbrains.annotations.NotNull;
 import android.util.Log;
 
 import com.stericson.RootTools.RootTools;
@@ -45,7 +44,6 @@ public class RootCommands {
 		return input.replaceAll(UNIX_ESCAPE_EXPRESSION, "\\\\$1");
 	}
 
-	@NotNull
 	public static ArrayList<String> listFiles(String path, boolean showhidden) {
 		ArrayList<String> mDirContent = new ArrayList<String>();
 
@@ -207,7 +205,6 @@ public class RootCommands {
 		return false;
 	}
 
-	@NotNull
 	public static boolean containsIllegals(String toExamine) {
 		// checks for "+" sign so the program doesn't throw an error when its
 		// not erroring.
@@ -279,7 +276,6 @@ public class RootCommands {
 		return false;
 	}
 
-	@NotNull
 	public static String[] getFileProperties(File file) {
 		BufferedWriter out = null;
 		BufferedReader in = null;
@@ -308,7 +304,6 @@ public class RootCommands {
 		return info;
 	}
 
-	@NotNull
 	private static String[] getAttrs(String string) {
 		if (string.length() < 44) {
 			throw new IllegalArgumentException("Bad ls -l output: " + string);
@@ -350,7 +345,7 @@ public class RootCommands {
 	 *            Permissions to generate octal format for
 	 * @return octal-formatted permission representation
 	 */
-	@NotNull
+
 	private static String toOctalPermission(final Permissions p) {
 		byte user = 00;
 		byte group = 00;

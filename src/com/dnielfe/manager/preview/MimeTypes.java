@@ -25,7 +25,6 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FilenameUtils;
-import org.jetbrains.annotations.Nullable;
 
 import android.webkit.MimeTypeMap;
 
@@ -329,7 +328,6 @@ public final class MimeTypes {
 		return res == null ? 0 : res.intValue();
 	}
 
-	@Nullable
 	public static String getMimeType(File file) {
 		if (file.isDirectory()) {
 			return null;

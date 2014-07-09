@@ -20,7 +20,6 @@
 package com.dnielfe.manager.dialogs;
 
 import org.apache.commons.io.FileUtils;
-import org.jetbrains.annotations.NotNull;
 
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
@@ -77,7 +76,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
 		final long mFreeBytes;
 		final long mUsedSpace;
 
-		private PartitionInfo(@NotNull final CharSequence path,
+		private PartitionInfo(final CharSequence path,
 				final CharSequence permission, final long totalBytes,
 				final long blockSize, final long freeBytes, final long usedSpace) {
 			this.mPath = path;
@@ -111,11 +110,10 @@ public final class DirectoryInfoDialog extends DialogFragment {
 
 		private final WeakReference<View> mViewRef;
 
-		private PartitionInfoTask(@NotNull final View view) {
+		private PartitionInfoTask(final View view) {
 			this.mViewRef = new WeakReference<View>(view);
 		}
 
-		@NotNull
 		@Override
 		protected PartitionInfo doInBackground(final File... params) {
 			final String path = params[0].getAbsolutePath();
@@ -137,7 +135,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
 		}
 
 		@Override
-		protected void onPostExecute(final @NotNull PartitionInfo partitionInfo) {
+		protected void onPostExecute(final PartitionInfo partitionInfo) {
 			final View view = mViewRef.get();
 			if (view != null) {
 				final TextView title = (TextView) view

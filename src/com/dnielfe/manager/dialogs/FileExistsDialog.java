@@ -27,17 +27,14 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.widget.TextView;
 
-import org.jetbrains.annotations.NotNull;
-
 public final class FileExistsDialog extends Dialog {
 
-	public FileExistsDialog(@NotNull final Context context,
-			@NotNull final String source, @NotNull final String target,
-			@NotNull final View.OnClickListener abortAction,
-			@NotNull final View.OnClickListener skipAction,
-			@NotNull final View.OnClickListener skipAllAction,
-			@NotNull final View.OnClickListener replaceAction,
-			@NotNull final View.OnClickListener replaceAllAction) {
+	public FileExistsDialog(final Context context, final String source,
+			final String target, final View.OnClickListener abortAction,
+			final View.OnClickListener skipAction,
+			final View.OnClickListener skipAllAction,
+			final View.OnClickListener replaceAction,
+			final View.OnClickListener replaceAllAction) {
 		super(context);
 
 		this.setTitle(R.string.overwrite_title);
@@ -47,13 +44,12 @@ public final class FileExistsDialog extends Dialog {
 				replaceAction, replaceAllAction);
 	}
 
-	private void initView(@NotNull final String sourcePath,
-			@NotNull final String targetPath,
-			@NotNull final View.OnClickListener abortAction,
-			@NotNull final View.OnClickListener skipAction,
-			@NotNull final View.OnClickListener skipAllAction,
-			@NotNull final View.OnClickListener replaceAction,
-			@NotNull final View.OnClickListener replaceAllAction) {
+	private void initView(final String sourcePath, final String targetPath,
+			final View.OnClickListener abortAction,
+			final View.OnClickListener skipAction,
+			final View.OnClickListener skipAllAction,
+			final View.OnClickListener replaceAction,
+			final View.OnClickListener replaceAllAction) {
 
 		final TextView source = (TextView) this
 				.findViewById(android.R.id.text1);
