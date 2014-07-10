@@ -20,14 +20,12 @@
 package com.dnielfe.manager.commands;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,13 +44,10 @@ public class RootCommands {
 
 	public static ArrayList<String> listFiles(String path, boolean showhidden) {
 		ArrayList<String> mDirContent = new ArrayList<String>();
+		BufferedReader in = null;
 
 		try {
-			String[] cmd = new String[] { "su", "-c", "ls", "-a",
-					getCommandLineString(path) };
-			Process p = Runtime.getRuntime().exec(cmd);
-			BufferedReader in = new BufferedReader(new InputStreamReader(
-					p.getInputStream()));
+			in = execute("ls -a " + getCommandLineString(path));
 
 			String line;
 			while ((line = in.readLine()) != null) {
@@ -277,26 +272,18 @@ public class RootCommands {
 	}
 
 	public static String[] getFileProperties(File file) {
-		BufferedWriter out = null;
 		BufferedReader in = null;
 		String[] info = null;
+		String line = "";
 
 		try {
-			String[] cmd = { "su", "-c", "ls", "-l",
-					getCommandLineString(file.getAbsolutePath()) };
+			in = execute("ls -l "
+					+ getCommandLineString(file.getAbsolutePath()));
 
-			Process proc = Runtime.getRuntime().exec(cmd);
-			out = new BufferedWriter(new OutputStreamWriter(
-					proc.getOutputStream()));
-			in = new BufferedReader(
-					new InputStreamReader(proc.getInputStream()));
-			String line = "";
 			while ((line = in.readLine()) != null) {
 				info = getAttrs(line);
 			}
-			proc.waitFor();
 			in.close();
-			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
