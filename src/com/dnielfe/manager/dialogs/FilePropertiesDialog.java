@@ -79,16 +79,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 				R.layout.dialog_properties_container, null);
 		this.initView(content);
 		builder.setView(content);
-		final AlertDialog dialog = builder.create();
-		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-			@Override
-			public void onShow(final DialogInterface dialog) {
-				((AlertDialog) dialog).getButton(
-						DialogInterface.BUTTON_POSITIVE).setVisibility(
-						View.GONE);
-			}
-		});
-		return dialog;
+		return builder.create();
 	}
 
 	private void initView(final View view) {
@@ -156,7 +147,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 		View onCreateView(LayoutInflater inflater);
 	}
 
-	private static final class PropertiesAdapter extends PagerAdapter {
+	private final class PropertiesAdapter extends PagerAdapter {
 
 		private final LayoutInflater mLayoutInflater;
 		private final File mFile;
@@ -169,13 +160,13 @@ public final class FilePropertiesDialog extends DialogFragment {
 					new FilePermissionsPagerItem(mFile) };
 		}
 
-		void onStart() {
+		private void onStart() {
 			for (final PagerItem item : mItems) {
 				item.onStart();
 			}
 		}
 
-		void onStop() {
+		private void onStop() {
 			for (final PagerItem item : mItems) {
 				item.onStop();
 			}
@@ -271,7 +262,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 				mTimeLabel.setText(df.format(file3.lastModified()));
 
 				if (!file3.canRead()) {
-					mDisplaySize = "---";
+					mDisplaySize = "-";
 					return mDisplaySize;
 				} else if (file3.isFile()) {
 					size = file3.length();
@@ -301,7 +292,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 		}
 	}
 
-	private static final class FilePermissionsPagerItem implements PagerItem,
+	private final class FilePermissionsPagerItem implements PagerItem,
 			CompoundButton.OnCheckedChangeListener {
 
 		/**
@@ -443,8 +434,8 @@ public final class FilePropertiesDialog extends DialogFragment {
 		}
 
 		private void disableBoxes() {
-			mOwner.setText("---");
-			mGroup.setText("---");
+			mOwner.setText("-");
+			mGroup.setText("-");
 
 			this.ur.setEnabled(false);
 			this.uw.setEnabled(false);

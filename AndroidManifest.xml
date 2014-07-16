@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dnielfe.manager"
     android:installLocation="auto"
-    android:versionCode="51"
+    android:versionCode="52"
     android:versionName="2.0.4" >
 
-    <uses-sdk
+   <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="20" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />

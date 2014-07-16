@@ -1,10 +1,10 @@
 Changelog:
 2.0.4
-remove appmanager - SE should be a clean filemanager
-reduce apk size using proguard
+removed appmanager - SE should be a clean filemanager
+reduced apk size using proguard
 move to position of previous folder when navigate back
 updated italian strings
-fixes
+fixes and improvements
 
 v2.0.3
 fixed bug when creating bookmarks

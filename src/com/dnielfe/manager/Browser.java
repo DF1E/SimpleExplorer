@@ -238,8 +238,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	private void initActionBar() {
 		mActionBar = this.getActionBar();
 		mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
-				| ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO
-				| ActionBar.DISPLAY_HOME_AS_UP);
+				| ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_HOME_AS_UP);
 
 		// set custom ActionBar layout
 		final View mActionView = getLayoutInflater().inflate(
