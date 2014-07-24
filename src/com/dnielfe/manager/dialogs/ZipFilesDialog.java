@@ -33,6 +33,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public final class ZipFilesDialog extends DialogFragment {
 
@@ -64,6 +65,14 @@ public final class ZipFilesDialog extends DialogFragment {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						String newpath = inputf.getText().toString();
+						File file = new File(newpath);
+
+						if (file.exists()) {
+							Toast.makeText(a, a.getString(R.string.fileexists),
+									Toast.LENGTH_SHORT).show();
+							return;
+						}
+
 						if (files.length == 1) {
 							File test = new File(files[0]);
 							if (test.isDirectory()) {

@@ -315,14 +315,18 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 								.getString(mBookmarksCursor
 										.getColumnIndex(Bookmarks.PATH)));
 
-						if (file != null) {
-							if (file.isDirectory()) {
-								mCurrentPath = file.getAbsolutePath();
-								// go to the top of the ListView
-								mListView.setSelection(0);
-							} else {
-								listItemAction(file);
-							}
+						if (!file.exists())
+							return;
+
+						if (file.isDirectory()) {
+							if (!mUseBackKey)
+								mUseBackKey = true;
+
+							mCurrentPath = file.getAbsolutePath();
+							// go to the top of the ListView
+							mListView.setSelection(0);
+						} else {
+							listItemAction(file);
 						}
 					}
 				} else if (mMergeAdapter.getAdapter(position).equals(
