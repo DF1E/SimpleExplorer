@@ -5,8 +5,8 @@
     <string name="advancedsettings">Дополнительно</string>
     <string name="cancel">Отмена</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Вы уверены? Это необратимо!"</string>
-    <string name="cantopenfile">Cannot open this file</string>
-    <string name="cantreadfolder">Не удается прочитать папку из-за прав доступа!</string>
+    <string name="cantopenfile">Не удаётся открыть файл</string>
+    <string name="cantreadfolder">Не удаётся прочитать папку из-за прав доступа!</string>
     <string name="copiedtoclipboard">Скопировано в буфер обмена.</string>
     <string name="copy">Копировать</string>
     <string name="copyfail">Копирование не удалось!</string>
@@ -18,20 +18,19 @@
     <string name="createnewfolder">Создать папку</string>
     <string name="defaultdir">Каталог по умолчанию</string>
     <string name="delete">Удалить</string>
-    <string name="deleteapps">Удалить рез. копии</string>
-    <string name="deletesuccess">Delete successful</string>
+    <string name="deletesuccess">Удалено успешно.</string>
     <string name="deleting">Удаление</string>
     <string name="desc">desc</string>
     <string name="detailed">Подробный</string>
     <string name="details">Свойства</string>
     <string name="dir_info">Свойства папки</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-    <string name="empty">Empty</string>
-    <string name="enter_name">Enter name</string>
+    <string name="drawer_open">Открыть шторку</string>
+    <string name="drawer_close">Закрыть шторку</string>
+    <string name="empty">Пусто</string>
+    <string name="enter_name">"Как назовём?"</string>
     <string name="error">Ошибка</string>
-    <string name="exit">Exit</string>
-    <string name="extractto">Распаковать в...</string>
+    <string name="exit">Выход</string>
+    <string name="extractto">Распаковать в</string>
     <string name="filecreated">Файл создан.</string>
     <string name="fileexists">Файл с таким именем уже существует!</string>
     <string name="files">" файлов"</string>
@@ -39,24 +38,21 @@
     <string name="hiddenfiles">Скрытые файлы</string>
     <string name="itcouldntbefound">Ничего не найдено!</string>
     <string name="LastModified">Изменён:</string>
-    <string name="launch">Запустить</string>
-    <string name="manage">О приложении</string>
     <string name="md5">MD5:</string>
     <string name="move">Вырезать</string>
     <string name="movefail">Перемещение не удалось!</string>
     <string name="movesuccsess">Перемещено успешно.</string>
     <string name="moving">Перемещение</string>
-    <string name="multizip">Сжать в архив...</string>
+    <string name="multizip">Упаковать в архив</string>
     <string name="newfile">Создать файл</string>
     <string name="newfolderwasnotcreated">Папка не создана!</string>
     <string name="ok">OK</string>
     <string name="options">Действия</string>
-    <string name="packing">Сжатие в TAR-архив</string>
+    <string name="packing">Упаковать в архив</string>
     <string name="paste">Вставить</string>
-    <string name="playstore">В Google Play Маркет</string>
     <string name="pressbackagaintoquit">Для выхода нажмите ещё раз.</string>
     <string name="rename">Переименовать</string>
-    <string name="sdcardnotfound">SD-карта не найдена!</string>
+    <string name="sdcardnotfound">SD карта не найдена!</string>
     <string name="search">Поиск</string>
     <string name="searchtext">"Что ищем?"</string>
     <string name="selectall">Выбрать всё</string>
@@ -69,60 +65,58 @@
     <string name="size">Размер:</string>
     <string name="sort">Сортировка</string>
     <string name="uisettings">Отображение</string>
-    <string name="uninstallapp">Удалить приложение</string>
     <string name="unselectall">Отменить выбор</string>
-    <string name="unzipping">Распаковка ZIP-архива</string>
-    <string name="version">"Версия "</string>
+    <string name="unzipping">Извлечение файлов</string>
     <string name="viewmode">Вид списка</string>
     <string name="xdaforum">XDA forum</string>
-    <string name="zipping">Сжатие в ZIP-архив</string>
+    <string name="zipping">Сжатие файлов</string>
 
     <!-- sort list type -->
-    <string name="sort_name">Name</string>
-    <string name="sort_size">Size</string>
-    <string name="sort_type">Type</string>
-    <string name="sort_date">Date</string>
+    <string name="sort_name">По имени</string>
+    <string name="sort_size">По размеру</string>
+    <string name="sort_type">По типу</string>
+    <string name="sort_date">По дате</string>
 
     <!-- theme -->
-    <string name="theme">Theme</string>
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
+    <string name="theme">Тема</string>
+    <string name="light">Светлая</string>
+    <string name="dark">Тёмная</string>
 
     <!-- permissions -->
-    <string name="permissions">Permissions</string>
-    <string name="owner">Owner:</string>
-    <string name="group">Group:</string>
-    <string name="others">Other:</string>
-    <string name="read">Read</string>
-    <string name="write">Write</string>
-    <string name="execute">Execute</string>
-    <string name="permissionschanged">Permissions changed</string>
+    <string name="permissions">Разрешения</string>
+    <string name="owner">Владелец:</string>
+    <string name="group">Группа:</string>
+    <string name="others">Прочие:</string>
+    <string name="read">Чтение</string>
+    <string name="write">Запись</string>
+    <string name="execute">Выполн.</string>
+    <string name="permissionschanged">Разрешения изменены.</string>
 
     <!-- actionmode -->
-    <string name="_files">\u0020file(s)</string>
-    <string name="_selected">\u0020selected</string>
+    <string name="_files">\u0020файл(а,ов)</string>
+    <string name="_selected">\u0020выбрано</string>
 
     <!-- directory info dialog -->
-    <string name="location">Location:</string>
-    <string name="total">Total space:</string>
-    <string name="free">Free space:</string>
-    <string name="available">Available space:</string>
-    <string name="block_size">Block size:</string>
+    <string name="location">Расположение:</string>
+    <string name="total">Вместимость:</string>
+    <string name="free">Свободно:</string>
+    <string name="available">Доступно:</string>
+    <string name="block_size">Размер блока:</string>
     <string name="used">Занято:</string>
 
     <!-- bookmarks -->
     <string name="bookmark">Закладки</string>
     <string name="bookmarkadded">Закладка добалена.</string>
     <string name="bookmarkexist">Закладка уже существует!</string>
-    <string name="createbookmark">Создать закладку</string>
+    <string name="createbookmark">Добавить закладку</string>
 
     <!-- overwrite dialog -->
-    <string name="overwrite_title">Target file already exists</string>
-    <string name="overwrite_source">Source</string>
-    <string name="overwrite_destination">Destination</string>
-    <string name="overwrite_skip">Skip</string>
-    <string name="overwrite_skip_all">Skip all</string>
-    <string name="overwrite_replace">Replace</string>
-    <string name="overwrite_replace_all">Replace all</string>
+    <string name="overwrite_title">Файл уже существует!</string>
+    <string name="overwrite_source">Исходный:</string>
+    <string name="overwrite_destination">Конечный:</string>
+    <string name="overwrite_skip">Пропустить</string>
+    <string name="overwrite_skip_all">Пропустить все</string>
+    <string name="overwrite_replace">Заменить</string>
+    <string name="overwrite_replace_all">Заменить все</string>
 
 </resources>
