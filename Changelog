@@ -1,6 +1,8 @@
 Changelog:
 2.0.5
-two bug fixes
+bug fixes
+added bulgarian language
+update russian strings
 
 2.0.4
 removed appmanager - SE should be a clean filemanager

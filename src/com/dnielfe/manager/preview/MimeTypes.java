@@ -38,10 +38,6 @@ public final class MimeTypes {
 
 	private static final HashMap<String, String> MIME_TYPES = new HashMap<String, String>();
 
-	private MimeTypes() {
-
-	}
-
 	static {
 		// BINARY
 		EXT_ICONS.put("a", Integer.valueOf(R.drawable.type_unknown));
@@ -320,7 +316,6 @@ public final class MimeTypes {
 		MIME_TYPES.put("ogv", "video/ogg");
 		MIME_TYPES.put("flv", "video/x-flv");
 		MIME_TYPES.put("mkv", "video/x-matroska");
-
 	}
 
 	public static int getIconForExt(String ext) {
