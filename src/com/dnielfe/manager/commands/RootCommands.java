@@ -88,8 +88,8 @@ public class RootCommands {
 			if (!readReadWriteFile())
 				RootTools.remount(newDir, "rw");
 
-			RootTools.copyFile(getCommandLineString(old),
-					getCommandLineString(newDir), true, true);
+			execute("cp -fr " + getCommandLineString(old) + " "
+					+ getCommandLineString(newDir));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -133,7 +133,7 @@ public class RootCommands {
 				execute("rm -r " + getCommandLineString(path));
 			}
 		} catch (Exception e) {
-			return;
+			e.printStackTrace();
 		}
 	}
 

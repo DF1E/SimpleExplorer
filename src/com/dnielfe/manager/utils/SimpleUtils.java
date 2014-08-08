@@ -33,10 +33,10 @@ import org.apache.commons.io.FileUtils;
 
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.settings.Settings;
+import com.stericson.RootTools.RootTools;
 
 import android.app.Activity;
 import android.content.Context;
@@ -174,48 +174,46 @@ public class SimpleUtils {
 		byte[] data = new byte[BUFFER];
 		int read = 0;
 
-		if (old_file.isFile() && temp_dir.isDirectory() && temp_dir.canWrite()) {
-			String file_name = old
-					.substring(old.lastIndexOf("/"), old.length());
-			File cp_file = new File(newDir + file_name);
-
-			try {
-				BufferedOutputStream o_stream = new BufferedOutputStream(
-						new FileOutputStream(cp_file));
-				BufferedInputStream i_stream = new BufferedInputStream(
-						new FileInputStream(old_file));
-
-				while ((read = i_stream.read(data, 0, BUFFER)) != -1)
-					o_stream.write(data, 0, read);
-
-				o_stream.flush();
-				i_stream.close();
-				o_stream.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				return;
-			} catch (IOException e) {
-				e.printStackTrace();
-				return;
-			}
-		} else if (old_file.isDirectory() && temp_dir.isDirectory()
+		if (old_file.canWrite() && temp_dir.isDirectory()
 				&& temp_dir.canWrite()) {
-			String files[] = old_file.list();
-			String dir = newDir
-					+ old.substring(old.lastIndexOf("/"), old.length());
-			int len = files.length;
+			if (old_file.isFile()) {
+				String file_name = old.substring(old.lastIndexOf("/"),
+						old.length());
+				File cp_file = new File(newDir + file_name);
 
-			if (!new File(dir).mkdir())
-				return;
+				try {
+					BufferedOutputStream o_stream = new BufferedOutputStream(
+							new FileOutputStream(cp_file));
+					BufferedInputStream i_stream = new BufferedInputStream(
+							new FileInputStream(old_file));
 
-			for (int i = 0; i < len; i++)
-				copyToDirectory(old + "/" + files[i], dir);
+					while ((read = i_stream.read(data, 0, BUFFER)) != -1)
+						o_stream.write(data, 0, read);
 
-		} else if (old_file.isFile() && !temp_dir.canWrite()
-				&& SimpleExplorer.rootAccess) {
-			RootCommands.moveCopyRoot(old, newDir);
-		} else if (!temp_dir.canWrite())
-			return;
+					o_stream.flush();
+					i_stream.close();
+					o_stream.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else if (old_file.isDirectory()) {
+				String files[] = old_file.list();
+				String dir = newDir
+						+ old.substring(old.lastIndexOf("/"), old.length());
+				int len = files.length;
+
+				if (!new File(dir).mkdir())
+					return;
+
+				for (int i = 0; i < len; i++)
+					copyToDirectory(old + "/" + files[i], dir);
+			}
+		} else {
+			if (RootTools.isAccessGiven())
+				RootCommands.moveCopyRoot(old, newDir);
+		}
 
 		return;
 	}

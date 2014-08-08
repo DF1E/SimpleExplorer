@@ -37,15 +37,15 @@ public final class PasteTaskExecutor implements OnClickListener {
 
 	private final WeakReference<Activity> mActivityReference;
 
-	private final String mTargetFile;
+	private final String mLocation;
 	private final LinkedList<String> mToProcess;
 	private final HashMap<String, String> mExisting;
 
 	private String current;
 
-	public PasteTaskExecutor(final Activity activity, final String targetFile) {
+	public PasteTaskExecutor(final Activity activity, final String location) {
 		this.mActivityReference = new WeakReference<Activity>(activity);
-		this.mTargetFile = targetFile;
+		this.mLocation = location;
 		this.mToProcess = new LinkedList<String>();
 		this.mExisting = new HashMap<String, String>();
 	}
@@ -60,7 +60,7 @@ public final class PasteTaskExecutor implements OnClickListener {
 			File file = new File(ab);
 
 			if (file != null && file.exists()) {
-				final File testTarget = new File(mTargetFile, file.getName());
+				final File testTarget = new File(mLocation, file.getName());
 
 				if (testTarget.exists()) {
 					mExisting.put(testTarget.getPath(), file.getPath());
@@ -119,7 +119,7 @@ public final class PasteTaskExecutor implements OnClickListener {
 
 					mToProcess.toArray(array);
 
-					final PasteTask task = new PasteTask(a, mTargetFile);
+					final PasteTask task = new PasteTask(a, mLocation);
 					task.execute(array);
 				}
 			} else {

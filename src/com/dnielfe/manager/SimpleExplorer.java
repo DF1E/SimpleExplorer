@@ -31,9 +31,6 @@ public final class SimpleExplorer extends Application {
 	public static final int THEME_ID_LIGHT = 1;
 	public static final int THEME_ID_DARK = 2;
 
-	public static boolean rootAccess;
-	public static String busybox;
-
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -41,7 +38,8 @@ public final class SimpleExplorer extends Application {
 		Settings.updatePreferences(this);
 		checkEnvironment();
 
-		rootAccess = RootTools.isAccessGiven();
+		// check for root at start
+		RootTools.isAccessGiven();
 	}
 
 	// check for external storage exists

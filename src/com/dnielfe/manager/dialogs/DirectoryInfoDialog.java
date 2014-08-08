@@ -23,9 +23,9 @@ import org.apache.commons.io.FileUtils;
 
 import com.dnielfe.manager.Browser;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.utils.StatFsCompat;
+import com.stericson.RootTools.RootTools;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -124,7 +124,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
 			String[] permission = null;
 			String perm;
 
-			if (SimpleExplorer.rootAccess)
+			if (RootTools.isAccessGiven())
 				permission = RootCommands.getFileProperties(params[0]);
 
 			perm = permission != null ? permission[0]
