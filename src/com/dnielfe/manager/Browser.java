@@ -36,6 +36,7 @@ import com.dnielfe.manager.dialogs.UnpackDialog;
 import com.dnielfe.manager.fileobserver.FileObserverCache;
 import com.dnielfe.manager.fileobserver.MultiFileObserver;
 import com.dnielfe.manager.fileobserver.MultiFileObserver.OnEventListener;
+import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.settings.SettingsActivity;
 import com.dnielfe.manager.tasks.PasteTaskExecutor;
@@ -190,6 +191,10 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		mObserverCache = FileObserverCache.getInstance();
 		mNavigation = new ActionBarNavigation(this);
 		mActionController = new ActionModeController(this);
+
+		// start IconPreview class to get thumbnails if BrowserListAdapter
+		// request them
+		new IconPreview(this);
 
 		// new ArrayAdapter
 		mListAdapter = new BrowserListAdapter(this, mDataSource);

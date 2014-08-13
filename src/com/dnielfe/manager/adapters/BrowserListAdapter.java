@@ -125,12 +125,9 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 
 		// you can set a placeholder
 		// IconPreview.INSTANCE.setPlaceholder(bitmap);
-		if (isImage || isVideo) {
+		if (isImage || isVideo || isApk) {
 			icon.setTag(file.getAbsolutePath());
-			IconPreview.INSTANCE.loadBitmap(file, icon);
-		} else if (isApk) {
-			icon.setTag(file.getAbsolutePath());
-			IconPreview.INSTANCE.loadApk(file, icon, mContext);
+			IconPreview.loadBitmap(file, icon);
 		} else {
 			loadFromRes(file, icon);
 		}

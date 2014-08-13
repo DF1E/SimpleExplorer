@@ -29,6 +29,9 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.dnielfe.manager.R;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -44,27 +47,30 @@ import android.provider.MediaStore;
 
 import android.widget.ImageView;
 
-public enum IconPreview {
-	INSTANCE;
+public class IconPreview {
 
-	private final ConcurrentMap<String, Bitmap> cache;
-	private final ExecutorService pool;
-	private Map<ImageView, String> imageViews = Collections
+	private static ConcurrentMap<String, Bitmap> cache;
+	private static ExecutorService pool = null;
+	private static Map<ImageView, String> imageViews = Collections
 			.synchronizedMap(new ConcurrentHashMap<ImageView, String>());
 	private static PackageManager pm;
+	private static Context mContext;
 	private static int mSize = 64;
-	private Bitmap placeholder;
+	private static Bitmap placeholder = null;
 
-	IconPreview() {
+	public IconPreview(Activity activity) {
+		mContext = activity;
+
 		cache = new ConcurrentHashMap<String, Bitmap>();
 		pool = Executors.newFixedThreadPool(5);
+		pm = mContext.getPackageManager();
 	}
 
 	public void setPlaceholder(Bitmap bmp) {
 		placeholder = bmp;
 	}
 
-	public Bitmap getBitmapFromCache(String url) {
+	public static Bitmap getBitmapFromCache(String url) {
 		if (cache.containsKey(url)) {
 			return cache.get(url);
 		}
@@ -72,7 +78,7 @@ public enum IconPreview {
 		return null;
 	}
 
-	public void queueJob(final File uri, final ImageView imageView) {
+	public static void queueJob(final File uri, final ImageView imageView) {
 		/* Create handler in UI thread. */
 		final Handler handler = new Handler() {
 			@Override
@@ -100,7 +106,7 @@ public enum IconPreview {
 		});
 	}
 
-	public void loadBitmap(final File file, final ImageView imageView) {
+	public static void loadBitmap(final File file, final ImageView imageView) {
 		imageViews.put(imageView, file.getAbsolutePath());
 		Bitmap bitmap = getBitmapFromCache(file.getAbsolutePath());
 
@@ -114,23 +120,7 @@ public enum IconPreview {
 		}
 	}
 
-	public void loadApk(final File file1, final ImageView imageView,
-			final Context context) {
-		pm = context.getPackageManager();
-		imageViews.put(imageView, file1.getAbsolutePath());
-		Bitmap bitmap = getBitmapFromCache(file1.getAbsolutePath());
-
-		// check in UI thread, so no concurrency issues
-		if (bitmap != null) {
-			// Item loaded from cache
-			imageView.setImageBitmap(bitmap);
-		} else {
-			imageView.setImageBitmap(placeholder);
-			queueJob(file1, imageView);
-		}
-	}
-
-	private Bitmap getPreview(File file) {
+	private static Bitmap getPreview(File file) {
 		final boolean isImage = MimeTypes.isPicture(file);
 		final boolean isVideo = MimeTypes.isVideo(file);
 		final boolean isApk = file.getName().endsWith(".apk");
@@ -176,6 +166,10 @@ public enum IconPreview {
 						mBitmap = ((BitmapDrawable) icon).getBitmap();
 					}
 				}
+			} else {
+				// load apk icon from /res/drawable/..
+				mBitmap = BitmapFactory.decodeResource(mContext.getResources(),
+						R.drawable.type_apk);
 			}
 
 			cache.put(path, mBitmap);
