@@ -31,6 +31,6 @@ Thanks for translations (XDA and Getlocalization):
 + logpc - french
 + atlasslusho - thai
 + mary-kate - finnish
-
++ drkalo - bulgarian
 
 Discussion Thread: http://forum.xda-developers.com/showthread.php?t=2330864
