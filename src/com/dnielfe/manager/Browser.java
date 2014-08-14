@@ -256,6 +256,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		final TypedArray array = obtainStyledAttributes(new int[] { R.attr.themeId });
 		final int themeId = array.getInteger(0, SimpleExplorer.THEME_ID_LIGHT);
 		array.recycle();
+		int icon;
 
 		mDrawer = (ListView) findViewById(R.id.left_drawer);
 
@@ -264,8 +265,10 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
 
-		int icon = themeId == SimpleExplorer.THEME_ID_LIGHT ? R.drawable.holo_light_ic_drawer
-				: R.drawable.holo_dark_ic_drawer;
+		if (themeId == SimpleExplorer.THEME_ID_LIGHT)
+			icon = R.drawable.holo_light_ic_drawer;
+		else
+			icon = R.drawable.holo_dark_ic_drawer;
 
 		// Add Navigation Drawer to ActionBar
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, icon,

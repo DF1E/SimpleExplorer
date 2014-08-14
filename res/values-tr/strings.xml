@@ -87,6 +87,7 @@
     <string name="theme">Tema</string>
     <string name="light">Açık</string>
     <string name="dark">Koyu</string>
+    <string name="black">Black</string>
 
     <!-- permissions -->
     <string name="permissions">İzinler</string>

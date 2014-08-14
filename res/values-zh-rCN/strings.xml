@@ -87,6 +87,7 @@
     <string name="theme">主题</string>
     <string name="light">亮色调</string>
     <string name="dark">暗色调</string>
+    <string name="black">Black</string>
 
     <!-- permissions -->
     <string name="permissions">Permissions</string>

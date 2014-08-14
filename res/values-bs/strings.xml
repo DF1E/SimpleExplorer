@@ -87,6 +87,7 @@
     <string name="theme">Theme</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
+    <string name="black">Black</string>
 
     <!-- permissions -->
     <string name="permissions">Dozvole</string>

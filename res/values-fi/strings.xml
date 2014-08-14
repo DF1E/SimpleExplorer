@@ -87,6 +87,7 @@
     <string name="theme">Teema</string>
     <string name="light">Kirkas</string>
     <string name="dark">Hämärä</string>
+    <string name="black">Black</string>
 
     <!-- permissions -->
     <string name="permissions">Käyttöoikeudet</string>

@@ -87,6 +87,7 @@
     <string name="theme">Theme</string>
     <string name="light">Hell</string>
     <string name="dark">Dunkel</string>
+    <string name="black">Schwarz</string>
 
     <!-- permissions -->
     <string name="permissions">Berechtigungen</string>

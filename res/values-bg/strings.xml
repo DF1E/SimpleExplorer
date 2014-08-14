@@ -81,6 +81,7 @@
     <string name="theme">Тема</string>
     <string name="light">Светла</string>
     <string name="dark">Тъмна</string>
+    <string name="black">Black</string>
 
     <!-- permissions -->
     <string name="permissions">Разрешения</string>

@@ -87,6 +87,7 @@
     <string name="theme">Téma</string>
     <string name="light">Svetlá</string>
     <string name="dark">Tmavá</string>
+    <string name="black">Black</string>
 
     <!-- permissions -->
     <string name="permissions">Oprávnenia</string>
