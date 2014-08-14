@@ -318,7 +318,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 					if (mDrawerLayout.isDrawerOpen(mDrawer))
 						mDrawerLayout.closeDrawer(mDrawer);
 
-					if (mBookmarksCursor.moveToPosition((int) position)) {
+					if (mBookmarksCursor.moveToPosition(position)) {
 						File file = new File(mBookmarksCursor
 								.getString(mBookmarksCursor
 										.getColumnIndex(Bookmarks.PATH)));
@@ -355,7 +355,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	}
 
 	private void navigateTo(String path) {
-		mCurrentPath = new String(path);
+		mCurrentPath = path;
 
 		if (mObserver != null) {
 			mObserver.stopWatching();

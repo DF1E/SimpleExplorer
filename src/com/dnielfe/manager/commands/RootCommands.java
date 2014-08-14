@@ -52,7 +52,7 @@ public class RootCommands {
 			String line;
 			while ((line = in.readLine()) != null) {
 				if (!showhidden) {
-					if (line.toString().charAt(0) != '.')
+					if (line.charAt(0) != '.')
 						mDirContent.add(path + "/" + line);
 				} else {
 					mDirContent.add(path + "/" + line);
@@ -78,8 +78,6 @@ public class RootCommands {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return;
 	}
 
 	// Move or Copy with Root Access using RootTools library
@@ -93,8 +91,6 @@ public class RootCommands {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return;
 	}
 
 	// path = currentDir
@@ -116,8 +112,6 @@ public class RootCommands {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return;
 	}
 
 	// Delete file with root
@@ -153,7 +147,7 @@ public class RootCommands {
 			execute("touch " + getCommandLineString(dir.getAbsolutePath()));
 			return;
 		} catch (Exception e) {
-			return;
+			e.printStackTrace();
 		}
 	}
 

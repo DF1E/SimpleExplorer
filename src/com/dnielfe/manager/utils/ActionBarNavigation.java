@@ -100,7 +100,7 @@ public class ActionBarNavigation {
 					android.R.attr.actionButtonStyle);
 			t2.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT,
 					MATCH_PARENT, Gravity.CENTER_VERTICAL));
-			t2.setText(parts[i].toString());
+			t2.setText(parts[i]);
 			t2.setTextSize(textsize);
 			t2.setTag(dir);
 			t2.setOnClickListener(new OnClickListener() {

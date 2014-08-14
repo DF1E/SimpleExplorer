@@ -134,11 +134,9 @@ public class SearchActivity extends ThemableActivity {
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			mQuery = intent.getStringExtra(SearchManager.QUERY);
 
-			if (mQuery.toString().length() > 0) {
+			if (mQuery.length() > 0) {
 				mTask = new SearchTask(this);
 				mTask.execute(mQuery);
-			} else {
-				return;
 			}
 		}
 	}
@@ -217,6 +215,5 @@ public class SearchActivity extends ThemableActivity {
 	@Override
 	public void onBackPressed() {
 		finish();
-		return;
 	}
 }

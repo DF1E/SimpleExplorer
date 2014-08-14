@@ -46,7 +46,6 @@ public class SettingsActivity extends ThemableActivity {
 		Intent i = new Intent(getBaseContext(), Browser.class);
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
-		return;
 	}
 
 	void proxyRestart() {

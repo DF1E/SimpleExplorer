@@ -112,7 +112,7 @@ public class SimpleUtils {
 			// add files/folder to ArrayList depending on hidden status
 			for (int i = 0; i < len; i++) {
 				if (!showhidden) {
-					if (list[i].toString().charAt(0) != '.')
+					if (list[i].charAt(0) != '.')
 						mDirContent.add(path + "/" + list[i]);
 				} else {
 					mDirContent.add(path + "/" + list[i]);
@@ -214,8 +214,6 @@ public class SimpleUtils {
 			if (RootTools.isAccessGiven())
 				RootCommands.moveCopyRoot(old, newDir);
 		}
-
-		return;
 	}
 
 	// filePath = currentDir + "/" + item
@@ -290,7 +288,6 @@ public class SimpleUtils {
 		} else if (target.exists() && !target.delete()) {
 			RootCommands.DeleteFileRoot(path, dir);
 		}
-		return;
 	}
 
 	/**

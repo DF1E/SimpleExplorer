@@ -100,7 +100,7 @@ public class IconPreview {
 		return false;
 	}
 
-	public static void loadFromRes(final File file, final ImageView icon) {
+	private static void loadFromRes(final File file, final ImageView icon) {
 		Drawable mimeIcon = null;
 
 		if (file != null && file.isDirectory()) {
@@ -134,7 +134,7 @@ public class IconPreview {
 		placeholder = bmp;
 	}
 
-	public static Bitmap getBitmapFromCache(String url) {
+	private static Bitmap getBitmapFromCache(String url) {
 		if (cache.containsKey(url)) {
 			return cache.get(url);
 		}
@@ -142,7 +142,7 @@ public class IconPreview {
 		return null;
 	}
 
-	public static void queueJob(final File uri, final ImageView imageView) {
+	private static void queueJob(final File uri, final ImageView imageView) {
 		/* Create handler in UI thread. */
 		final Handler handler = new Handler() {
 			@Override
@@ -170,7 +170,7 @@ public class IconPreview {
 		});
 	}
 
-	public static void loadBitmap(final File file, final ImageView imageView) {
+	private static void loadBitmap(final File file, final ImageView imageView) {
 		imageViews.put(imageView, file.getAbsolutePath());
 		Bitmap bitmap = getBitmapFromCache(file.getAbsolutePath());
 
