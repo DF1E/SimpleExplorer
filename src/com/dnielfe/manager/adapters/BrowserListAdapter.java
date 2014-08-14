@@ -25,17 +25,12 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.preview.DrawableLruCache;
 import com.dnielfe.manager.preview.IconPreview;
-import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.settings.Settings;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,18 +43,12 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 	private Resources mResources;
 	private ArrayList<String> mDataSource;
 
-	private DrawableLruCache<String> mMimeTypeIconCache;
-
 	public BrowserListAdapter(final Context context, ArrayList<String> data) {
 		super(context, R.layout.item_browserlist, data);
 
 		this.mContext = context;
 		this.mDataSource = data;
 		this.mResources = context.getResources();
-
-		if (mMimeTypeIconCache == null) {
-			mMimeTypeIconCache = new DrawableLruCache<String>();
-		}
 	}
 
 	@Override
@@ -87,10 +76,8 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 			mViewHolder.dateview.setVisibility(TextView.GONE);
 		}
 
-		if (Settings.showthumbnail)
-			setIcon(file, mViewHolder.icon);
-		else
-			loadFromRes(file, mViewHolder.icon);
+		// get icon
+		IconPreview.getFileIcon(file, mViewHolder.icon);
 
 		if (file.isFile()) {
 			// Shows the size of File
@@ -116,51 +103,6 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 	@Override
 	public String getItem(int pos) {
 		return mDataSource.get(pos);
-	}
-
-	private final void setIcon(final File file, final ImageView icon) {
-		final boolean isImage = MimeTypes.isPicture(file);
-		final boolean isVideo = MimeTypes.isVideo(file);
-		final boolean isApk = file.getName().endsWith(".apk");
-
-		// you can set a placeholder
-		// IconPreview.INSTANCE.setPlaceholder(bitmap);
-		if (isImage || isVideo || isApk) {
-			icon.setTag(file.getAbsolutePath());
-			IconPreview.loadBitmap(file, icon);
-		} else {
-			loadFromRes(file, icon);
-		}
-	}
-
-	private void loadFromRes(final File file, final ImageView icon) {
-		Drawable mimeIcon = null;
-
-		if (file != null && file.isDirectory()) {
-			String[] files = file.list();
-			if (file.canRead() && files != null && files.length > 0)
-				mimeIcon = mResources.getDrawable(R.drawable.type_folder);
-			else
-				mimeIcon = mResources.getDrawable(R.drawable.type_folder_empty);
-		} else if (file != null && file.isFile()) {
-			final String fileExt = FilenameUtils.getExtension(file.getName());
-			mimeIcon = mMimeTypeIconCache.get(fileExt);
-
-			if (mimeIcon == null) {
-				final int mimeIconId = MimeTypes.getIconForExt(fileExt);
-				if (mimeIconId != 0) {
-					mimeIcon = mResources.getDrawable(mimeIconId);
-					mMimeTypeIconCache.put(fileExt, mimeIcon);
-				}
-			}
-		}
-
-		if (mimeIcon != null) {
-			icon.setImageDrawable(mimeIcon);
-		} else {
-			// default icon
-			icon.setImageResource(R.drawable.type_unknown);
-		}
 	}
 
 	private static class ViewHolder {

@@ -28,8 +28,8 @@ import android.preference.PreferenceManager;
 
 public final class Settings {
 
-	public static boolean showthumbnail;
-	public static boolean mShowHiddenFiles;
+	private static boolean showthumbnail;
+	private static boolean mShowHiddenFiles;
 	public static int mListAppearance;
 	public static int mSortType;
 	public static int mTheme;
@@ -47,5 +47,13 @@ public final class Settings {
 		mListAppearance = Integer.parseInt(p.getString("viewmode", "1"));
 		defaultdir = p.getString("defaultdir", Environment
 				.getExternalStorageDirectory().getPath());
+	}
+	
+	public static boolean showThumbnail(){
+		return showthumbnail;
+	}
+	
+	public static boolean showHiddenFiles(){
+		return mShowHiddenFiles;
 	}
 }

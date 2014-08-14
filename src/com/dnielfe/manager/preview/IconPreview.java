@@ -29,13 +29,17 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.commons.io.FilenameUtils;
+
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.settings.Settings;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -50,20 +54,80 @@ import android.widget.ImageView;
 public class IconPreview {
 
 	private static ConcurrentMap<String, Bitmap> cache;
+	private static DrawableLruCache<String> mMimeTypeIconCache;
 	private static ExecutorService pool = null;
 	private static Map<ImageView, String> imageViews = Collections
 			.synchronizedMap(new ConcurrentHashMap<ImageView, String>());
 	private static PackageManager pm;
-	private static Context mContext;
 	private static int mSize = 64;
 	private static Bitmap placeholder = null;
+
+	private static Context mContext;
+	private static Resources mResources;
 
 	public IconPreview(Activity activity) {
 		mContext = activity;
 
 		cache = new ConcurrentHashMap<String, Bitmap>();
 		pool = Executors.newFixedThreadPool(5);
+		mResources = activity.getResources();
 		pm = mContext.getPackageManager();
+
+		if (mMimeTypeIconCache == null) {
+			mMimeTypeIconCache = new DrawableLruCache<String>();
+		}
+	}
+
+	public static void getFileIcon(File file, final ImageView icon) {
+		if (Settings.showThumbnail() & isvalidMimeType(file)) {
+			// you can set a placeholder
+			// setPlaceholder(bitmap);
+			icon.setTag(file.getAbsolutePath());
+			loadBitmap(file, icon);
+		} else {
+			loadFromRes(file, icon);
+		}
+	}
+
+	private static boolean isvalidMimeType(File file) {
+		boolean isImage = MimeTypes.isPicture(file);
+		boolean isVideo = MimeTypes.isVideo(file);
+		boolean isApk = file.getName().endsWith(".apk");
+
+		if (isImage || isVideo || isApk)
+			return true;
+
+		return false;
+	}
+
+	public static void loadFromRes(final File file, final ImageView icon) {
+		Drawable mimeIcon = null;
+
+		if (file != null && file.isDirectory()) {
+			String[] files = file.list();
+			if (file.canRead() && files != null && files.length > 0)
+				mimeIcon = mResources.getDrawable(R.drawable.type_folder);
+			else
+				mimeIcon = mResources.getDrawable(R.drawable.type_folder_empty);
+		} else if (file != null && file.isFile()) {
+			final String fileExt = FilenameUtils.getExtension(file.getName());
+			mimeIcon = mMimeTypeIconCache.get(fileExt);
+
+			if (mimeIcon == null) {
+				final int mimeIconId = MimeTypes.getIconForExt(fileExt);
+				if (mimeIconId != 0) {
+					mimeIcon = mResources.getDrawable(mimeIconId);
+					mMimeTypeIconCache.put(fileExt, mimeIcon);
+				}
+			}
+		}
+
+		if (mimeIcon != null) {
+			icon.setImageDrawable(mimeIcon);
+		} else {
+			// default icon
+			icon.setImageResource(R.drawable.type_unknown);
+		}
 	}
 
 	public void setPlaceholder(Bitmap bmp) {

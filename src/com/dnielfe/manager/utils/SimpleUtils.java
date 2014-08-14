@@ -98,7 +98,7 @@ public class SimpleUtils {
 
 	public static ArrayList<String> listFiles(String path) {
 		ArrayList<String> mDirContent = new ArrayList<String>();
-		boolean showhidden = Settings.mShowHiddenFiles;
+		boolean showhidden = Settings.showHiddenFiles();
 
 		if (!mDirContent.isEmpty())
 			mDirContent.clear();
