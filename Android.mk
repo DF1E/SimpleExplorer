@@ -19,6 +19,6 @@ include $(CLEAR_VARS)
 LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := \
 	roottools:libs/RootTools-3.4.jar \
 	commons-io:libs/commons-io-2.4.jar \
-	junrar:libs/junrarlib.jar
+	junrar:libs/junrar-0.8-SNAPSHOT.jar
 
 include $(BUILD_MULTI_PREBUILT)
