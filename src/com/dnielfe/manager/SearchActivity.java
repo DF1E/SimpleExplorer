@@ -23,7 +23,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.dnielfe.manager.adapters.BrowserListAdapter;
-import com.dnielfe.manager.utils.ActionBarNavigation;
+import com.dnielfe.manager.utils.NavigationView;
 import com.dnielfe.manager.utils.SimpleUtils;
 
 import android.app.ActionBar;
@@ -43,7 +43,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class SearchActivity extends ThemableActivity {
 
-	private ActionBarNavigation mActionBarNavigation;
+	private NavigationView mActionBarNavigation;
 
 	public static String mQuery;
 	private static String mDirectory;

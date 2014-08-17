@@ -10,10 +10,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
+        <HorizontalScrollView
+            android:id="@+id/scroll_text"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:fillViewport="true"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:id="@+id/directory_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:longClickable="true"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <View
+            android:id="@+id/divider_horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/scroll_text"
+            android:layout_gravity="center_vertical"
+            android:background="?android:attr/dividerHorizontal" />
+
         <ListView
             android:id="@+id/android:list"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_below="@id/divider_horizontal"
             android:drawSelectorOnTop="true"
             android:longClickable="true"
             android:scrollbarStyle="outsideOverlay"

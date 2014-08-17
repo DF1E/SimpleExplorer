@@ -40,8 +40,8 @@ import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.settings.SettingsActivity;
 import com.dnielfe.manager.tasks.PasteTaskExecutor;
-import com.dnielfe.manager.utils.ActionBarNavigation;
-import com.dnielfe.manager.utils.ActionBarNavigation.OnNavigateListener;
+import com.dnielfe.manager.utils.NavigationView;
+import com.dnielfe.manager.utils.NavigationView.OnNavigateListener;
 import com.dnielfe.manager.utils.Bookmarks;
 import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
@@ -76,7 +76,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 	public static final String TAG_DIALOG = "dialog";
 
 	private static Handler sHandler;
-	private static ActionBarNavigation mNavigation;
+	private static NavigationView mNavigation;
 	private ActionModeController mActionController;
 	private MultiFileObserver mObserver;
 	private FileObserverCache mObserverCache;
@@ -189,7 +189,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		fm = getFragmentManager();
 		mDataSource = new ArrayList<String>();
 		mObserverCache = FileObserverCache.getInstance();
-		mNavigation = new ActionBarNavigation(this);
+		mNavigation = new NavigationView(this);
 		mActionController = new ActionModeController(this);
 
 		// start IconPreview class to get thumbnails if BrowserListAdapter
@@ -242,13 +242,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 
 	private void initActionBar() {
 		mActionBar = this.getActionBar();
-		mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
-				| ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_HOME_AS_UP);
-
-		// set custom ActionBar layout
-		final View mActionView = getLayoutInflater().inflate(
-				R.layout.activity_browser_actionbar, null);
-		mActionBar.setCustomView(mActionView);
+		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.show();
 	}
 
@@ -277,19 +271,12 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 			@Override
 			public void onDrawerOpened(View view) {
 				super.onDrawerOpened(view);
-				mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
-						| ActionBar.DISPLAY_HOME_AS_UP
-						| ActionBar.DISPLAY_SHOW_TITLE);
-				mActionBar.setTitle(R.string.app_name);
 				invalidateOptionsMenu();
 			}
 
 			@Override
 			public void onDrawerClosed(View view) {
 				super.onDrawerClosed(view);
-				mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
-						| ActionBar.DISPLAY_HOME_AS_UP
-						| ActionBar.DISPLAY_SHOW_CUSTOM);
 				invalidateOptionsMenu();
 			}
 		};
@@ -521,7 +508,7 @@ public final class Browser extends ThemableActivity implements OnEventListener,
 		mListAdapter.notifyDataSetChanged();
 	}
 
-	public static ActionBarNavigation getNavigation() {
+	public static NavigationView getNavigation() {
 		return mNavigation;
 	}
 

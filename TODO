@@ -2,11 +2,7 @@ TODO:
 ==========================================================
 -	fix fileobserver not working some dirs (e.g. /data)
 
--	fix preview if file is = null
-
--	improve appmanager
-
--	use commons io fileutils
+-	use more commons io fileutils
 
 -	add gridview
 
@@ -17,3 +13,5 @@ TODO:
 -	search everywhere
 
 -	search preferences
+
+-	option to enable root in settings
