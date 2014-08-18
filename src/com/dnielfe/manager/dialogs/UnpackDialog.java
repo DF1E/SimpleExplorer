@@ -23,7 +23,7 @@ import java.io.File;
 
 import org.apache.commons.io.FilenameUtils;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserFragment;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.tasks.UnRarTask;
 import com.dnielfe.manager.tasks.UnZipTask;
@@ -57,7 +57,7 @@ public final class UnpackDialog extends DialogFragment {
 		// Set an EditText view to get user input
 		final EditText inputf = new EditText(a);
 		inputf.setHint(R.string.enter_name);
-		inputf.setText(Browser.mCurrentPath);
+		inputf.setText(BrowserFragment.mCurrentPath);
 
 		final AlertDialog.Builder b = new AlertDialog.Builder(a);
 		b.setTitle(R.string.extractto);

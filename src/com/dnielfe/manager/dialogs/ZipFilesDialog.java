@@ -20,7 +20,7 @@
 package com.dnielfe.manager.dialogs;
 
 import java.io.File;
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserFragment;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.tasks.ZipFolderTask;
 import com.dnielfe.manager.tasks.ZipTask;
@@ -49,7 +49,8 @@ public final class ZipFilesDialog extends DialogFragment {
 	@Override
 	public Dialog onCreateDialog(Bundle state) {
 		final Activity a = getActivity();
-		final String zipfile = Browser.mCurrentPath + "/" + "zipfile.zip";
+		final String zipfile = BrowserFragment.mCurrentPath + "/"
+				+ "zipfile.zip";
 		final int size = files.length;
 
 		// Set an EditText view to get user input

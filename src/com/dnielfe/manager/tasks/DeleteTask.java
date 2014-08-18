@@ -29,7 +29,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserFragment;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.SimpleUtils;
 
@@ -73,7 +73,7 @@ public final class DeleteTask extends AsyncTask<String, Void, List<String>> {
 		for (int i = 0; i < size; i++) {
 			try {
 				SimpleUtils.deleteTarget(activity, files[i],
-						Browser.mCurrentPath);
+						BrowserFragment.mCurrentPath);
 			} catch (Exception e) {
 				failed.add(files[i]);
 			}

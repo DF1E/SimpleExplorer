@@ -124,6 +124,7 @@ public class NavigationView {
 			mView.addView(fv1);
 			mView.addView(t2);
 			scrolltext.postDelayed(new Runnable() {
+				@Override
 				public void run() {
 					HorizontalScrollView hv = (HorizontalScrollView) mActivity
 							.findViewById(R.id.scroll_text);

@@ -29,7 +29,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserFragment;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.commands.RootCommands;
 import com.stericson.RootTools.RootTools;
@@ -52,9 +52,9 @@ public final class CreateFileDialog extends DialogFragment {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						String name = inputf.getText().toString();
+						String path = BrowserFragment.mCurrentPath;
 
-						File file = new File(Browser.mCurrentPath
-								+ File.separator + name);
+						File file = new File(path + File.separator + name);
 
 						if (file.exists()) {
 							Toast.makeText(a, getString(R.string.fileexists),
@@ -72,8 +72,7 @@ public final class CreateFileDialog extends DialogFragment {
 								}
 							} catch (Exception e) {
 								if (RootTools.isRootAvailable()) {
-									RootCommands.createRootFile(
-											Browser.mCurrentPath, name);
+									RootCommands.createRootFile(path, name);
 									Toast.makeText(a, R.string.filecreated,
 											Toast.LENGTH_SHORT).show();
 								} else {

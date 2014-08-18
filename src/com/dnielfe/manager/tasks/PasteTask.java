@@ -30,7 +30,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserFragment;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
@@ -136,7 +136,7 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 		ClipBoard.clear();
 		activity.invalidateOptionsMenu();
 
-		Browser.listDirectory(location);
+		BrowserFragment.listDirectory(location);
 
 		if (activity != null && !failed.isEmpty()) {
 			Toast.makeText(activity, activity.getString(R.string.cantopenfile),

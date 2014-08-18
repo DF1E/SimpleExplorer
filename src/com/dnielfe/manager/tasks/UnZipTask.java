@@ -30,7 +30,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserFragment;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.SimpleUtils;
 import com.dnielfe.manager.utils.ZipUtils;
@@ -99,7 +99,7 @@ public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
 			this.dialog.dismiss();
 		}
 
-		Browser.listDirectory(Browser.mCurrentPath);
+		BrowserFragment.listDirectory(BrowserFragment.mCurrentPath);
 
 		final Activity activity = this.activity.get();
 		if (activity != null && !failed.isEmpty()) {

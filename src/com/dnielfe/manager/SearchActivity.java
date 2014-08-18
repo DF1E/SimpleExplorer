@@ -84,8 +84,8 @@ public class SearchActivity extends ThemableActivity {
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.show();
 
-		mActionBarNavigation = Browser.getNavigation();
-		mDirectory = Browser.mCurrentPath;
+		mActionBarNavigation = BrowserFragment.getNavigation();
+		mDirectory = BrowserFragment.mCurrentPath;
 		SearchIntent(intent);
 	}
 
@@ -109,7 +109,7 @@ public class SearchActivity extends ThemableActivity {
 
 			if (f.isDirectory()) {
 				finish();
-				Browser.listDirectory(f.getPath());
+				BrowserFragment.listDirectory(f.getPath());
 				mActionBarNavigation.setDirectoryButtons(f.getPath());
 			} else if (f.isFile()) {
 				SimpleUtils.openFile(SearchActivity.this, f);

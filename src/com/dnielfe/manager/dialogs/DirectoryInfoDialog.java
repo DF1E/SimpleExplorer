@@ -21,7 +21,7 @@ package com.dnielfe.manager.dialogs;
 
 import org.apache.commons.io.FileUtils;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserFragment;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.utils.StatFsCompat;
@@ -58,7 +58,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		mFile = new File(Browser.mCurrentPath);
+		mFile = new File(BrowserFragment.mCurrentPath);
 		PartitionInfoTask mTask = new PartitionInfoTask(mView);
 		mTask.execute(mFile);
 	}
