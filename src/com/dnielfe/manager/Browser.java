@@ -40,7 +40,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -63,6 +62,7 @@ public final class Browser extends ThemableActivity {
 	private FragmentManager fm;
 	private BrowserFragment mBrowserFragment;
 
+	// TODO fix savedinstance npe
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,7 +82,6 @@ public final class Browser extends ThemableActivity {
 		super.onResume();
 		Settings.updatePreferences(this);
 
-		// TODO fix fc when change theme
 		invalidateOptionsMenu();
 	}
 
@@ -95,12 +94,6 @@ public final class Browser extends ThemableActivity {
 			fm.beginTransaction().remove(f).commit();
 			fm.executePendingTransactions();
 		}
-	}
-
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putString("location", BrowserFragment.mCurrentPath);
 	}
 
 	private void init(Bundle savedInstanceState) {
@@ -215,16 +208,6 @@ public final class Browser extends ThemableActivity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
-
-	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		// this is needed when a Bookmark is selected in NavingationDrawer
-		if (!mDrawerLayout.isDrawerOpen(mDrawer)) {
-			// update navigation view
-			mBrowserFragment.navigateTo(BrowserFragment.mCurrentPath);
-		}
-		return super.onPrepareOptionsMenu(menu);
 	}
 
 	@Override

@@ -83,6 +83,7 @@ public final class BrowserFragment extends Fragment implements OnEventListener,
 	private static NavigationView mNavigation;
 	private AbsListView mListView;
 
+	// TODO bug: after moving back from settings there is no fragment
 	@Override
 	public void onActivityCreated(Bundle state) {
 		super.onActivityCreated(state);
@@ -105,6 +106,12 @@ public final class BrowserFragment extends Fragment implements OnEventListener,
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		navigateTo(mCurrentPath);
+	}
+
+	@Override
 	public void onPause() {
 		super.onPause();
 		this.onDestroy();
@@ -120,6 +127,12 @@ public final class BrowserFragment extends Fragment implements OnEventListener,
 
 		if (mNavigation != null)
 			mNavigation.removeOnNavigateListener(this);
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString("location", BrowserFragment.mCurrentPath);
 	}
 
 	private void init() {
@@ -344,7 +357,8 @@ public final class BrowserFragment extends Fragment implements OnEventListener,
 				if (!mUseBackKey)
 					mUseBackKey = true;
 
-				mCurrentPath = file.getAbsolutePath();
+				navigateTo(file.getAbsolutePath());
+
 				// go to the top of the ListView
 				mListView.setSelection(0);
 			} else {
@@ -376,15 +390,5 @@ public final class BrowserFragment extends Fragment implements OnEventListener,
 		}
 
 		return true;
-	}
-
-	public void saveManualState(Bundle tabState) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void restoreManualState(Bundle tabState) {
-		// TODO Auto-generated method stub
-
 	}
 }
