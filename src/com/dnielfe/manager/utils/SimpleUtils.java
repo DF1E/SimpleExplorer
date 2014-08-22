@@ -161,13 +161,18 @@ public class SimpleUtils {
 		}
 	}
 
-	/**
-	 * 
-	 * @param old
-	 *            the file to be copied/ moved
-	 * @param newDir
-	 *            the directory to copy/move the file to
-	 */
+	public static void moveToDirectory(Activity activity, String old,
+			String newDir) {
+		String file_name = old.substring(old.lastIndexOf("/"), old.length());
+		File old_file = new File(old);
+		File cp_file = new File(newDir + file_name);
+
+		if (!old_file.renameTo(cp_file)) {
+			copyToDirectory(old, newDir);
+			deleteTarget(activity, old, newDir);
+		}
+	}
+
 	public static void copyToDirectory(String old, String newDir) {
 		File old_file = new File(old);
 		File temp_dir = new File(newDir);

@@ -82,10 +82,11 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 		final Activity activity = this.activity.get();
 
 		for (String target : content) {
-			SimpleUtils.copyToDirectory(target, location);
-			success = true;
 			if (ClipBoard.isMove()) {
-				SimpleUtils.deleteTarget(activity, target, location);
+				SimpleUtils.moveToDirectory(activity, target, location);
+				success = true;
+			} else {
+				SimpleUtils.copyToDirectory(target, location);
 				success = true;
 			}
 		}
