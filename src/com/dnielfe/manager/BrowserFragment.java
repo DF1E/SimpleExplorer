@@ -33,6 +33,7 @@ import com.dnielfe.manager.dialogs.UnpackDialog;
 import com.dnielfe.manager.fileobserver.FileObserverCache;
 import com.dnielfe.manager.fileobserver.MultiFileObserver;
 import com.dnielfe.manager.fileobserver.MultiFileObserver.OnEventListener;
+import com.dnielfe.manager.fragments.UserVisibleHintFragment;
 import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.tasks.PasteTaskExecutor;
@@ -44,7 +45,6 @@ import com.dnielfe.manager.utils.SimpleUtils;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.database.Cursor;
@@ -64,8 +64,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public final class BrowserFragment extends Fragment implements OnEventListener,
-		OnNavigateListener {
+public final class BrowserFragment extends UserVisibleHintFragment implements
+		OnEventListener, OnNavigateListener {
 
 	private Activity mActivity;
 	private FragmentManager fm;
@@ -83,15 +83,19 @@ public final class BrowserFragment extends Fragment implements OnEventListener,
 	private static NavigationView mNavigation;
 	private AbsListView mListView;
 
-	// TODO bug: after moving back from settings there is no fragment
+	@Override
+	public void onCreate(Bundle state) {
+		setRetainInstance(true);
+		setHasOptionsMenu(true);
+		super.onCreate(state);
+	}
+
 	@Override
 	public void onActivityCreated(Bundle state) {
 		super.onActivityCreated(state);
 		mActivity = (Browser) getActivity();
 		Intent intent = mActivity.getIntent();
 		fm = getFragmentManager();
-
-		setHasOptionsMenu(true);
 
 		init();
 		initDirectory(state, intent);
@@ -106,14 +110,13 @@ public final class BrowserFragment extends Fragment implements OnEventListener,
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
+	protected void onVisible() {
 		navigateTo(mCurrentPath);
 	}
 
 	@Override
-	public void onPause() {
-		super.onPause();
+	protected void onInvisible() {
+		mObserver.stopWatching();
 		this.onDestroy();
 	}
 

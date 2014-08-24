@@ -63,6 +63,7 @@ public final class Browser extends ThemableActivity {
 	private BrowserFragment mBrowserFragment;
 
 	// TODO fix savedinstance npe
+	// TODO bug: after moving back from settings there is no fragment
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
