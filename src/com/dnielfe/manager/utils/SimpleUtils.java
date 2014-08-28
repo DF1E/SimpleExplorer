@@ -31,7 +31,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import org.apache.commons.io.FileUtils;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.preview.MimeTypes;
@@ -402,10 +402,10 @@ public class SimpleUtils {
 
 		try {
 			// Create the intent that will handle the shortcut
-			Intent shortcutIntent = new Intent(main, Browser.class);
+			Intent shortcutIntent = new Intent(main, BrowserActivity.class);
 			shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-			shortcutIntent.putExtra(Browser.EXTRA_SHORTCUT, path);
+			shortcutIntent.putExtra(BrowserActivity.EXTRA_SHORTCUT, path);
 
 			// The intent to send to broadcast for register the shortcut intent
 			Intent intent = new Intent();

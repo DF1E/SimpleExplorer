@@ -39,14 +39,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class BrowserListAdapter extends ArrayAdapter<String> {
-	private Context mContext;
+	private LayoutInflater mInflater;
 	private Resources mResources;
 	private ArrayList<String> mDataSource;
 
-	public BrowserListAdapter(final Context context, ArrayList<String> data) {
+	public BrowserListAdapter(Context context, LayoutInflater inflater,
+			ArrayList<String> data) {
 		super(context, R.layout.item_browserlist, data);
 
-		this.mContext = context;
+		this.mInflater = inflater;
 		this.mDataSource = data;
 		this.mResources = context.getResources();
 	}
@@ -60,9 +61,7 @@ public class BrowserListAdapter extends ArrayAdapter<String> {
 				DateFormat.SHORT, Locale.getDefault());
 
 		if (convertView == null) {
-			LayoutInflater inflater = (LayoutInflater) mContext
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.item_browserlist, parent,
+			convertView = mInflater.inflate(R.layout.item_browserlist, parent,
 					false);
 			mViewHolder = new ViewHolder(convertView);
 			convertView.setTag(mViewHolder);

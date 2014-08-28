@@ -30,7 +30,6 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.BrowserFragment;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.SimpleUtils;
 import com.github.junrar.extract.ExtractArchive;
@@ -104,8 +103,6 @@ public final class UnRarTask extends AsyncTask<String, Void, List<String>> {
 		if (this.dialog != null) {
 			this.dialog.dismiss();
 		}
-
-		BrowserFragment.listDirectory(BrowserFragment.mCurrentPath);
 
 		final Activity activity = this.activity.get();
 		if (activity != null && !failed.isEmpty()) {

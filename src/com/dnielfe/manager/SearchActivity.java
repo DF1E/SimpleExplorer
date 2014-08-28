@@ -84,14 +84,14 @@ public class SearchActivity extends ThemableActivity {
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.show();
 
-		mActionBarNavigation = BrowserFragment.getNavigation();
+		mActionBarNavigation = BrowserActivity.getNavigation();
 		mDirectory = BrowserFragment.mCurrentPath;
 		SearchIntent(intent);
 	}
 
 	private void initList() {
 		mData = new ArrayList<String>();
-		mAdapter = new BrowserListAdapter(this, mData);
+		mAdapter = new BrowserListAdapter(this, getLayoutInflater(), mData);
 
 		mListView = (ListView) findViewById(android.R.id.list);
 		mListView.setEmptyView(findViewById(android.R.id.empty));
@@ -109,6 +109,7 @@ public class SearchActivity extends ThemableActivity {
 
 			if (f.isDirectory()) {
 				finish();
+				// TODO improve
 				BrowserFragment.listDirectory(f.getPath());
 				mActionBarNavigation.setDirectoryButtons(f.getPath());
 			} else if (f.isFile()) {

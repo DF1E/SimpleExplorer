@@ -6,10 +6,45 @@
 
     <!-- Main content view -->
 
-    <FrameLayout
-        android:id="@+id/container"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <HorizontalScrollView
+            android:id="@+id/scroll_text"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:fillViewport="true"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:id="@+id/directory_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:longClickable="true"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <View
+            android:id="@+id/divider_horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center_vertical"
+            android:background="?android:attr/dividerHorizontal" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+    </LinearLayout>
 
     <!-- Navigation drawer -->
 

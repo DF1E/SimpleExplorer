@@ -34,20 +34,15 @@ import com.dnielfe.manager.fileobserver.FileObserverCache;
 import com.dnielfe.manager.fileobserver.MultiFileObserver;
 import com.dnielfe.manager.fileobserver.MultiFileObserver.OnEventListener;
 import com.dnielfe.manager.fragments.UserVisibleHintFragment;
-import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.tasks.PasteTaskExecutor;
-import com.dnielfe.manager.utils.Bookmarks;
 import com.dnielfe.manager.utils.ClipBoard;
-import com.dnielfe.manager.utils.NavigationView;
-import com.dnielfe.manager.utils.NavigationView.OnNavigateListener;
 import com.dnielfe.manager.utils.SimpleUtils;
 
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.os.FileObserver;
 import android.os.Handler;
@@ -62,10 +57,9 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 public final class BrowserFragment extends UserVisibleHintFragment implements
-		OnEventListener, OnNavigateListener {
+		OnEventListener {
 
 	private Activity mActivity;
 	private FragmentManager fm;
@@ -74,30 +68,52 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 	private FileObserverCache mObserverCache;
 	private Runnable mLastRunnable;
 	private static Handler sHandler;
-
+	private onUpdatePathListener mUpdatePathListener;
 	private ActionModeController mActionController;
 	private static BrowserListAdapter mListAdapter;
 	public static ArrayList<String> mDataSource;
 	public static String mCurrentPath;
 	private boolean mUseBackKey = true;
-	private static NavigationView mNavigation;
 	private AbsListView mListView;
+
+	public interface onUpdatePathListener {
+		public void onUpdatePath(String path);
+	}
 
 	@Override
 	public void onCreate(Bundle state) {
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
 		super.onCreate(state);
+		this.restoreManualState(state);
+	}
+
+	@Override
+	public void onAttach(final Activity activity) {
+		super.onAttach(activity);
+		mObserverCache = FileObserverCache.getInstance();
+		mActionController = new ActionModeController(activity);
+
+		if (sHandler == null) {
+			sHandler = new Handler(activity.getMainLooper());
+		}
+
+		try {
+			mUpdatePathListener = (onUpdatePathListener) activity;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(activity.toString()
+					+ " must implement mUpdatePathListener");
+		}
 	}
 
 	@Override
 	public void onActivityCreated(Bundle state) {
 		super.onActivityCreated(state);
-		mActivity = (Browser) getActivity();
+		mActivity = (BrowserActivity) getActivity();
 		Intent intent = mActivity.getIntent();
 		fm = getFragmentManager();
+		mActionController.setListView(mListView);
 
-		init();
 		initDirectory(state, intent);
 	}
 
@@ -106,87 +122,73 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_browser, container,
 				false);
+
+		initList(inflater, rootView);
 		return rootView;
 	}
 
 	@Override
 	protected void onVisible() {
+		final BrowserActivity activity = (BrowserActivity) getActivity();
+		if (activity != null && !activity.isFinishing()) {
+			activity.setCurrentlyDisplayedFragment(this);
+		}
+
 		navigateTo(mCurrentPath);
 	}
 
 	@Override
 	protected void onInvisible() {
 		mObserver.stopWatching();
-		this.onDestroy();
-	}
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
 		if (mObserver != null) {
 			mObserver.stopWatching();
 			mObserver.removeOnEventListener(this);
 		}
 
-		if (mNavigation != null)
-			mNavigation.removeOnNavigateListener(this);
+		if (mActionController != null) {
+			mActionController.finishActionMode();
+		}
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		outState.putString("location", BrowserFragment.mCurrentPath);
+		saveManualState(outState);
 	}
 
-	private void init() {
+	private void initList(LayoutInflater inflater, View rootView) {
+		final BrowserActivity context = (BrowserActivity) getActivity();
+		// TODO move ArrayList to adapter
 		mDataSource = new ArrayList<String>();
-		mObserverCache = FileObserverCache.getInstance();
-		mNavigation = new NavigationView(mActivity);
-		mActionController = new ActionModeController(mActivity);
+		mListAdapter = new BrowserListAdapter(context, inflater, mDataSource);
 
-		// start IconPreview class to get thumbnails if BrowserListAdapter
-		// request them
-		new IconPreview(mActivity);
-
-		// new ArrayAdapter
-		mListAdapter = new BrowserListAdapter(mActivity, mDataSource);
-
-		if (sHandler == null) {
-			sHandler = new Handler(mActivity.getMainLooper());
-		}
-
-		// get the browser list
-		mListView = (ListView) mActivity.findViewById(android.R.id.list);
-		mListView.setEmptyView(mActivity.findViewById(android.R.id.empty));
+		mListView = (ListView) rootView.findViewById(android.R.id.list);
+		mListView.setEmptyView(rootView.findViewById(android.R.id.empty));
 		mListView.setAdapter(mListAdapter);
 		mListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
-		mListView.setOnItemClickListener(mOnItemClickListener);
+		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				final File file = new File((mListView.getAdapter()
+						.getItem(position)).toString());
 
-		mActionController.setListView(mListView);
-	}
+				if (file.isDirectory()) {
+					navigateTo(file.getAbsolutePath());
 
-	private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
+					// go to the top of the ListView
+					mListView.setSelection(0);
 
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			final File file = new File(
-					(mListView.getAdapter().getItem(position)).toString());
+					if (!mUseBackKey)
+						mUseBackKey = true;
 
-			if (file.isDirectory()) {
-				navigateTo(file.getAbsolutePath());
-
-				// go to the top of the ListView
-				mListView.setSelection(0);
-
-				if (!mUseBackKey)
-					mUseBackKey = true;
-
-			} else {
-				listItemAction(file);
+				} else {
+					listItemAction(file);
+				}
 			}
-		}
-	};
+		});
+	}
 
 	public void navigateTo(String path) {
 		mCurrentPath = path;
@@ -205,10 +207,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 			mObserver.addOnEventListener(this);
 		mObserver.startWatching();
 
-		// add listener for navigation view in ActionBar
-		if (mNavigation.listeners.isEmpty())
-			mNavigation.addonNavigateListener(this);
-		mNavigation.setDirectoryButtons(path);
+		mUpdatePathListener.onUpdatePath(path);
 	}
 
 	public void listItemAction(File file) {
@@ -217,7 +216,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 		if (item_ext.equalsIgnoreCase("zip")
 				|| item_ext.equalsIgnoreCase("rar")) {
 			final DialogFragment dialog = UnpackDialog.instantiate(file);
-			dialog.show(fm, Browser.TAG_DIALOG);
+			dialog.show(fm, BrowserActivity.TAG_DIALOG);
 		} else {
 			SimpleUtils.openFile(mActivity, file);
 		}
@@ -255,15 +254,15 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 		switch (item.getItemId()) {
 		case R.id.createfile:
 			final DialogFragment dialog1 = new CreateFileDialog();
-			dialog1.show(fm, Browser.TAG_DIALOG);
+			dialog1.show(fm, BrowserActivity.TAG_DIALOG);
 			return true;
 		case R.id.createfolder:
 			final DialogFragment dialog2 = new CreateFolderDialog();
-			dialog2.show(fm, Browser.TAG_DIALOG);
+			dialog2.show(fm, BrowserActivity.TAG_DIALOG);
 			return true;
 		case R.id.folderinfo:
 			final DialogFragment dirInfo = new DirectoryInfoDialog();
-			dirInfo.show(fm, Browser.TAG_DIALOG);
+			dirInfo.show(fm, BrowserActivity.TAG_DIALOG);
 			return true;
 		case R.id.search:
 			Intent sintent = new Intent(mActivity, SearchActivity.class);
@@ -280,9 +279,8 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 		}
 	}
 
-	@Override
 	public void onNavigate(String path) {
-		// navigate to path when ActionBarNavigation button is clicked
+		// navigate to path when Navigation button is clicked
 		navigateTo(path);
 		// go to the top of the ListView
 		mListView.setSelection(0);
@@ -297,7 +295,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 		} else {
 			try {
 				File dir = new File(
-						intent.getStringExtra(Browser.EXTRA_SHORTCUT));
+						intent.getStringExtra(BrowserActivity.EXTRA_SHORTCUT));
 
 				if (dir.exists() && dir.isDirectory()) {
 					defaultdir = dir.getAbsolutePath();
@@ -319,14 +317,12 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 	}
 
 	public static void listDirectory(String path) {
-		ArrayList<String> ab = SimpleUtils.listFiles(path);
 		mCurrentPath = path;
 
 		if (!mDataSource.isEmpty())
 			mDataSource.clear();
 
-		for (String data : ab)
-			mDataSource.add(data);
+		mDataSource.addAll(SimpleUtils.listFiles(path));
 
 		mListAdapter.notifyDataSetChanged();
 	}
@@ -344,29 +340,20 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 		}
 	}
 
-	public static NavigationView getNavigation() {
-		return mNavigation;
-	}
+	public void onBookmarkClick(File file, int position) {
+		if (!file.exists())
+			return;
 
-	public void onBookmarkClick(Cursor mBookmarksCursor, int position) {
-		if (mBookmarksCursor.moveToPosition(position)) {
-			File file = new File(mBookmarksCursor.getString(mBookmarksCursor
-					.getColumnIndex(Bookmarks.PATH)));
+		if (file.isDirectory()) {
+			if (!mUseBackKey)
+				mUseBackKey = true;
 
-			if (!file.exists())
-				return;
+			navigateTo(file.getAbsolutePath());
 
-			if (file.isDirectory()) {
-				if (!mUseBackKey)
-					mUseBackKey = true;
-
-				navigateTo(file.getAbsolutePath());
-
-				// go to the top of the ListView
-				mListView.setSelection(0);
-			} else {
-				listItemAction(file);
-			}
+			// go to the top of the ListView
+			mListView.setSelection(0);
+		} else {
+			listItemAction(file);
 		}
 	}
 
@@ -393,5 +380,15 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 		}
 
 		return true;
+	}
+
+	public void saveManualState(Bundle tabState) {
+		tabState.putString("location", BrowserFragment.mCurrentPath);
+	}
+
+	public void restoreManualState(Bundle tabState) {
+		if (tabState != null) {
+			navigateTo(tabState.getString("location"));
+		}
 	}
 }

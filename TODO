@@ -17,3 +17,5 @@ TODO:
 -	option to enable root in settings
 
 -	create a view pager for multiple fragments
+
+-	fix creating thumbnail after move/copy file
