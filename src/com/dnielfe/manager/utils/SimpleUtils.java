@@ -127,8 +127,6 @@ public class SimpleUtils {
 			}
 		}
 
-		// sort files with a comparator
-		SortUtils.sortList(mDirContent, file.getPath());
 		return mDirContent;
 	}
 

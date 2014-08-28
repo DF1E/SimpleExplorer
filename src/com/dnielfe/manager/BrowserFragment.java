@@ -20,7 +20,6 @@
 package com.dnielfe.manager;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -71,7 +70,6 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 	private onUpdatePathListener mUpdatePathListener;
 	private ActionModeController mActionController;
 	private static BrowserListAdapter mListAdapter;
-	public static ArrayList<String> mDataSource;
 	public static String mCurrentPath;
 	private boolean mUseBackKey = true;
 	private AbsListView mListView;
@@ -159,9 +157,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
 	private void initList(LayoutInflater inflater, View rootView) {
 		final BrowserActivity context = (BrowserActivity) getActivity();
-		// TODO move ArrayList to adapter
-		mDataSource = new ArrayList<String>();
-		mListAdapter = new BrowserListAdapter(context, inflater, mDataSource);
+		mListAdapter = new BrowserListAdapter(context, inflater);
 
 		mListView = (ListView) rootView.findViewById(android.R.id.list);
 		mListView.setEmptyView(rootView.findViewById(android.R.id.empty));
@@ -198,7 +194,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 			mObserver.removeOnEventListener(this);
 		}
 
-		listDirectory(path);
+		mListAdapter.addFiles(path);
 
 		mObserver = mObserverCache.getOrCreate(path);
 
@@ -316,17 +312,6 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 			navigateTo(dir.getAbsolutePath());
 	}
 
-	public static void listDirectory(String path) {
-		mCurrentPath = path;
-
-		if (!mDataSource.isEmpty())
-			mDataSource.clear();
-
-		mDataSource.addAll(SimpleUtils.listFiles(path));
-
-		mListAdapter.notifyDataSetChanged();
-	}
-
 	private static final class NavigateRunnable implements Runnable {
 		private final String target;
 
@@ -336,7 +321,8 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
 		@Override
 		public void run() {
-			listDirectory(target);
+			mCurrentPath = target;
+			mListAdapter.addFiles(target);
 		}
 	}
 

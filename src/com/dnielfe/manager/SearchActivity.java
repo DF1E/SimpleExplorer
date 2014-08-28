@@ -23,7 +23,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.dnielfe.manager.adapters.BrowserListAdapter;
-import com.dnielfe.manager.utils.NavigationView;
 import com.dnielfe.manager.utils.SimpleUtils;
 
 import android.app.ActionBar;
@@ -43,17 +42,15 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class SearchActivity extends ThemableActivity {
 
-	private NavigationView mActionBarNavigation;
-
 	public static String mQuery;
 	private static String mDirectory;
 
 	private ActionBar mActionBar;
 	private ListView mListView;
 	private SearchTask mTask;
-	private ArrayList<String> mData;
 	private BrowserListAdapter mAdapter;
 
+	// TODO don't search again after rotation
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,16 +58,6 @@ public class SearchActivity extends ThemableActivity {
 
 		init(getIntent());
 		initList();
-
-		if (savedInstanceState != null) {
-			restart(savedInstanceState);
-		}
-	}
-
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putStringArrayList("foundlist", mData);
 	}
 
 	@Override
@@ -84,14 +71,12 @@ public class SearchActivity extends ThemableActivity {
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.show();
 
-		mActionBarNavigation = BrowserActivity.getNavigation();
 		mDirectory = BrowserFragment.mCurrentPath;
 		SearchIntent(intent);
 	}
 
 	private void initList() {
-		mData = new ArrayList<String>();
-		mAdapter = new BrowserListAdapter(this, getLayoutInflater(), mData);
+		mAdapter = new BrowserListAdapter(this, getLayoutInflater());
 
 		mListView = (ListView) findViewById(android.R.id.list);
 		mListView.setEmptyView(findViewById(android.R.id.empty));
@@ -109,25 +94,15 @@ public class SearchActivity extends ThemableActivity {
 
 			if (f.isDirectory()) {
 				finish();
-				// TODO improve
-				BrowserFragment.listDirectory(f.getPath());
-				mActionBarNavigation.setDirectoryButtons(f.getPath());
+
+				BrowserFragment bf = BrowserActivity
+						.getCurrentlyDisplayedFragment();
+				bf.navigateTo(f.getAbsolutePath());
 			} else if (f.isFile()) {
 				SimpleUtils.openFile(SearchActivity.this, f);
 			}
 		}
 	};
-
-	// this is needed when phone will be rotated
-	private void restart(Bundle savedInstanceState) {
-		if (!mData.isEmpty())
-			mData.clear();
-
-		for (String data : savedInstanceState.getStringArrayList("foundlist"))
-			mData.add(data);
-
-		mAdapter.notifyDataSetChanged();
-	}
 
 	private void SearchIntent(Intent intent) {
 		setIntent(intent);
@@ -192,9 +167,6 @@ public class SearchActivity extends ThemableActivity {
 		protected void onPostExecute(final ArrayList<String> files) {
 			int len = files != null ? files.size() : 0;
 
-			if (!mData.isEmpty())
-				mData.clear();
-
 			pr_dialog.dismiss();
 
 			if (len == 0) {
@@ -202,8 +174,7 @@ public class SearchActivity extends ThemableActivity {
 						Toast.LENGTH_SHORT).show();
 				mActionBar.setSubtitle(null);
 			} else {
-				for (String data : files)
-					mData.add(data);
+				mAdapter.addContent(files);
 
 				mActionBar.setSubtitle(String.valueOf(len)
 						+ getString(R.string._files));

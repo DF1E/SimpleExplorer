@@ -78,7 +78,7 @@ public final class BrowserActivity extends ThemableActivity implements
 
 	private FragmentManager fm;
 	private BrowserTabsAdapter mPagerAdapter;
-	private BrowserFragment mBrowserFragment;
+	private static BrowserFragment mBrowserFragment;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -133,6 +133,10 @@ public final class BrowserActivity extends ThemableActivity implements
 		mBrowserFragment = fragment;
 	}
 
+	public static BrowserFragment getCurrentlyDisplayedFragment() {
+		return mBrowserFragment;
+	}
+
 	private void restoreSavedState(final Bundle savedState) {
 		if (savedState != null) {
 			final Parcelable adapterState = savedState
@@ -169,10 +173,6 @@ public final class BrowserActivity extends ThemableActivity implements
 		pager.setAdapter(mPagerAdapter);
 		mPagerAdapter.setViewPager(pager);
 		pager.setOffscreenPageLimit(2);
-	}
-
-	public static NavigationView getNavigation() {
-		return mNavigation;
 	}
 
 	private void setupDrawer() {
