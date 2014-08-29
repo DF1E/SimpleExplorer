@@ -67,12 +67,14 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 	private FileObserverCache mObserverCache;
 	private Runnable mLastRunnable;
 	private static Handler sHandler;
+
 	private onUpdatePathListener mUpdatePathListener;
 	private ActionModeController mActionController;
-	private static BrowserListAdapter mListAdapter;
-	public static String mCurrentPath;
-	private boolean mUseBackKey = true;
+	private BrowserListAdapter mListAdapter;
+	public String mCurrentPath;
 	private AbsListView mListView;
+
+	private boolean mUseBackKey = true;
 
 	public interface onUpdatePathListener {
 		public void onUpdatePath(String path);
@@ -83,7 +85,10 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
 		super.onCreate(state);
-		this.restoreManualState(state);
+
+		if (state != null) {
+			navigateTo(state.getString("location"));
+		}
 	}
 
 	@Override
@@ -139,11 +144,6 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 	protected void onInvisible() {
 		mObserver.stopWatching();
 
-		if (mObserver != null) {
-			mObserver.stopWatching();
-			mObserver.removeOnEventListener(this);
-		}
-
 		if (mActionController != null) {
 			mActionController.finishActionMode();
 		}
@@ -152,7 +152,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		saveManualState(outState);
+		outState.putString("location", mCurrentPath);
 	}
 
 	private void initList(LayoutInflater inflater, View rootView) {
@@ -172,13 +172,6 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
 				if (file.isDirectory()) {
 					navigateTo(file.getAbsolutePath());
-
-					// go to the top of the ListView
-					mListView.setSelection(0);
-
-					if (!mUseBackKey)
-						mUseBackKey = true;
-
 				} else {
 					listItemAction(file);
 				}
@@ -188,6 +181,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
 	public void navigateTo(String path) {
 		mCurrentPath = path;
+
+		if (!mUseBackKey)
+			mUseBackKey = true;
 
 		if (mObserver != null) {
 			mObserver.stopWatching();
@@ -204,6 +200,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 		mObserver.startWatching();
 
 		mUpdatePathListener.onUpdatePath(path);
+
+		// go to the top of the ListView
+		mListView.setSelection(0);
 	}
 
 	public void listItemAction(File file) {
@@ -321,8 +320,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
 		@Override
 		public void run() {
-			mCurrentPath = target;
-			mListAdapter.addFiles(target);
+			BrowserActivity.getCurrentlyDisplayedFragment().navigateTo(target);
 		}
 	}
 
@@ -331,13 +329,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 			return;
 
 		if (file.isDirectory()) {
-			if (!mUseBackKey)
-				mUseBackKey = true;
-
 			navigateTo(file.getAbsolutePath());
-
-			// go to the top of the ListView
-			mListView.setSelection(0);
 		} else {
 			listItemAction(file);
 		}
@@ -366,15 +358,5 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 		}
 
 		return true;
-	}
-
-	public void saveManualState(Bundle tabState) {
-		tabState.putString("location", BrowserFragment.mCurrentPath);
-	}
-
-	public void restoreManualState(Bundle tabState) {
-		if (tabState != null) {
-			navigateTo(tabState.getString("location"));
-		}
 	}
 }

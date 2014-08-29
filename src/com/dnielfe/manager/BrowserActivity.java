@@ -40,8 +40,6 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -55,12 +53,6 @@ import android.widget.ListView;
 
 public final class BrowserActivity extends ThemableActivity implements
 		OnNavigateListener, BrowserFragment.onUpdatePathListener {
-
-	/**
-	 * Saved fragment state. This saving mechanism is used for restoring the
-	 * state when Activity is recreated because of theme change
-	 */
-	private static final String EXTRA_SAVED_FRAGMENT_ADAPTER_STATE = "BrowserActivity.extras.SAVED_FRAGMENT_STATE";
 
 	public static final String EXTRA_SHORTCUT = "shortcut_path";
 	public static final String TAG_DIALOG = "dialog";
@@ -76,6 +68,7 @@ public final class BrowserActivity extends ThemableActivity implements
 	private ActionBarDrawerToggle mDrawerToggle;
 	private Cursor mBookmarksCursor;
 
+	private ViewPager mPager;
 	private FragmentManager fm;
 	private BrowserTabsAdapter mPagerAdapter;
 	private static BrowserFragment mBrowserFragment;
@@ -92,7 +85,6 @@ public final class BrowserActivity extends ThemableActivity implements
 		}
 
 		init();
-		restoreSavedState(savedInstanceState);
 	}
 
 	@Override
@@ -122,31 +114,12 @@ public final class BrowserActivity extends ThemableActivity implements
 			mNavigation.removeOnNavigateListener(this);
 	}
 
-	@Override
-	protected void onSaveInstanceState(@NonNull final Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putParcelable(EXTRA_SAVED_FRAGMENT_ADAPTER_STATE,
-				mPagerAdapter.saveManualState());
-	}
-
 	public void setCurrentlyDisplayedFragment(final BrowserFragment fragment) {
 		mBrowserFragment = fragment;
 	}
 
 	public static BrowserFragment getCurrentlyDisplayedFragment() {
 		return mBrowserFragment;
-	}
-
-	private void restoreSavedState(final Bundle savedState) {
-		if (savedState != null) {
-			final Parcelable adapterState = savedState
-					.getParcelable(EXTRA_SAVED_FRAGMENT_ADAPTER_STATE);
-			if (adapterState != null) {
-				if (mPagerAdapter != null) {
-					mPagerAdapter.restoreManualState(adapterState);
-				}
-			}
-		}
 	}
 
 	private void init() {
@@ -168,11 +141,10 @@ public final class BrowserActivity extends ThemableActivity implements
 		// request them
 		new IconPreview(this);
 
-		final ViewPager pager = (ViewPager) this.findViewById(R.id.pager);
-		mPagerAdapter = new BrowserTabsAdapter(getFragmentManager());
-		pager.setAdapter(mPagerAdapter);
-		mPagerAdapter.setViewPager(pager);
-		pager.setOffscreenPageLimit(2);
+		// Instantiate a ViewPager and a PagerAdapter.
+		mPager = (ViewPager) findViewById(R.id.pager);
+		mPagerAdapter = new BrowserTabsAdapter(fm);
+		mPager.setAdapter(mPagerAdapter);
 	}
 
 	private void setupDrawer() {

@@ -71,7 +71,7 @@ public class SearchActivity extends ThemableActivity {
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.show();
 
-		mDirectory = BrowserFragment.mCurrentPath;
+		mDirectory = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
 		SearchIntent(intent);
 	}
 
