@@ -6,13 +6,16 @@ Simple Explorer is an Open Source file explorer. There are inspirations from [CM
 
 This program licensed under http://www.gnu.org/licenses/gpl-2.0.html
 
+####Discussion Thread
+http://forum.xda-developers.com/showthread.php?t=2330864
 
-**Credits:**
+####Credits
 + [Zedd.](http://forum.xda-developers.com/member.php?u=4112951) for the handsome icons
 + [junrar](https://github.com/junrar/junrar) for the .rar library
 + [Apache Commons](http://commons.apache.org/downloads/index.html) librarys
++ [Android-ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator) by JakeWharton
 
-Thanks for translations (XDA and Getlocalization):
+####Thanks for translations (XDA and Getlocalization)
 + fabiobatera - brazil
 + SealQ - polish
 + adamslast - turkish
@@ -32,5 +35,3 @@ Thanks for translations (XDA and Getlocalization):
 + atlasslusho - thai
 + mary-kate - finnish
 + drkalo - bulgarian
-
-Discussion Thread: http://forum.xda-developers.com/showthread.php?t=2330864

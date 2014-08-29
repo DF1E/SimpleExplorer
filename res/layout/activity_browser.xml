@@ -28,6 +28,11 @@
             </LinearLayout>
         </HorizontalScrollView>
 
+        <com.viewpagerindicator.UnderlinePageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
         <View
             android:id="@+id/divider_horizontal"
             android:layout_width="fill_parent"
@@ -35,15 +40,10 @@
             android:layout_gravity="center_vertical"
             android:background="?android:attr/dividerHorizontal" />
 
-        <FrameLayout
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </FrameLayout>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <!-- Navigation drawer -->
