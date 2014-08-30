@@ -172,6 +172,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
 				if (file.isDirectory()) {
 					navigateTo(file.getAbsolutePath());
+
+					// go to the top of the ListView
+					mListView.setSelection(0);
 				} else {
 					listItemAction(file);
 				}
@@ -200,9 +203,6 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 		mObserver.startWatching();
 
 		mUpdatePathListener.onUpdatePath(path);
-
-		// go to the top of the ListView
-		mListView.setSelection(0);
 	}
 
 	public void listItemAction(File file) {
@@ -330,6 +330,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
 		if (file.isDirectory()) {
 			navigateTo(file.getAbsolutePath());
+
+			// go to the top of the ListView
+			mListView.setSelection(0);
 		} else {
 			listItemAction(file);
 		}

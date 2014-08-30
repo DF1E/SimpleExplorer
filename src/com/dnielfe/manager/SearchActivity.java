@@ -51,6 +51,7 @@ public class SearchActivity extends ThemableActivity {
 	private BrowserListAdapter mAdapter;
 
 	// TODO don't search again after rotation
+	// SavedInstance: get array list from adapter
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
