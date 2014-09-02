@@ -137,6 +137,10 @@ public class BrowserListAdapter extends BaseAdapter {
 		return mDataSource.indexOf(path);
 	}
 
+	public ArrayList<String> getContent() {
+		return mDataSource;
+	}
+
 	@Override
 	public String getItem(int pos) {
 		return mDataSource.get(pos);

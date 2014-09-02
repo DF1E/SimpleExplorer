@@ -50,8 +50,6 @@ public class SearchActivity extends ThemableActivity {
 	private SearchTask mTask;
 	private BrowserListAdapter mAdapter;
 
-	// TODO don't search again after rotation
-	// SavedInstance: get array list from adapter
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,6 +57,11 @@ public class SearchActivity extends ThemableActivity {
 
 		init(getIntent());
 		initList();
+
+		if (savedInstanceState != null) {
+			mAdapter.addContent(savedInstanceState
+					.getStringArrayList("savedList"));
+		}
 	}
 
 	@Override
@@ -67,13 +70,18 @@ public class SearchActivity extends ThemableActivity {
 		SearchIntent(intent);
 	}
 
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putStringArrayList("savedList", mAdapter.getContent());
+	}
+
 	private void init(Intent intent) {
 		mActionBar = getActionBar();
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.show();
 
 		mDirectory = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
-		SearchIntent(intent);
 	}
 
 	private void initList() {
