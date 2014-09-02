@@ -31,9 +31,9 @@ import android.widget.Toast;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
-import com.stericson.RootTools.RootTools;
 
 public final class RenameTask extends AsyncTask<String, Void, List<String>> {
 
@@ -77,7 +77,7 @@ public final class RenameTask extends AsyncTask<String, Void, List<String>> {
 			if (SimpleUtils.renameTarget(path + "/" + files[0], files[1])) {
 				succes = true;
 			} else {
-				if (RootTools.isRootAvailable()) {
+				if (SimpleExplorer.hasRoot()) {
 					RootCommands.renameRootTarget(path, files[0], files[1]);
 					succes = true;
 				}

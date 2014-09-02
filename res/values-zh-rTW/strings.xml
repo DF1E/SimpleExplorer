@@ -28,6 +28,7 @@
     <string name="drawer_open">開啟導航抽屜</string>
     <string name="drawer_close">關閉導航抽屜</string>
     <string name="empty">Empty</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Enter name</string>
     <string name="error">錯誤</string>
     <string name="exit">Exit</string>

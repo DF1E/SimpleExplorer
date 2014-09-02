@@ -28,6 +28,7 @@
     <string name="drawer_open">Apri pannello navigazione</string>
     <string name="drawer_close">Chiudi pannello navigazione</string>
     <string name="empty">Vuoto</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Inserisci nome</string>
     <string name="error">Errore</string>
     <string name="exit">Esci</string>

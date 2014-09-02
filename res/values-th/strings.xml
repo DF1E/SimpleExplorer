@@ -28,6 +28,7 @@
     <string name="drawer_open">เปิดหน้าต่างแนะนำ</string>
     <string name="drawer_close">ปิดหน้าต่างแนะนำ</string>
     <string name="empty">ว่างเปล่า</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">ป้อนชื่อ</string>
     <string name="error">ผิดพลาด</string>
     <string name="exit">ออก</string>

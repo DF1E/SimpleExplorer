@@ -28,6 +28,7 @@
     <string name="drawer_open">فتح درج التنقل</string>
     <string name="drawer_close">غلق درج التنقل</string>
     <string name="empty">فارغ</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Enter name</string>
     <string name="error">خطأ</string>
     <string name="exit">خروج</string>

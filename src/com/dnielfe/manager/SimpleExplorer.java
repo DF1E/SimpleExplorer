@@ -23,8 +23,6 @@ import com.dnielfe.manager.settings.Settings;
 import com.stericson.RootTools.RootTools;
 
 import android.app.Application;
-import android.os.Environment;
-import android.widget.Toast;
 
 public final class SimpleExplorer extends Application {
 
@@ -32,25 +30,20 @@ public final class SimpleExplorer extends Application {
 	public static final int THEME_ID_DARK = 2;
 	public static final int THEME_ID_BLACK = 3;
 
+	private static boolean hasRoot = false;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		// get default preferences
 		Settings.updatePreferences(this);
-		checkEnvironment();
 
-		// check for root at start
-		RootTools.isAccessGiven();
+		// check for root at start if its enabled in Settings
+		if (Settings.useRoot())
+			hasRoot = RootTools.isAccessGiven();
 	}
 
-	// check for external storage exists
-	private void checkEnvironment() {
-		boolean sdCardExist = Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED);
-
-		if (!sdCardExist) {
-			Toast.makeText(this, getString(R.string.sdcardnotfound),
-					Toast.LENGTH_SHORT).show();
-		}
+	public static boolean hasRoot() {
+		return hasRoot;
 	}
 }

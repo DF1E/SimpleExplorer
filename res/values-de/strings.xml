@@ -28,6 +28,7 @@
     <string name="drawer_open">Drawer öffnen</string>
     <string name="drawer_close">Drawer schließen</string>
     <string name="empty">Leer</string>
+    <string name="enable_root">Root-Zugriff erlauben</string>
     <string name="enter_name">Namen eingeben</string>
     <string name="error">Error</string>
     <string name="exit">Beenden</string>

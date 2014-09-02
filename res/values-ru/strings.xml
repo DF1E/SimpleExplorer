@@ -27,6 +27,7 @@
     <string name="drawer_open">Открыть шторку</string>
     <string name="drawer_close">Закрыть шторку</string>
     <string name="empty">Пусто</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">"Как назовём?"</string>
     <string name="error">Ошибка</string>
     <string name="exit">Выход</string>

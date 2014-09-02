@@ -28,6 +28,7 @@
     <string name="drawer_open">打开侧栏导航</string>
     <string name="drawer_close">关闭侧栏导航</string>
     <string name="empty">无可显示内容</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Enter name</string>
     <string name="error">错误</string>
     <string name="exit">退出</string>

@@ -33,10 +33,10 @@ import org.apache.commons.io.FileUtils;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.settings.Settings;
-import com.stericson.RootTools.RootTools;
 
 import android.app.Activity;
 import android.content.Context;
@@ -118,13 +118,9 @@ public class SimpleUtils {
 					mDirContent.add(path + "/" + list[i]);
 				}
 			}
-		} else {
-			try {
-				mDirContent = RootCommands.listFiles(file.getAbsolutePath(),
-						showhidden);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		} else if (SimpleExplorer.hasRoot()) {
+			mDirContent = RootCommands.listFiles(file.getAbsolutePath(),
+					showhidden);
 		}
 
 		return mDirContent;
@@ -214,7 +210,7 @@ public class SimpleUtils {
 					copyToDirectory(old + "/" + files[i], dir);
 			}
 		} else {
-			if (RootTools.isAccessGiven())
+			if (SimpleExplorer.hasRoot())
 				RootCommands.moveCopyRoot(old, newDir);
 		}
 	}
@@ -243,13 +239,9 @@ public class SimpleUtils {
 
 		if (folder.mkdir())
 			return true;
-		else {
-			try {
-				RootCommands.createRootdir(folder, path);
-				return true;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		else if (SimpleExplorer.hasRoot()) {
+			RootCommands.createRootdir(folder, path);
+			return true;
 		}
 
 		return false;
@@ -289,7 +281,8 @@ public class SimpleUtils {
 				if (target.delete())
 					return;
 		} else if (target.exists() && !target.delete()) {
-			RootCommands.DeleteFileRoot(path, dir);
+			if (SimpleExplorer.hasRoot())
+				RootCommands.DeleteFileRoot(path, dir);
 		}
 	}
 

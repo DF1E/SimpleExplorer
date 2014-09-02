@@ -28,6 +28,7 @@
     <string name="drawer_open">Avaa navigaatiovalikko</string>
     <string name="drawer_close">Sulje navigaatiovalikko</string>
     <string name="empty">Tyhjä</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Anna nimi</string>
     <string name="error">Virhe</string>
     <string name="exit">Poistu</string>
