@@ -10,12 +10,12 @@ TODO:
 
 -	show progress on asynctasks
 
--	search everywhere
+-	search everywhere (use root access)
 
--	search preferences
+-	custom search preferences
 
--	option to enable root in settings
+-	fix creating thumbnail after move/copy some files
 
--	create a view pager for multiple fragments
+-	fix: after changing theme the current fragment won't be continued
 
--	fix creating thumbnail after move/copy file
+-	fix SavedInstance NPE after go to settings
