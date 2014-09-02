@@ -34,7 +34,7 @@ import android.widget.TextView;
 
 import com.dnielfe.manager.R;
 
-public class ActionBarNavigation {
+public class NavigationView {
 
 	public Set<OnNavigateListener> listeners;
 	private LinearLayout mView;
@@ -48,7 +48,7 @@ public class ActionBarNavigation {
 		void onNavigate(String path);
 	}
 
-	public ActionBarNavigation(Activity activity) {
+	public NavigationView(Activity activity) {
 		this.mActivity = activity;
 		this.listeners = new HashSet<OnNavigateListener>();
 	}
@@ -90,7 +90,7 @@ public class ActionBarNavigation {
 			// add a LinearLayout as a divider
 			FrameLayout fv1 = new FrameLayout(mActivity);
 			LinearLayout divider = (LinearLayout) mActivity.getLayoutInflater()
-					.inflate(R.layout.activity_browser_actionbar_divider, null);
+					.inflate(R.layout.item_navigation_divider, null);
 			fv1.addView(divider);
 			fv1.setLayoutParams(new FrameLayout.LayoutParams(WRAP_CONTENT,
 					WRAP_CONTENT, Gravity.CENTER_VERTICAL));
@@ -124,6 +124,7 @@ public class ActionBarNavigation {
 			mView.addView(fv1);
 			mView.addView(t2);
 			scrolltext.postDelayed(new Runnable() {
+				@Override
 				public void run() {
 					HorizontalScrollView hv = (HorizontalScrollView) mActivity
 							.findViewById(R.id.scroll_text);

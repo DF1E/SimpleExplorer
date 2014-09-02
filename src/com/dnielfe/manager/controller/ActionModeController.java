@@ -32,7 +32,7 @@ import android.view.MenuItem;
 import android.widget.AbsListView;
 import android.widget.AbsListView.MultiChoiceModeListener;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.adapters.BookmarksAdapter;
 import com.dnielfe.manager.dialogs.DeleteFilesDialog;
@@ -149,7 +149,7 @@ public final class ActionModeController {
 				final DialogFragment dialog1 = DeleteFilesDialog
 						.instantiate(files);
 				mode.finish();
-				dialog1.show(mActivity.getFragmentManager(), Browser.TAG_DIALOG);
+				dialog1.show(mActivity.getFragmentManager(), BrowserActivity.TAG_DIALOG);
 				return true;
 			case R.id.actionshare:
 				final ArrayList<Uri> uris = new ArrayList<Uri>(
@@ -192,7 +192,7 @@ public final class ActionModeController {
 						File file = new File(
 								(String) mListView.getItemAtPosition(key));
 
-						mAdapter = Browser.getBookmarksAdapter();
+						mAdapter = BrowserActivity.getBookmarksAdapter();
 						mAdapter.createBookmark(file);
 						mode.finish();
 						break;
@@ -209,7 +209,7 @@ public final class ActionModeController {
 				}
 				final DialogFragment dialog = ZipFilesDialog.instantiate(files);
 				mode.finish();
-				dialog.show(mActivity.getFragmentManager(), Browser.TAG_DIALOG);
+				dialog.show(mActivity.getFragmentManager(), BrowserActivity.TAG_DIALOG);
 				return true;
 			case R.id.actionrename:
 				for (int i = 0; i < checkedItemSize; i++) {
@@ -220,7 +220,7 @@ public final class ActionModeController {
 										.getItemAtPosition(key)).getName());
 						mode.finish();
 						dialog3.show(mActivity.getFragmentManager(),
-								Browser.TAG_DIALOG);
+								BrowserActivity.TAG_DIALOG);
 						break;
 					}
 				}
@@ -234,7 +234,7 @@ public final class ActionModeController {
 										.getItemAtPosition(key)));
 						mode.finish();
 						dialog4.show(mActivity.getFragmentManager(),
-								Browser.TAG_DIALOG);
+								BrowserActivity.TAG_DIALOG);
 						break;
 					}
 				}

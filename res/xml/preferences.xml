@@ -36,6 +36,11 @@
             android:dialogTitle="@string/defaultdir"
             android:key="defaultdir"
             android:title="@string/defaultdir" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="enablerootaccess"
+            android:title="@string/enable_root" />
     </PreferenceCategory>
 
     <PreferenceScreen android:title="@string/xdaforum" >

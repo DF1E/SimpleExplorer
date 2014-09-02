@@ -19,7 +19,7 @@
 
 package com.dnielfe.manager.settings;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.ThemableActivity;
 import com.dnielfe.manager.R;
 
@@ -43,7 +43,7 @@ public class SettingsActivity extends ThemableActivity {
 	@Override
 	public void onBackPressed() {
 		this.finish();
-		Intent i = new Intent(getBaseContext(), Browser.class);
+		Intent i = new Intent(getBaseContext(), BrowserActivity.class);
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 	}
@@ -58,7 +58,7 @@ public class SettingsActivity extends ThemableActivity {
 
 		case android.R.id.home:
 			this.finish();
-			Intent i = new Intent(getBaseContext(), Browser.class);
+			Intent i = new Intent(getBaseContext(), BrowserActivity.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(i);
 			return true;

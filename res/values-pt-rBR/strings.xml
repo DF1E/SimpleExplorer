@@ -28,6 +28,7 @@
     <string name="drawer_open">Abrir gaveta de navegação</string>
     <string name="drawer_close">Fechar gaveta de navegação</string>
     <string name="empty">Vazio</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Entre com um nome</string>
     <string name="error">Erro</string>
     <string name="exit">Sair</string>

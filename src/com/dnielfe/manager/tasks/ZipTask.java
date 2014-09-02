@@ -29,7 +29,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.ZipUtils;
 
@@ -72,7 +72,10 @@ public final class ZipTask extends AsyncTask<String, Void, List<String>> {
 		final List<String> failed = new ArrayList<String>();
 
 		try {
-			ZipUtils.createZip(files, zipname, Browser.mCurrentPath);
+			ZipUtils.createZip(
+					files,
+					zipname,
+					BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath);
 		} catch (Exception e) {
 			failed.add(files.toString());
 		}

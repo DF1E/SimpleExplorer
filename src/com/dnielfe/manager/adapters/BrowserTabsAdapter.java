@@ -17,33 +17,30 @@
  * MA  02110-1301, USA.
  */
 
-package com.dnielfe.manager;
+package com.dnielfe.manager.adapters;
 
-import com.dnielfe.manager.settings.Settings;
-import com.stericson.RootTools.RootTools;
+import com.dnielfe.manager.BrowserFragment;
 
-import android.app.Application;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.support.v13.app.FragmentStatePagerAdapter;
 
-public final class SimpleExplorer extends Application {
+public class BrowserTabsAdapter extends FragmentStatePagerAdapter {
 
-	public static final int THEME_ID_LIGHT = 1;
-	public static final int THEME_ID_DARK = 2;
-	public static final int THEME_ID_BLACK = 3;
+	// number of fragments
+	private static final int NUM_PAGES = 2;
 
-	private static boolean hasRoot = false;
-
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		// get default preferences
-		Settings.updatePreferences(this);
-
-		// check for root at start if its enabled in Settings
-		if (Settings.useRoot())
-			hasRoot = RootTools.isAccessGiven();
+	public BrowserTabsAdapter(FragmentManager fm) {
+		super(fm);
 	}
 
-	public static boolean hasRoot() {
-		return hasRoot;
+	@Override
+	public Fragment getItem(int position) {
+		return new BrowserFragment();
+	}
+
+	@Override
+	public int getCount() {
+		return NUM_PAGES;
 	}
 }

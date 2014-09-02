@@ -28,6 +28,7 @@
     <string name="drawer_open">Open navigatie lade</string>
     <string name="drawer_close">Sluit navigatie lade</string>
     <string name="empty">Leeg</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Voer naam in</string>
     <string name="error">Fout</string>
     <string name="exit">Afsluiten</string>

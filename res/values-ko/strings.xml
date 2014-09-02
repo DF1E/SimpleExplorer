@@ -28,6 +28,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="empty">Empty</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Enter name</string>
     <string name="error">에러</string>
     <string name="exit">나가기</string>

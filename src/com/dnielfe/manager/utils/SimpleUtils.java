@@ -31,12 +31,12 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import org.apache.commons.io.FileUtils;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.settings.Settings;
-import com.stericson.RootTools.RootTools;
 
 import android.app.Activity;
 import android.content.Context;
@@ -118,17 +118,11 @@ public class SimpleUtils {
 					mDirContent.add(path + "/" + list[i]);
 				}
 			}
-		} else {
-			try {
-				mDirContent = RootCommands.listFiles(file.getAbsolutePath(),
-						showhidden);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		} else if (SimpleExplorer.hasRoot()) {
+			mDirContent = RootCommands.listFiles(file.getAbsolutePath(),
+					showhidden);
 		}
 
-		// sort files with a comparator
-		SortUtils.sortList(mDirContent, file.getPath());
 		return mDirContent;
 	}
 
@@ -216,7 +210,7 @@ public class SimpleUtils {
 					copyToDirectory(old + "/" + files[i], dir);
 			}
 		} else {
-			if (RootTools.isAccessGiven())
+			if (SimpleExplorer.hasRoot())
 				RootCommands.moveCopyRoot(old, newDir);
 		}
 	}
@@ -245,13 +239,9 @@ public class SimpleUtils {
 
 		if (folder.mkdir())
 			return true;
-		else {
-			try {
-				RootCommands.createRootdir(folder, path);
-				return true;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		else if (SimpleExplorer.hasRoot()) {
+			RootCommands.createRootdir(folder, path);
+			return true;
 		}
 
 		return false;
@@ -291,7 +281,8 @@ public class SimpleUtils {
 				if (target.delete())
 					return;
 		} else if (target.exists() && !target.delete()) {
-			RootCommands.DeleteFileRoot(path, dir);
+			if (SimpleExplorer.hasRoot())
+				RootCommands.DeleteFileRoot(path, dir);
 		}
 	}
 
@@ -402,10 +393,10 @@ public class SimpleUtils {
 
 		try {
 			// Create the intent that will handle the shortcut
-			Intent shortcutIntent = new Intent(main, Browser.class);
+			Intent shortcutIntent = new Intent(main, BrowserActivity.class);
 			shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-			shortcutIntent.putExtra(Browser.EXTRA_SHORTCUT, path);
+			shortcutIntent.putExtra(BrowserActivity.EXTRA_SHORTCUT, path);
 
 			// The intent to send to broadcast for register the shortcut intent
 			Intent intent = new Intent();

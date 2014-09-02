@@ -28,6 +28,7 @@
     <string name="drawer_open">Gezinti bölmesini aç</string>
     <string name="drawer_close">Gezinti bölmesini kapat</string>
     <string name="empty">Boş</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Adı gir</string>
     <string name="error">Hata</string>
     <string name="exit">Çıkış</string>

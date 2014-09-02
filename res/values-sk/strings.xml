@@ -28,6 +28,7 @@
     <string name="drawer_open">Otvoriť navigačnú ponuku</string>
     <string name="drawer_close">Zatvoriť navigačnú ponuku</string>
     <string name="empty">Prázdne</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Zadajte názov</string>
     <string name="error">Chyba</string>
     <string name="exit">Ukončiť</string>

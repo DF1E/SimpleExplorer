@@ -27,6 +27,7 @@
     <string name="drawer_open">Отвори навигационния панел</string>
     <string name="drawer_close">Затвори навигационния панел</string>
     <string name="empty">Празно</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Въведи име</string>
     <string name="error">Грешка</string>
     <string name="exit">Изход</string>

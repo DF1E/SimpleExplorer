@@ -6,28 +6,45 @@
 
     <!-- Main content view -->
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <ListView
-            android:id="@+id/android:list"
+        <HorizontalScrollView
+            android:id="@+id/scroll_text"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:fillViewport="true"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:id="@+id/directory_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:longClickable="true"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <com.viewpagerindicator.UnderlinePageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <View
+            android:id="@+id/divider_horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:drawSelectorOnTop="true"
-            android:longClickable="true"
-            android:scrollbarStyle="outsideOverlay"
-            android:smoothScrollbar="true" />
+            android:layout_height="1dp"
+            android:layout_gravity="center_vertical"
+            android:background="?android:attr/dividerHorizontal" />
 
-        <TextView
-            android:id="@android:id/empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/empty"
-            android:textSize="20sp" />
-    </RelativeLayout>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
     <!-- Navigation drawer -->
 

@@ -29,11 +29,11 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
-import com.stericson.RootTools.RootTools;
 
 public final class RenameTask extends AsyncTask<String, Void, List<String>> {
 
@@ -71,13 +71,13 @@ public final class RenameTask extends AsyncTask<String, Void, List<String>> {
 	@Override
 	protected List<String> doInBackground(String... files) {
 		final List<String> failed = new ArrayList<String>();
-		String path = Browser.mCurrentPath;
+		String path = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
 
 		try {
 			if (SimpleUtils.renameTarget(path + "/" + files[0], files[1])) {
 				succes = true;
 			} else {
-				if (RootTools.isRootAvailable()) {
+				if (SimpleExplorer.hasRoot()) {
 					RootCommands.renameRootTarget(path, files[0], files[1]);
 					succes = true;
 				}

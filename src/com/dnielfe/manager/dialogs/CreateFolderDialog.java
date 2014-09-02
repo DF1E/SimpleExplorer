@@ -28,7 +28,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dnielfe.manager.Browser;
+import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.SimpleUtils;
 
@@ -53,7 +53,9 @@ public final class CreateFolderDialog extends DialogFragment {
 						String name = inputf.getText().toString();
 
 						if (name.length() >= 1) {
-							if (SimpleUtils.createDir(Browser.mCurrentPath,
+							if (SimpleUtils.createDir(
+									BrowserActivity
+											.getCurrentlyDisplayedFragment().mCurrentPath,
 									name))
 								Toast.makeText(a,
 										name + getString(R.string.created),

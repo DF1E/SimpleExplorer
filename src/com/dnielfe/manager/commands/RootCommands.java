@@ -32,6 +32,7 @@ import java.util.regex.Pattern;
 
 import android.util.Log;
 
+import com.dnielfe.manager.SimpleExplorer;
 import com.stericson.RootTools.RootTools;
 
 public class RootCommands {
@@ -234,6 +235,9 @@ public class RootCommands {
 	}
 
 	public static boolean applyPermissions(File file, Permissions permissions) {
+		if (!SimpleExplorer.hasRoot())
+			return false;
+
 		try {
 			if (!readReadWriteFile())
 				RootTools.remount(file.getAbsolutePath(), "rw");
@@ -252,6 +256,9 @@ public class RootCommands {
 		BufferedReader in = null;
 		String[] info = null;
 		String line = "";
+
+		if (!SimpleExplorer.hasRoot())
+			return null;
 
 		try {
 			in = execute("ls -l "

@@ -30,6 +30,7 @@ public final class Settings {
 
 	private static boolean showthumbnail;
 	private static boolean mShowHiddenFiles;
+	private static boolean mRootAccess;
 	public static int mListAppearance;
 	public static int mSortType;
 	public static int mTheme;
@@ -41,6 +42,7 @@ public final class Settings {
 
 		mShowHiddenFiles = p.getBoolean("displayhiddenfiles", true);
 		showthumbnail = p.getBoolean("showpreview", true);
+		mRootAccess = p.getBoolean("enablerootaccess", false);
 		mTheme = Integer.parseInt(p.getString("preference_theme",
 				Integer.toString(R.style.ThemeLight)));
 		mSortType = Integer.parseInt(p.getString("sort", "1"));
@@ -48,12 +50,16 @@ public final class Settings {
 		defaultdir = p.getString("defaultdir", Environment
 				.getExternalStorageDirectory().getPath());
 	}
-	
-	public static boolean showThumbnail(){
+
+	public static boolean showThumbnail() {
 		return showthumbnail;
 	}
-	
-	public static boolean showHiddenFiles(){
+
+	public static boolean showHiddenFiles() {
 		return mShowHiddenFiles;
+	}
+
+	public static boolean useRoot() {
+		return mRootAccess;
 	}
 }

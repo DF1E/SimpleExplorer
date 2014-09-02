@@ -28,6 +28,7 @@
     <string name="drawer_open">Otwórz drawer nawigacyjny</string>
     <string name="drawer_close">Zamknij drawer nawigacyjny</string>
     <string name="empty">Brak wyników</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Wprowadź nazwę</string>
     <string name="error">Błąd</string>
     <string name="exit">Wyjdź</string>

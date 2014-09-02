@@ -28,6 +28,7 @@
     <string name="drawer_open">Mở điều hướng ngăn xếp</string>
     <string name="drawer_close">Đóng điều hướng ngăn xếp</string>
     <string name="empty">Empty</string>
+    <string name="enable_root">Enable root access</string>
     <string name="enter_name">Enter name</string>
     <string name="error">Lỗi</string>
     <string name="exit">Thoát</string>
