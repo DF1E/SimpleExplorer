@@ -1,7 +1,4 @@
-#################
-## Eclipse
-#################
-
+# Eclipse
 *.pydevproject
 .project
 .metadata
@@ -13,12 +10,18 @@ proguard/
 *.bak
 *.swp
 *~.nib
-local.properties
 .classpath
 .refactorings
 .settings/
 .loadpath
 lint.xml
+
+# Android Studio
+*.jks
+.DS_Store
+/local.properties
+/.idea/workspace.xml
+/build
 
 # External tool builders
 .externalToolBuilders/
@@ -32,33 +35,21 @@ lint.xml
 # PDT-specific
 .buildpath
 
-# Visual C++ cache files
-ipch/
-*.aps
-*.ncb
-*.opensdf
-*.sdf
-*.cachefile
-
-# Windows Store app package directory
-AppPackages/
-
-#############
-## OS / System created files
-#############
-
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
 
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Mac crap
-.DS_Store
-
-# Linux
+# Local configuration file (sdk path, etc)
+local.properties
+gradle.properties
 .directory
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Gradle
+build
+.gradle
