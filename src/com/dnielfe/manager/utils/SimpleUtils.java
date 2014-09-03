@@ -286,12 +286,6 @@ public class SimpleUtils {
 		}
 	}
 
-	/**
-	 * 
-	 * @param dir
-	 * @param pathName
-	 * @return
-	 */
 	public static ArrayList<String> searchInDirectory(String dir,
 			String fileName) {
 		ArrayList<String> names = new ArrayList<String>();

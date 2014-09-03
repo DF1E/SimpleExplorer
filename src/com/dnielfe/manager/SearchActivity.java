@@ -38,12 +38,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class SearchActivity extends ThemableActivity {
-
-	public static String mQuery;
-	private static String mDirectory;
 
 	private ActionBar mActionBar;
 	private ListView mListView;
@@ -55,12 +51,14 @@ public class SearchActivity extends ThemableActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
 
-		init(getIntent());
-		initList();
+		init();
 
 		if (savedInstanceState != null) {
 			mAdapter.addContent(savedInstanceState
 					.getStringArrayList("savedList"));
+
+			mActionBar.setSubtitle(String.valueOf(mAdapter.getCount())
+					+ getString(R.string._files));
 		}
 	}
 
@@ -76,48 +74,39 @@ public class SearchActivity extends ThemableActivity {
 		outState.putStringArrayList("savedList", mAdapter.getContent());
 	}
 
-	private void init(Intent intent) {
+	private void init() {
 		mActionBar = getActionBar();
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.show();
 
-		mDirectory = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
-	}
-
-	private void initList() {
 		mAdapter = new BrowserListAdapter(this, getLayoutInflater());
 
 		mListView = (ListView) findViewById(android.R.id.list);
 		mListView.setEmptyView(findViewById(android.R.id.empty));
 		mListView.setAdapter(mAdapter);
-		mListView.setOnItemClickListener(mOnItemClickListener);
-	}
+		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				File f = new File(mAdapter.getItem(position));
 
-	private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
+				if (f.isDirectory()) {
+					finish();
 
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			Object filepath = mListView.getAdapter().getItem(position);
-			File f = new File(filepath.toString());
-
-			if (f.isDirectory()) {
-				finish();
-
-				BrowserFragment bf = BrowserActivity
-						.getCurrentlyDisplayedFragment();
-				bf.navigateTo(f.getAbsolutePath());
-			} else if (f.isFile()) {
-				SimpleUtils.openFile(SearchActivity.this, f);
+					BrowserActivity.getCurrentlyDisplayedFragment().navigateTo(
+							f.getAbsolutePath());
+				} else if (f.isFile()) {
+					SimpleUtils.openFile(SearchActivity.this, f);
+				}
 			}
-		}
-	};
+		});
+	}
 
 	private void SearchIntent(Intent intent) {
 		setIntent(intent);
 
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-			mQuery = intent.getStringExtra(SearchManager.QUERY);
+			String mQuery = intent.getStringExtra(SearchManager.QUERY);
 
 			if (mQuery.length() > 0) {
 				mTask = new SearchTask(this);
@@ -148,12 +137,13 @@ public class SearchActivity extends ThemableActivity {
 	}
 
 	private class SearchTask extends AsyncTask<String, Void, ArrayList<String>> {
-		public ProgressDialog pr_dialog = null;
-		private String file_name;
+		public ProgressDialog pr_dialog;
+		private String mLocation;
 		private Context context;
 
 		private SearchTask(Context c) {
 			context = c;
+			mLocation = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
 		}
 
 		@Override
@@ -165,10 +155,8 @@ public class SearchActivity extends ThemableActivity {
 
 		@Override
 		protected ArrayList<String> doInBackground(String... params) {
-			file_name = params[0];
-
-			ArrayList<String> found = SimpleUtils.searchInDirectory(mDirectory,
-					file_name);
+			ArrayList<String> found = SimpleUtils.searchInDirectory(mLocation,
+					params[0]);
 			return found;
 		}
 
@@ -188,8 +176,6 @@ public class SearchActivity extends ThemableActivity {
 				mActionBar.setSubtitle(String.valueOf(len)
 						+ getString(R.string._files));
 			}
-
-			mAdapter.notifyDataSetChanged();
 		}
 	}
 
