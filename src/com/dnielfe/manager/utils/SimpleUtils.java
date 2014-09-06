@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import org.apache.commons.io.FileUtils;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
@@ -48,8 +47,6 @@ import android.widget.Toast;
 public class SimpleUtils {
 
 	private static final int BUFFER = 2048;
-	private static long mDirSize = 0;
-	private static int fileCount = 0;
 
 	// scan file after move/copy
 	public static void requestMediaScanner(final Context context,
@@ -124,35 +121,6 @@ public class SimpleUtils {
 		}
 
 		return mDirContent;
-	}
-
-	public static long getDirSize(File path) {
-		getDirectorySize(path);
-		return mDirSize;
-	}
-
-	/**
-	 * @param path
-	 *            of directory
-	 */
-	public static void getDirectorySize(File path) {
-		File[] list = path.listFiles();
-		int len;
-
-		if (list != null) {
-			len = list.length;
-			for (int i = 0; i < len; i++) {
-				try {
-					if (list[i].isFile() && list[i].canRead()) {
-						mDirSize += list[i].length();
-					} else if (list[i].isDirectory() && list[i].canRead()
-							&& !FileUtils.isSymlink(list[i])) {
-						getDirectorySize(list[i]);
-					}
-				} catch (IOException e) {
-				}
-			}
-		}
 	}
 
 	public static void moveToDirectory(Activity activity, String old,
@@ -292,28 +260,6 @@ public class SimpleUtils {
 		search_file(dir, fileName, names);
 
 		return names;
-	}
-
-	public static int getFileCount(File file) {
-		fileCount = 0;
-		calculateFileCount(file);
-		return fileCount;
-	}
-
-	// Calculate number of files in directory
-	private static void calculateFileCount(File file) {
-		if (!file.isDirectory()) {
-			fileCount++;
-			return;
-		}
-		if (file.list() == null) {
-			return;
-		}
-		for (String fileName : file.list()) {
-			File f = new File(file.getAbsolutePath() + File.separator
-					+ fileName);
-			calculateFileCount(f);
-		}
 	}
 
 	public static void openFile(final Context context, final File target) {

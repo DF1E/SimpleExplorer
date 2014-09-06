@@ -138,12 +138,10 @@ public class SearchActivity extends ThemableActivity {
 
 	private class SearchTask extends AsyncTask<String, Void, ArrayList<String>> {
 		public ProgressDialog pr_dialog;
-		private String mLocation;
 		private Context context;
 
 		private SearchTask(Context c) {
 			context = c;
-			mLocation = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
 		}
 
 		@Override
@@ -155,7 +153,8 @@ public class SearchActivity extends ThemableActivity {
 
 		@Override
 		protected ArrayList<String> doInBackground(String... params) {
-			ArrayList<String> found = SimpleUtils.searchInDirectory(mLocation,
+			String location = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
+			ArrayList<String> found = SimpleUtils.searchInDirectory(location,
 					params[0]);
 			return found;
 		}

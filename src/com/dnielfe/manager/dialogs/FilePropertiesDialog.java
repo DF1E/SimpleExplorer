@@ -244,7 +244,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 		}
 
 		private final class LoadFsTask extends AsyncTask<File, Void, String> {
-			private String mDisplaySize;
 			private long size = 0;
 
 			@Override
@@ -258,6 +257,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 			@Override
 			protected String doInBackground(final File... params) {
 				DateFormat df = DateFormat.getDateTimeInstance();
+				String mDisplaySize;
 
 				mTimeLabel.setText(df.format(file3.lastModified()));
 
@@ -267,11 +267,10 @@ public final class FilePropertiesDialog extends DialogFragment {
 				} else if (file3.isFile()) {
 					size = file3.length();
 				} else {
-					size = SimpleUtils.getDirSize(file3);
+					size = FileUtils.sizeOfDirectory(file3);
 				}
 
-				mDisplaySize = FileUtils.byteCountToDisplaySize(size);
-				return mDisplaySize;
+				return FileUtils.byteCountToDisplaySize(size);
 			}
 
 			@Override
