@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.dnielfe.manager"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
-    <ListView
-        android:id="@+id/android:list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:drawSelectorOnTop="true"
-        android:longClickable="true"
-        android:scrollbarStyle="outsideOverlay"
-        android:smoothScrollbar="true" />
 
     <TextView
         android:id="@android:id/empty"
@@ -20,5 +12,30 @@
         android:layout_centerVertical="true"
         android:text="@string/empty"
         android:textSize="20sp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/android:list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:drawSelectorOnTop="true"
+            android:longClickable="true"
+            android:scrollbarStyle="outsideOverlay"
+            android:smoothScrollbar="true" />
+
+        <com.faizmalkani.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabbutton"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:focusable="true"
+            app:drawable="@drawable/holo_light_ic_action_new"
+            app:color="@color/gray" />
+    </FrameLayout>
 
 </RelativeLayout>

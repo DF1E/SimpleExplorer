@@ -37,6 +37,7 @@ import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.tasks.PasteTaskExecutor;
 import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
+import com.faizmalkani.floatingactionbutton.FloatingActionButton;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -51,14 +52,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Toast;
 
 public final class BrowserFragment extends UserVisibleHintFragment implements
-		OnEventListener {
+		OnEventListener, OnMenuItemClickListener {
 
 	private Activity mActivity;
 	private FragmentManager fm;
@@ -73,6 +77,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 	private BrowserListAdapter mListAdapter;
 	public String mCurrentPath;
 	private AbsListView mListView;
+	private FloatingActionButton mFab;
 
 	private boolean mUseBackKey = true;
 
@@ -180,6 +185,40 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 				}
 			}
 		});
+
+		mFab = (FloatingActionButton) rootView.findViewById(R.id.fabbutton);
+		// mFab.listenTo(mListView);
+		mFab.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				showMenu(view);
+			}
+		});
+	}
+
+	public void showMenu(View v) {
+		PopupMenu popup = new PopupMenu(mActivity, v);
+
+		// This activity implements OnMenuItemClickListener
+		popup.setOnMenuItemClickListener(this);
+		popup.inflate(R.menu.fab_menu);
+		popup.show();
+	}
+
+	@Override
+	public boolean onMenuItemClick(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.createfile:
+			final DialogFragment dialog1 = new CreateFileDialog();
+			dialog1.show(fm, BrowserActivity.TAG_DIALOG);
+			return true;
+		case R.id.createfolder:
+			final DialogFragment dialog2 = new CreateFolderDialog();
+			dialog2.show(fm, BrowserActivity.TAG_DIALOG);
+			return true;
+		default:
+			return false;
+		}
 	}
 
 	public void navigateTo(String path) {
@@ -247,14 +286,6 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.createfile:
-			final DialogFragment dialog1 = new CreateFileDialog();
-			dialog1.show(fm, BrowserActivity.TAG_DIALOG);
-			return true;
-		case R.id.createfolder:
-			final DialogFragment dialog2 = new CreateFolderDialog();
-			dialog2.show(fm, BrowserActivity.TAG_DIALOG);
-			return true;
 		case R.id.folderinfo:
 			final DialogFragment dirInfo = new DirectoryInfoDialog();
 			dirInfo.show(fm, BrowserActivity.TAG_DIALOG);
