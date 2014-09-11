@@ -31,7 +31,6 @@ import com.dnielfe.manager.settings.SettingsActivity;
 import com.dnielfe.manager.utils.Bookmarks;
 import com.dnielfe.manager.utils.NavigationView;
 import com.dnielfe.manager.utils.NavigationView.OnNavigateListener;
-import com.viewpagerindicator.UnderlinePageIndicator;
 
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -71,7 +70,6 @@ public final class BrowserActivity extends ThemableActivity implements
 
 	private ViewPager mPager;
 	private FragmentManager fm;
-	private UnderlinePageIndicator mIndicator;
 	private BrowserTabsAdapter mPagerAdapter;
 	private static BrowserFragment mBrowserFragment;
 
@@ -147,9 +145,6 @@ public final class BrowserActivity extends ThemableActivity implements
 		mPager = (ViewPager) findViewById(R.id.pager);
 		mPagerAdapter = new BrowserTabsAdapter(fm);
 		mPager.setAdapter(mPagerAdapter);
-
-		mIndicator = (UnderlinePageIndicator) findViewById(R.id.indicator);
-		mIndicator.setViewPager(mPager);
 	}
 
 	private void setupDrawer() {
