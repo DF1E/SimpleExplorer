@@ -5,6 +5,7 @@ LOCAL_SRC_FILES := $(call all-subdir-java-files) $(call all-renderscript-files-u
 
 LOCAL_STATIC_JAVA_LIBRARIES := \
 	roottools \
+	android-support-v4 \
 	android-support-v13 \
 	commons-io \
 	junrar \

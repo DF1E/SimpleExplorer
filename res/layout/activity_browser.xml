@@ -28,6 +28,11 @@
             </LinearLayout>
         </HorizontalScrollView>
 
+        <com.viewpagerindicator.UnderlinePageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
         <View
             android:id="@+id/divider_horizontal"
             android:layout_width="fill_parent"
