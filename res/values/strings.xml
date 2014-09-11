@@ -8,6 +8,7 @@
     <string name="cannotbeundoneareyousureyouwanttodelete">"This cannot be undone!"</string>
     <string name="cantopenfile">Cannot open this file</string>
     <string name="cantreadfolder">Cannot read folder due to permissions</string>
+    <string name="changegroupowner">Change group/owner</string>
     <string name="copiedtoclipboard">Copied to clipboard.</string>
     <string name="copy">Copy</string>
     <string name="copyfail">Copy failed!</string>
@@ -27,6 +28,7 @@
     <string name="dir_info">Folder information</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="edit">Edit</string>
     <string name="empty">Empty</string>
     <string name="enable_root">Enable root access</string>
     <string name="enter_name">Enter name</string>

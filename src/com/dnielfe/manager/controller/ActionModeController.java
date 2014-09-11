@@ -34,9 +34,11 @@ import android.widget.AbsListView.MultiChoiceModeListener;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.adapters.BookmarksAdapter;
 import com.dnielfe.manager.dialogs.DeleteFilesDialog;
 import com.dnielfe.manager.dialogs.FilePropertiesDialog;
+import com.dnielfe.manager.dialogs.GroupOwnerDialog;
 import com.dnielfe.manager.dialogs.RenameDialog;
 import com.dnielfe.manager.dialogs.ZipFilesDialog;
 import com.dnielfe.manager.preview.MimeTypes;
@@ -84,13 +86,16 @@ public final class ActionModeController {
 
 			final int checkedCount = mListView.getCheckedItemCount();
 
+			if (!SimpleExplorer.hasRoot())
+				menu.removeItem(R.id.actiongroupowner);
+
 			if (checkedCount > 1) {
 				menu.removeItem(R.id.actionrename);
+				menu.removeItem(R.id.actiongroupowner);
 				menu.removeItem(R.id.actiondetails);
 				menu.removeItem(R.id.actionbookmark);
 				menu.removeItem(R.id.actionshortcut);
 			}
-
 			return true;
 		}
 
@@ -138,6 +143,20 @@ public final class ActionModeController {
 				mode.finish();
 				mActivity.invalidateOptionsMenu();
 				return true;
+			case R.id.actiongroupowner:
+				for (int i = 0; i < checkedItemSize; i++) {
+					final int key = items.keyAt(i);
+					if (items.get(key)) {
+						final DialogFragment dialog9 = GroupOwnerDialog
+								.instantiate(new File((String) mListView
+										.getItemAtPosition(key)));
+						mode.finish();
+						dialog9.show(mActivity.getFragmentManager(),
+								BrowserActivity.TAG_DIALOG);
+						break;
+					}
+				}
+				return true;
 			case R.id.actiondelete:
 				for (int i = 0; i < checkedItemSize; i++) {
 					final int key = items.keyAt(i);
@@ -149,7 +168,8 @@ public final class ActionModeController {
 				final DialogFragment dialog1 = DeleteFilesDialog
 						.instantiate(files);
 				mode.finish();
-				dialog1.show(mActivity.getFragmentManager(), BrowserActivity.TAG_DIALOG);
+				dialog1.show(mActivity.getFragmentManager(),
+						BrowserActivity.TAG_DIALOG);
 				return true;
 			case R.id.actionshare:
 				final ArrayList<Uri> uris = new ArrayList<Uri>(
@@ -209,7 +229,8 @@ public final class ActionModeController {
 				}
 				final DialogFragment dialog = ZipFilesDialog.instantiate(files);
 				mode.finish();
-				dialog.show(mActivity.getFragmentManager(), BrowserActivity.TAG_DIALOG);
+				dialog.show(mActivity.getFragmentManager(),
+						BrowserActivity.TAG_DIALOG);
 				return true;
 			case R.id.actionrename:
 				for (int i = 0; i < checkedItemSize; i++) {

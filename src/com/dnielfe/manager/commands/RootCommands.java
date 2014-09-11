@@ -234,10 +234,22 @@ public class RootCommands {
 		return null;
 	}
 
-	public static boolean applyPermissions(File file, Permissions permissions) {
-		if (!SimpleExplorer.hasRoot())
-			return false;
+	public static boolean changeGroupOwner(File file, String owner, String group) {
+		try {
+			if (!readReadWriteFile())
+				RootTools.remount(file.getAbsolutePath(), "rw");
 
+			execute("chown " + owner + "." + group + " "
+					+ getCommandLineString(file.getAbsolutePath()));
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	public static boolean applyPermissions(File file, Permissions permissions) {
 		try {
 			if (!readReadWriteFile())
 				RootTools.remount(file.getAbsolutePath(), "rw");

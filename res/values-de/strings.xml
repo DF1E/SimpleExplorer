@@ -7,6 +7,7 @@
     <string name="cannotbeundoneareyousureyouwanttodelete">"Dies kann nicht rückgängig gemacht werden!"</string>
     <string name="cantopenfile">Datei kann nicht geöffnet werden</string>
     <string name="cantreadfolder">Ordner kann wegen fehlender Berechtigung nicht gelesen werden</string>
+    <string name="changegroupowner">Group/Owner ändern</string>
     <string name="copiedtoclipboard">In die Zwischenablage kopiert.</string>
     <string name="copy">Kopieren</string>
     <string name="copyfail">Kopieren fehlgeschlagen!</string>
@@ -27,6 +28,7 @@
     <string name="dir_info">Ordner Informationen</string>
     <string name="drawer_open">Drawer öffnen</string>
     <string name="drawer_close">Drawer schließen</string>
+    <string name="edit">Bearbeiten</string>
     <string name="empty">Leer</string>
     <string name="enable_root">Root-Zugriff erlauben</string>
     <string name="enter_name">Namen eingeben</string>

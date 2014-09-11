@@ -18,8 +18,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:ellipsize="end"
-            android:focusable="false"
-            android:gravity="left|center_vertical"
             android:paddingRight="10dp"
             android:singleLine="true"
             android:text="@string/owner"
@@ -32,12 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:ellipsize="end"
-            android:focusable="false"
-            android:gravity="left|center_vertical"
             android:singleLine="true"
-            android:text="@string/minus"
-            android:textIsSelectable="false"
-            tools:text="/sdcard" />
+            android:text="@string/minus" />
     </TableRow>
 
     <TableRow
@@ -52,7 +46,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:ellipsize="end"
-            android:focusable="false"
             android:gravity="left|center_vertical"
             android:paddingRight="10dp"
             android:singleLine="true"
@@ -66,12 +59,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:ellipsize="end"
-            android:focusable="false"
             android:gravity="left|center_vertical"
             android:singleLine="true"
-            android:text="@string/minus"
-            android:textIsSelectable="false"
-            tools:text="drwxrwxrwx" />
+            android:text="@string/minus" />
     </TableRow>
 
     <TableRow

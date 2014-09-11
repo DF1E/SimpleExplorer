@@ -307,29 +307,22 @@ public final class FilePropertiesDialog extends DialogFragment {
 		/**
 		 * User: read, write, execute
 		 */
-		private CompoundButton ur = null;
-		private CompoundButton uw = null;
-		private CompoundButton ux = null;
+		private CompoundButton ur, uw, ux = null;
 
 		/**
 		 * Group: read, write, execute
 		 */
-		private CompoundButton gr = null;
-		private CompoundButton gw = null;
-		private CompoundButton gx = null;
+		private CompoundButton gr, gw, gx = null;
 
 		/**
 		 * Others: read, write, execute
 		 */
-		private CompoundButton or = null;
-		private CompoundButton ow = null;
-		private CompoundButton ox = null;
+		private CompoundButton or, ow, ox = null;
 
 		private final File mFile;
 		private View mView;
-		private TextView mOwner;
+		private TextView mGroup, mOwner;
 		private LoadFsTask mTask;
-		private TextView mGroup;
 		private Permissions mPermission;
 
 		private FilePermissionsPagerItem(final File file) {
@@ -379,9 +372,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 				getPermissions(mFile);
 			} catch (Exception e) {
 				disableBoxes();
-
-				this.mInputPermissions = null;
-				this.mModifiedPermissions = null;
 			}
 		}
 
