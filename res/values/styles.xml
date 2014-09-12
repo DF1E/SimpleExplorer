@@ -11,8 +11,6 @@
         <item name="action_edit">@drawable/holo_light_action_edit</item>
         <item name="action_info">@drawable/holo_light_action_info</item>
         <item name="action_paste">@drawable/actionpaste</item>
-        <item name="action_create_file">@drawable/holo_light_ic_menu_file_new</item>
-        <item name="action_create_folder">@drawable/holo_light_ic_menu_folder_new</item>
         <item name="action_multi">@drawable/holo_light_action_select_all</item>
         <item name="action_zip">@drawable/holo_light_ic_storage</item>
         <item name="action_bookmark">@drawable/holo_light_ic_bookmark</item>
@@ -33,8 +31,6 @@
         <item name="action_edit">@drawable/holo_dark_action_edit</item>
         <item name="action_info">@drawable/holo_dark_action_info</item>
         <item name="action_paste">@drawable/actionpaste</item>
-        <item name="action_create_file">@drawable/holo_dark_ic_menu_file_new</item>
-        <item name="action_create_folder">@drawable/holo_dark_ic_menu_folder_new</item>
         <item name="action_multi">@drawable/holo_dark_ic_action_select_all</item>
         <item name="action_zip">@drawable/holo_dark_ic_storage</item>
         <item name="action_bookmark">@drawable/holo_dark_ic_bookmark</item>
@@ -55,8 +51,6 @@
         <item name="action_edit">@drawable/holo_dark_action_edit</item>
         <item name="action_info">@drawable/holo_dark_action_info</item>
         <item name="action_paste">@drawable/actionpaste</item>
-        <item name="action_create_file">@drawable/holo_dark_ic_menu_file_new</item>
-        <item name="action_create_folder">@drawable/holo_dark_ic_menu_folder_new</item>
         <item name="action_multi">@drawable/holo_dark_ic_action_select_all</item>
         <item name="action_zip">@drawable/holo_dark_ic_storage</item>
         <item name="action_bookmark">@drawable/holo_dark_ic_bookmark</item>

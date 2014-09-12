@@ -3,12 +3,10 @@
 
     <item
         android:id="@+id/createfile"
-        android:icon="?attr/action_create_file"
         android:showAsAction="ifRoom"
         android:title="@string/newfile"/>
     <item
         android:id="@+id/createfolder"
-        android:icon="?attr/action_create_folder"
         android:showAsAction="ifRoom"
         android:title="@string/createnewfolder"/>
 

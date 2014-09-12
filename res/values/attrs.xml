@@ -12,8 +12,6 @@
     <attr name="action_remove" format="reference" />
     <attr name="action_search" format="reference" />
     <attr name="action_share" format="reference" />
-    <attr name="action_create_file" format="reference" />
-    <attr name="action_create_folder" format="reference" />
     <attr name="action_zip" format="reference" />
     <attr name="action_multi" format="reference" />
     <attr name="ic_bookmark" format="reference" />
