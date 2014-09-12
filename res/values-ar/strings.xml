@@ -18,7 +18,6 @@
     <string name="createnewfolder">انشاء ملف جديد</string>
     <string name="defaultdir">المسار الافتراضي </string>
     <string name="delete">حذف</string>
-    <string name="deleteapps">حذف التطبيقات</string>
     <string name="deletesuccess">حذفت بنجاح</string>
     <string name="deleting">جاري المسح</string>
     <string name="desc">وصف</string>
@@ -40,8 +39,6 @@
     <string name="hiddenfiles">ملفات مخفية</string>
     <string name="itcouldntbefound">تعذر العثور عليه.</string>
     <string name="LastModified">اخر تعديل:</string>
-    <string name="launch">إطلاق</string>
-    <string name="manage">إدارة</string>
     <string name="md5">MD5:</string>
     <string name="move">نقل</string>
     <string name="movefail">فشل النقل.</string>
@@ -54,7 +51,6 @@
     <string name="options">خيارات</string>
     <string name="packing">حزم</string>
     <string name="paste">Paste</string>
-    <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Press back again to exit.</string>
     <string name="rename">Rename</string>
     <string name="sdcardnotfound">Couldnt find SD card!</string>
@@ -70,10 +66,8 @@
     <string name="size">Used:</string>
     <string name="sort">Sort</string>
     <string name="uisettings">View settings</string>
-    <string name="uninstallapp">Uninstall App</string>
     <string name="unselectall">Unselect all</string>
     <string name="unzipping">Extracting</string>
-    <string name="version">"Version "</string>
     <string name="viewmode">View mode</string>
     <string name="xdaforum">XDA forum</string>
     <string name="zipping">Compressing</string>
