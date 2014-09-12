@@ -187,7 +187,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 		});
 
 		mFab = (FloatingActionButton) rootView.findViewById(R.id.fabbutton);
-		// mFab.listenTo(mListView);
+		mFab.listenTo(mListView);
 		mFab.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -278,6 +278,12 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.main, menu);
+
+		if (BrowserActivity.isDrawerOpen()) {
+			menu.findItem(R.id.paste).setVisible(false);
+			menu.findItem(R.id.folderinfo).setVisible(false);
+			menu.findItem(R.id.search).setVisible(false);
+		}
 
 		MenuItem paste = menu.findItem(R.id.paste);
 		paste.setVisible(!ClipBoard.isEmpty());

@@ -64,8 +64,8 @@ public final class BrowserActivity extends ThemableActivity implements
 	private static DrawerListAdapter mMenuAdapter;
 	private static NavigationView mNavigation;
 
-	private ListView mDrawer;
-	private DrawerLayout mDrawerLayout;
+	private static ListView mDrawer;
+	private static DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private Cursor mBookmarksCursor;
 
@@ -262,6 +262,10 @@ public final class BrowserActivity extends ThemableActivity implements
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	public static boolean isDrawerOpen() {
+		return mDrawerLayout.isDrawerOpen(mDrawer);
 	}
 
 	public static BookmarksAdapter getBookmarksAdapter() {

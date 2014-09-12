@@ -35,7 +35,7 @@
             android:layout_marginRight="16dp"
             android:focusable="true"
             app:drawable="@drawable/holo_light_ic_action_new"
-            app:color="@color/gray" />
+            app:color="@color/fab_background" />
     </FrameLayout>
 
 </RelativeLayout>

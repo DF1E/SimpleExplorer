@@ -31,13 +31,7 @@
         <com.viewpagerindicator.UnderlinePageIndicator
             android:id="@+id/indicator"
             android:layout_width="match_parent"
-            android:layout_height="1dp" />
-
-        <View
-            android:id="@+id/divider_horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="center_vertical"
+            android:layout_height="1.5dp"
             android:background="?android:attr/dividerHorizontal" />
 
         <android.support.v4.view.ViewPager

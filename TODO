@@ -19,5 +19,3 @@ TODO:
 -	fix: after changing theme the current fragment won't be continued
 
 -	fix SavedInstance NPE after go to settings
-
--	feature: change group/owner
