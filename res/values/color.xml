@@ -10,12 +10,7 @@
 
     <!-- dark theme -->
     <color name="darkgray">#444444</color>
-    <color name="holo_dark_window_background">#353535</color>
-    <color name="holo_dark_actionbar_background">#262626</color>
-
-    <!-- black theme -->
-    <color name="blackgray">#202020</color>
-    <color name="holo_black_window_background">#070707</color>
-    <color name="holo_black_actionbar_background">#000000</color>
+    <color name="holo_dark_window_background">#1f1f1f</color>
+    <color name="holo_dark_actionbar_background">#0f0f0f</color>
 
 </resources>

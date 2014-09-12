@@ -88,7 +88,6 @@
     <string name="theme">ธีม</string>
     <string name="light">สว่าง</string>
     <string name="dark">มืด</string>
-    <string name="black">Black</string>
 
     <!-- permissions -->
     <string name="permissions">การอนุญาต</string>

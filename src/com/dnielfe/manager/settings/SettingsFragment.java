@@ -31,8 +31,7 @@ public final class SettingsFragment extends PreferenceFragment {
 
 	private static final String[] THEMES_VALUES = new String[] {
 			Integer.toString(R.style.ThemeLight),
-			Integer.toString(R.style.ThemeDark),
-			Integer.toString(R.style.ThemeBlack) };
+			Integer.toString(R.style.ThemeDark) };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

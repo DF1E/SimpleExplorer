@@ -88,7 +88,6 @@
     <string name="theme">Thema</string>
     <string name="light">Licht</string>
     <string name="dark">Donker</string>
-    <string name="black">Black</string>
 
     <!-- permissions -->
     <string name="permissions">Machtigingen</string>
