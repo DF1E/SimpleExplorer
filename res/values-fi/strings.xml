@@ -18,7 +18,6 @@
     <string name="createnewfolder">Luo uusi kansio</string>
     <string name="defaultdir">Oletushakemisto</string>
     <string name="delete">Poista</string>
-    <string name="deleteapps">Poista sovelluksia</string>
     <string name="deletesuccess">Poistaminen onnistui</string>
     <string name="deleting">Poistetaan</string>
     <string name="desc">kuvaus</string>
@@ -40,8 +39,6 @@
     <string name="hiddenfiles">Piilotetut tiedostot</string>
     <string name="itcouldntbefound">Sitä ei löytynyt.</string>
     <string name="LastModified">Viimeisin muokkaus:</string>
-    <string name="launch">Käynnistä</string>
-    <string name="manage">Hallinnoi</string>
     <string name="md5">MD5:</string>
     <string name="move">Siirrä</string>
     <string name="movefail">Siirto epäonnistui.</string>
@@ -54,7 +51,6 @@
     <string name="options">Toiminnot</string>
     <string name="packing">Pakkaus</string>
     <string name="paste">Liitä</string>
-    <string name="playstore">Play-kauppa</string>
     <string name="pressbackagaintoquit">Paina takaisin-painiketta uudelleen poistuaksesi.</string>
     <string name="rename">Nimeä uudelleen</string>
     <string name="sdcardnotfound">Muistikorttia ei löytynyt!</string>
@@ -70,10 +66,8 @@
     <string name="size">Koko:</string>
     <string name="sort">Lajittelutapa</string>
     <string name="uisettings">Näyttöasetukset</string>
-    <string name="uninstallapp">Poista sovellus</string>
     <string name="unselectall">Poista valinta kaikista</string>
     <string name="unzipping">Puretaan</string>
-    <string name="version">"Versio "</string>
     <string name="viewmode">Näyttötapa</string>
     <string name="xdaforum">XDA-keskustelupalsta</string>
     <string name="zipping">Pakataan</string>

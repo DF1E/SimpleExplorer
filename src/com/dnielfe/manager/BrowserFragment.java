@@ -270,7 +270,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 		case FileObserver.DELETE:
 		case FileObserver.DELETE_SELF:
 			sHandler.removeCallbacks(mLastRunnable);
-			sHandler.post(mLastRunnable = new NavigateRunnable(mCurrentPath));
+			sHandler.post(mLastRunnable = new NavigateRunnable(path));
 			break;
 		}
 	}

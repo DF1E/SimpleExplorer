@@ -18,7 +18,6 @@
     <string name="createnewfolder">新建文件夹</string>
     <string name="defaultdir">默认目录</string>
     <string name="delete">删除</string>
-    <string name="deleteapps">删除应用</string>
     <string name="deletesuccess">删除成功。</string>
     <string name="deleting">正在删除…</string>
     <string name="desc">降序</string>
@@ -40,8 +39,6 @@
     <string name="hiddenfiles">隐藏文件</string>
     <string name="itcouldntbefound">无搜索结果！</string>
     <string name="LastModified">修改时间：</string>
-    <string name="launch">启动</string>
-    <string name="manage">管理</string>
     <string name="md5">MD5值：</string>
     <string name="move">移动</string>
     <string name="movefail">移动失败！</string>
@@ -54,7 +51,6 @@
     <string name="options">选项</string>
     <string name="packing">正在打包…</string>
     <string name="paste">粘贴</string>
-    <string name="playstore">应用商店</string>
     <string name="pressbackagaintoquit">再次点击返回退出。</string>
     <string name="rename">重命名</string>
     <string name="sdcardnotfound">无法找到SD卡！</string>
@@ -70,10 +66,8 @@
     <string name="size">占用空间：</string>
     <string name="sort">排列顺序</string>
     <string name="uisettings">显示设置</string>
-    <string name="uninstallapp">卸载应用</string>
     <string name="unselectall">取消已选择</string>
     <string name="unzipping">正在提取…</string>
-    <string name="version">"版本 "</string>
     <string name="viewmode">视图模式</string>
     <string name="xdaforum">XDA主页</string>
     <string name="zipping">压缩</string>

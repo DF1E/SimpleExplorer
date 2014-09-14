@@ -18,7 +18,6 @@
     <string name="createnewfolder">สร้างโฟลเดอร์ใหม่</string>
     <string name="defaultdir">ไดเรกเทอรีเริ่มต้น</string>
     <string name="delete">ลบ</string>
-    <string name="deleteapps">ลบแอพ</string>
     <string name="deletesuccess">ลบสำเร็จ</string>
     <string name="deleting">กำลังลบ</string>
     <string name="desc">เรียง</string>
@@ -40,8 +39,6 @@
     <string name="hiddenfiles">ไฟล์ถูกซ่อน</string>
     <string name="itcouldntbefound">ไม่สามารถหาได้</string>
     <string name="LastModified">แก้ไขครั้งสุดท้าย:</string>
-    <string name="launch">เริ่ม</string>
-    <string name="manage">จัดการ</string>
     <string name="md5">MD5:</string>
     <string name="move">ย้าย</string>
     <string name="movefail">ย้ายล้มเหลว</string>
@@ -54,7 +51,6 @@
     <string name="options">ตัวเลือก</string>
     <string name="packing">กำลังรวม</string>
     <string name="paste">วาง</string>
-    <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">กดปุ่มกลับอีกครั้งเพื่อออก</string>
     <string name="rename">เปลี่ยนชื่อ</string>
     <string name="sdcardnotfound">ไม่พบ SD card!</string>
@@ -70,10 +66,8 @@
     <string name="size">พื้นที่ใช้:</string>
     <string name="sort">หมวด</string>
     <string name="uisettings">ดูการตั้งค่า</string>
-    <string name="uninstallapp">ยกเลิกการติดตั้ง</string>
     <string name="unselectall">ยกเลิกทั้งหมด</string>
     <string name="unzipping">กำลังแยก</string>
-    <string name="version">" เวอร์ชัน"</string>
     <string name="viewmode">รูปแบบการมอง</string>
     <string name="xdaforum">XDA forum</string>
     <string name="zipping">กำลังบีบอัด</string>

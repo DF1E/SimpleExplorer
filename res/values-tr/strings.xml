@@ -18,7 +18,6 @@
     <string name="createnewfolder">Yeni Klasör oluştur</string>
     <string name="defaultdir">Varsayılan Dizin</string>
     <string name="delete">Sil</string>
-    <string name="deleteapps">Uygulamaları Sil</string>
     <string name="deletesuccess">Silme İşlemi Başarılı</string>
     <string name="deleting">Siliyor</string>
     <string name="desc">azalan</string>
@@ -40,8 +39,6 @@
     <string name="hiddenfiles">Gizli Dosyalar</string>
     <string name="itcouldntbefound">Bulunamadı.</string>
     <string name="LastModified">Son değişiklik:</string>
-    <string name="launch">Aç</string>
-    <string name="manage">Yönet</string>
     <string name="md5">MD5:</string>
     <string name="move">Taşı</string>
     <string name="movefail">Taşıma başarısız.</string>
@@ -54,7 +51,6 @@
     <string name="options">Seçenekler</string>
     <string name="packing">Paketleme</string>
     <string name="paste">Yapıştır</string>
-    <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Çıkmak için geri tuşuna tekrar basın.</string>
     <string name="rename">Yeniden adlandır</string>
     <string name="sdcardnotfound">SD Kart Yok!</string>
@@ -70,10 +66,8 @@
     <string name="size">Kullanılan:</string>
     <string name="sort">Sırala</string>
     <string name="uisettings">Görünüm Ayarları</string>
-    <string name="uninstallapp">Uygulamayı kaldır</string>
     <string name="unselectall">Hiçbirini seçme</string>
     <string name="unzipping">Çıkarılıyor</string>
-    <string name="version">"Sürüm "</string>
     <string name="viewmode">Görünüm modu</string>
     <string name="xdaforum">XDA Forum</string>
     <string name="zipping">Sıkıştırılıyor</string>

@@ -59,6 +59,9 @@ public class SearchActivity extends ThemableActivity {
 
 			mActionBar.setSubtitle(String.valueOf(mAdapter.getCount())
 					+ getString(R.string._files));
+		} else {
+			// open search interface at start if savedInstanceState = null
+			this.onSearchRequested();
 		}
 	}
 

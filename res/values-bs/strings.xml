@@ -18,7 +18,6 @@
     <string name="createnewfolder">Kreiraj novi Folder</string>
     <string name="defaultdir">Standardni direktorij</string>
     <string name="delete">Izbri�i</string>
-    <string name="deleteapps">Izbri�i aplikacije</string>
     <string name="deletesuccess">Delete successful</string>
     <string name="deleting">Brisanje</string>
     <string name="desc">desc</string>
@@ -40,8 +39,6 @@
     <string name="hiddenfiles">Skriveni Fajlovi</string>
     <string name="itcouldntbefound">Nije prona�eno</string>
     <string name="LastModified">Zadnji put modificirano:</string>
-    <string name="launch">Pokreni</string>
-    <string name="manage">Upravljanje</string>
     <string name="md5">MD5:</string>
     <string name="move">Premjesti</string>
     <string name="movefail">Moving failed.</string>
@@ -54,7 +51,6 @@
     <string name="options">Opcije</string>
     <string name="packing">Pakiranje</string>
     <string name="paste">Zalijepi</string>
-    <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Pritisni ponovo "natrag" za izlaz</string>
     <string name="rename">Preimenuj</string>
     <string name="sdcardnotfound">SD Kartica nije prona�ena!</string>
@@ -70,10 +66,8 @@
     <string name="size">Iskori�teno:</string>
     <string name="sort">Sortirati</string>
     <string name="uisettings">Postavke pregleda</string>
-    <string name="uninstallapp">Deinstaliraj Aplikaciju</string>
     <string name="unselectall">Isklju�i sve</string>
     <string name="unzipping">Raspakiranje</string>
-    <string name="version">"Verzija "</string>
     <string name="viewmode">Na�in prikaza</string>
     <string name="xdaforum">XDA Forum</string>
     <string name="zipping">Pakiranje</string>

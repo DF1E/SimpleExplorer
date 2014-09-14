@@ -18,7 +18,6 @@
     <string name="createnewfolder">Créer un nouveau dossier</string>
     <string name="defaultdir">Dossier par défaut</string>
     <string name="delete">Supprimer</string>
-    <string name="deleteapps">Supprimer Apps</string>
     <string name="deletesuccess">Supprimé avec succès</string>
     <string name="deleting">Suppression</string>
     <string name="desc">desc</string>
@@ -40,8 +39,6 @@
     <string name="hiddenfiles">Fichiers cachés</string>
     <string name="itcouldntbefound">Ne peut être trouvé.</string>
     <string name="LastModified">Dernière modification:</string>
-    <string name="launch">Lancer</string>
-    <string name="manage">Gérer</string>
     <string name="md5">MD5:</string>
     <string name="move">Déplacer</string>
     <string name="movefail">Le déplacement a échoué.</string>
@@ -54,7 +51,6 @@
     <string name="options">Options</string>
     <string name="packing">Packing</string>
     <string name="paste">Coller</string>
-    <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Appuyer encore sur retour pour quitter.</string>
     <string name="rename">Renommer</string>
     <string name="sdcardnotfound">Ne peut trouver la carte SD!</string>
@@ -70,10 +66,8 @@
     <string name="size">Utilisé:</string>
     <string name="sort">Trier</string>
     <string name="uisettings">Afficher paramètres</string>
-    <string name="uninstallapp">Désinstaller App</string>
     <string name="unselectall">Tout désélectionner</string>
     <string name="unzipping">Extraction</string>
-    <string name="version">"Version "</string>
     <string name="viewmode">Mode d\'affichage</string>
     <string name="xdaforum">Forum XDA</string>
     <string name="zipping">Compression</string>

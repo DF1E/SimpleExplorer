@@ -18,7 +18,6 @@
     <string name="createnewfolder">Vytvoriť nový priečinok</string>
     <string name="defaultdir">Predvolený adresár</string>
     <string name="delete">Vymazať</string>
-    <string name="deleteapps">Vymazať aplikácie</string>
     <string name="deletesuccess">Úspešne vymazané</string>
     <string name="deleting">Vymazávanie</string>
     <string name="desc">Popis</string>
@@ -40,8 +39,6 @@
     <string name="hiddenfiles">Skryté súbory</string>
     <string name="itcouldntbefound">Nenašlo sa.</string>
     <string name="LastModified">Naposledy upravené:</string>
-    <string name="launch">Spustiť</string>
-    <string name="manage">Spravovať</string>
     <string name="md5">MD5:</string>
     <string name="move">Presunúť</string>
     <string name="movefail">Presun zlyhal.</string>
@@ -54,7 +51,6 @@
     <string name="options">Možnosti</string>
     <string name="packing">Balenie</string>
     <string name="paste">Prilepiť</string>
-    <string name="playstore">Obchod Play</string>
     <string name="pressbackagaintoquit">Stlačte znova tlačidlo Späť pre ukončenie.</string>
     <string name="rename">Premenovať</string>
     <string name="sdcardnotfound">Nemožno nájsť kartu SD!</string>
@@ -70,10 +66,8 @@
     <string name="size">Využité:</string>
     <string name="sort">Zoradiť</string>
     <string name="uisettings">Nastavenia zobrazenia</string>
-    <string name="uninstallapp">Odinštalovať aplikáciu</string>
     <string name="unselectall">Zrušiť výber</string>
     <string name="unzipping">Rozbaľovanie</string>
-    <string name="version">"Verzia "</string>
     <string name="viewmode">Režim zobrazenia</string>
     <string name="xdaforum">Fórum XDA</string>
     <string name="zipping">Balenie</string>

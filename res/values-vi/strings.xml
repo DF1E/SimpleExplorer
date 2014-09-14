@@ -18,7 +18,6 @@
     <string name="createnewfolder">Tạo thư mục mới</string>
     <string name="defaultdir">Thư mục mặc định</string>
     <string name="delete">Xóa</string>
-    <string name="deleteapps">Xóa ứng dụng</string>
     <string name="deletesuccess">Delete successful</string>
     <string name="deleting">Đang xóa</string>
     <string name="desc">desc</string>
@@ -40,8 +39,6 @@
     <string name="hiddenfiles">Tập tin ẩn</string>
     <string name="itcouldntbefound">Không thể tìm thấy.</string>
     <string name="LastModified">Ngày sửa đổi:</string>
-    <string name="launch">Launch</string>
-    <string name="manage">Quản lý</string>
     <string name="md5">MD5:</string>
     <string name="move">Chuyển</string>
     <string name="movefail">Di chuyển thất bại.</string>
@@ -54,7 +51,6 @@
     <string name="options">Tùy chọn</string>
     <string name="packing">Đang đóng gói</string>
     <string name="paste">Dán</string>
-    <string name="playstore">Play Store</string>
     <string name="pressbackagaintoquit">Nhấn QUAY LẠI lần nữa để thoát.</string>
     <string name="rename">Đổi tên</string>
     <string name="sdcardnotfound">Không thể tìm thấy thẻ SD!</string>
@@ -70,10 +66,8 @@
     <string name="size">Đã sử dụng:</string>
     <string name="sort">Sắp xếp</string>
     <string name="uisettings">Cài đặt xem</string>
-    <string name="uninstallapp">Gỡ cài đặt ứng dụng</string>
     <string name="unselectall">Bỏ chọn tất cả</string>
     <string name="unzipping">Đang giải nén</string>
-    <string name="version">"Phiên bản "</string>
     <string name="viewmode">Chế độ xem</string>
     <string name="xdaforum">Diễn đàn XDA</string>
     <string name="zipping">Đang nén</string>

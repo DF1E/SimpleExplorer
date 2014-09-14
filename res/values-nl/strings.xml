@@ -18,7 +18,6 @@
     <string name="createnewfolder">Maak een nieuwe Map </string>
     <string name="defaultdir">Standaardlocatie</string>
     <string name="delete">Verwijderen</string>
-    <string name="deleteapps">Verwijder Apps</string>
     <string name="deletesuccess">Succesvol verwijderd</string>
     <string name="deleting">Bezig met verwijderen</string>
     <string name="desc">desc</string>
@@ -40,8 +39,6 @@
     <string name="hiddenfiles">Verborgen bestanden</string>
     <string name="itcouldntbefound">Kon niet gevonden worden</string>
     <string name="LastModified">Laatst Gewijzigd:</string>
-    <string name="launch">Start</string>
-    <string name="manage">Beheer</string>
     <string name="md5">MD5</string>
     <string name="move">Verplaatsen</string>
     <string name="movefail">Verplaatsen mislukt.</string>
@@ -54,7 +51,6 @@
     <string name="options">Opties</string>
     <string name="packing">Inpakken</string>
     <string name="paste">Plakken</string>
-    <string name="playstore">Playstore</string>
     <string name="pressbackagaintoquit">Tik nogmaals terug om af te sluiten</string>
     <string name="rename">Hernoem</string>
     <string name="sdcardnotfound">Kon SD kaart niet vinden!</string>
@@ -70,10 +66,8 @@
     <string name="size">Gebruikt:</string>
     <string name="sort">Sorteer</string>
     <string name="uisettings">Bekijk Instellingen</string>
-    <string name="uninstallapp">Verwijder App</string>
     <string name="unselectall">Deselecteer Alles</string>
     <string name="unzipping">Uitpakken</string>
-    <string name="version">"Versie "</string>
     <string name="viewmode">Weergavemodus</string>
     <string name="xdaforum">XDA Forum</string>
     <string name="zipping">Inpakken</string>

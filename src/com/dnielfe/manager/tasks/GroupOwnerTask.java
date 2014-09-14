@@ -20,6 +20,7 @@
 package com.dnielfe.manager.tasks;
 
 import java.io.File;
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -45,6 +46,17 @@ public class GroupOwnerTask extends AsyncTask<File, Void, Boolean> {
 
 	@Override
 	protected void onPostExecute(Boolean result) {
+		super.onPostExecute(result);
+		this.finish(result);
+	}
+
+	@Override
+	protected void onCancelled(Boolean result) {
+		super.onCancelled(result);
+		this.finish(result);
+	}
+
+	private void finish(Boolean result) {
 		if (result)
 			Toast.makeText(this.context,
 					this.context.getString(R.string.permissionschanged),

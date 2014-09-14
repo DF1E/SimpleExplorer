@@ -5,7 +5,7 @@
     <dimen name="actionbar_height">48dp</dimen>
 
     <!-- ListItem height -->
-    <dimen name="item_height">54dp</dimen>
+    <dimen name="item_height">55dp</dimen>
 
     <!-- Navigation drawer width -->
     <dimen name="drawer_width">240dp</dimen>
