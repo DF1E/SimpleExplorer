@@ -7,7 +7,8 @@
     <string name="cannotbeundoneareyousureyouwanttodelete">Questa operazione non può essere annullata</string>
     <string name="cantopenfile">Impossibile aprire questo file</string>
     <string name="cantreadfolder">Impossibile accedere alla cartella per mancanza permessi</string>
-    <string name="copiedtoclipboard">copiato negli Appunti</string>
+    <string name="changegroupowner">Modifica gruppo/proprietario</string>
+    <string name="copiedtoclipboard">Copiato negli Appunti</string>
     <string name="copy">Copia</string>
     <string name="copyfail">Copia fallita!</string>
     <string name="copying">Copia in corso</string>
@@ -26,8 +27,9 @@
     <string name="dir_info">Informazioni cartella</string>
     <string name="drawer_open">Apri pannello navigazione</string>
     <string name="drawer_close">Chiudi pannello navigazione</string>
+    <string name="edit">Modifica</string>
     <string name="empty">Vuoto</string>
-    <string name="enable_root">Enable root access</string>
+    <string name="enable_root">Abilita accesso root</string>
     <string name="enter_name">Inserisci nome</string>
     <string name="error">Errore</string>
     <string name="exit">Esci</string>
@@ -59,7 +61,7 @@
     <string name="selectall">Seleziona tutto</string>
     <string name="settings">Impostazioni</string>
     <string name="share">Condividi</string>
-    <string name="shortcut">Crea Collegamento</string>
+    <string name="shortcut">Crea collegamento</string>
     <string name="shortcutcreated">Collegamento creato.</string>
     <string name="showpreview">Anteprime</string>
     <string name="simple">Semplice</string>
@@ -70,7 +72,7 @@
     <string name="unzipping">Decompressione</string>
     <string name="viewmode">Modalità vista</string>
     <string name="xdaforum">Forum XDA</string>
-    <string name="zipping">Comprimendo</string>
+    <string name="zipping">Compressione</string>
 
     <!-- sort list type -->
     <string name="sort_name">Nome</string>
@@ -87,7 +89,7 @@
     <string name="permissions">Permessi</string>
     <string name="owner">Proprietario:</string>
     <string name="group">Gruppo:</string>
-    <string name="others">Altri:</string>
+    <string name="others">Altro:</string>
     <string name="read">Lettura</string>
     <string name="write">Scrittura</string>
     <string name="execute">Esecuzione</string>
