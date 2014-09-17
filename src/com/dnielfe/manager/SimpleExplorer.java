@@ -20,7 +20,6 @@
 package com.dnielfe.manager;
 
 import com.dnielfe.manager.settings.Settings;
-import com.stericson.RootTools.RootTools;
 
 import android.app.Application;
 
@@ -29,20 +28,10 @@ public final class SimpleExplorer extends Application {
 	public static final int THEME_ID_LIGHT = 1;
 	public static final int THEME_ID_DARK = 2;
 
-	private static boolean hasRoot = false;
-
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		// get default preferences
+		// get default preferences at start
 		Settings.updatePreferences(this);
-
-		// check for root at start if its enabled in Settings
-		if (Settings.useRoot())
-			hasRoot = RootTools.isAccessGiven();
-	}
-
-	public static boolean hasRoot() {
-		return hasRoot;
 	}
 }

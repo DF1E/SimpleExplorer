@@ -34,7 +34,6 @@ import android.widget.AbsListView.MultiChoiceModeListener;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.adapters.BookmarksAdapter;
 import com.dnielfe.manager.dialogs.DeleteFilesDialog;
 import com.dnielfe.manager.dialogs.FilePropertiesDialog;
@@ -42,6 +41,7 @@ import com.dnielfe.manager.dialogs.GroupOwnerDialog;
 import com.dnielfe.manager.dialogs.RenameDialog;
 import com.dnielfe.manager.dialogs.ZipFilesDialog;
 import com.dnielfe.manager.preview.MimeTypes;
+import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
 
@@ -86,7 +86,7 @@ public final class ActionModeController {
 
 			final int checkedCount = mListView.getCheckedItemCount();
 
-			if (!SimpleExplorer.hasRoot())
+			if (!Settings.rootAccess())
 				menu.removeItem(R.id.actiongroupowner);
 
 			if (checkedCount > 1) {

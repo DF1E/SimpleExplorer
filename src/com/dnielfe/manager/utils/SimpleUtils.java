@@ -32,7 +32,6 @@ import java.util.ArrayList;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.settings.Settings;
@@ -115,7 +114,7 @@ public class SimpleUtils {
 					mDirContent.add(path + "/" + list[i]);
 				}
 			}
-		} else if (SimpleExplorer.hasRoot()) {
+		} else if (Settings.rootAccess()) {
 			mDirContent = RootCommands.listFiles(file.getAbsolutePath(),
 					showhidden);
 		}
@@ -178,7 +177,7 @@ public class SimpleUtils {
 					copyToDirectory(old + "/" + files[i], dir);
 			}
 		} else {
-			if (SimpleExplorer.hasRoot())
+			if (Settings.rootAccess())
 				RootCommands.moveCopyRoot(old, newDir);
 		}
 	}
@@ -207,7 +206,7 @@ public class SimpleUtils {
 
 		if (folder.mkdir())
 			return true;
-		else if (SimpleExplorer.hasRoot()) {
+		else if (Settings.rootAccess()) {
 			RootCommands.createRootdir(folder, path);
 			return true;
 		}
@@ -249,7 +248,7 @@ public class SimpleUtils {
 				if (target.delete())
 					return;
 		} else if (target.exists() && !target.delete()) {
-			if (SimpleExplorer.hasRoot())
+			if (Settings.rootAccess())
 				RootCommands.DeleteFileRoot(path, dir);
 		}
 	}

@@ -31,8 +31,8 @@ import android.widget.Toast;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.SimpleExplorer;
 import com.dnielfe.manager.commands.RootCommands;
+import com.dnielfe.manager.settings.Settings;
 
 public final class CreateFileDialog extends DialogFragment {
 
@@ -72,7 +72,7 @@ public final class CreateFileDialog extends DialogFragment {
 											Toast.LENGTH_SHORT).show();
 								}
 							} catch (Exception e) {
-								if (SimpleExplorer.hasRoot()) {
+								if (Settings.rootAccess()) {
 									RootCommands.createRootFile(path, name);
 									Toast.makeText(a, R.string.filecreated,
 											Toast.LENGTH_SHORT).show();

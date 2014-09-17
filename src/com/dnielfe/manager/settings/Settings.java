@@ -20,6 +20,7 @@
 package com.dnielfe.manager.settings;
 
 import com.dnielfe.manager.R;
+import com.stericson.RootTools.RootTools;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -49,6 +50,8 @@ public final class Settings {
 		mListAppearance = Integer.parseInt(p.getString("viewmode", "1"));
 		defaultdir = p.getString("defaultdir", Environment
 				.getExternalStorageDirectory().getPath());
+
+		rootAccess();
 	}
 
 	public static boolean showThumbnail() {
@@ -59,7 +62,7 @@ public final class Settings {
 		return mShowHiddenFiles;
 	}
 
-	public static boolean useRoot() {
-		return mRootAccess;
+	public static boolean rootAccess() {
+		return mRootAccess ? RootTools.isAccessGiven() : false;
 	}
 }

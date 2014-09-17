@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 
 import android.util.Log;
 
-import com.dnielfe.manager.SimpleExplorer;
+import com.dnielfe.manager.settings.Settings;
 import com.stericson.RootTools.RootTools;
 
 public class RootCommands {
@@ -269,7 +269,7 @@ public class RootCommands {
 		String[] info = null;
 		String line = "";
 
-		if (!SimpleExplorer.hasRoot())
+		if (!Settings.rootAccess())
 			return null;
 
 		try {
