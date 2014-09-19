@@ -72,7 +72,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 					public void onClick(DialogInterface dialog, int which) {
 						final FilePermissionsPagerItem fragment = (FilePermissionsPagerItem) mAdapter
 								.getItem(1);
-						fragment.applyPermissions(getActivity());
+						fragment.applyPermissions(activity);
 					}
 				});
 		final View content = activity.getLayoutInflater().inflate(
@@ -97,13 +97,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 			public void onPageSelected(int position) {
 				tab1.setChecked(position == 0);
 				tab2.setChecked(position == 1);
-				((AlertDialog) getDialog())
-						.getButton(DialogInterface.BUTTON_POSITIVE)
-						.setVisibility(
-								position == 0
-										|| !((FilePermissionsPagerItem) mAdapter
-												.getItem(1)).areBoxesEnabled() ? View.GONE
-										: View.VISIBLE);
 			}
 		});
 
@@ -410,12 +403,9 @@ public final class FilePropertiesDialog extends DialogFragment {
 			}
 		}
 
-		boolean areBoxesEnabled() {
-			return this.ur.isEnabled();
-		}
-
 		public void applyPermissions(final Context context) {
-			if (!mInputPermissions.equals(mModifiedPermissions)) {
+			if (mInputPermissions != null
+					&& !mInputPermissions.equals(mModifiedPermissions)) {
 				final ApplyTask task = new ApplyTask(context,
 						mModifiedPermissions);
 				task.execute(this.mFile);
@@ -423,9 +413,6 @@ public final class FilePropertiesDialog extends DialogFragment {
 		}
 
 		private void disableBoxes() {
-			mOwner.setText("-");
-			mGroup.setText("-");
-
 			this.ur.setEnabled(false);
 			this.uw.setEnabled(false);
 			this.ux.setEnabled(false);
