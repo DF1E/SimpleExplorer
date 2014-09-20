@@ -7,6 +7,7 @@
     <string name="cannotbeundoneareyousureyouwanttodelete">"Esto no se puede desechar!"</string>
     <string name="cantopenfile">No se puede abrir este archivo</string>
     <string name="cantreadfolder">No so puede leer la carpeta debido a permisos.</string>
+    <string name="changegroupowner">Cambiar grupo/dueño</string>
     <string name="copiedtoclipboard">Copiado al portapapeles.</string>
     <string name="copy">Copiar</string>
     <string name="copyfail">Copia fracaso!</string>
@@ -26,8 +27,9 @@
     <string name="dir_info">Información de carpeta</string>
     <string name="drawer_open">Abrir gaveta de navegación</string>
     <string name="drawer_close">Cerrar gaveta de navegación</string>
+    <string name="edit">Editar</string>
     <string name="empty">Vacío</string>
-    <string name="enable_root">Enable root access</string>
+    <string name="enable_root">Activar acceso root</string>
     <string name="enter_name">Introduzca el nombre</string>
     <string name="error">Error</string>
     <string name="exit">Salir</string>
@@ -44,7 +46,7 @@
     <string name="movefail">La transferencia fallo.</string>
     <string name="movesuccsess">Movido correctamente.</string>
     <string name="moving">Moviendo</string>
-    <string name="multizip">Zip</string>
+    <string name="multizip">Comprimir</string>
     <string name="newfile">Nuevo archivo</string>
     <string name="newfolderwasnotcreated">Nueva carpeta no fue creada.</string>
     <string name="ok">OK</string>

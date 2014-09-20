@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Simple Explorer</string>
+    <string name="advancedsettings">Avansat</string>
+    <string name="cancel">Revocare</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">"Acest lucru nu poate fi anulat!"</string>
+    <string name="cantopenfile">Nu se poate deschide acest fişier</string>
+    <string name="cantreadfolder">Imposibil de citit dosarul din cauza permisiunilor</string>
+    <string name="changegroupowner">Schimbă grupul/proprietarul</string>
+    <string name="copiedtoclipboard">Copiat în clipboard.</string>
+    <string name="copy">Copiază</string>
+    <string name="copyfail">Copia nu a reuşit!</string>
+    <string name="copying">Copiem</string>
+    <string name="copysuccsess">Copiat cu succes.</string>
+    <string name="create">Crează</string>
+    <string name="created">" Creat."</string>
+    <string name="createmsg">Setaţi o pauză înainte de text pentru a crea un director ascuns.</string>
+    <string name="createnewfolder">Crează un dosar nou</string>
+    <string name="defaultdir">Directorul implicit</string>
+    <string name="delete">Şterge</string>
+    <string name="deletesuccess">Ştergere de succes</string>
+    <string name="deleting">Ştergem</string>
+    <string name="desc">desc</string>
+    <string name="detailed">Detaliat</string>
+    <string name="details">Detalii</string>
+    <string name="dir_info">Informaţie dosar</string>
+    <string name="drawer_open">Deschide sertar de navigare</string>
+    <string name="drawer_close">Închide sertar de navigare</string>
+    <string name="edit">Editează</string>
+    <string name="empty">Gol</string>
+    <string name="enable_root">Permite acces root</string>
+    <string name="enter_name">Introduceţi numele</string>
+    <string name="error">Eroare</string>
+    <string name="exit">Ieşire</string>
+    <string name="extractto">Extragere la</string>
+    <string name="filecreated">Fişierul a fost creat.</string>
+    <string name="fileexists">Fișierul există deja.</string>
+    <string name="files">" Fişiere"</string>
+    <string name="filewasrenamed">Fişierul a fost redenumit.</string>
+    <string name="hiddenfiles">Fişiere ascunse</string>
+    <string name="itcouldntbefound">Acesta nu a putut fi găsit.</string>
+    <string name="LastModified">Ultima modificare:</string>
+    <string name="md5">MD5:</string>
+    <string name="move">Mută</string>
+    <string name="movefail">Mutarea nu a reuşit.</string>
+    <string name="movesuccsess">S-a mutat cu succes.</string>
+    <string name="moving">Mutăm</string>
+    <string name="multizip">Zip</string>
+    <string name="newfile">Fişier nou</string>
+    <string name="newfolderwasnotcreated">Dosarul nou nu a fost creat.</string>
+    <string name="ok">OK</string>
+    <string name="options">Opţiuni</string>
+    <string name="packing">Ambalare</string>
+    <string name="paste">Inserează</string>
+    <string name="pressbackagaintoquit">Apăsaţi înapoi din nou pentru a ieşi.</string>
+    <string name="rename">Redenumeşte</string>
+    <string name="sdcardnotfound">Nu s-a putut găsi cardul SD!</string>
+    <string name="search">Caută</string>
+    <string name="searchtext">Caută</string>
+    <string name="selectall">Selectează tot</string>
+    <string name="settings">Setări</string>
+    <string name="share">Distribuie</string>
+    <string name="shortcut">Crează comandă rapidă</string>
+    <string name="shortcutcreated">Scurtătură creată.</string>
+    <string name="showpreview">Miniaturi</string>
+    <string name="simple">Simplu</string>
+    <string name="size">Utilizat:</string>
+    <string name="sort">Sortează</string>
+    <string name="uisettings">Vezi setările</string>
+    <string name="unselectall">Deselectează tot</string>
+    <string name="unzipping">Extragem</string>
+    <string name="viewmode">Modul de vizualizare</string>
+    <string name="xdaforum">XDA forum</string>
+    <string name="zipping">Comprimă</string>
+
+    <!-- sort list type -->
+    <string name="sort_name">Nume</string>
+    <string name="sort_size">Dimensiune</string>
+    <string name="sort_type">Tip</string>
+    <string name="sort_date">Dată</string>
+
+    <!-- theme -->
+    <string name="theme">Temă</string>
+    <string name="light">Lumină</string>
+    <string name="dark">Întuneric</string>
+
+    <!-- permissions -->
+    <string name="permissions">Permisiuni</string>
+    <string name="owner">Proprietar:</string>
+    <string name="group">Grup:</string>
+    <string name="others">Altele:</string>
+    <string name="read">Citeşte</string>
+    <string name="write">Scrie</string>
+    <string name="execute">Execută</string>
+    <string name="permissionschanged">Permisiunile au fost modificate</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020file(s)</string>
+    <string name="_selected">\u0020selected</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Locaţie:</string>
+    <string name="total">Spaţiu total:</string>
+    <string name="free">Spațiu liber:</string>
+    <string name="available">Spațiu disponibil:</string>
+    <string name="block_size">Mărimea blocului:</string>
+    <string name="used">Utilizat:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">Semne de carte</string>
+    <string name="bookmarkadded">Semn de carte adăugat.</string>
+    <string name="bookmarkexist">Semnul de carte există deja!</string>
+    <string name="createbookmark">Crează semn de carte</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Fişierul ţintă există deja</string>
+    <string name="overwrite_source">Sursă</string>
+    <string name="overwrite_destination">Destinaţie</string>
+    <string name="overwrite_skip">Sări peste</string>
+    <string name="overwrite_skip_all">Sări peste tot</string>
+    <string name="overwrite_replace">Înlocuieşte</string>
+    <string name="overwrite_replace_all">Înlocuieşte tot</string>
+
+</resources>

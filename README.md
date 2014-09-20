@@ -42,6 +42,8 @@ You must add the following librarys before building the app:
 + atlasslusho - thai
 + mary-kate - finnish
 + drkalo - bulgarian
++ smarquespt -portuguese
++ Silviumik - romanian
 
 ####Discussion Thread
 http://forum.xda-developers.com/showthread.php?t=2330864

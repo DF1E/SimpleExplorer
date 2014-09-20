@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Simple Explorer</string>
+    <string name="advancedsettings">Avançado</string>
+    <string name="cancel">Cancelar</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">"Isto não pode ser desfeito!"</string>
+    <string name="cantopenfile">Não foi possível abrir o ficheiro</string>
+    <string name="cantreadfolder">Não foi possível ler a pasta devido a permissões</string>
+    <string name="changegroupowner">Mudar grupo/proprietário</string>
+    <string name="copiedtoclipboard">Copiado para a área de transferência</string>
+    <string name="copy">Cópia</string>
+    <string name="copyfail">Falha ao copiar</string>
+    <string name="copying">Copiando</string>
+    <string name="copysuccsess">Copiado com sucesso</string>
+    <string name="create">Criar</string>
+    <string name="created">"Criado"</string>
+    <string name="createmsg">Escreva um ponto antes do texto para criar uma pasta oculta</string>
+    <string name="createnewfolder">Criar nova pasta</string>
+    <string name="defaultdir">Diretório pré-definido</string>
+    <string name="delete">Eliminar</string>
+    <string name="deletesuccess">Eliminado com sucesso</string>
+    <string name="deleting">Eliminando</string>
+    <string name="desc">Desc</string>
+    <string name="detailed">Detalhado</string>
+    <string name="details">Detalhes</string>
+    <string name="dir_info">Informação de pasta</string>
+    <string name="drawer_open">Abrir gaveta de navegação</string>
+    <string name="drawer_close">Fechar gaveta de navegação</string>
+    <string name="edit">Editar</string>
+    <string name="empty">Vazio</string>
+    <string name="enable_root">Ativar acesso root</string>
+    <string name="enter_name">Escreva o nome</string>
+    <string name="error">Erro</string>
+    <string name="exit">Sair</string>
+    <string name="extractto">Extrair para</string>
+    <string name="filecreated">Ficheiro criado</string>
+    <string name="fileexists">Ficheiro já existente</string>
+    <string name="files">"Ficheiros"</string>
+    <string name="filewasrenamed">Ficheiro renomeado</string>
+    <string name="hiddenfiles">Ficheiros ocultos</string>
+    <string name="itcouldntbefound">Não foi encontrado</string>
+    <string name="LastModified">Última modificação:</string>
+    <string name="md5">MD5:</string>
+    <string name="move">Mover</string>
+    <string name="movefail">Falha ao mover</string>
+    <string name="movesuccsess">Movido com sucesso</string>
+    <string name="moving">Movendo</string>
+    <string name="multizip">Zip</string>
+    <string name="newfile">Novo ficheiro</string>
+    <string name="newfolderwasnotcreated">O novo ficheiro não foi criado</string>
+    <string name="ok">OK</string>
+    <string name="options">Opções</string>
+    <string name="packing">Compactando</string>
+    <string name="paste">Colar</string>
+    <string name="pressbackagaintoquit">Prima novamente para sair</string>
+    <string name="rename">Mudar nome</string>
+    <string name="sdcardnotfound">Cartão SD não encontrado</string>
+    <string name="search">Procura</string>
+    <string name="searchtext">Procura</string>
+    <string name="selectall">Marcar tudo</string>
+    <string name="settings">Definições</string>
+    <string name="share">Partilhar</string>
+    <string name="shortcut">Criar atalho</string>
+    <string name="shortcutcreated">Atalho criado</string>
+    <string name="showpreview">Miniaturas</string>
+    <string name="simple">Simples</string>
+    <string name="size">Utilizado:</string>
+    <string name="sort">Organização</string>
+    <string name="uisettings">Definições de exibição</string>
+    <string name="unselectall">Desmarcar tudo</string>
+    <string name="unzipping">Extraindo</string>
+    <string name="viewmode">Modo de exibição</string>
+    <string name="xdaforum">Fórum XDA</string>
+    <string name="zipping">Comprimindo</string>
+
+    <!-- sort list type -->
+    <string name="sort_name">Nome</string>
+    <string name="sort_size">Tamanho</string>
+    <string name="sort_type">Tipo</string>
+    <string name="sort_date">Data</string>
+
+    <!-- theme -->
+    <string name="theme">Tema</string>
+    <string name="light">Claro</string>
+    <string name="dark">Escuro</string>
+
+    <!-- permissions -->
+    <string name="permissions">Permissões</string>
+    <string name="owner">Proprietário:</string>
+    <string name="group">Grupo:</string>
+    <string name="others">Outros:</string>
+    <string name="read">Leitura</string>
+    <string name="write">Escrita</string>
+    <string name="execute">Execução</string>
+    <string name="permissionschanged">Permissões alteradas</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020ficheiro(s)</string>
+    <string name="_selected">\u0020selecionado(s)</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Localização:</string>
+    <string name="total">Espaço total:</string>
+    <string name="free">Espaço livre:</string>
+    <string name="available">Espaço disponível:</string>
+    <string name="block_size">Tamanho do bloco:</string>
+    <string name="used">Utilizado:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">Marcadores</string>
+    <string name="bookmarkadded">Marcador adicionado</string>
+    <string name="bookmarkexist">Marcador já existente</string>
+    <string name="createbookmark">Criar marcador</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Ficheiro de destino existente</string>
+    <string name="overwrite_source">Origem</string>
+    <string name="overwrite_destination">Destino</string>
+    <string name="overwrite_skip">Ignorar</string>
+    <string name="overwrite_skip_all">Ignorar tudo</string>
+    <string name="overwrite_replace">Substituir</string>
+    <string name="overwrite_replace_all">Substituir tudo</string>
+
+</resources>
