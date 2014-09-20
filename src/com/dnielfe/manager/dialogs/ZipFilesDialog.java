@@ -23,7 +23,6 @@ import java.io.File;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.tasks.ZipFolderTask;
 import com.dnielfe.manager.tasks.ZipTask;
 
 import android.app.Activity;
@@ -75,27 +74,10 @@ public final class ZipFilesDialog extends DialogFragment {
 							return;
 						}
 
-						if (files.length == 1) {
-							File test = new File(files[0]);
-							if (test.isDirectory()) {
-								dialog.dismiss();
-								final ZipFolderTask task = new ZipFolderTask(a,
-										newpath);
-								task.executeOnExecutor(
-										AsyncTask.THREAD_POOL_EXECUTOR,
-										files[0]);
-							} else {
-								dialog.dismiss();
-								final ZipTask task = new ZipTask(a, newpath);
-								task.executeOnExecutor(
-										AsyncTask.THREAD_POOL_EXECUTOR, files);
-							}
-						} else {
-							dialog.dismiss();
-							final ZipTask task = new ZipTask(a, newpath);
-							task.executeOnExecutor(
-									AsyncTask.THREAD_POOL_EXECUTOR, files);
-						}
+						dialog.dismiss();
+						final ZipTask task = new ZipTask(a, newpath);
+						task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+								files);
 					}
 				});
 		b.setNegativeButton(R.string.cancel,

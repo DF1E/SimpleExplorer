@@ -23,12 +23,10 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
@@ -36,29 +34,20 @@ public class ZipUtils {
 
 	private static final int BUFFER = 2048;
 
-	// TODO zip folder
 	public static void createZip(String[] files, String zipFile, String location) {
-		BufferedInputStream origin = null;
-		int count;
-
 		try {
 			FileOutputStream dest = new FileOutputStream(zipFile);
 			ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(
 					dest));
 
-			byte data[] = new byte[BUFFER];
+			for (String s : files) {
+				File file = new File(s);
 
-			for (int i = 0; i < files.length; i++) {
-				FileInputStream fi = new FileInputStream(files[i]);
-				origin = new BufferedInputStream(fi, BUFFER);
-				ZipEntry entry = new ZipEntry(files[i].substring(files[i]
-						.lastIndexOf("/") + 1));
-				out.putNextEntry(entry);
-
-				while ((count = origin.read(data, 0, BUFFER)) != -1) {
-					out.write(data, 0, count);
+				if (file.isDirectory()) {
+					zipSubFolder(out, file, file.getParent().length());
+				} else {
+					zipFile(out, file);
 				}
-				origin.close();
 			}
 
 			out.close();
@@ -119,63 +108,49 @@ public class ZipUtils {
 		}
 	}
 
-	// TODO remove this method and improve the first one
-	public static void createZipFile(String path, String zipName) {
-		File dir = new File(path);
+	private static void zipSubFolder(ZipOutputStream out, File folder,
+			int basePathLength) throws IOException {
+		File[] fileList = folder.listFiles();
 
-		String[] list = dir.list();
-		String _path;
+		for (File file : fileList) {
+			if (file.isDirectory()) {
+				zipSubFolder(out, file, basePathLength);
+			} else {
+				BufferedInputStream origin = null;
+				byte data[] = new byte[BUFFER];
+				String unmodifiedFilePath = file.getPath();
+				String relativePath = unmodifiedFilePath
+						.substring(basePathLength);
 
-		if (!dir.canRead() || !dir.canWrite())
-			return;
+				FileInputStream fi = new FileInputStream(unmodifiedFilePath);
+				origin = new BufferedInputStream(fi, BUFFER);
+				ZipEntry entry = new ZipEntry(relativePath);
+				out.putNextEntry(entry);
+				int count;
+				while ((count = origin.read(data, 0, BUFFER)) != -1) {
+					out.write(data, 0, count);
 
-		int len = list.length;
-
-		if (path.charAt(path.length() - 1) != '/')
-			_path = path + "/";
-		else
-			_path = path;
-
-		try {
-			ZipOutputStream zip_out = new ZipOutputStream(
-					new BufferedOutputStream(new FileOutputStream(zipName),
-							BUFFER));
-
-			for (int i = 0; i < len; i++)
-				zip_folder(new File(_path + list[i]), zip_out);
-
-			zip_out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+				}
+				origin.close();
+			}
 		}
 	}
 
-	// TODO remove this method and improve the first one
-	public static void zip_folder(File file, ZipOutputStream zout)
-			throws ZipException, IOException {
-		byte[] data = new byte[BUFFER];
-		int read;
+	private static void zipFile(ZipOutputStream out, File file)
+			throws IOException {
+		BufferedInputStream origin = null;
+		byte data[] = new byte[BUFFER];
+		String str = file.getPath();
 
-		if (file.isFile()) {
-			ZipEntry entry = new ZipEntry(file.getName());
-			zout.putNextEntry(entry);
-			BufferedInputStream instream = new BufferedInputStream(
-					new FileInputStream(file));
+		FileInputStream fi = new FileInputStream(str);
+		origin = new BufferedInputStream(fi, BUFFER);
+		ZipEntry entry = new ZipEntry(str.substring(str.lastIndexOf("/") + 1));
+		out.putNextEntry(entry);
+		int count;
+		while ((count = origin.read(data, 0, BUFFER)) != -1) {
+			out.write(data, 0, count);
 
-			while ((read = instream.read(data, 0, BUFFER)) != -1)
-				zout.write(data, 0, read);
-
-			zout.closeEntry();
-			instream.close();
-
-		} else if (file.isDirectory()) {
-			String[] list = file.list();
-			int len = list.length;
-
-			for (int i = 0; i < len; i++)
-				zip_folder(new File(file.getPath() + "/" + list[i]), zout);
 		}
+		origin.close();
 	}
 }
