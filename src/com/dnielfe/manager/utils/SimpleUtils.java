@@ -130,7 +130,7 @@ public class SimpleUtils {
 
 		if (!old_file.renameTo(cp_file)) {
 			copyToDirectory(old, newDir);
-			deleteTarget(activity, old, newDir);
+			deleteTarget(old, newDir);
 		}
 	}
 
@@ -214,14 +214,13 @@ public class SimpleUtils {
 		return false;
 	}
 
-	public static void deleteTarget(Activity activity, String path, String dir) {
+	public static void deleteTarget(String path, String dir) {
 		File target = new File(path);
 
 		if (!target.exists()) {
 			return;
 		} else if (target.isFile() && target.canWrite()) {
 			target.delete();
-			requestMediaScanner(activity, target);
 			return;
 		} else if (target.isDirectory() && target.canRead()) {
 			String[] file_list = target.list();
@@ -236,10 +235,9 @@ public class SimpleUtils {
 							+ file_list[i]);
 
 					if (temp_f.isDirectory())
-						deleteTarget(activity, temp_f.getAbsolutePath(), dir);
+						deleteTarget(temp_f.getAbsolutePath(), dir);
 					else if (temp_f.isFile()) {
 						temp_f.delete();
-						requestMediaScanner(activity, temp_f);
 					}
 				}
 			}

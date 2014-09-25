@@ -26,6 +26,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.media.MediaScannerConnection;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -68,20 +69,15 @@ public final class DeleteTask extends AsyncTask<String, Void, List<String>> {
 	protected List<String> doInBackground(String... files) {
 		final Activity activity = this.activity.get();
 		final List<String> failed = new ArrayList<String>();
-		final int size = files.length;
 
-		for (int i = 0; i < size; i++) {
-			try {
-				SimpleUtils
-						.deleteTarget(
-								activity,
-								files[i],
-								BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath);
-			} catch (Exception e) {
-				failed.add(files[i]);
-			}
+		for (String str : files) {
+			SimpleUtils
+					.deleteTarget(
+							str,
+							BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath);
 		}
 
+		MediaScannerConnection.scanFile(activity, files, null, null);
 		return failed;
 	}
 
