@@ -21,6 +21,7 @@ You must add the following librarys before building the app:
 + [Apache Commons](http://commons.apache.org/downloads/index.html) librarys
 + [Android-ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator) by JakeWharton
 + [FloatingActionButton](https://github.com/FaizMalkani/FloatingActionButton) by FaizMalkani
++ [RootTools](https://github.com/Stericson/RootTools) library
 
 ####Thanks for translations (XDA and Getlocalization)
 + fabiobatera - brazil
