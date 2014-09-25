@@ -25,6 +25,7 @@ import com.dnielfe.manager.adapters.BookmarksAdapter;
 import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.adapters.DrawerListAdapter;
 import com.dnielfe.manager.adapters.MergeAdapter;
+import com.dnielfe.manager.fragments.BrowserFragment;
 import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.settings.SettingsActivity;

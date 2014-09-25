@@ -19,7 +19,7 @@
 
 package com.dnielfe.manager.adapters;
 
-import com.dnielfe.manager.BrowserFragment;
+import com.dnielfe.manager.fragments.BrowserFragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
