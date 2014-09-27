@@ -67,7 +67,6 @@
     <string name="showpreview">Thumbnails</string>
     <string name="simple">Simple</string>
     <string name="size">Used:</string>
-    <string name="sort">Sort</string>
     <string name="uisettings">View settings</string>
     <string name="unselectall">Unselect all</string>
     <string name="unzipping">Extracting</string>
@@ -75,7 +74,10 @@
     <string name="xdaforum">XDA forum</string>
     <string name="zipping">Compressing</string>
 
-    <!-- sort list type -->
+    <!-- sort preferences -->
+    <string name="sort">Sort</string>
+    <string name="sortpreferences">Sort preferences</string>
+    <string name="sort_reverselist">Reverse list</string>
     <string name="sort_name">Name</string>
     <string name="sort_size">Size</string>
     <string name="sort_type">Type</string>

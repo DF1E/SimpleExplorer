@@ -32,6 +32,7 @@ public final class Settings {
 	private static boolean showthumbnail;
 	private static boolean mShowHiddenFiles;
 	private static boolean mRootAccess;
+	public static boolean reverseList;
 	public static int mListAppearance;
 	public static int mSortType;
 	public static int mTheme;
@@ -44,6 +45,7 @@ public final class Settings {
 		mShowHiddenFiles = p.getBoolean("displayhiddenfiles", true);
 		showthumbnail = p.getBoolean("showpreview", true);
 		mRootAccess = p.getBoolean("enablerootaccess", false);
+		reverseList = p.getBoolean("reverseList", false);
 		mTheme = Integer.parseInt(p.getString("preference_theme",
 				Integer.toString(R.style.ThemeLight)));
 		mSortType = Integer.parseInt(p.getString("sort", "1"));
@@ -64,5 +66,9 @@ public final class Settings {
 
 	public static boolean rootAccess() {
 		return mRootAccess ? RootTools.isAccessGiven() : false;
+	}
+
+	public static boolean reverseListView() {
+		return reverseList;
 	}
 }

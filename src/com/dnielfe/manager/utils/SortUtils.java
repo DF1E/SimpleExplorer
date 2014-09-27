@@ -22,6 +22,7 @@ package com.dnielfe.manager.utils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 
 import org.apache.commons.io.FilenameUtils;
@@ -85,6 +86,10 @@ public class SortUtils {
 					content.add(a);
 			}
 			break;
+		}
+
+		if (Settings.reverseListView()) {
+			Collections.reverse(content);
 		}
 
 		return content;

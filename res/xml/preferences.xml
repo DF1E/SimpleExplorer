@@ -13,16 +13,23 @@
 
         <ListPreference
             android:defaultValue="1"
-            android:entries="@array/sortentries"
-            android:entryValues="@array/sortvalues"
-            android:key="sort"
-            android:title="@string/sort" />
-        <ListPreference
-            android:defaultValue="1"
             android:entries="@array/viewentries"
             android:entryValues="@array/viewvalues"
             android:key="viewmode"
             android:title="@string/viewmode" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/sortpreferences" >
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/sortentries"
+            android:entryValues="@array/sortvalues"
+            android:key="sort"
+            android:title="@string/sort" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="reverseList"
+            android:title="@string/sort_reverselist" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/advancedsettings" >
         <ListPreference
