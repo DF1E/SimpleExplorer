@@ -7,6 +7,7 @@
     <string name="cannotbeundoneareyousureyouwanttodelete">"Annulation impossible!"</string>
     <string name="cantopenfile">Ne peut ouvrir ce fichier</string>
     <string name="cantreadfolder">Lecture impossible à cause des permissions</string>
+    <string name="changegroupowner">Changer groupe/propriétaire</string>
     <string name="copiedtoclipboard">Copié dans le presse-papiers.</string>
     <string name="copy">Copier</string>
     <string name="copyfail">La copie a échoué!</string>
@@ -26,9 +27,10 @@
     <string name="dir_info">Information dossier</string>
     <string name="drawer_open">Ouvrir le tiroir de navigation</string>
     <string name="drawer_close">Fermer le tiroir de navigation</string>
+    <string name="edit">Editer</string>
     <string name="empty">Vide</string>
-    <string name="enable_root">Enable root access</string>
-    <string name="enter_name">Enter name</string>
+    <string name="enable_root">Autoriser accès Root</string>
+    <string name="enter_name">Entrer nom</string>
     <string name="error">Erreur</string>
     <string name="exit">Quitter</string>
     <string name="extractto">Extraire vers</string>
@@ -47,9 +49,9 @@
     <string name="multizip">Zip</string>
     <string name="newfile">Nouveau fichier</string>
     <string name="newfolderwasnotcreated">Nouveau dossier non créé.</string>
-    <string name="ok">OK</string>
+    <string name="ok">Ok</string>
     <string name="options">Options</string>
-    <string name="packing">Packing</string>
+    <string name="packing">Compresser</string>
     <string name="paste">Coller</string>
     <string name="pressbackagaintoquit">Appuyer encore sur retour pour quitter.</string>
     <string name="rename">Renommer</string>
@@ -64,7 +66,6 @@
     <string name="showpreview">Miniatures</string>
     <string name="simple">Simple</string>
     <string name="size">Utilisé:</string>
-    <string name="sort">Trier</string>
     <string name="uisettings">Afficher paramètres</string>
     <string name="unselectall">Tout désélectionner</string>
     <string name="unzipping">Extraction</string>
@@ -72,9 +73,12 @@
     <string name="xdaforum">Forum XDA</string>
     <string name="zipping">Compression</string>
 
-    <!-- sort list type -->
-    <string name="sort_name">Name</string>
-    <string name="sort_size">Size</string>
+    <!-- sort preferences -->
+    <string name="sort">Trier</string>
+    <string name="sortpreferences">Sort preferences</string>
+    <string name="sort_reverselist">Reverse list</string>
+    <string name="sort_name">Nom</string>
+    <string name="sort_size">Taille</string>
     <string name="sort_type">Type</string>
     <string name="sort_date">Date</string>
 
@@ -112,12 +116,12 @@
     <string name="createbookmark">Créer un favori</string>
 
     <!-- overwrite dialog -->
-    <string name="overwrite_title">Target file already exists</string>
+    <string name="overwrite_title">L\'emplacement du fichier existe déjà</string>
     <string name="overwrite_source">Source</string>
     <string name="overwrite_destination">Destination</string>
-    <string name="overwrite_skip">Skip</string>
-    <string name="overwrite_skip_all">Skip all</string>
-    <string name="overwrite_replace">Replace</string>
-    <string name="overwrite_replace_all">Replace all</string>
+    <string name="overwrite_skip">Passer</string>
+    <string name="overwrite_skip_all">Tout Passer</string>
+    <string name="overwrite_replace">Remplacer</string>
+    <string name="overwrite_replace_all">Tout Remplacer</string>
 
 </resources>

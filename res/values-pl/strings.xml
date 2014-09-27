@@ -7,6 +7,7 @@
     <string name="cannotbeundoneareyousureyouwanttodelete">"Operacja nie może być cofnięta!"</string>
     <string name="cantopenfile">Nie można otworzyć pliku</string>
     <string name="cantreadfolder">Nie można otworzyć przez brak odpowiednich pozwoleń</string>
+    <string name="changegroupowner">Zmień grupe/właściciela</string>
     <string name="copiedtoclipboard">Skopiowano do schowka</string>
     <string name="copy">Kopiuj</string>
     <string name="copyfail">Kopiowanie zakończone niepowodzieniem!</string>
@@ -26,15 +27,16 @@
     <string name="dir_info">Informacje o folderze</string>
     <string name="drawer_open">Otwórz drawer nawigacyjny</string>
     <string name="drawer_close">Zamknij drawer nawigacyjny</string>
+    <string name="edit">Edytuj</string>
     <string name="empty">Brak wyników</string>
-    <string name="enable_root">Enable root access</string>
+    <string name="enable_root">Włącz dostęp root</string>
     <string name="enter_name">Wprowadź nazwę</string>
     <string name="error">Błąd</string>
     <string name="exit">Wyjdź</string>
     <string name="extractto">Wypakuj do</string>
     <string name="filecreated">Plik został utworzony.</string>
     <string name="fileexists">Plik już istnieje.</string>
-    <string name="files">" Pliki</string>
+    <string name="files">"\" Pliki"</string>
     <string name="filewasrenamed">Nazwa pliku została zmieniona.</string>
     <string name="hiddenfiles">Ukryte pliki</string>
     <string name="itcouldntbefound">Nie znaleziono.</string>
@@ -64,7 +66,6 @@
     <string name="showpreview">Miniatury</string>
     <string name="simple">Uproszczony</string>
     <string name="size">Zajmowane miejsce:</string>
-    <string name="sort">Sortuj</string>
     <string name="uisettings">Zobacz ustawienia</string>
     <string name="unselectall">Odznacz wszystkie</string>
     <string name="unzipping">Wypakowywanie</string>
@@ -72,11 +73,14 @@
     <string name="xdaforum">Forum XDA</string>
     <string name="zipping">Kompresowanie</string>
 
-    <!-- sort list type -->
-    <string name="sort_name">Name</string>
-    <string name="sort_size">Size</string>
-    <string name="sort_type">Type</string>
-    <string name="sort_date">Date</string>
+    <!-- sort preferences -->
+    <string name="sort">Sortuj</string>
+    <string name="sortpreferences">Sort preferences</string>
+    <string name="sort_reverselist">Reverse list</string>
+    <string name="sort_name">Nazwa</string>
+    <string name="sort_size">Rozmiar</string>
+    <string name="sort_type">Typ</string>
+    <string name="sort_date">Data</string>
 
     <!-- theme -->
     <string name="theme">Motyw</string>
@@ -84,7 +88,7 @@
     <string name="dark">Ciemny</string>
 
     <!-- permissions -->
-    <string name="permissions">Permissions</string>
+    <string name="permissions">Uprawnienia</string>
     <string name="owner">Właściciel:</string>
     <string name="group">Grupa:</string>
     <string name="others">Inne:</string>

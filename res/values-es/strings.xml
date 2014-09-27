@@ -4,29 +4,29 @@
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Avanzado</string>
     <string name="cancel">Cancelar</string>
-    <string name="cannotbeundoneareyousureyouwanttodelete">"Esto no se puede desechar!"</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">"¡Esto no se puede deshacer!"</string>
     <string name="cantopenfile">No se puede abrir este archivo</string>
-    <string name="cantreadfolder">No so puede leer la carpeta debido a permisos.</string>
-    <string name="changegroupowner">Cambiar grupo/dueño</string>
+    <string name="cantreadfolder">No tiene permisos para leer la carpeta</string>
+    <string name="changegroupowner">Cambiar grupo/propietario</string>
     <string name="copiedtoclipboard">Copiado al portapapeles.</string>
     <string name="copy">Copiar</string>
-    <string name="copyfail">Copia fracaso!</string>
+    <string name="copyfail">¡Error al copiar!</string>
     <string name="copying">Copiando</string>
-    <string name="copysuccsess">Copia fue exitosa.</string>
+    <string name="copysuccsess">Copiado correctamente.</string>
     <string name="create">Crear</string>
     <string name="created">" Creado."</string>
-    <string name="createmsg">Ajuste un período antes del texto para crear una carpeta ocultada.</string>
+    <string name="createmsg">Introduzca un punto antes del texto para crear una carpeta oculta.</string>
     <string name="createnewfolder">Crear nueva carpeta</string>
-    <string name="defaultdir">Directorio defecto</string>
-    <string name="delete">Borrar</string>
+    <string name="defaultdir">Directorio predeterminado</string>
+    <string name="delete">Eliminar</string>
     <string name="deletesuccess">Eliminado correctamente</string>
     <string name="deleting">Eliminando</string>
     <string name="desc">Descendente</string>
     <string name="detailed">Detallado</string>
     <string name="details">Detalles</string>
     <string name="dir_info">Información de carpeta</string>
-    <string name="drawer_open">Abrir gaveta de navegación</string>
-    <string name="drawer_close">Cerrar gaveta de navegación</string>
+    <string name="drawer_open">Abrir cajón de navegación</string>
+    <string name="drawer_close">Cerrar cajón de navegación</string>
     <string name="edit">Editar</string>
     <string name="empty">Vacío</string>
     <string name="enable_root">Activar acceso root</string>
@@ -37,44 +37,46 @@
     <string name="filecreated">El archivo ha sido creado.</string>
     <string name="fileexists">El archivo ya existe.</string>
     <string name="files">" Archivos"</string>
-    <string name="filewasrenamed">Archivo fue renombrado.</string>
-    <string name="hiddenfiles">Archivos ocultados</string>
-    <string name="itcouldntbefound">No pudo ser localizado.</string>
-    <string name="LastModified">Último modificado:</string>
+    <string name="filewasrenamed">El archivo fue renombrado.</string>
+    <string name="hiddenfiles">Archivos ocultos</string>
+    <string name="itcouldntbefound">No se pudo encontrar.</string>
+    <string name="LastModified">Última modificación:</string>
     <string name="md5">MD5:</string>
     <string name="move">Mover</string>
-    <string name="movefail">La transferencia fallo.</string>
+    <string name="movefail">No se pudo mover.</string>
     <string name="movesuccsess">Movido correctamente.</string>
     <string name="moving">Moviendo</string>
     <string name="multizip">Comprimir</string>
     <string name="newfile">Nuevo archivo</string>
-    <string name="newfolderwasnotcreated">Nueva carpeta no fue creada.</string>
+    <string name="newfolderwasnotcreated">La carpeta no fue creada.</string>
     <string name="ok">OK</string>
     <string name="options">Opciones</string>
-    <string name="packing">Empacando</string>
+    <string name="packing">Comprimiendo</string>
     <string name="paste">Pegar</string>
-    <string name="pressbackagaintoquit">Presionar atrás de nuevo para salir.</string>
+    <string name="pressbackagaintoquit">Vuelva a pulsar \"atrás\" para salir.</string>
     <string name="rename">Renombrar</string>
-    <string name="sdcardnotfound">Tarjeta de SD no pudo ser localizada!</string>
+    <string name="sdcardnotfound">¡No se pudo encontrar la tarjeta SD!</string>
     <string name="search">Buscar</string>
     <string name="searchtext">Buscar</string>
     <string name="selectall">Seleccionar todo</string>
     <string name="settings">Ajustes</string>
-    <string name="share">Comparir</string>
+    <string name="share">Compartir</string>
     <string name="shortcut">Crear atajo</string>
     <string name="shortcutcreated">Atajo creado.</string>
     <string name="showpreview">Miniaturas</string>
     <string name="simple">Simple</string>
     <string name="size">Usado:</string>
-    <string name="sort">Ordenar</string>
     <string name="uisettings">Ver ajustes</string>
     <string name="unselectall">Deseleccionar todo</string>
     <string name="unzipping">Extrayendo</string>
-    <string name="viewmode">Modo de vista</string>
-    <string name="xdaforum">Foro de XDA</string>
+    <string name="viewmode">Modo de visualización</string>
+    <string name="xdaforum">Foro XDA</string>
     <string name="zipping">Comprimiendo</string>
 
-    <!-- sort list type -->
+    <!-- sort preferences -->
+    <string name="sort">Ordenar</string>
+    <string name="sortpreferences">Sort preferences</string>
+    <string name="sort_reverselist">Reverse list</string>
     <string name="sort_name">Nombre</string>
     <string name="sort_size">Tamaño</string>
     <string name="sort_type">Tipo</string>
@@ -97,7 +99,7 @@
 
     <!-- actionmode -->
     <string name="_files">\u0020archivo(s)</string>
-    <string name="_selected">\u0020seleccionado</string>
+    <string name="_selected">\u0020seleccionado(s)</string>
 
     <!-- directory info dialog -->
     <string name="location">Ubicación:</string>
@@ -109,17 +111,17 @@
 
     <!-- bookmarks -->
     <string name="bookmark">Marcadores</string>
-    <string name="bookmarkadded">Marcador agregado.</string>
-    <string name="bookmarkexist">Marcador ya existe!</string>
+    <string name="bookmarkadded">Marcador añadido.</string>
+    <string name="bookmarkexist">¡El marcador ya existe!</string>
     <string name="createbookmark">Crear marcador</string>
 
     <!-- overwrite dialog -->
     <string name="overwrite_title">El archivo de destino ya existe</string>
     <string name="overwrite_source">Origen</string>
     <string name="overwrite_destination">Destino</string>
-    <string name="overwrite_skip">Saltar</string>
+    <string name="overwrite_skip">Omitir</string>
     <string name="overwrite_skip_all">Saltar todo</string>
-    <string name="overwrite_replace">Sustituir</string>
-    <string name="overwrite_replace_all">Sustituir todo</string>
+    <string name="overwrite_replace">Reemplazar</string>
+    <string name="overwrite_replace_all">Reemplazar todo</string>
 
 </resources>

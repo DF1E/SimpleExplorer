@@ -66,7 +66,6 @@
     <string name="showpreview">Bildvorschau</string>
     <string name="simple">Einfache Liste</string>
     <string name="size">Verwendet:</string>
-    <string name="sort">Sortieren</string>
     <string name="uisettings">Ansichtseinstellungen</string>
     <string name="unselectall">Alle abwählen</string>
     <string name="unzipping">Entpacken</string>
@@ -74,7 +73,10 @@
     <string name="xdaforum">XDA Forum</string>
     <string name="zipping">Komprimiere</string>
 
-    <!-- sort list type -->
+    <!-- sort preferences -->
+    <string name="sort">Sortieren</string>
+    <string name="sortpreferences">Sortier Einstellungen</string>
+    <string name="sort_reverselist">Liste umkehren</string>
     <string name="sort_name">Name</string>
     <string name="sort_size">Größe</string>
     <string name="sort_type">Typ</string>
