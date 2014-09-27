@@ -151,6 +151,7 @@ public final class BrowserActivity extends ThemableActivity implements
 
 		mIndicator = (UnderlinePageIndicator) findViewById(R.id.indicator);
 		mIndicator.setViewPager(mPager);
+		mIndicator.setFades(false);
 	}
 
 	private void setupDrawer() {

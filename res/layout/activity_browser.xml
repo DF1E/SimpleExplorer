@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
             android:background="?android:attr/dividerHorizontal"
-            app:selectedColor="@color/fab_background" />
+            app:selectedColor="@color/vpindicator_bg" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"

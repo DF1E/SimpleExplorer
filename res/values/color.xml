@@ -3,6 +3,7 @@
 
     <color name="gray">#aaa</color>
     <color name="fab_background">#bbb</color>
+    <color name="vpindicator_bg">#a8a8a8</color>
 
     <!-- ligth theme -->
     <color name="white">#ffffff</color>
