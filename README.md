@@ -22,7 +22,7 @@ You must add the following librarys before building the app:
 + [FloatingActionButton](https://github.com/FaizMalkani/FloatingActionButton) by FaizMalkani
 + [RootTools](https://github.com/Stericson/RootTools) library
 
-####Thanks for translations (XDA and Getlocalization)
+####Thanks for translations (XDA, Getlocalization and Crowdin)
 + fabiobatera - brazil
 + SealQ - polish
 + adamslast - turkish
@@ -44,6 +44,7 @@ You must add the following librarys before building the app:
 + drkalo - bulgarian
 + smarquespt -portuguese
 + Silviumik - romanian
++ DMDP - ukrainian
 
 ####Discussion Thread
 http://forum.xda-developers.com/showthread.php?t=2330864

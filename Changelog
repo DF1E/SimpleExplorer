@@ -1,4 +1,11 @@
 Changelog:
+2.1.2
+option to reverse list
+improved view pager indicator
+add ukraine language
+updated translations
+fixes
+
 2.1.1
 updated translations
 fixes
@@ -12,7 +19,7 @@ improvements
 
 2.0.5
 bug fixes
-added bulgarian language
+added bulgarian and portuguese language
 update russian strings
 
 2.0.4
