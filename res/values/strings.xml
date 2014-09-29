@@ -56,7 +56,6 @@
     <string name="paste">Paste</string>
     <string name="pressbackagaintoquit">Press back again to exit.</string>
     <string name="rename">Rename</string>
-    <string name="sdcardnotfound">Couldnt find SD card!</string>
     <string name="search">Search</string>
     <string name="searchtext">Search</string>
     <string name="selectall">Select all</string>
@@ -68,11 +67,9 @@
     <string name="simple">Simple</string>
     <string name="size">Used:</string>
     <string name="uisettings">View settings</string>
-    <string name="unselectall">Unselect all</string>
     <string name="unzipping">Extracting</string>
     <string name="viewmode">View mode</string>
     <string name="xdaforum">XDA forum</string>
-    <string name="zipping">Compressing</string>
 
     <!-- sort preferences -->
     <string name="sort">Sort</string>
@@ -106,7 +103,6 @@
     <string name="location">Location:</string>
     <string name="total">Total space:</string>
     <string name="free">Free space:</string>
-    <string name="available">Available space:</string>
     <string name="block_size">Block size:</string>
     <string name="used">Used:</string>
 

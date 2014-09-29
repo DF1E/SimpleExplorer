@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Simple Explorer</string>
+    <string name="advancedsettings">Додатково</string>
+    <string name="cancel">Скасувати</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">"Ви впевнені? Це незворотньо!"</string>
+    <string name="cantopenfile">Не можу відкрити файл</string>
+    <string name="cantreadfolder">Не можу прочитати папку через брак дозволу!</string>
+    <string name="copiedtoclipboard">Скопійовано у буфер обміну</string>
+    <string name="copy">Копіювати</string>
+    <string name="copyfail">Не вдалося скопіювати!</string>
+    <string name="copying">Копіюю</string>
+    <string name="copysuccsess">Успішно скопійовано</string>
+    <string name="create">Створити</string>
+    <string name="created">" створено."</string>
+    <string name="createmsg">Щоб створити приховану папку перед назвою додайте крапку.</string>
+    <string name="createnewfolder">Нова папка</string>
+    <string name="defaultdir">Каталог за замовчуванням</string>
+    <string name="delete">Видалити</string>
+    <string name="deletesuccess">Видалено успішно.</string>
+    <string name="deleting">Видалення</string>
+    <string name="desc">desc</string>
+    <string name="detailed">Детальний</string>
+    <string name="details">Властивості</string>
+    <string name="dir_info">Властивості папки</string>
+    <string name="drawer_open">Відкрити шторку</string>
+    <string name="drawer_close">Закрити шторку</string>
+    <string name="empty">Пусто</string>
+    <string name="enable_root">Enable root access</string>
+    <string name="enter_name">"Як назвати?"</string>
+    <string name="error">Помилка</string>
+    <string name="exit">Вихід</string>
+    <string name="extractto">Розпакувати до</string>
+    <string name="filecreated">Файл створено.</string>
+    <string name="fileexists">Файл з такою назвою вже існує!</string>
+    <string name="files">" файлів"</string>
+    <string name="filewasrenamed">Файл переименовано.</string>
+    <string name="hiddenfiles">Приховані файли</string>
+    <string name="itcouldntbefound">Нічого не знайдено!</string>
+    <string name="LastModified">Змінено:</string>
+    <string name="md5">MD5:</string>
+    <string name="move">Вирізати</string>
+    <string name="movefail">Переміщенння не вдале!</string>
+    <string name="movesuccsess">Переміщено успішно</string>
+    <string name="moving">Переміщення</string>
+    <string name="multizip">Упаковати в архів</string>
+    <string name="newfile">Створити файл</string>
+    <string name="newfolderwasnotcreated">Папка не створена!</string>
+    <string name="ok">OK</string>
+    <string name="options">Опції</string>
+    <string name="packing">Упаковую в архів</string>
+    <string name="paste">Вставити</string>
+    <string name="pressbackagaintoquit">Для виходу натисніть ще раз.</string>
+    <string name="rename">Перейменувати</string>
+    <string name="search">Пошук</string>
+    <string name="searchtext">"Що шукаємо?"</string>
+    <string name="selectall">Обрати усе</string>
+    <string name="settings">Налаштування</string>
+    <string name="share">Надіслати</string>
+    <string name="shortcut">Створити ярлик</string>
+    <string name="shortcutcreated">Ярлик створено.</string>
+    <string name="showpreview">Ескізи</string>
+    <string name="simple">Простий</string>
+    <string name="size">Розмір:</string>
+    <string name="uisettings">Відображення</string>
+    <string name="viewmode">Вигляд списку</string>
+    <string name="xdaforum">XDA forum</string>
+    <string name="zipping">Пакування файлів</string>
+
+    <!-- sort preferences -->
+    <string name="sort">Сортування</string>
+    <string name="sortpreferences">Sort preferences</string>
+    <string name="sort_reverselist">Reverse list</string>
+    <string name="sort_name">За назвою</string>
+    <string name="sort_size">За розміром</string>
+    <string name="sort_type">За типом</string>
+    <string name="sort_date">За датою</string>
+
+    <!-- theme -->
+    <string name="theme">Тема</string>
+    <string name="light">Світла</string>
+    <string name="dark">Темна</string>
+
+    <!-- permissions -->
+    <string name="permissions">Дозволи</string>
+    <string name="owner">Власник:</string>
+    <string name="group">Група:</string>
+    <string name="others">Інші:</string>
+    <string name="read">Читання</string>
+    <string name="write">Запис</string>
+    <string name="execute">Викон.</string>
+    <string name="permissionschanged">Дозволи змінено.</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020файл(и,ів)</string>
+    <string name="_selected">\u0020вибрано</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Місцезнаходження:</string>
+    <string name="total">Усього:</string>
+    <string name="free">Вільно:</string>
+    <string name="block_size">Розмір блоку:</string>
+    <string name="used">Зайнято:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">Закладки</string>
+    <string name="bookmarkadded">Закладка додана.</string>
+    <string name="bookmarkexist">Закладка вже існує!</string>
+    <string name="createbookmark">Додати закладку</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Файл вже існує!</string>
+    <string name="overwrite_source">Вихідний:</string>
+    <string name="overwrite_destination">Кінцевий:</string>
+    <string name="overwrite_skip">Пропустити</string>
+    <string name="overwrite_skip_all">Пропустити все</string>
+    <string name="overwrite_replace">Замінити</string>
+    <string name="overwrite_replace_all">Замінити все</string>
+
+</resources>
