@@ -7,6 +7,7 @@
     <string name="cannotbeundoneareyousureyouwanttodelete">"การทำงานซึ่งยังกระทำไม่สำเร็จ"</string>
     <string name="cantopenfile">ไม่สามารถเปิดไฟล์นี้ได้</string>
     <string name="cantreadfolder">ไม่สามารถอ่านโฟลเดอร์นี้ได้</string>
+    <string name="changegroupowner">เปลี่ยนสิทธิ์การเข้าถึง</string>
     <string name="copiedtoclipboard">คัดลอกไปที่คลิปบอร์ด</string>
     <string name="copy">คัดลอก</string>
     <string name="copyfail">คัดลอกล้มเหลว!</string>
@@ -26,8 +27,9 @@
     <string name="dir_info">ข้อมูลโฟลเดอร์</string>
     <string name="drawer_open">เปิดหน้าต่างแนะนำ</string>
     <string name="drawer_close">ปิดหน้าต่างแนะนำ</string>
+    <string name="edit">แก้ไข</string>
     <string name="empty">ว่างเปล่า</string>
-    <string name="enable_root">Enable root access</string>
+    <string name="enable_root">เปิดใช้การเข้าถึงสิทธิ์รูท</string>
     <string name="enter_name">ป้อนชื่อ</string>
     <string name="error">ผิดพลาด</string>
     <string name="exit">ออก</string>
@@ -53,7 +55,6 @@
     <string name="paste">วาง</string>
     <string name="pressbackagaintoquit">กดปุ่มกลับอีกครั้งเพื่อออก</string>
     <string name="rename">เปลี่ยนชื่อ</string>
-    <string name="sdcardnotfound">ไม่พบ SD card!</string>
     <string name="search">ค้นหา</string>
     <string name="searchtext">ค้นหา</string>
     <string name="selectall">เลือกทั้งหมด</string>
@@ -64,15 +65,15 @@
     <string name="showpreview">รูปขนาดย่อ</string>
     <string name="simple">พื้นฐาน</string>
     <string name="size">พื้นที่ใช้:</string>
-    <string name="sort">หมวด</string>
     <string name="uisettings">ดูการตั้งค่า</string>
-    <string name="unselectall">ยกเลิกทั้งหมด</string>
     <string name="unzipping">กำลังแยก</string>
     <string name="viewmode">รูปแบบการมอง</string>
-    <string name="xdaforum">XDA forum</string>
-    <string name="zipping">กำลังบีบอัด</string>
+    <string name="xdaforum">ฟอรั่ม XDA</string>
 
-    <!-- sort list type -->
+    <!-- sort preferences -->
+    <string name="sort">หมวด</string>
+    <string name="sortpreferences">ลักษณะการจัดเรียง</string>
+    <string name="sort_reverselist">รายการย้อนหลัง</string>
     <string name="sort_name">ชื่อ</string>
     <string name="sort_size">ขนาด</string>
     <string name="sort_type">ประเภท</string>
@@ -101,7 +102,6 @@
     <string name="location">ที่อยู่</string>
     <string name="total">พื้นที่ทั้งหมด:</string>
     <string name="free">พื้นที่เหลือ:</string>
-    <string name="available">พื้นที่ว่าง:</string>
     <string name="block_size">ขนาดบล็อก:</string>
     <string name="used">พื้นที่ใช้:</string>
 
