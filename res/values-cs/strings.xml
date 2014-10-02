@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="minus" translatable="false">-</string>
+    <string name="app_name">Simple Explorer</string>
+    <string name="advancedsettings">Rozšířené</string>
+    <string name="cancel">Zrušit</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">"Toto nelze vzít zpět!"</string>
+    <string name="cantopenfile">Nelze otevřít tento soubor</string>
+    <string name="cantreadfolder">Nelze číst adresář z důvodu oprávnění</string>
+    <string name="changegroupowner">Změnit skupinu/vlastníka</string>
+    <string name="copiedtoclipboard">Zkopírováno do schránky.</string>
+    <string name="copy">Zkopírovat</string>
+    <string name="copyfail">Kopírování selhalo!</string>
+    <string name="copying">Kopíruji</string>
+    <string name="copysuccsess">Úspěšně zkopírováno.</string>
+    <string name="create">Vytvořit</string>
+    <string name="created">" Vytvořeno."</string>
+    <string name="createmsg">Pro vytvoření skrytého adresáře je třeba dát na začátek jména tečku.</string>
+    <string name="createnewfolder">Vytvořit nový adresář</string>
+    <string name="defaultdir">Výchozí adresář</string>
+    <string name="delete">Smazat</string>
+    <string name="deletesuccess">Mazání úspěšné</string>
+    <string name="deleting">Mažu</string>
+    <string name="desc">popis</string>
+    <string name="detailed">Detailní</string>
+    <string name="details">Detaily</string>
+    <string name="dir_info">Informace o adresáři</string>
+    <string name="drawer_open">Otevřít navigační lištu</string>
+    <string name="drawer_close">Zavřít navigační lištu</string>
+    <string name="edit">Upravit</string>
+    <string name="empty">Prázdný</string>
+    <string name="enable_root">Povolit root přístup</string>
+    <string name="enter_name">Vložit jméno</string>
+    <string name="error">Chyba</string>
+    <string name="exit">Ukončit</string>
+    <string name="extractto">Rozbalit do</string>
+    <string name="filecreated">Soubor byl vytvořen.</string>
+    <string name="fileexists">Soubor již existuje.</string>
+    <string name="files">" Soubory"</string>
+    <string name="filewasrenamed">Soubor byl přejmenován.</string>
+    <string name="hiddenfiles">Skryté soubory</string>
+    <string name="itcouldntbefound">Nelze nalézt.</string>
+    <string name="LastModified">Naposledy upraveno:</string>
+    <string name="md5">MD5:</string>
+    <string name="move">Přesunout</string>
+    <string name="movefail">Přesun selhal.</string>
+    <string name="movesuccsess">Úspěšně přesunuto.</string>
+    <string name="moving">Přesunuji</string>
+    <string name="multizip">Zip</string>
+    <string name="newfile">Nový soubor</string>
+    <string name="newfolderwasnotcreated">Nový adresář nebyl vytvořen.</string>
+    <string name="ok">OK</string>
+    <string name="options">Možnosti</string>
+    <string name="packing">Balím</string>
+    <string name="paste">Zkopírovat</string>
+    <string name="pressbackagaintoquit">Pro ukončení jít ještě jednou zpět.</string>
+    <string name="rename">Přejmenovat</string>
+    <string name="search">Hledání</string>
+    <string name="searchtext">Vyhledat</string>
+    <string name="selectall">Vybrat vše</string>
+    <string name="settings">Nastavení</string>
+    <string name="share">Sdílet</string>
+    <string name="shortcut">Vytvořit odkaz</string>
+    <string name="shortcutcreated">Odkaz vytvořen.</string>
+    <string name="showpreview">Náhledy</string>
+    <string name="simple">Jednoduchý</string>
+    <string name="size">Velikost:</string>
+    <string name="uisettings">Nastavení zobrazení</string>
+    <string name="unzipping">Rozbaluji</string>
+    <string name="viewmode">Typ zobrazení</string>
+    <string name="xdaforum">XDA fórum</string>
+
+    <!-- sort preferences -->
+    <string name="sort">Řazení</string>
+    <string name="sortpreferences">Nastavení řazení</string>
+    <string name="sort_reverselist">Opačné pořadí</string>
+    <string name="sort_name">Jméno</string>
+    <string name="sort_size">Velikost</string>
+    <string name="sort_type">Typ</string>
+    <string name="sort_date">Datum</string>
+
+    <!-- theme -->
+    <string name="theme">Vzhled</string>
+    <string name="light">Světlý</string>
+    <string name="dark">Tmavý</string>
+
+    <!-- permissions -->
+    <string name="permissions">Oprávnění</string>
+    <string name="owner">Vlastník:</string>
+    <string name="group">Skupina:</string>
+    <string name="others">Ostatní:</string>
+    <string name="read">Čtení</string>
+    <string name="write">Zápis</string>
+    <string name="execute">Spouštění</string>
+    <string name="permissionschanged">Oprávnění změněna</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020soubor(ů)</string>
+    <string name="_selected">\u0020vybráno</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Umístění:</string>
+    <string name="total">Místo celkem:</string>
+    <string name="free">Volné místo:</string>
+    <string name="block_size">Velikost bloku:</string>
+    <string name="used">Použito:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">Záložky</string>
+    <string name="bookmarkadded">Záložka přidána.</string>
+    <string name="bookmarkexist">Záložka již existuje!</string>
+    <string name="createbookmark">Vytvořit záložku</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Cílový soubor již existuje</string>
+    <string name="overwrite_source">Zdroj</string>
+    <string name="overwrite_destination">Cíl</string>
+    <string name="overwrite_skip">Přeskočit</string>
+    <string name="overwrite_skip_all">Přeskočit vše</string>
+    <string name="overwrite_replace">Nahradit</string>
+    <string name="overwrite_replace_all">Nahradit vše</string>
+
+</resources>
