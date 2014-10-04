@@ -7,6 +7,7 @@
     <string name="cannotbeundoneareyousureyouwanttodelete">"Bu işlem geri alınamaz!"</string>
     <string name="cantopenfile">Bu dosya açılamıyor</string>
     <string name="cantreadfolder">İzin sorunu nedeniyle klasör okunamıyor</string>
+    <string name="changegroupowner">Grubu/sahibi değiştir</string>
     <string name="copiedtoclipboard">Panoya kopyalandı.</string>
     <string name="copy">Kopyala</string>
     <string name="copyfail">Kopyalama başarısız!</string>
@@ -26,15 +27,16 @@
     <string name="dir_info">Klasör Bilgisi</string>
     <string name="drawer_open">Gezinti bölmesini aç</string>
     <string name="drawer_close">Gezinti bölmesini kapat</string>
+    <string name="edit">Düzenle</string>
     <string name="empty">Boş</string>
-    <string name="enable_root">Enable root access</string>
+    <string name="enable_root">Root erişimini aktifleştir</string>
     <string name="enter_name">Adı gir</string>
     <string name="error">Hata</string>
     <string name="exit">Çıkış</string>
     <string name="extractto">Çıkart...</string>
     <string name="filecreated">Dosya oluşturuldu.</string>
     <string name="fileexists">Dosya zaten var.</string>
-    <string name="files">Dosya</string>
+    <string name="files">"Dosya"</string>
     <string name="filewasrenamed">Dosya yeniden adlandırıldı.</string>
     <string name="hiddenfiles">Gizli Dosyalar</string>
     <string name="itcouldntbefound">Bulunamadı.</string>
@@ -44,7 +46,7 @@
     <string name="movefail">Taşıma başarısız.</string>
     <string name="movesuccsess">Taşıma başarılı.</string>
     <string name="moving">Taşınıyor</string>
-    <string name="multizip">Zip</string>
+    <string name="multizip">Sıkıştır</string>
     <string name="newfile">Yeni Dosya</string>
     <string name="newfolderwasnotcreated">Yeni klasör oluşturulmadı.</string>
     <string name="ok">Tamam</string>
@@ -53,7 +55,6 @@
     <string name="paste">Yapıştır</string>
     <string name="pressbackagaintoquit">Çıkmak için geri tuşuna tekrar basın.</string>
     <string name="rename">Yeniden adlandır</string>
-    <string name="sdcardnotfound">SD Kart Yok!</string>
     <string name="search">Arama</string>
     <string name="searchtext">Ara</string>
     <string name="selectall">Tümünü seç</string>
@@ -64,15 +65,15 @@
     <string name="showpreview">Önizlemeler</string>
     <string name="simple">Basit</string>
     <string name="size">Kullanılan:</string>
-    <string name="sort">Sırala</string>
     <string name="uisettings">Görünüm Ayarları</string>
-    <string name="unselectall">Hiçbirini seçme</string>
     <string name="unzipping">Çıkarılıyor</string>
     <string name="viewmode">Görünüm modu</string>
     <string name="xdaforum">XDA Forum</string>
-    <string name="zipping">Sıkıştırılıyor</string>
 
-    <!-- sort list type -->
+    <!-- sort preferences -->
+    <string name="sort">Sırala</string>
+    <string name="sortpreferences">Sıralama tercihleri</string>
+    <string name="sort_reverselist">Ters liste</string>
     <string name="sort_name">Ad</string>
     <string name="sort_size">Boyut</string>
     <string name="sort_type">Tür</string>
@@ -101,7 +102,6 @@
     <string name="location">Bulunduğu yer:</string>
     <string name="total">Toplam alan:</string>
     <string name="free">Boş alan:</string>
-    <string name="available">Kullanılabilir alan:</string>
     <string name="block_size">Blok boyutu:</string>
     <string name="used">Kullanılan:</string>
 

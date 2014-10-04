@@ -45,6 +45,7 @@ You must add the following librarys before building the app:
 + smarquespt -portuguese
 + Silviumik - romanian
 + DMDP - ukrainian
++ svetlemodry - czech
 
 ####Discussion Thread
 http://forum.xda-developers.com/showthread.php?t=2330864

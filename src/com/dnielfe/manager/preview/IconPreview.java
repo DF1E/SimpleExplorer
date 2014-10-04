@@ -60,7 +60,6 @@ public class IconPreview {
 			.synchronizedMap(new ConcurrentHashMap<ImageView, String>());
 	private static PackageManager pm;
 	private static int mSize = 64;
-	private static Bitmap placeholder = null;
 
 	private static Context mContext;
 	private static Resources mResources;
@@ -80,8 +79,6 @@ public class IconPreview {
 
 	public static void getFileIcon(File file, final ImageView icon) {
 		if (Settings.showThumbnail() & isvalidMimeType(file)) {
-			// you can set a placeholder
-			// setPlaceholder(bitmap);
 			icon.setTag(file.getAbsolutePath());
 			loadBitmap(file, icon);
 		} else {
@@ -130,10 +127,6 @@ public class IconPreview {
 		}
 	}
 
-	public void setPlaceholder(Bitmap bmp) {
-		placeholder = bmp;
-	}
-
 	private static Bitmap getBitmapFromCache(String url) {
 		if (cache.containsKey(url)) {
 			return cache.get(url);
@@ -152,8 +145,7 @@ public class IconPreview {
 					if (msg.obj != null) {
 						imageView.setImageBitmap((Bitmap) msg.obj);
 					} else {
-						imageView.setImageBitmap(placeholder);
-						// Fail
+						imageView.setImageBitmap(null);
 					}
 				}
 			}
@@ -179,7 +171,8 @@ public class IconPreview {
 			// Item loaded from cache
 			imageView.setImageBitmap(bitmap);
 		} else {
-			imageView.setImageBitmap(placeholder);
+			// here you can set a placeholder
+			imageView.setImageBitmap(null);
 			queueJob(file, imageView);
 		}
 	}

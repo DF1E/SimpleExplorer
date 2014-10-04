@@ -75,7 +75,7 @@
 
     <!-- sort preferences -->
     <string name="sort">Sortieren</string>
-    <string name="sortpreferences">Sortier Einstellungen</string>
+    <string name="sortpreferences">Sortiereinstellungen</string>
     <string name="sort_reverselist">Liste umkehren</string>
     <string name="sort_name">Name</string>
     <string name="sort_size">Größe</string>
