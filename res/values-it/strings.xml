@@ -55,7 +55,6 @@
     <string name="paste">Incolla</string>
     <string name="pressbackagaintoquit">"Premi [Indietro] un'altra volta per uscire."</string>
     <string name="rename">Rinomina</string>
-    <string name="sdcardnotfound">Impossibile trovare la Scheda SD!</string>
     <string name="search">Cerca</string>
     <string name="searchtext">Cerca</string>
     <string name="selectall">Seleziona tutto</string>
@@ -66,15 +65,15 @@
     <string name="showpreview">Anteprime</string>
     <string name="simple">Semplice</string>
     <string name="size">Usati:</string>
-    <string name="sort">Ordina</string>
     <string name="uisettings">Impostazioni vista</string>
-    <string name="unselectall">Deseleziona tutto</string>
     <string name="unzipping">Decompressione</string>
     <string name="viewmode">Modalità vista</string>
     <string name="xdaforum">Forum XDA</string>
-    <string name="zipping">Compressione</string>
 
     <!-- sort list type -->
+    <string name="sort">Ordina</string>
+    <string name="sortpreferences">Preferenze ordine</string>
+    <string name="sort_reverselist">Elenco inverso</string>
     <string name="sort_name">Nome</string>
     <string name="sort_size">Dimensione</string>
     <string name="sort_type">Tipo</string>
@@ -103,7 +102,6 @@
     <string name="location">Posizione:</string>
     <string name="total">Spazio totale:</string>
     <string name="free">Spazio libero:</string>
-    <string name="available">Spazio disponibile:</string>
     <string name="block_size">Dimensione blocchi:</string>
     <string name="used">Usati:</string>
 
