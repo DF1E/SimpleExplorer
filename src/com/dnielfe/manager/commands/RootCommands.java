@@ -66,6 +66,36 @@ public class RootCommands {
 		return mDirContent;
 	}
 
+	public static ArrayList<String> findFiles(String path, String query) {
+		ArrayList<String> mDirContent = new ArrayList<String>();
+		BufferedReader in = null;
+
+		try {
+			in = execute(buildfindCommand(path, query));
+
+			String line;
+			while ((line = in.readLine()) != null) {
+				mDirContent.add(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return mDirContent;
+	}
+
+	private static String buildfindCommand(String startDirectory, String what) {
+		final StringBuilder command = new StringBuilder();
+		command.append("find ");
+		command.append(getCommandLineString(startDirectory));
+		command.append(" -iname ");
+		command.append('*');
+		command.append(getCommandLineString(what));
+		command.append('*');
+		command.append(" -exec ls -a {} \\;");
+		return command.toString();
+	}
+
 	// Create Directory with root
 	public static void createRootdir(File dir, String path) {
 		if (dir.exists())

@@ -23,6 +23,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.dnielfe.manager.adapters.BrowserListAdapter;
+import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
 
 import android.app.ActionBar;
@@ -157,8 +158,15 @@ public class SearchActivity extends ThemableActivity {
 		@Override
 		protected ArrayList<String> doInBackground(String... params) {
 			String location = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
-			ArrayList<String> found = SimpleUtils.searchInDirectory(location,
-					params[0]);
+			ArrayList<String> found = null;
+			File test = new File(location);
+
+			if (test.exists() && test.canRead()) {
+				found = SimpleUtils.searchInDirectory(location, params[0]);
+			} else {
+				found = RootCommands.findFiles(location, params[0]);
+			}
+
 			return found;
 		}
 
