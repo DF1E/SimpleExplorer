@@ -9,11 +9,6 @@ Simple Explorer is an Open Source file explorer. There are inspirations from [CM
 ####License
 This program licensed under http://www.gnu.org/licenses/gpl-2.0.html
 
-####Instructions
-You must add the following librarys before building the app:
-+ Android-ViewPagerIndicator
-+ FloatingActionButton
-
 ####Credits
 + [Zedd.](http://forum.xda-developers.com/member.php?u=4112951) for the handsome icons
 + [junrar](https://github.com/junrar/junrar) for the .rar library
@@ -46,6 +41,7 @@ You must add the following librarys before building the app:
 + Silviumik - romanian
 + DMDP - ukrainian
 + svetlemodry - czech
++ Wechy77 - hungarian
 
 ####Discussion Thread
 http://forum.xda-developers.com/showthread.php?t=2330864

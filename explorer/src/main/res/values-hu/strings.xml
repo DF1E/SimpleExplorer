@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="app_name">Simple Explorer</string>
+  <string name="advancedsettings">Haladó</string>
+  <string name="cancel">Mégse</string>
+  <string name="cannotbeundoneareyousureyouwanttodelete">"Nem lehet visszavonni!"</string>
+  <string name="cantopenfile">Nem nyitható meg a fájl</string>
+  <string name="cantreadfolder">A mappa az engedélyei miatt nem nyitható meg</string>
+  <string name="changegroupowner">Csoport/tulajdonos módosítása</string>
+  <string name="copiedtoclipboard">Vágólapra másolva.</string>
+  <string name="copy">Másolás</string>
+  <string name="copyfail">Másolás sikertelen!</string>
+  <string name="copying">Másolás</string>
+  <string name="copysuccsess">Sikeresen másolva.</string>
+  <string name="create">Létrehozás</string>
+  <string name="created">"Létrehozva."</string>
+  <string name="createmsg">Rakjon pontot a szöveg elé a rejtett mappa létrehozásához.</string>
+  <string name="createnewfolder">Új mappa létrehozása</string>
+  <string name="defaultdir">Alapértelmezett könyvtár</string>
+  <string name="delete">Törlés</string>
+  <string name="deletesuccess">Sikeres törlés</string>
+  <string name="deleting">Törlés</string>
+  <string name="desc">desc</string>
+  <string name="detailed">Részletes</string>
+  <string name="details">Részletek</string>
+  <string name="dir_info">Mappa információ</string>
+  <string name="drawer_open">Navigációs fiók megnyitása</string>
+  <string name="drawer_close">Navigációs fiók bezárása</string>
+  <string name="edit">Szerkesztés</string>
+  <string name="empty">Üres</string>
+  <string name="enable_root">Root hozzáférés engedélyezése</string>
+  <string name="enter_name">Név megadása</string>
+  <string name="error">Hiba</string>
+  <string name="exit">Kilépés</string>
+  <string name="extractto">Kibontás ide:</string>
+  <string name="filecreated">Fájl létrehozva.</string>
+  <string name="fileexists">Fájl már létezik.</string>
+  <string name="files">" Fájlok"</string>
+  <string name="filewasrenamed">Fájl átnevezve.</string>
+  <string name="hiddenfiles">Rejtett fájlok</string>
+  <string name="itcouldntbefound">nem található.</string>
+  <string name="LastModified">Utoljára módosítva:</string>
+  <string name="md5">MD5:</string>
+  <string name="move">Mozgatás</string>
+  <string name="movefail">Mozgatás sikertelen.</string>
+  <string name="movesuccsess">Sikeresen mozgatva.</string>
+  <string name="moving">Mozgatás</string>
+  <string name="multizip">Zip</string>
+  <string name="newfile">Új fájl</string>
+  <string name="newfolderwasnotcreated">Új mappa nem lett létrehozva.</string>
+  <string name="ok">OK</string>
+  <string name="options">Beállítások</string>
+  <string name="packing">Csomagolás</string>
+  <string name="paste">Beillesztés</string>
+  <string name="pressbackagaintoquit">Kilépéshez nyomja meg újra a vissza gombot.</string>
+  <string name="rename">Átnevezés</string>
+  <string name="search">Keresés</string>
+  <string name="searchtext">Keresés</string>
+  <string name="selectall">Összes kijelölése</string>
+  <string name="settings">Beállítások</string>
+  <string name="share">Megosztás</string>
+  <string name="shortcut">Parancsikon létrehozása</string>
+  <string name="shortcutcreated">Parancsikon létrehozva.</string>
+  <string name="showpreview">Bélyegképek</string>
+  <string name="simple">Egyszerű</string>
+  <string name="size">Használt:</string>
+  <string name="uisettings">Megjelenítési beállítások</string>
+  <string name="unzipping">Kicsomagolás</string>
+  <string name="viewmode">Megjelenítési mód</string>
+  <string name="xdaforum">XDA fórum</string>
+
+  <!-- sort preferences -->
+  <string name="sort">Rendezés</string>
+  <string name="sortpreferences">Rendezési beállítások</string>
+  <string name="sort_reverselist">Fordított lista</string>
+  <string name="sort_name">Név</string>
+  <string name="sort_size">Méret</string>
+  <string name="sort_type">Típus</string>
+  <string name="sort_date">Dátum</string>
+
+  <!-- theme -->
+  <string name="theme">Téma</string>
+  <string name="light">Világos</string>
+  <string name="dark">Sötét</string>
+
+  <!-- permissions -->
+  <string name="permissions">Engedélyek</string>
+  <string name="owner">Tulajdonos:</string>
+  <string name="group">Csoport:</string>
+  <string name="others">Egyéb:</string>
+  <string name="read">Olvasás</string>
+  <string name="write">Írás</string>
+  <string name="execute">Végrehajtás</string>
+  <string name="permissionschanged">Engedélyek megváltoztatva</string>
+
+  <!-- actionmode -->
+  <string name="_files">\u0020fájl</string>
+  <string name="_selected">\u0020kiválasztva</string>
+
+  <!-- directory info dialog -->
+  <string name="location">Hely:</string>
+  <string name="total">Teljes terület:</string>
+  <string name="free">Szabad terület:</string>
+  <string name="block_size">Blokk mérete:</string>
+  <string name="used">Használt:</string>
+
+  <!-- bookmarks -->
+  <string name="bookmark">Könyvjelzők</string>
+  <string name="bookmarkadded">Könyvjelző hozzáadva.</string>
+  <string name="bookmarkexist">Könyvjelző már létezik!</string>
+  <string name="createbookmark">Könyvjelző létrehozása</string>
+
+  <!-- overwrite dialog -->
+  <string name="overwrite_title">A célfájl már létezik</string>
+  <string name="overwrite_source">Forrás</string>
+  <string name="overwrite_destination">Cél</string>
+  <string name="overwrite_skip">Kihagyás</string>
+  <string name="overwrite_skip_all">Mindet kihagyja</string>
+  <string name="overwrite_replace">Csere</string>
+  <string name="overwrite_replace_all">Mindet cserél</string>
+
+</resources>

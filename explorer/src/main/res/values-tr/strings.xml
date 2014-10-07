@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Simple Explorer</string>
+    <string name="advancedsettings">Gelişmiş</string>
+    <string name="cancel">İptal</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">"Bu işlem geri alınamaz!"</string>
+    <string name="cantopenfile">Bu dosya açılamıyor</string>
+    <string name="cantreadfolder">İzin sorunu nedeniyle klasör okunamıyor</string>
+    <string name="changegroupowner">Grubu/sahibi değiştir</string>
+    <string name="copiedtoclipboard">Panoya kopyalandı.</string>
+    <string name="copy">Kopyala</string>
+    <string name="copyfail">Kopyalama başarısız!</string>
+    <string name="copying">Kopyalıyor</string>
+    <string name="copysuccsess">Kopyalama Başarılı.</string>
+    <string name="create">Oluştur</string>
+    <string name="created">" Oluşturuldu."</string>
+    <string name="createmsg">Gizli klasör oluşturmak için metnin önüne bir nokta koyun.</string>
+    <string name="createnewfolder">Yeni Klasör oluştur</string>
+    <string name="defaultdir">Varsayılan Dizin</string>
+    <string name="delete">Sil</string>
+    <string name="deletesuccess">Silme İşlemi Başarılı</string>
+    <string name="deleting">Siliyor</string>
+    <string name="desc">azalan</string>
+    <string name="detailed">Ayrıntılı</string>
+    <string name="details">Ayrıntılar</string>
+    <string name="dir_info">Klasör Bilgisi</string>
+    <string name="drawer_open">Gezinti bölmesini aç</string>
+    <string name="drawer_close">Gezinti bölmesini kapat</string>
+    <string name="edit">Düzenle</string>
+    <string name="empty">Boş</string>
+    <string name="enable_root">Root erişimini aktifleştir</string>
+    <string name="enter_name">Adı gir</string>
+    <string name="error">Hata</string>
+    <string name="exit">Çıkış</string>
+    <string name="extractto">Çıkart...</string>
+    <string name="filecreated">Dosya oluşturuldu.</string>
+    <string name="fileexists">Dosya zaten var.</string>
+    <string name="files">"Dosya"</string>
+    <string name="filewasrenamed">Dosya yeniden adlandırıldı.</string>
+    <string name="hiddenfiles">Gizli Dosyalar</string>
+    <string name="itcouldntbefound">Bulunamadı.</string>
+    <string name="LastModified">Son değişiklik:</string>
+    <string name="md5">MD5:</string>
+    <string name="move">Taşı</string>
+    <string name="movefail">Taşıma başarısız.</string>
+    <string name="movesuccsess">Taşıma başarılı.</string>
+    <string name="moving">Taşınıyor</string>
+    <string name="multizip">Sıkıştır</string>
+    <string name="newfile">Yeni Dosya</string>
+    <string name="newfolderwasnotcreated">Yeni klasör oluşturulmadı.</string>
+    <string name="ok">Tamam</string>
+    <string name="options">Seçenekler</string>
+    <string name="packing">Paketleme</string>
+    <string name="paste">Yapıştır</string>
+    <string name="pressbackagaintoquit">Çıkmak için geri tuşuna tekrar basın.</string>
+    <string name="rename">Yeniden adlandır</string>
+    <string name="search">Arama</string>
+    <string name="searchtext">Ara</string>
+    <string name="selectall">Tümünü seç</string>
+    <string name="settings">Ayarlar</string>
+    <string name="share">Paylaş</string>
+    <string name="shortcut">Kısayol oluştur</string>
+    <string name="shortcutcreated">Kısayol oluşturuldu.</string>
+    <string name="showpreview">Önizlemeler</string>
+    <string name="simple">Basit</string>
+    <string name="size">Kullanılan:</string>
+    <string name="uisettings">Görünüm Ayarları</string>
+    <string name="unzipping">Çıkarılıyor</string>
+    <string name="viewmode">Görünüm modu</string>
+    <string name="xdaforum">XDA Forum</string>
+
+    <!-- sort preferences -->
+    <string name="sort">Sırala</string>
+    <string name="sortpreferences">Sıralama tercihleri</string>
+    <string name="sort_reverselist">Ters liste</string>
+    <string name="sort_name">Ad</string>
+    <string name="sort_size">Boyut</string>
+    <string name="sort_type">Tür</string>
+    <string name="sort_date">Tarih</string>
+
+    <!-- theme -->
+    <string name="theme">Tema</string>
+    <string name="light">Açık</string>
+    <string name="dark">Koyu</string>
+
+    <!-- permissions -->
+    <string name="permissions">İzinler</string>
+    <string name="owner">Kullanıcı:</string>
+    <string name="group">Grup:</string>
+    <string name="others">Diğer:</string>
+    <string name="read">Okuma</string>
+    <string name="write">Yazma</string>
+    <string name="execute">Uygulama</string>
+    <string name="permissionschanged">İzinler değiştirildi</string>
+
+    <!-- actionmode -->
+    <string name="_files">\u0020dosya(lar)</string>
+    <string name="_selected">\u0020seçildi</string>
+
+    <!-- directory info dialog -->
+    <string name="location">Bulunduğu yer:</string>
+    <string name="total">Toplam alan:</string>
+    <string name="free">Boş alan:</string>
+    <string name="block_size">Blok boyutu:</string>
+    <string name="used">Kullanılan:</string>
+
+    <!-- bookmarks -->
+    <string name="bookmark">Yer İmleri</string>
+    <string name="bookmarkadded">Yer imi eklendi.</string>
+    <string name="bookmarkexist">Yer imi zaten var!</string>
+    <string name="createbookmark">Yer imi oluştur</string>
+
+    <!-- overwrite dialog -->
+    <string name="overwrite_title">Hedef dosya zaten var</string>
+    <string name="overwrite_source">Kaynak</string>
+    <string name="overwrite_destination">Hedef</string>
+    <string name="overwrite_skip">Atla</string>
+    <string name="overwrite_skip_all">Tümünü atla</string>
+    <string name="overwrite_replace">Değiştir</string>
+    <string name="overwrite_replace_all">Tümünü değiştir</string>
+
+</resources>

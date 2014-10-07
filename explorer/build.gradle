@@ -1,0 +1,53 @@
+/*
+ * Copyright (C) 2014 Simple Explorer
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA  02110-1301, USA.
+ */
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId "com.dnielfe.manager"
+        minSdkVersion 14
+        targetSdkVersion 20
+        versionCode 57
+        versionName "2.1.2"
+    }
+
+    lintOptions {
+        abortOnError false
+        disable 'MissingTranslation', 'ExtraTranslation'
+    }
+
+    buildTypes {
+        release {
+            runProguard true
+            proguardFiles 'proguard-android.txt'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':libraries:AndroidViewPagerIndicator')
+    compile project(':libraries:FloatingActionButton')
+    compile 'com.android.support:support-v13:20.0.0'
+    compile "commons-io:commons-io:+"
+}
