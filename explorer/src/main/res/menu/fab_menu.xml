@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/createfile"
         android:showAsAction="ifRoom"
-        android:title="@string/newfile"/>
+        android:title="@string/newfile" />
     <item
         android:id="@+id/createfolder"
         android:showAsAction="ifRoom"
-        android:title="@string/createnewfolder"/>
+        android:title="@string/createnewfolder" />
 
 </menu>

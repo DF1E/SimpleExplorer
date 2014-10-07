@@ -1,9 +1,9 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/action_search"
         android:icon="?attr/action_search"
         android:showAsAction="always"
-        android:title="@string/search"/>
+        android:title="@string/search" />
 
 </menu>

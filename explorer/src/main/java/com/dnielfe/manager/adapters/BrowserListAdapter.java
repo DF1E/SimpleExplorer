@@ -19,18 +19,6 @@
 
 package com.dnielfe.manager.adapters;
 
-import java.io.File;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Locale;
-
-import org.apache.commons.io.FileUtils;
-import com.dnielfe.manager.R;
-import com.dnielfe.manager.preview.IconPreview;
-import com.dnielfe.manager.settings.Settings;
-import com.dnielfe.manager.utils.SimpleUtils;
-import com.dnielfe.manager.utils.SortUtils;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -40,119 +28,132 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dnielfe.manager.R;
+import com.dnielfe.manager.preview.IconPreview;
+import com.dnielfe.manager.settings.Settings;
+import com.dnielfe.manager.utils.SimpleUtils;
+import com.dnielfe.manager.utils.SortUtils;
+
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Locale;
+
 public class BrowserListAdapter extends BaseAdapter {
-	private LayoutInflater mInflater;
-	private Resources mResources;
-	private ArrayList<String> mDataSource;
+    private final LayoutInflater mInflater;
+    private final Resources mResources;
+    private ArrayList<String> mDataSource;
 
-	public BrowserListAdapter(Context context, LayoutInflater inflater) {
-		mInflater = inflater;
-		mDataSource = new ArrayList<String>();
-		mResources = context.getResources();
-	}
+    public BrowserListAdapter(Context context, LayoutInflater inflater) {
+        mInflater = inflater;
+        mDataSource = new ArrayList<String>();
+        mResources = context.getResources();
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		final ViewHolder mViewHolder;
-		int num_items = 0;
-		final File file = new File(getItem(position));
-		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT,
-				DateFormat.SHORT, Locale.getDefault());
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final ViewHolder mViewHolder;
+        int num_items = 0;
+        final File file = new File(getItem(position));
+        DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT,
+                DateFormat.SHORT, Locale.getDefault());
 
-		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.item_browserlist, parent,
-					false);
-			mViewHolder = new ViewHolder(convertView);
-			convertView.setTag(mViewHolder);
-		} else {
-			mViewHolder = (ViewHolder) convertView.getTag();
-		}
+        if (convertView == null) {
+            convertView = mInflater.inflate(R.layout.item_browserlist, parent,
+                    false);
+            mViewHolder = new ViewHolder(convertView);
+            convertView.setTag(mViewHolder);
+        } else {
+            mViewHolder = (ViewHolder) convertView.getTag();
+        }
 
-		if (Settings.mListAppearance > 0) {
-			mViewHolder.dateview.setVisibility(TextView.VISIBLE);
-		} else {
-			mViewHolder.dateview.setVisibility(TextView.GONE);
-		}
+        if (Settings.mListAppearance > 0) {
+            mViewHolder.dateview.setVisibility(TextView.VISIBLE);
+        } else {
+            mViewHolder.dateview.setVisibility(TextView.GONE);
+        }
 
-		// get icon
-		IconPreview.getFileIcon(file, mViewHolder.icon);
+        // get icon
+        IconPreview.getFileIcon(file, mViewHolder.icon);
 
-		if (file.isFile()) {
-			// Shows the size of File
-			mViewHolder.bottomView.setText(FileUtils
-					.byteCountToDisplaySize(file.length()));
-		} else {
-			String[] list = file.list();
+        if (file.isFile()) {
+            // Shows the size of File
+            mViewHolder.bottomView.setText(FileUtils
+                    .byteCountToDisplaySize(file.length()));
+        } else {
+            String[] list = file.list();
 
-			if (list != null)
-				num_items = list.length;
+            if (list != null)
+                num_items = list.length;
 
-			// show the number of files in Folder
-			mViewHolder.bottomView.setText(num_items
-					+ mResources.getString(R.string.files));
-		}
+            // show the number of files in Folder
+            mViewHolder.bottomView.setText(num_items
+                    + mResources.getString(R.string.files));
+        }
 
-		mViewHolder.topView.setText(file.getName());
-		mViewHolder.dateview.setText(df.format(file.lastModified()));
+        mViewHolder.topView.setText(file.getName());
+        mViewHolder.dateview.setText(df.format(file.lastModified()));
 
-		return convertView;
-	}
+        return convertView;
+    }
 
-	private static class ViewHolder {
-		TextView topView;
-		TextView bottomView;
-		TextView dateview;
-		ImageView icon;
+    private static class ViewHolder {
+        final TextView topView;
+        final TextView bottomView;
+        final TextView dateview;
+        final ImageView icon;
 
-		ViewHolder(View view) {
-			topView = (TextView) view.findViewById(R.id.top_view);
-			bottomView = (TextView) view.findViewById(R.id.bottom_view);
-			dateview = (TextView) view.findViewById(R.id.dateview);
-			icon = (ImageView) view.findViewById(R.id.row_image);
-		}
-	}
+        ViewHolder(View view) {
+            topView = (TextView) view.findViewById(R.id.top_view);
+            bottomView = (TextView) view.findViewById(R.id.bottom_view);
+            dateview = (TextView) view.findViewById(R.id.dateview);
+            icon = (ImageView) view.findViewById(R.id.row_image);
+        }
+    }
 
-	public void addFiles(String path) {
-		if (!mDataSource.isEmpty())
-			mDataSource.clear();
+    public void addFiles(String path) {
+        if (!mDataSource.isEmpty())
+            mDataSource.clear();
 
-		mDataSource = SimpleUtils.listFiles(path);
+        mDataSource = SimpleUtils.listFiles(path);
 
-		// sort files with a comparator
-		SortUtils.sortList(mDataSource, path);
+        // sort files with a comparator
+        SortUtils.sortList(mDataSource, path);
 
-		notifyDataSetChanged();
-	}
+        notifyDataSetChanged();
+    }
 
-	public void addContent(ArrayList<String> files) {
-		if (!mDataSource.isEmpty())
-			mDataSource.clear();
+    public void addContent(ArrayList<String> files) {
+        if (!mDataSource.isEmpty())
+            mDataSource.clear();
 
-		mDataSource = files;
+        mDataSource = files;
 
-		notifyDataSetChanged();
-	}
+        notifyDataSetChanged();
+    }
 
-	public int getPosition(String path) {
-		return mDataSource.indexOf(path);
-	}
+    public int getPosition(String path) {
+        return mDataSource.indexOf(path);
+    }
 
-	public ArrayList<String> getContent() {
-		return mDataSource;
-	}
+    public ArrayList<String> getContent() {
+        return mDataSource;
+    }
 
-	@Override
-	public String getItem(int pos) {
-		return mDataSource.get(pos);
-	}
+    @Override
+    public String getItem(int pos) {
+        return mDataSource.get(pos);
+    }
 
-	@Override
-	public int getCount() {
-		return mDataSource.size();
-	}
+    @Override
+    public int getCount() {
+        return mDataSource.size();
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 }

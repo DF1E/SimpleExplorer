@@ -19,15 +19,6 @@
 
 package com.dnielfe.manager.dialogs;
 
-import java.io.File;
-
-import org.apache.commons.io.FilenameUtils;
-
-import com.dnielfe.manager.BrowserActivity;
-import com.dnielfe.manager.R;
-import com.dnielfe.manager.tasks.UnRarTask;
-import com.dnielfe.manager.tasks.UnZipTask;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -37,58 +28,67 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.EditText;
 
+import com.dnielfe.manager.BrowserActivity;
+import com.dnielfe.manager.R;
+import com.dnielfe.manager.tasks.UnRarTask;
+import com.dnielfe.manager.tasks.UnZipTask;
+
+import org.apache.commons.io.FilenameUtils;
+
+import java.io.File;
+
 public final class UnpackDialog extends DialogFragment {
 
-	private static File file;
-	private static String ext;
+    private static File file;
+    private static String ext;
 
-	public static DialogFragment instantiate(File file1) {
-		file = file1;
-		ext = FilenameUtils.getExtension(file1.getName());
+    public static DialogFragment instantiate(File file1) {
+        file = file1;
+        ext = FilenameUtils.getExtension(file1.getName());
 
-		final UnpackDialog dialog = new UnpackDialog();
-		return dialog;
-	}
+        final UnpackDialog dialog = new UnpackDialog();
+        return dialog;
+    }
 
-	@Override
-	public Dialog onCreateDialog(Bundle state) {
-		final Activity a = getActivity();
+    @Override
+    public Dialog onCreateDialog(Bundle state) {
+        final Activity a = getActivity();
 
-		// Set an EditText view to get user input
-		final EditText inputf = new EditText(a);
-		inputf.setHint(R.string.enter_name);
-		inputf.setText(BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath);
+        // Set an EditText view to get user input
+        final EditText inputf = new EditText(a);
+        inputf.setHint(R.string.enter_name);
+        inputf.setText(BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath);
 
-		final AlertDialog.Builder b = new AlertDialog.Builder(a);
-		b.setTitle(R.string.extractto);
-		b.setView(inputf);
-		b.setPositiveButton(getString(R.string.ok),
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						String newpath = inputf.getText().toString();
+        final AlertDialog.Builder b = new AlertDialog.Builder(a);
+        b.setTitle(R.string.extractto);
+        b.setView(inputf);
+        b.setPositiveButton(getString(R.string.ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String newpath = inputf.getText().toString();
 
-						dialog.dismiss();
+                        dialog.dismiss();
 
-						if (ext.equals("zip")) {
-							final UnZipTask task = new UnZipTask(a);
-							task.executeOnExecutor(
-									AsyncTask.THREAD_POOL_EXECUTOR,
-									file.getPath(), newpath);
-						} else if (ext.equals("rar")) {
-							final UnRarTask task = new UnRarTask(a);
-							task.executeOnExecutor(
-									AsyncTask.THREAD_POOL_EXECUTOR,
-									file.getPath(), newpath);
-						}
-					}
-				});
-		b.setNegativeButton(R.string.cancel,
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				});
-		return b.create();
-	}
+                        if (ext.equals("zip")) {
+                            final UnZipTask task = new UnZipTask(a);
+                            task.executeOnExecutor(
+                                    AsyncTask.THREAD_POOL_EXECUTOR,
+                                    file.getPath(), newpath);
+                        } else if (ext.equals("rar")) {
+                            final UnRarTask task = new UnRarTask(a);
+                            task.executeOnExecutor(
+                                    AsyncTask.THREAD_POOL_EXECUTOR,
+                                    file.getPath(), newpath);
+                        }
+                    }
+                });
+        b.setNegativeButton(R.string.cancel,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        return b.create();
+    }
 }

@@ -25,7 +25,7 @@ android {
 
     defaultConfig {
         applicationId "com.dnielfe.manager"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 20
         versionCode 57
         versionName "2.1.2"
@@ -49,5 +49,5 @@ dependencies {
     compile project(':libraries:AndroidViewPagerIndicator')
     compile project(':libraries:FloatingActionButton')
     compile 'com.android.support:support-v13:20.0.0'
-    compile "commons-io:commons-io:+"
+    compile "commons-io:commons-io:2.4"
 }

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/bookmark_windoBackground"
-    android:descendantFocusability="blocksDescendants" >
+    android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:paddingBottom="5dp"
         android:paddingLeft="6dp"
-        android:paddingTop="4dp" >
+        android:paddingTop="4dp">
 
         <TextView
             android:id="@+id/title"

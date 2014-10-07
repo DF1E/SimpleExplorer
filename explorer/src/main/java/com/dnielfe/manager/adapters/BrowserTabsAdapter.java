@@ -19,28 +19,28 @@
 
 package com.dnielfe.manager.adapters;
 
-import com.dnielfe.manager.fragments.BrowserFragment;
-
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
+import com.dnielfe.manager.fragments.BrowserFragment;
+
 public class BrowserTabsAdapter extends FragmentStatePagerAdapter {
 
-	// number of fragments
-	private static final int NUM_PAGES = 2;
+    // number of fragments
+    private static final int NUM_PAGES = 2;
 
-	public BrowserTabsAdapter(FragmentManager fm) {
-		super(fm);
-	}
+    public BrowserTabsAdapter(FragmentManager fm) {
+        super(fm);
+    }
 
-	@Override
-	public Fragment getItem(int position) {
-		return new BrowserFragment();
-	}
+    @Override
+    public Fragment getItem(int position) {
+        return new BrowserFragment();
+    }
 
-	@Override
-	public int getCount() {
-		return NUM_PAGES;
-	}
+    @Override
+    public int getCount() {
+        return NUM_PAGES;
+    }
 }

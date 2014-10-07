@@ -19,11 +19,6 @@
 
 package com.dnielfe.manager.tasks;
 
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -34,77 +29,83 @@ import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.SimpleUtils;
 import com.dnielfe.manager.utils.ZipUtils;
 
+import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
 
-	private final WeakReference<Activity> activity;
+    private final WeakReference<Activity> activity;
 
-	private ProgressDialog dialog;
+    private ProgressDialog dialog;
 
-	public UnZipTask(final Activity activity) {
-		this.activity = new WeakReference<Activity>(activity);
-	}
+    public UnZipTask(final Activity activity) {
+        this.activity = new WeakReference<Activity>(activity);
+    }
 
-	@Override
-	protected void onPreExecute() {
-		final Activity activity = this.activity.get();
+    @Override
+    protected void onPreExecute() {
+        final Activity activity = this.activity.get();
 
-		if (activity != null) {
-			this.dialog = new ProgressDialog(activity);
-			this.dialog.setMessage(activity.getString(R.string.unzipping));
-			this.dialog.setCancelable(true);
-			this.dialog
-					.setOnCancelListener(new DialogInterface.OnCancelListener() {
-						@Override
-						public void onCancel(DialogInterface dialog) {
-							cancel(false);
-						}
-					});
-			if (!activity.isFinishing()) {
-				this.dialog.show();
-			}
-		}
-	}
+        if (activity != null) {
+            this.dialog = new ProgressDialog(activity);
+            this.dialog.setMessage(activity.getString(R.string.unzipping));
+            this.dialog.setCancelable(true);
+            this.dialog
+                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            cancel(false);
+                        }
+                    });
+            if (!activity.isFinishing()) {
+                this.dialog.show();
+            }
+        }
+    }
 
-	@Override
-	protected List<String> doInBackground(String... files) {
-		final Activity activity = this.activity.get();
-		final List<String> failed = new ArrayList<String>();
+    @Override
+    protected List<String> doInBackground(String... files) {
+        final Activity activity = this.activity.get();
+        final List<String> failed = new ArrayList<String>();
 
-		try {
-			ZipUtils.unpackZip(files[0], files[1]);
-		} catch (Exception e) {
-			failed.add(files.toString());
-		}
+        try {
+            ZipUtils.unpackZip(files[0], files[1]);
+        } catch (Exception e) {
+            failed.add(Arrays.toString(files));
+        }
 
-		SimpleUtils.requestMediaScanner(activity,
-				new File(files[1]).listFiles());
-		return failed;
-	}
+        SimpleUtils.requestMediaScanner(activity,
+                new File(files[1]).listFiles());
+        return failed;
+    }
 
-	@Override
-	protected void onPostExecute(final List<String> failed) {
-		super.onPostExecute(failed);
-		this.finish(failed);
-	}
+    @Override
+    protected void onPostExecute(final List<String> failed) {
+        super.onPostExecute(failed);
+        this.finish(failed);
+    }
 
-	@Override
-	protected void onCancelled(final List<String> failed) {
-		super.onCancelled(failed);
-		this.finish(failed);
-	}
+    @Override
+    protected void onCancelled(final List<String> failed) {
+        super.onCancelled(failed);
+        this.finish(failed);
+    }
 
-	private void finish(final List<String> failed) {
-		if (this.dialog != null) {
-			this.dialog.dismiss();
-		}
+    private void finish(final List<String> failed) {
+        if (this.dialog != null) {
+            this.dialog.dismiss();
+        }
 
-		final Activity activity = this.activity.get();
-		if (activity != null && !failed.isEmpty()) {
-			Toast.makeText(activity, activity.getString(R.string.cantopenfile),
-					Toast.LENGTH_SHORT).show();
-			if (!activity.isFinishing()) {
-				dialog.show();
-			}
-		}
-	}
+        final Activity activity = this.activity.get();
+        if (activity != null && !failed.isEmpty()) {
+            Toast.makeText(activity, activity.getString(R.string.cantopenfile),
+                    Toast.LENGTH_SHORT).show();
+            if (!activity.isFinishing()) {
+                dialog.show();
+            }
+        }
+    }
 }

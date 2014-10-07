@@ -32,163 +32,164 @@ import android.provider.BaseColumns;
 import android.text.TextUtils;
 
 public class Bookmarks extends ContentProvider implements BaseColumns {
-	public static final String TB_NAME = "bookmarks";
-	public static final String NAME = "name";
-	public static final String PATH = "path";
+    public static final String TB_NAME = "bookmarks";
+    public static final String NAME = "name";
+    public static final String PATH = "path";
 
-	// Only because of multiple choice delete dialog
-	public static final String CHECKED = "checked";
+    // Only because of multiple choice delete dialog
+    public static final String CHECKED = "checked";
 
-	private static final String BASE_PATH = "bookmarks";
-	public static final String PROVIDER_NAME = "com.dnielfe.manager.bookmarks";
-	public static final Uri CONTENT_URI = Uri.parse("content://"
-			+ PROVIDER_NAME + "/" + BASE_PATH);
+    private static final String BASE_PATH = "bookmarks";
+    public static final String PROVIDER_NAME = "com.dnielfe.manager.bookmarks";
+    public static final Uri CONTENT_URI = Uri.parse("content://"
+            + PROVIDER_NAME + "/" + BASE_PATH);
 
-	private static final int BOOKMARKS = 1;
-	private static final int BOOKMARK_ID = 2;
-	private static final UriMatcher uriMatcher;
-	static {
-		uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-		uriMatcher.addURI(PROVIDER_NAME, BASE_PATH, BOOKMARKS);
-		uriMatcher.addURI(PROVIDER_NAME, BASE_PATH + "/#", BOOKMARK_ID);
-	}
+    private static final int BOOKMARKS = 1;
+    private static final int BOOKMARK_ID = 2;
+    private static final UriMatcher uriMatcher;
 
-	private DatabaseHelper dbHelper;
-	private SQLiteDatabase db;
+    static {
+        uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        uriMatcher.addURI(PROVIDER_NAME, BASE_PATH, BOOKMARKS);
+        uriMatcher.addURI(PROVIDER_NAME, BASE_PATH + "/#", BOOKMARK_ID);
+    }
 
-	private static final String DATABASE_CREATE = String
-			.format("CREATE TABLE %s (%s integer primary key autoincrement, "
-					+ "%s text not null, %s text not null, %s integer default 0);",
-					TB_NAME, _ID, NAME, PATH, CHECKED);
+    private DatabaseHelper dbHelper;
+    private SQLiteDatabase db;
 
-	private static final String DATABASE_NAME = "com.dnielfe.manager";
-	private static final int DATABASE_VERSION = 2;
+    private static final String DATABASE_CREATE = String
+            .format("CREATE TABLE %s (%s integer primary key autoincrement, "
+                            + "%s text not null, %s text not null, %s integer default 0);",
+                    TB_NAME, _ID, NAME, PATH, CHECKED);
 
-	@Override
-	public boolean onCreate() {
-		dbHelper = new DatabaseHelper(getContext());
-		db = dbHelper.getWritableDatabase();
-		return (db == null) ? false : true;
-	}
+    private static final String DATABASE_NAME = "com.dnielfe.manager";
+    private static final int DATABASE_VERSION = 2;
 
-	@Override
-	public int delete(Uri uri, String selection, String[] selectionArgs) {
-		int uriType = uriMatcher.match(uri);
-		int rowsDeleted = 0;
+    @Override
+    public boolean onCreate() {
+        dbHelper = new DatabaseHelper(getContext());
+        db = dbHelper.getWritableDatabase();
+        return (db != null);
+    }
 
-		switch (uriType) {
-		case BOOKMARKS:
-			rowsDeleted = db.delete(TB_NAME, selection, selectionArgs);
-			break;
-		case BOOKMARK_ID:
-			String id = uri.getLastPathSegment();
-			if (TextUtils.isEmpty(selection)) {
-				rowsDeleted = db.delete(TB_NAME, _ID + "=" + id, null);
-			} else {
-				rowsDeleted = db.delete(TB_NAME, _ID + "=" + id + " and "
-						+ selection, selectionArgs);
-			}
-			break;
-		default:
-			throw new IllegalArgumentException("Unknown URI: " + uri);
-		}
+    @Override
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
+        int uriType = uriMatcher.match(uri);
+        int rowsDeleted;
 
-		getContext().getContentResolver().notifyChange(uri, null);
-		return rowsDeleted;
-	}
+        switch (uriType) {
+            case BOOKMARKS:
+                rowsDeleted = db.delete(TB_NAME, selection, selectionArgs);
+                break;
+            case BOOKMARK_ID:
+                String id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)) {
+                    rowsDeleted = db.delete(TB_NAME, _ID + "=" + id, null);
+                } else {
+                    rowsDeleted = db.delete(TB_NAME, _ID + "=" + id + " and "
+                            + selection, selectionArgs);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
 
-	@Override
-	public String getType(Uri uri) {
-		return null;
-	}
+        getContext().getContentResolver().notifyChange(uri, null);
+        return rowsDeleted;
+    }
 
-	@Override
-	public Uri insert(Uri uri, ContentValues values) {
-		int uriType = uriMatcher.match(uri);
-		long id = 0;
+    @Override
+    public String getType(Uri uri) {
+        return null;
+    }
 
-		switch (uriType) {
-		case BOOKMARKS:
-			id = db.insert(TB_NAME, null, values);
-			break;
-		default:
-			throw new IllegalArgumentException("Unknown URI: " + uri);
-		}
+    @Override
+    public Uri insert(Uri uri, ContentValues values) {
+        int uriType = uriMatcher.match(uri);
+        long id;
 
-		getContext().getContentResolver().notifyChange(uri, null);
-		return Uri.parse(BASE_PATH + "/" + id);
-	}
+        switch (uriType) {
+            case BOOKMARKS:
+                id = db.insert(TB_NAME, null, values);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
 
-	@Override
-	public Cursor query(Uri uri, String[] projection, String selection,
-			String[] selectionArgs, String sortOrder) {
-		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-		queryBuilder.setTables(TB_NAME);
+        getContext().getContentResolver().notifyChange(uri, null);
+        return Uri.parse(BASE_PATH + "/" + id);
+    }
 
-		int uriType = uriMatcher.match(uri);
-		switch (uriType) {
-		case BOOKMARKS:
-			break;
-		case BOOKMARK_ID:
-			// adding the ID to the original query
-			queryBuilder.appendWhere(_ID + "=" + uri.getLastPathSegment());
-			break;
-		default:
-			throw new IllegalArgumentException("Unknown URI: " + uri);
-		}
+    @Override
+    public Cursor query(Uri uri, String[] projection, String selection,
+                        String[] selectionArgs, String sortOrder) {
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(TB_NAME);
 
-		Cursor c = queryBuilder.query(db, projection, selection, selectionArgs,
-				null, null, sortOrder);
-		c.setNotificationUri(getContext().getContentResolver(), uri);
-		return c;
-	}
+        int uriType = uriMatcher.match(uri);
+        switch (uriType) {
+            case BOOKMARKS:
+                break;
+            case BOOKMARK_ID:
+                // adding the ID to the original query
+                queryBuilder.appendWhere(_ID + "=" + uri.getLastPathSegment());
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
 
-	@Override
-	public int update(Uri uri, ContentValues values, String selection,
-			String[] selectionArgs) {
-		int uriType = uriMatcher.match(uri);
-		int rowsUpdated = 0;
+        Cursor c = queryBuilder.query(db, projection, selection, selectionArgs,
+                null, null, sortOrder);
+        c.setNotificationUri(getContext().getContentResolver(), uri);
+        return c;
+    }
 
-		switch (uriType) {
-		case BOOKMARKS:
-			rowsUpdated = db.update(TB_NAME, values, selection, selectionArgs);
-			break;
-		case BOOKMARK_ID:
-			String id = uri.getLastPathSegment();
-			if (TextUtils.isEmpty(selection)) {
-				rowsUpdated = db.update(TB_NAME, values, _ID + "=" + id, null);
-			} else {
-				rowsUpdated = db.update(TB_NAME, values, _ID + "=" + id
-						+ " and " + selection, selectionArgs);
-			}
-			break;
-		default:
-			throw new IllegalArgumentException("Unknown URI: " + uri);
-		}
+    @Override
+    public int update(Uri uri, ContentValues values, String selection,
+                      String[] selectionArgs) {
+        int uriType = uriMatcher.match(uri);
+        int rowsUpdated;
 
-		getContext().getContentResolver().notifyChange(uri, null);
-		return rowsUpdated;
-	}
+        switch (uriType) {
+            case BOOKMARKS:
+                rowsUpdated = db.update(TB_NAME, values, selection, selectionArgs);
+                break;
+            case BOOKMARK_ID:
+                String id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)) {
+                    rowsUpdated = db.update(TB_NAME, values, _ID + "=" + id, null);
+                } else {
+                    rowsUpdated = db.update(TB_NAME, values, _ID + "=" + id
+                            + " and " + selection, selectionArgs);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
 
-	private static class DatabaseHelper extends SQLiteOpenHelper {
+        getContext().getContentResolver().notifyChange(uri, null);
+        return rowsUpdated;
+    }
 
-		DatabaseHelper(Context context) {
-			super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		}
+    private static class DatabaseHelper extends SQLiteOpenHelper {
 
-		@Override
-		public void onCreate(SQLiteDatabase db) {
-			db.execSQL(DATABASE_CREATE);
-		}
+        DatabaseHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }
 
-		/*
-		 * When changing database version, you MUST change this method.
-		 * Currently, it would delete all users' bookmarks
-		 */
-		@Override
-		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			db.execSQL("DROP TABLE IF EXISTS " + TB_NAME);
-			onCreate(db);
-		}
-	}
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL(DATABASE_CREATE);
+        }
+
+        /*
+         * When changing database version, you MUST change this method.
+         * Currently, it would delete all users' bookmarks
+         */
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            db.execSQL("DROP TABLE IF EXISTS " + TB_NAME);
+            onCreate(db);
+        }
+    }
 }

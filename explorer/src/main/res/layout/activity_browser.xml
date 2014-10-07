@@ -3,21 +3,21 @@
     xmlns:vpi="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <!-- Main content view -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <HorizontalScrollView
             android:id="@+id/scroll_text"
             android:layout_width="match_parent"
             android:layout_height="@dimen/actionbar_height"
             android:fillViewport="true"
-            android:scrollbars="none" >
+            android:scrollbars="none">
 
             <LinearLayout
                 android:id="@+id/directory_buttons"
@@ -25,8 +25,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:longClickable="true"
-                android:orientation="horizontal" >
-            </LinearLayout>
+                android:orientation="horizontal"/>
         </HorizontalScrollView>
 
         <com.viewpagerindicator.UnderlinePageIndicator

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/uisettings" >
+    <PreferenceCategory android:title="@string/uisettings">
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="displayhiddenfiles"
@@ -18,7 +18,7 @@
             android:key="viewmode"
             android:title="@string/viewmode" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/sortpreferences" >
+    <PreferenceCategory android:title="@string/sortpreferences">
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/sortentries"
@@ -31,7 +31,7 @@
             android:key="reverseList"
             android:title="@string/sort_reverselist" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/advancedsettings" >
+    <PreferenceCategory android:title="@string/advancedsettings">
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/themes"
@@ -50,11 +50,10 @@
             android:title="@string/enable_root" />
     </PreferenceCategory>
 
-    <PreferenceScreen android:title="@string/xdaforum" >
+    <PreferenceScreen android:title="@string/xdaforum">
         <intent
             android:action="android.intent.action.VIEW"
-            android:data="http://forum.xda-developers.com/showthread.php?t=2330864" >
-        </intent>
+            android:data="http://forum.xda-developers.com/showthread.php?t=2330864"/>
     </PreferenceScreen>
 
 </PreferenceScreen>

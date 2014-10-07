@@ -4,21 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.docd.purefm.ui.activities.BrowserPagerActivity" >
+    tools:context="com.docd.purefm.ui.activities.BrowserPagerActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:shrinkColumns="1" >
+            android:shrinkColumns="1">
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
     <LinearLayout
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <Button
             android:id="@android:id/button1"
@@ -97,7 +97,7 @@
     <LinearLayout
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <Button
             android:id="@android:id/button3"
