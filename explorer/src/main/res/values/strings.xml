@@ -35,6 +35,7 @@
     <string name="error">Error</string>
     <string name="exit">Exit</string>
     <string name="extractto">Extract to</string>
+    <string name="extractionsuccess">Package successfully extracted.</string>
     <string name="filecreated">File was created.</string>
     <string name="fileexists">File already exists.</string>
     <string name="files">" Files"</string>

@@ -105,6 +105,11 @@ public final class UnRarTask extends AsyncTask<String, Void, List<String>> {
         }
 
         final Activity activity = this.activity.get();
+
+        if (failed.isEmpty())
+            Toast.makeText(activity, activity.getString(R.string.extractionsuccess),
+                    Toast.LENGTH_SHORT).show();
+
         if (activity != null && !failed.isEmpty()) {
             Toast.makeText(activity, activity.getString(R.string.cantopenfile),
                     Toast.LENGTH_SHORT).show();
