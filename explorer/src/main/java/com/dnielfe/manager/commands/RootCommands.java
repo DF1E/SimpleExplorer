@@ -97,18 +97,21 @@ public class RootCommands {
     }
 
     // Create Directory with root
-    public static void createRootdir(File dir, String path) {
+    public static boolean createRootdir(File dir, String path) {
         if (dir.exists())
-            return;
+            return false;
 
         try {
             if (!readReadWriteFile())
                 RootTools.remount(path, "rw");
 
             execute("mkdir " + getCommandLineString(dir.getAbsolutePath()));
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return false;
     }
 
     // Move or Copy with Root Access using RootTools library
@@ -163,22 +166,23 @@ public class RootCommands {
     }
 
     // Create file with root
-    // cdir = currentDir
-    // name = filename
-    public static void createRootFile(String cdir, String name) {
+    public static boolean createRootFile(String cdir, String name) {
         File dir = new File(cdir + "/" + name);
 
         if (dir.exists())
-            return;
+            return false;
 
         try {
             if (!readReadWriteFile())
                 RootTools.remount(cdir, "rw");
 
             execute("touch " + getCommandLineString(dir.getAbsolutePath()));
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return false;
     }
 
     // Check if system is mounted

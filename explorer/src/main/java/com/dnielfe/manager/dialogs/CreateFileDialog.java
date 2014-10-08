@@ -55,34 +55,28 @@ public final class CreateFileDialog extends DialogFragment {
                         String name = inputf.getText().toString();
                         String path = BrowserActivity
                                 .getCurrentlyDisplayedFragment().mCurrentPath;
+                        boolean success = false;
 
                         File file = new File(path + File.separator + name);
 
-                        if (file.exists()) {
+                        if (file.exists())
                             Toast.makeText(a, getString(R.string.fileexists),
                                     Toast.LENGTH_SHORT).show();
-                        } else {
-                            try {
-                                if (name.length() >= 1) {
-                                    file.createNewFile();
 
-                                    Toast.makeText(a, R.string.filecreated,
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(a, R.string.error,
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (Exception e) {
-                                if (Settings.rootAccess()) {
-                                    RootCommands.createRootFile(path, name);
-                                    Toast.makeText(a, R.string.filecreated,
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(a, R.string.error,
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
+                        try {
+                            if (name.length() >= 1)
+                                success = file.createNewFile();
+                        } catch (Exception e) {
+                            if (Settings.rootAccess())
+                                success = RootCommands.createRootFile(path, name);
                         }
+
+                        if (success)
+                            Toast.makeText(a, R.string.filecreated,
+                                    Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(a, R.string.error,
+                                    Toast.LENGTH_SHORT).show();
 
                         dialog.dismiss();
                     }

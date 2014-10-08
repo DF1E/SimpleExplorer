@@ -51,26 +51,22 @@ public final class CreateFolderDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String name = inputf.getText().toString();
+                        boolean success = false;
 
-                        if (name.length() >= 1) {
-                            if (SimpleUtils.createDir(
+                        if (name.length() >= 1)
+                            success = SimpleUtils.createDir(
                                     BrowserActivity
                                             .getCurrentlyDisplayedFragment().mCurrentPath,
-                                    name))
-                                Toast.makeText(a,
-                                        name + getString(R.string.created),
-                                        Toast.LENGTH_LONG).show();
-                            else
-                                Toast.makeText(
-                                        a,
-                                        getString(R.string.newfolderwasnotcreated),
-                                        Toast.LENGTH_SHORT).show();
-                        } else {
-                            dialog.dismiss();
+                                    name);
+
+                        if (success)
+                            Toast.makeText(a,
+                                    name + getString(R.string.created),
+                                    Toast.LENGTH_LONG).show();
+                        else
                             Toast.makeText(a,
                                     getString(R.string.newfolderwasnotcreated),
                                     Toast.LENGTH_SHORT).show();
-                        }
 
                         dialog.dismiss();
                     }

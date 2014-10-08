@@ -191,18 +191,18 @@ public class SimpleUtils {
     // name = new name
     public static boolean createDir(String path, String name) {
         File folder = new File(path, name);
+boolean success = false;
 
         if (folder.exists())
-            return false;
+            success = false;
 
         if (folder.mkdir())
-            return true;
+            success = true;
         else if (Settings.rootAccess()) {
-            RootCommands.createRootdir(folder, path);
-            return true;
+            success = RootCommands.createRootdir(folder, path);
         }
 
-        return false;
+        return success;
     }
 
     public static void deleteTarget(String path, String dir) {
