@@ -4,18 +4,19 @@
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Geavanceerd</string>
     <string name="cancel">Annuleren</string>
-    <string name="cannotbeundoneareyousureyouwanttodelete">"Dit kan niet ongedaan gemaakt worden"</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">"Dit kan niet ongedaan worden gemaakt!"</string>
     <string name="cantopenfile">Kan dit bestand niet openen</string>
-    <string name="cantreadfolder">Folder kan niet gelezen worden wegens machtigingen</string>
-    <string name="copiedtoclipboard">Gekopieerd naar klembord</string>
+    <string name="cantreadfolder">Kan de map niet openen vanwege machtigingen</string>
+    <string name="changegroupowner">Groep/eigenaar bewerken</string>
+    <string name="copiedtoclipboard">Gekopieerd naar klembord.</string>
     <string name="copy">Kopi\u00EBren</string>
     <string name="copyfail">Kopi\u00EBren mislukt!</string>
     <string name="copying">Bezig met kopi\u00EBren</string>
-    <string name="copysuccsess">Succesvol gekopieerd</string>
-    <string name="create">Maak</string>
-    <string name="created">" gemaakt"</string>
+    <string name="copysuccsess">Succesvol gekopiëerd.</string>
+    <string name="create">Aanmaken</string>
+    <string name="created">" Aangemaakt."</string>
     <string name="createmsg">Zet een punt voor de mapnaam om de map onzichtbaar te maken.</string>
-    <string name="createnewfolder">Maak een nieuwe Map </string>
+    <string name="createnewfolder">Maak een nieuwe map</string>
     <string name="defaultdir">Standaardlocatie</string>
     <string name="delete">Verwijderen</string>
     <string name="deletesuccess">Succesvol verwijderd</string>
@@ -23,59 +24,59 @@
     <string name="desc">desc</string>
     <string name="detailed">Gedetailleerd</string>
     <string name="details">Details</string>
-    <string name="dir_info">Map Informatie</string>
-    <string name="drawer_open">Open navigatie lade</string>
-    <string name="drawer_close">Sluit navigatie lade</string>
+    <string name="dir_info">Mapinformatie</string>
+    <string name="drawer_open">Open navigatielade</string>
+    <string name="drawer_close">Sluit navigatielade</string>
+    <string name="edit">Bewerken</string>
     <string name="empty">Leeg</string>
-    <string name="enable_root">Enable root access</string>
+    <string name="enable_root">Root-toegang inschakelen</string>
     <string name="enter_name">Voer naam in</string>
     <string name="error">Fout</string>
     <string name="exit">Afsluiten</string>
     <string name="extractto">Uitpakken naar</string>
-    <string name="filecreated">Bestand is aangemaakt</string>
-    <string name="fileexists">Bestand bestaat al</string>
+    <string name="filecreated">Bestand is aangemaakt.</string>
+    <string name="fileexists">Bestand bestaat al.</string>
     <string name="files">" Bestanden"</string>
     <string name="filewasrenamed">Bestand is hernoemd.</string>
     <string name="hiddenfiles">Verborgen bestanden</string>
     <string name="itcouldntbefound">Kon niet gevonden worden</string>
     <string name="LastModified">Laatst Gewijzigd:</string>
-    <string name="md5">MD5</string>
+    <string name="md5">MD5:</string>
     <string name="move">Verplaatsen</string>
     <string name="movefail">Verplaatsen mislukt.</string>
     <string name="movesuccsess">Succesvol verplaatst.</string>
     <string name="moving">Bezig met verplaatsen</string>
-    <string name="multizip">Zip</string>
-    <string name="newfile">Nieuw Bestand</string>
-    <string name="newfolderwasnotcreated">Geen nieuwe map aangemaakt</string>
-    <string name="ok">OK</string>
+    <string name="multizip">Inpakken</string>
+    <string name="newfile">Nieuw bestand</string>
+    <string name="newfolderwasnotcreated">Nieuwe map niet aangemaakt.</string>
+    <string name="ok">Ok</string>
     <string name="options">Opties</string>
     <string name="packing">Inpakken</string>
     <string name="paste">Plakken</string>
-    <string name="pressbackagaintoquit">Tik nogmaals terug om af te sluiten</string>
-    <string name="rename">Hernoem</string>
-    <string name="sdcardnotfound">Kon SD kaart niet vinden!</string>
+    <string name="pressbackagaintoquit">Tik nogmaals op terug om af te sluiten.</string>
+    <string name="rename">Naam wijzigen</string>
     <string name="search">Zoeken</string>
     <string name="searchtext">Zoeken</string>
-    <string name="selectall">Selecteer Alles</string>
+    <string name="selectall">Alles selecteren</string>
     <string name="settings">Instellingen</string>
-    <string name="share">Delen via</string>
+    <string name="share">Delen</string>
     <string name="shortcut">Snelkoppeling maken</string>
-    <string name="shortcutcreated">Snelkoppeling gemaakt</string>
-    <string name="showpreview">Miniatuurafbeeldingen</string>
+    <string name="shortcutcreated">Snelkoppeling gemaakt.</string>
+    <string name="showpreview">Miniaturen</string>
     <string name="simple">Simpel</string>
     <string name="size">Gebruikt:</string>
-    <string name="sort">Sorteer</string>
-    <string name="uisettings">Bekijk Instellingen</string>
-    <string name="unselectall">Deselecteer Alles</string>
+    <string name="uisettings">Instellingen bekijken</string>
     <string name="unzipping">Uitpakken</string>
     <string name="viewmode">Weergavemodus</string>
-    <string name="xdaforum">XDA Forum</string>
-    <string name="zipping">Inpakken</string>
+    <string name="xdaforum">XDA forum</string>
 
-    <!-- sort list type -->
+    <!-- sort preferences -->
+    <string name="sort">Sorteren</string>
+    <string name="sortpreferences">Sorteerinstellingen</string>
+    <string name="sort_reverselist">Lijst omkeren</string>
     <string name="sort_name">Naam</string>
     <string name="sort_size">Grootte</string>
-    <string name="sort_type">Type</string>
+    <string name="sort_type">Bestandstype</string>
     <string name="sort_date">Datum</string>
 
     <!-- theme -->
@@ -88,8 +89,8 @@
     <string name="owner">Eigenaar:</string>
     <string name="group">Groep:</string>
     <string name="others">Overig:</string>
-    <string name="read">Lees</string>
-    <string name="write">Schrijf</string>
+    <string name="read">Lezen</string>
+    <string name="write">Schrijven</string>
     <string name="execute">Uitvoeren</string>
     <string name="permissionschanged">Machtigingen zijn gewijzigd</string>
 
@@ -100,9 +101,8 @@
     <!-- directory info dialog -->
     <string name="location">Locatie:</string>
     <string name="total">Totale ruimte:</string>
-    <string name="free">Vrije ruimte:</string>
-    <string name="available">Beschikbare ruimte:</string>
-    <string name="block_size">Blok grootte:</string>
+    <string name="free">Beschikbare ruimte:</string>
+    <string name="block_size">Blokgrootte:</string>
     <string name="used">Gebruikt:</string>
 
     <!-- bookmarks -->
@@ -112,7 +112,7 @@
     <string name="createbookmark">Bladwijzer maken</string>
 
     <!-- overwrite dialog -->
-    <string name="overwrite_title">Doel bestand bestaat al</string>
+    <string name="overwrite_title">Doelbestand bestaat al</string>
     <string name="overwrite_source">Bron</string>
     <string name="overwrite_destination">Bestemming</string>
     <string name="overwrite_skip">Overslaan</string>
