@@ -141,13 +141,4 @@ public final class StatFsCompat {
             return getBlockCountLong() * getBlockSizeLong();
         }
     }
-
-    /**
-     * Perform a restat of the file system referenced by this object. This is
-     * the same as re-constructing the object with the same file system path,
-     * and the new stat values are available upon return.
-     */
-    public void restat(final String path) {
-        mStatFs.restat(path);
-    }
 }

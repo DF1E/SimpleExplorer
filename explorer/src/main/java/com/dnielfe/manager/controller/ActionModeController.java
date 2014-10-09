@@ -56,8 +56,6 @@ public final class ActionModeController {
 
     private ActionMode mActionMode;
 
-    private BookmarksAdapter mAdapter;
-
     public ActionModeController(final Activity activity) {
         this.mActivity = activity;
         this.multiChoiceListener = new MultiChoiceListener();
@@ -213,7 +211,7 @@ public final class ActionModeController {
                             File file = new File(
                                     (String) mListView.getItemAtPosition(key));
 
-                            mAdapter = BrowserActivity.getBookmarksAdapter();
+                            BookmarksAdapter mAdapter = BrowserActivity.getBookmarksAdapter();
                             mAdapter.createBookmark(file);
                             mode.finish();
                             break;

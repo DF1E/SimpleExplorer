@@ -37,10 +37,9 @@ public final class Settings {
     public static int mSortType;
     public static int mTheme;
     public static String defaultdir;
-    private static SharedPreferences p;
 
     public static void updatePreferences(Context context) {
-        p = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
 
         mShowHiddenFiles = p.getBoolean("displayhiddenfiles", true);
         showthumbnail = p.getBoolean("showpreview", true);

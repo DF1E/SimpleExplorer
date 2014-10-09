@@ -34,7 +34,7 @@
     <string name="error">Error</string>
     <string name="exit">Beenden</string>
     <string name="extractto">Extrahieren nach</string>
-    <string name="extractionsuccess">Packet erfolgreich entpackt.</string>
+    <string name="extractionsuccess">Paket erfolgreich entpackt.</string>
     <string name="filecreated">Datei wurde erstellt</string>
     <string name="fileexists">Datei existiert bereits</string>
     <string name="files">" Dateien"</string>

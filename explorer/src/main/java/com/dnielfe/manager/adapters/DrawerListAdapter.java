@@ -29,8 +29,8 @@ import android.widget.TextView;
 import com.dnielfe.manager.R;
 
 public class DrawerListAdapter extends BaseAdapter {
-    private Context mContext;
-    private String[] mTitle;
+    private final Context mContext;
+    private final String[] mTitle;
 
     public DrawerListAdapter(final Context context) {
         this.mContext = context;

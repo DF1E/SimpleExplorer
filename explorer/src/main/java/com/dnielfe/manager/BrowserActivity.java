@@ -71,9 +71,7 @@ public final class BrowserActivity extends ThemableActivity implements
     private ActionBarDrawerToggle mDrawerToggle;
     private Cursor mBookmarksCursor;
 
-    private ViewPager mPager;
     private FragmentManager fm;
-    private UnderlinePageIndicator mIndicator;
     private BrowserTabsAdapter mPagerAdapter;
     private static BrowserFragment mBrowserFragment;
 
@@ -81,12 +79,6 @@ public final class BrowserActivity extends ThemableActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
-
-        Intent intent = getIntent();
-
-        if (savedInstanceState == null) {
-            savedInstanceState = intent.getBundleExtra(EXTRA_SAVED_STATE);
-        }
 
         init();
     }
@@ -131,7 +123,6 @@ public final class BrowserActivity extends ThemableActivity implements
         mNavigation = new NavigationView(this);
 
         mActionBar = this.getActionBar();
-
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.show();
 
@@ -147,11 +138,11 @@ public final class BrowserActivity extends ThemableActivity implements
         new IconPreview(this);
 
         // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) findViewById(R.id.pager);
+        ViewPager mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new BrowserTabsAdapter(fm);
         mPager.setAdapter(mPagerAdapter);
 
-        mIndicator = (UnderlinePageIndicator) findViewById(R.id.indicator);
+        UnderlinePageIndicator mIndicator = (UnderlinePageIndicator) findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
         mIndicator.setFades(false);
     }

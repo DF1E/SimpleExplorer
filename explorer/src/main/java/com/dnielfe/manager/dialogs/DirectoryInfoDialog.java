@@ -41,7 +41,6 @@ import java.lang.ref.WeakReference;
 
 public final class DirectoryInfoDialog extends DialogFragment {
 
-    private static File mFile;
     private View mView;
 
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
@@ -58,7 +57,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        mFile = new File(
+        File mFile = new File(
                 BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath);
         PartitionInfoTask mTask = new PartitionInfoTask(mView);
         mTask.execute(mFile);

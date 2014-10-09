@@ -45,7 +45,6 @@ public class SearchActivity extends ThemableActivity {
 
     private ActionBar mActionBar;
     private ListView mListView;
-    private SearchTask mTask;
     private BrowserListAdapter mAdapter;
 
     @Override
@@ -114,7 +113,7 @@ public class SearchActivity extends ThemableActivity {
             String mQuery = intent.getStringExtra(SearchManager.QUERY);
 
             if (mQuery.length() > 0) {
-                mTask = new SearchTask(this);
+                SearchTask mTask = new SearchTask(this);
                 mTask.execute(mQuery);
             }
         }
@@ -162,6 +161,7 @@ public class SearchActivity extends ThemableActivity {
             ArrayList<String> found;
             File test = new File(location);
 
+            // TODO fix search with root
             if (test.exists() && test.canRead()) {
                 found = SimpleUtils.searchInDirectory(location, params[0]);
             } else {

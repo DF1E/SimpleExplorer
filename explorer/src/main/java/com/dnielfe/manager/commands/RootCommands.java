@@ -71,7 +71,7 @@ public class RootCommands {
         BufferedReader in;
 
         try {
-            in = execute(buildfindCommand(path, query));
+            in = execute("find " + getCommandLineString(path) + " -iname " + '*' + getCommandLineString(query) + '*' + " -exec ls -a {} \\;");
 
             String line;
             while ((line = in.readLine()) != null) {
@@ -82,18 +82,6 @@ public class RootCommands {
         }
 
         return mDirContent;
-    }
-
-    private static String buildfindCommand(String startDirectory, String what) {
-        final StringBuilder command = new StringBuilder();
-        command.append("find ");
-        command.append(getCommandLineString(startDirectory));
-        command.append(" -iname ");
-        command.append('*');
-        command.append(getCommandLineString(what));
-        command.append('*');
-        command.append(" -exec ls -a {} \\;");
-        return command.toString();
     }
 
     // Create Directory with root

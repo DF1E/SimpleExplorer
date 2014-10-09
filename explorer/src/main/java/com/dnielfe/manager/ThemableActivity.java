@@ -27,16 +27,12 @@ import com.dnielfe.manager.settings.Settings;
 
 public abstract class ThemableActivity extends Activity {
 
-    protected static final String EXTRA_SAVED_STATE = "ThemableActivity.extras.SAVED_STATE";
-
     private int mCurrentTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mCurrentTheme = Settings.mTheme;
-        if (setThemeInOnCreate()) {
-            setTheme(mCurrentTheme);
-        }
+        setTheme(mCurrentTheme);
         super.onCreate(savedInstanceState);
     }
 
@@ -52,13 +48,9 @@ public abstract class ThemableActivity extends Activity {
         final Bundle outState = new Bundle();
         onSaveInstanceState(outState);
         final Intent intent = new Intent(this, getClass());
-        intent.putExtra(EXTRA_SAVED_STATE, outState);
+        // intent.putExtra(EXTRA_SAVED_STATE, outState);
         finish();
         overridePendingTransition(0, 0);
         startActivity(intent);
-    }
-
-    protected boolean setThemeInOnCreate() {
-        return true;
     }
 }

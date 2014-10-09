@@ -57,7 +57,7 @@ public final class UnpackDialog extends DialogFragment {
         // Set an EditText view to get user input
         final EditText inputf = new EditText(a);
         inputf.setHint(R.string.enter_name);
-        inputf.setText(BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath);
+        inputf.setText(BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath + "/");
 
         final AlertDialog.Builder b = new AlertDialog.Builder(a);
         b.setTitle(R.string.extractto);

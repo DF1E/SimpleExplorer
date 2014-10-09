@@ -56,14 +56,14 @@ public class IconPreview {
     private static Map<ImageView, String> imageViews = Collections
             .synchronizedMap(new ConcurrentHashMap<ImageView, String>());
     private static PackageManager pm;
-    private static int mSize = 64;
+    private static int mWidth;
 
     private static Context mContext;
     private static Resources mResources;
 
     public IconPreview(Activity activity) {
         mContext = activity;
-
+        mWidth = (int) mContext.getResources().getDimension(R.dimen.item_height);
         cache = new ConcurrentHashMap<String, Bitmap>();
         pool = Executors.newFixedThreadPool(5);
         mResources = activity.getResources();
@@ -188,7 +188,7 @@ public class IconPreview {
             if (o.outWidth != -1 && o.outHeight != -1) {
                 final int originalSize = (o.outHeight > o.outWidth) ? o.outWidth
                         : o.outHeight;
-                o.inSampleSize = originalSize / mSize;
+                o.inSampleSize = originalSize / mWidth;
             }
 
             mBitmap = BitmapFactory.decodeFile(path, o);

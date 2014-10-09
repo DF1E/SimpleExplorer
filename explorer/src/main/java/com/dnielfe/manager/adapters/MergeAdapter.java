@@ -66,10 +66,6 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
         return (null);
     }
 
-    public void setNoItemsText(String text) {
-        noItemsText = text;
-    }
-
     /**
      * Get the adapter associated with the specified position in the data set.
      *

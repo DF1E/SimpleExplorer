@@ -167,7 +167,7 @@ public final class FilePropertiesDialog extends DialogFragment {
         }
 
         PagerItem getItem(final int position) {
-            return mItems[1];
+            return mItems[position];
         }
 
         @Override
@@ -362,11 +362,7 @@ public final class FilePropertiesDialog extends DialogFragment {
             this.ow = (CompoundButton) mView.findViewById(R.id.owrite);
             this.ox = (CompoundButton) mView.findViewById(R.id.oexecute);
 
-            try {
-                getPermissions(mFile);
-            } catch (Exception e) {
-                disableBoxes();
-            }
+            getPermissions(mFile);
         }
 
         @Override

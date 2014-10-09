@@ -59,7 +59,7 @@ public final class PasteTaskExecutor implements OnClickListener {
         for (final String ab : contents) {
             File file = new File(ab);
 
-            if (file != null && file.exists()) {
+            if (file.exists()) {
                 final File testTarget = new File(mLocation, file.getName());
 
                 if (testTarget.exists()) {
