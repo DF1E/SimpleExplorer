@@ -45,9 +45,7 @@ public final class UnpackDialog extends DialogFragment {
     public static DialogFragment instantiate(File file1) {
         file = file1;
         ext = FilenameUtils.getExtension(file1.getName());
-
-        final UnpackDialog dialog = new UnpackDialog();
-        return dialog;
+        return new UnpackDialog();
     }
 
     @Override

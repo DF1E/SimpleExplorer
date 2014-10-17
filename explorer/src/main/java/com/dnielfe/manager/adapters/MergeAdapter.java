@@ -292,7 +292,7 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             return (null);
         }
 
-        return (sections.toArray(new Object[0]));
+        return (sections.toArray(new Object[sections.size()]));
     }
 
     private class CascadeDataSetObserver extends DataSetObserver {

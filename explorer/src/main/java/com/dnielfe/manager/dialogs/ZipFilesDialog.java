@@ -41,9 +41,7 @@ public final class ZipFilesDialog extends DialogFragment {
 
     public static DialogFragment instantiate(String[] files1) {
         files = files1;
-
-        final ZipFilesDialog dialog = new ZipFilesDialog();
-        return dialog;
+        return new ZipFilesDialog();
     }
 
     @Override

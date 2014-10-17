@@ -37,9 +37,7 @@ public final class RenameDialog extends DialogFragment {
 
     public static DialogFragment instantiate(String name1) {
         name = name1;
-
-        final RenameDialog dialog = new RenameDialog();
-        return dialog;
+        return new RenameDialog();
     }
 
     @Override

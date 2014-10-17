@@ -32,7 +32,7 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipUtils {
 
-    private static final int BUFFER = 2048;
+    private static final int BUFFER = 4096;
 
     public static void createZip(String[] files, String zipFile) {
         try {

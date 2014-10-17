@@ -89,8 +89,6 @@ public class SortUtils {
         if (Settings.reverseListView()) {
             Collections.reverse(content);
         }
-
-        return;
     }
 
     private static final Comparator<? super String> Comparator_ALPH = new Comparator<String>() {

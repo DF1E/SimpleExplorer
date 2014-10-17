@@ -55,9 +55,7 @@ public final class FilePropertiesDialog extends DialogFragment {
 
     public static DialogFragment instantiate(File file) {
         mFile = file;
-
-        final FilePropertiesDialog dialog = new FilePropertiesDialog();
-        return dialog;
+        return new FilePropertiesDialog();
     }
 
     @Override
@@ -457,7 +455,8 @@ public final class FilePropertiesDialog extends DialogFragment {
                 disableBoxes();
             }
 
-            mPermission = new Permissions(mFileInfo[0]);
+            if (mFileInfo != null)
+                mPermission = new Permissions(mFileInfo[0]);
 
             this.ur.setChecked(mPermission.ur);
             this.uw.setChecked(mPermission.uw);

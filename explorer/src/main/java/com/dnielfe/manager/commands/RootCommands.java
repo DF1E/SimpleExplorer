@@ -71,7 +71,7 @@ public class RootCommands {
         BufferedReader in;
 
         try {
-            in = execute("find " + getCommandLineString(path) + " -iname " + '*' + getCommandLineString(query) + '*' + " -exec ls -a {} \\;");
+            in = execute("find " + getCommandLineString(path) + " -type f -iname " + '*' + getCommandLineString(query) + '*' + " -exec ls -a {} \\;");
 
             String line;
             while ((line = in.readLine()) != null) {
@@ -244,7 +244,6 @@ public class RootCommands {
                 return null;
             }
             return reader;
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

@@ -32,11 +32,13 @@
         </activity>
         <activity
             android:name="com.dnielfe.manager.settings.SettingsActivity"
-            android:label="@string/settings" />
+            android:label="@string/settings"
+            android:parentActivityName=".BrowserActivity" />
         <activity
             android:name=".SearchActivity"
             android:label="@string/search"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".BrowserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

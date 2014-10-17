@@ -45,7 +45,7 @@ import java.util.ArrayList;
 
 public class SimpleUtils {
 
-    private static final int BUFFER = 2048;
+    private static final int BUFFER = 4096;
 
     // scan file after move/copy
     public static void requestMediaScanner(final Context context,
@@ -59,13 +59,7 @@ public class SimpleUtils {
         MediaScannerConnection.scanFile(context, paths, null, null);
     }
 
-    /*
-     * @param dir directory to search in
-     *
-     * @param fileName filename that is being searched for
-     *
-     * @param n ArrayList to populate results
-     */
+    // TODO: fix search with root
     private static void search_file(String dir, String fileName,
                                     ArrayList<String> n) {
         File root_dir = new File(dir);
@@ -83,10 +77,13 @@ public class SimpleUtils {
                     if (name.toLowerCase().contains(fileName.toLowerCase())) {
                         n.add(check.getPath());
 
+                    // change this!
                     } else if (check.canRead() && !dir.equals("/"))
                         search_file(check.getAbsolutePath(), fileName, n);
                 }
             }
+        } else {
+            n.addAll(RootCommands.findFiles(dir, fileName));
         }
     }
 
@@ -244,7 +241,6 @@ boolean success = false;
                                                       String fileName) {
         ArrayList<String> names = new ArrayList<String>();
         search_file(dir, fileName, names);
-
         return names;
     }
 
@@ -276,7 +272,7 @@ boolean success = false;
     private static byte[] createChecksum(String filename) throws Exception {
         InputStream fis = new FileInputStream(filename);
 
-        byte[] buffer = new byte[1024];
+        byte[] buffer = new byte[BUFFER];
         MessageDigest complete = MessageDigest.getInstance("MD5");
         int numRead;
 

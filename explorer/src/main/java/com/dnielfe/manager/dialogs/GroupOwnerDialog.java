@@ -46,9 +46,7 @@ public final class GroupOwnerDialog extends DialogFragment {
         String[] mFileInfo = RootCommands.getFileProperties(file);
         oldowner = mFileInfo[1];
         oldgroup = mFileInfo[2];
-
-        final GroupOwnerDialog dialog = new GroupOwnerDialog();
-        return dialog;
+        return new GroupOwnerDialog();
     }
 
     @Override

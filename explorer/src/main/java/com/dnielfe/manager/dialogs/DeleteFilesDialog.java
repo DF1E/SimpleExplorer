@@ -36,9 +36,7 @@ public final class DeleteFilesDialog extends DialogFragment {
 
     public static DialogFragment instantiate(String[] files1) {
         files = files1;
-
-        final DeleteFilesDialog dialog = new DeleteFilesDialog();
-        return dialog;
+        return new DeleteFilesDialog();
     }
 
     @Override

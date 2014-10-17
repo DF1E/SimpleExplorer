@@ -119,8 +119,9 @@ public class BrowserListAdapter extends BaseAdapter {
 
         mDataSource = SimpleUtils.listFiles(path);
 
-        // sort files with a comparator
-        SortUtils.sortList(mDataSource, path);
+        // sort files with a comparator if not empty
+        if (!mDataSource.isEmpty())
+            SortUtils.sortList(mDataSource, path);
 
         notifyDataSetChanged();
     }

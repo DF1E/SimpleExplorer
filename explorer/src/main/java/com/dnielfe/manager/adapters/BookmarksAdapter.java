@@ -41,11 +41,12 @@ import java.io.File;
 public class BookmarksAdapter extends SimpleCursorAdapter {
 
     private static final String[] fromColumns = {Bookmarks.NAME, Bookmarks.PATH};
-    private static int[] toViews = {R.id.title, R.id.path};
-    private Cursor mCursor;
-    private Context mContext;
-    private LayoutInflater mLayoutInflater;
-    private int mTitleIndex, mPathIndex;
+    private static final int[] toViews = {R.id.title, R.id.path};
+    private final Cursor mCursor;
+    private final Context mContext;
+    private final LayoutInflater mLayoutInflater;
+    private final int mTitleIndex;
+    private final int mPathIndex;
 
     public BookmarksAdapter(Context context, Cursor c) {
         super(context, R.layout.item_bookmark, c, fromColumns, toViews, 0);
@@ -113,9 +114,9 @@ public class BookmarksAdapter extends SimpleCursorAdapter {
     }
 
     private class ViewHolder {
-        ImageButton remove;
-        TextView title;
-        TextView path;
+        final ImageButton remove;
+        final TextView title;
+        final TextView path;
 
         ViewHolder(View v) {
             title = (TextView) v.findViewById(R.id.title);

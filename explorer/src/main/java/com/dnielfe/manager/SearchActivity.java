@@ -35,7 +35,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dnielfe.manager.adapters.BrowserListAdapter;
-import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
 
 import java.io.File;
@@ -158,17 +157,7 @@ public class SearchActivity extends ThemableActivity {
         @Override
         protected ArrayList<String> doInBackground(String... params) {
             String location = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
-            ArrayList<String> found;
-            File test = new File(location);
-
-            // TODO fix search with root
-            if (test.exists() && test.canRead()) {
-                found = SimpleUtils.searchInDirectory(location, params[0]);
-            } else {
-                found = RootCommands.findFiles(location, params[0]);
-            }
-
-            return found;
+            return SimpleUtils.searchInDirectory(location, params[0]);
         }
 
         @Override
@@ -188,10 +177,5 @@ public class SearchActivity extends ThemableActivity {
                         + getString(R.string._files));
             }
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
     }
 }
