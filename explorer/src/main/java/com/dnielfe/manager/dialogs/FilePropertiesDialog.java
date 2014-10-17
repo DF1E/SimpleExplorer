@@ -451,12 +451,11 @@ public final class FilePropertiesDialog extends DialogFragment {
             if (mFileInfo != null) {
                 mOwner.setText(mFileInfo[1]);
                 mGroup.setText(mFileInfo[2]);
+                mPermission = new Permissions(mFileInfo[0]);
             } else {
                 disableBoxes();
+                return;
             }
-
-            if (mFileInfo != null)
-                mPermission = new Permissions(mFileInfo[0]);
 
             this.ur.setChecked(mPermission.ur);
             this.uw.setChecked(mPermission.uw);
