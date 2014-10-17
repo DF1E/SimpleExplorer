@@ -34,7 +34,7 @@
     <string name="error">Erreur</string>
     <string name="exit">Quitter</string>
     <string name="extractto">Extraire vers</string>
-    <string name="extractionsuccess">Package successfully extracted.</string>
+    <string name="extractionsuccess">Paquet extrait avec succès.</string>
     <string name="filecreated">Fichier créé.</string>
     <string name="fileexists">Le fichier existe déjà.</string>
     <string name="files">" Fichiers"</string>
@@ -88,8 +88,8 @@
     <string name="write">Ecriture</string>
     <string name="execute">Executer</string>
     <string name="permissionschanged">Permissions modifées</string>
-    <string name="_files">\u0020file(s)</string>
-    <string name="_selected">\u0020selected</string>
+    <string name="_files">\u0020fichier(s)</string>
+    <string name="_selected">\u0020sélectionné</string>
     <string name="location">Emplacement:</string>
     <string name="total">Espace total:</string>
     <string name="free">Espace libre:</string>

@@ -32,7 +32,6 @@ This program licensed under http://www.gnu.org/licenses/gpl-2.0.html
 + twbetep - traditional chinese
 + taocp - simplified chinese
 + hoangnguyen - vietnamese
-+ scweeny - korean
 + logpc - french
 + atlasslusho - thai
 + mary-kate - finnish

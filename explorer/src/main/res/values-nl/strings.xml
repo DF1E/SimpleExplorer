@@ -16,7 +16,7 @@
     <string name="create">Aanmaken</string>
     <string name="created">" Aangemaakt."</string>
     <string name="createmsg">Zet een punt voor de mapnaam om de map onzichtbaar te maken.</string>
-    <string name="createnewfolder">Maak een nieuwe map</string>
+    <string name="createnewfolder">Nieuw map</string>
     <string name="defaultdir">Standaardlocatie</string>
     <string name="delete">Verwijderen</string>
     <string name="deletesuccess">Succesvol verwijderd</string>

@@ -6,7 +6,7 @@
     <string name="cancel">Cancelar</string>
     <string name="cannotbeundoneareyousureyouwanttodelete">"Isso não pode ser desfeito"</string>
     <string name="cantopenfile">Não é possível abrir este arquivo</string>
-    <string name="cantreadfolder">Não foi possivel ler pasta devido as permissões</string>
+    <string name="cantreadfolder">Não foi possível ler pasta devido as permissões</string>
     <string name="changegroupowner">Change group/owner</string>
     <string name="copiedtoclipboard">Copiados para o clipboard</string>
     <string name="copy">Copiar</string>
