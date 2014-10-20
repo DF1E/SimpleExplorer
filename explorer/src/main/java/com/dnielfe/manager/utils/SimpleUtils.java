@@ -78,8 +78,11 @@ public class SimpleUtils {
                         n.add(check.getPath());
 
                     // change this!
-                    } else if (check.canRead() && !dir.equals("/"))
+                    } else if (check.canRead() && !dir.equals("/")) {
                         search_file(check.getAbsolutePath(), fileName, n);
+                    } else if (check.getName().contains("data")) {
+                        n.addAll(RootCommands.findFiles(check.getAbsolutePath(), fileName));
+                    }
                 }
             }
         } else {
@@ -123,7 +126,7 @@ public class SimpleUtils {
 
         if (!old_file.renameTo(cp_file)) {
             copyToDirectory(old, newDir);
-            deleteTarget(old, newDir);
+            deleteTarget(old);
         }
     }
 
@@ -188,7 +191,7 @@ public class SimpleUtils {
     // name = new name
     public static boolean createDir(String path, String name) {
         File folder = new File(path, name);
-boolean success = false;
+        boolean success = false;
 
         if (folder.exists())
             success = false;
@@ -202,7 +205,7 @@ boolean success = false;
         return success;
     }
 
-    public static void deleteTarget(String path, String dir) {
+    public static void deleteTarget(String path) {
         File target = new File(path);
 
         if (target.isFile() && target.canWrite()) {
@@ -221,7 +224,7 @@ boolean success = false;
                                 + aFile_list);
 
                         if (temp_f.isDirectory())
-                            deleteTarget(temp_f.getAbsolutePath(), dir);
+                            deleteTarget(temp_f.getAbsolutePath());
                         else if (temp_f.isFile()) {
                             temp_f.delete();
                         }

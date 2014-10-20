@@ -44,14 +44,13 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class IconPreview {
 
-    private static ConcurrentMap<String, Bitmap> cache;
     private static DrawableLruCache<String> mMimeTypeIconCache;
+    private static BitmapLruCache<String> mBitmapCache;
     private static ExecutorService pool = null;
     private static Map<ImageView, String> imageViews = Collections
             .synchronizedMap(new ConcurrentHashMap<ImageView, String>());
@@ -64,19 +63,16 @@ public class IconPreview {
     public IconPreview(Activity activity) {
         mContext = activity;
         mWidth = (int) mContext.getResources().getDimension(R.dimen.item_height);
-        cache = new ConcurrentHashMap<String, Bitmap>();
         pool = Executors.newFixedThreadPool(5);
         mResources = activity.getResources();
         pm = mContext.getPackageManager();
 
-        if (mMimeTypeIconCache == null) {
-            mMimeTypeIconCache = new DrawableLruCache<String>();
-        }
+        mMimeTypeIconCache = new DrawableLruCache<String>();
+        mBitmapCache = new BitmapLruCache<String>();
     }
 
     public static void getFileIcon(File file, final ImageView icon) {
         if (Settings.showThumbnail() & isvalidMimeType(file)) {
-            icon.setTag(file.getAbsolutePath());
             loadBitmap(file, icon);
         } else {
             loadFromRes(file, icon);
@@ -121,14 +117,6 @@ public class IconPreview {
         }
     }
 
-    private static Bitmap getBitmapFromCache(String url) {
-        if (cache.containsKey(url)) {
-            return cache.get(url);
-        }
-
-        return null;
-    }
-
     private static void queueJob(final File uri, final ImageView imageView) {
         /* Create handler in UI thread. */
         final Handler handler = new Handler() {
@@ -157,13 +145,14 @@ public class IconPreview {
     }
 
     private static void loadBitmap(final File file, final ImageView imageView) {
+        imageView.setTag(file.getAbsolutePath());
         imageViews.put(imageView, file.getAbsolutePath());
-        Bitmap bitmap = getBitmapFromCache(file.getAbsolutePath());
+        Bitmap mimeIcon = mBitmapCache.get(file.getAbsolutePath());
 
         // check in UI thread, so no concurrency issues
-        if (bitmap != null) {
+        if (mimeIcon != null) {
             // Item loaded from cache
-            imageView.setImageBitmap(bitmap);
+            imageView.setImageBitmap(mimeIcon);
         } else {
             // here you can set a placeholder
             imageView.setImageBitmap(null);
@@ -193,13 +182,13 @@ public class IconPreview {
 
             mBitmap = BitmapFactory.decodeFile(path, o);
 
-            cache.put(path, mBitmap);
+            mBitmapCache.put(path, mBitmap);
             return mBitmap;
         } else if (isVideo) {
             mBitmap = ThumbnailUtils.createVideoThumbnail(path,
                     MediaStore.Video.Thumbnails.MICRO_KIND);
 
-            cache.put(path, mBitmap);
+            mBitmapCache.put(path, mBitmap);
             return mBitmap;
         } else if (isApk) {
             final PackageInfo packageInfo = pm.getPackageArchiveInfo(path,
@@ -223,7 +212,7 @@ public class IconPreview {
                         R.drawable.type_apk);
             }
 
-            cache.put(path, mBitmap);
+            mBitmapCache.put(path, mBitmap);
             return mBitmap;
         }
         return null;

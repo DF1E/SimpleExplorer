@@ -91,10 +91,6 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
         setRetainInstance(true);
         setHasOptionsMenu(true);
         super.onCreate(state);
-
-        if (state != null) {
-            navigateTo(state.getString("location"));
-        }
     }
 
     @Override

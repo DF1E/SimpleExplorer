@@ -26,7 +26,6 @@ import android.media.MediaScannerConnection;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.SimpleUtils;
 
@@ -71,10 +70,7 @@ public final class DeleteTask extends AsyncTask<String, Void, List<String>> {
         final List<String> failed = new ArrayList<String>();
 
         for (String str : files) {
-            SimpleUtils
-                    .deleteTarget(
-                            str,
-                            BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath);
+            SimpleUtils.deleteTarget(str);
         }
 
         MediaScannerConnection.scanFile(activity, files, null, null);
