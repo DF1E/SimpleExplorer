@@ -1,13 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion '19.1.0'
+    compileSdkVersion 21
+    buildToolsVersion '21.0.2'
 
     defaultConfig {
         applicationId 'com.viewpagerindicator'
         minSdkVersion 14
-        targetSdkVersion 19
+        targetSdkVersion 21
         versionName "2.4.1"
         versionCode 65
     }
