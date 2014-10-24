@@ -16,6 +16,7 @@
     <attr name="action_multi" format="reference" />
     <attr name="ic_bookmark" format="reference" />
     <attr name="ic_drawer" format="reference" />
+    <attr name="fab_drawable" format="reference" />
 
     <!-- background -->
     <attr name="bookmark_windoBackground" format="reference" />

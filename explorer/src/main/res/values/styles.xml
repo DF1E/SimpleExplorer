@@ -6,6 +6,7 @@
         <item name="android:windowBackground">@color/holo_light_window_background</item>
         <item name="bookmark_windoBackground">@color/white</item>
         <item name="ic_drawer">@drawable/holo_light_ic_drawer</item>
+        <item name="fab_drawable">@drawable/holo_light_ic_action_new</item>
         <item name="action_copy">@drawable/holo_light_action_copy</item>
         <item name="action_cut">@drawable/holo_light_action_cut</item>
         <item name="action_edit">@drawable/holo_light_action_edit</item>
@@ -26,6 +27,7 @@
         <item name="bookmark_windoBackground">@color/darkgray</item>
         <item name="android:actionBarStyle">@style/actionBarStyleDark</item>
         <item name="ic_drawer">@drawable/holo_dark_ic_drawer</item>
+        <item name="fab_drawable">@drawable/holo_light_ic_action_new</item>
         <item name="action_copy">@drawable/holo_dark_action_copy</item>
         <item name="action_cut">@drawable/holo_dark_action_cut</item>
         <item name="action_edit">@drawable/holo_dark_action_edit</item>

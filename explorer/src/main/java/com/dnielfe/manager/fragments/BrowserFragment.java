@@ -184,9 +184,6 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
         });
 
         FloatingActionButton mFab = (FloatingActionButton) rootView.findViewById(R.id.fabbutton);
-        mFab.setColor(getResources().getColor(R.color.fab_background));
-        mFab.setDrawable(getResources().getDrawable(R.drawable.holo_light_ic_action_new));
-
         mFab.listenTo(mListView);
         mFab.setOnClickListener(new OnClickListener() {
             @Override

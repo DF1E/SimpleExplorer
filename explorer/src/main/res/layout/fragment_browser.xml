@@ -10,7 +10,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/empty"
-        android:textSize="20sp" />
+        android:textSize="22sp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -32,7 +32,9 @@
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="16dp"
             android:layout_marginRight="16dp"
-            android:focusable="true" />
+            android:focusable="true"
+            android:color="@color/fab_background"
+            android:drawable="?attr/fab_drawable"/>
     </FrameLayout>
 
 </RelativeLayout>
