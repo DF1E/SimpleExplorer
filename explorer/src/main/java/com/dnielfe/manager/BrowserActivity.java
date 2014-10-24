@@ -110,6 +110,11 @@ public final class BrowserActivity extends ThemableActivity implements
             mNavigation.removeOnNavigateListener(this);
     }
 
+    @Override
+    public void onTrimMemory(int level) {
+        IconPreview.clearCache();
+    }
+
     public void setCurrentlyDisplayedFragment(final BrowserFragment fragment) {
         mBrowserFragment = fragment;
     }

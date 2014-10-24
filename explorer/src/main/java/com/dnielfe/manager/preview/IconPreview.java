@@ -63,7 +63,7 @@ public class IconPreview {
     public IconPreview(Activity activity) {
         mContext = activity;
         mWidth = (int) mContext.getResources().getDimension(R.dimen.item_height);
-        pool = Executors.newFixedThreadPool(5);
+        pool = Executors.newFixedThreadPool(6);
         mResources = activity.getResources();
         pm = mContext.getPackageManager();
 
@@ -216,5 +216,10 @@ public class IconPreview {
             return mBitmap;
         }
         return null;
+    }
+
+    public static void clearCache() {
+        mMimeTypeIconCache.evictAll();
+        mBitmapCache.evictAll();
     }
 }
