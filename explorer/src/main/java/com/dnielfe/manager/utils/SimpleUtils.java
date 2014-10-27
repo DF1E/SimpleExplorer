@@ -77,7 +77,7 @@ public class SimpleUtils {
                     if (name.toLowerCase().contains(fileName.toLowerCase())) {
                         n.add(check.getPath());
 
-                    // change this!
+                        // change this!
                     } else if (check.canRead() && !dir.equals("/")) {
                         search_file(check.getAbsolutePath(), fileName, n);
                     } else if (check.getName().contains("data")) {
@@ -327,9 +327,16 @@ public class SimpleUtils {
             Intent intent = new Intent();
             intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
             intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, file.getName());
-            intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                    Intent.ShortcutIconResource.fromContext(main,
-                            R.drawable.ic_launcher));
+
+            if (file.isFile())
+                intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                        Intent.ShortcutIconResource.fromContext(main,
+                                R.drawable.type_unknown));
+            else
+                intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                        Intent.ShortcutIconResource.fromContext(main,
+                                R.drawable.ic_launcher));
+
             intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
             main.sendBroadcast(intent);
 

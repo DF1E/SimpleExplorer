@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ThemeLight" parent="android:Theme.Holo.Light">
+    <style name="ThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="themeId">1</item>
+        <item name="android:colorPrimary">@color/light_color_primary</item>
+        <item name="android:colorPrimaryDark">@color/light_color_primaryDark</item>
         <item name="android:windowBackground">@color/holo_light_window_background</item>
-        <item name="bookmark_windoBackground">@color/white</item>
+        <item name="bookmark_windoBackground">@color/light_bookmark_bg</item>
         <item name="ic_drawer">@drawable/holo_light_ic_drawer</item>
-        <item name="fab_drawable">@drawable/holo_light_ic_action_new</item>
+        <item name="fab_drawable">@drawable/holo_dark_ic_action_new</item>
         <item name="action_copy">@drawable/holo_light_action_copy</item>
         <item name="action_cut">@drawable/holo_light_action_cut</item>
         <item name="action_edit">@drawable/holo_light_action_edit</item>
@@ -21,11 +23,12 @@
         <item name="action_share">@drawable/holo_light_action_share</item>
     </style>
 
-    <style name="ThemeDark" parent="android:Theme.Holo">
+    <style name="ThemeDark" parent="Theme.AppCompat.NoActionBar">
         <item name="themeId">2</item>
+        <item name="android:colorPrimary">@color/dark_color_primary</item>
+        <item name="android:colorPrimaryDark">@color/dark_color_primaryDark</item>
         <item name="android:windowBackground">@color/holo_dark_window_background</item>
-        <item name="bookmark_windoBackground">@color/darkgray</item>
-        <item name="android:actionBarStyle">@style/actionBarStyleDark</item>
+        <item name="bookmark_windoBackground">@color/dark_bookmark_bg</item>
         <item name="ic_drawer">@drawable/holo_dark_ic_drawer</item>
         <item name="fab_drawable">@drawable/holo_light_ic_action_new</item>
         <item name="action_copy">@drawable/holo_dark_action_copy</item>
@@ -40,11 +43,6 @@
         <item name="action_remove">@drawable/holo_dark_action_remove</item>
         <item name="action_search">@drawable/holo_dark_action_search</item>
         <item name="action_share">@drawable/holo_dark_action_share</item>
-    </style>
-
-    <style name="actionBarStyleDark" parent="@android:style/Widget.ActionBar">
-        <item name="android:background">@color/holo_dark_actionbar_background</item>
-        <item name="android:backgroundSplit">@color/holo_dark_actionbar_background</item>
     </style>
 
 </resources>

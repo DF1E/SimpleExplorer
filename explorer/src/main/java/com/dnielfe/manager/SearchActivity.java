@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +52,13 @@ public class SearchActivity extends ThemableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        // set up ActionBar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // init
         init();
 
         if (savedInstanceState != null) {
@@ -78,10 +86,6 @@ public class SearchActivity extends ThemableActivity {
     }
 
     private void init() {
-        mActionBar = getActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.show();
-
         mAdapter = new BrowserListAdapter(this, getLayoutInflater());
 
         mListView = (ListView) findViewById(android.R.id.list);

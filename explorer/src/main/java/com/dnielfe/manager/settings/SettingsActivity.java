@@ -19,9 +19,9 @@
 
 package com.dnielfe.manager.settings;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.dnielfe.manager.BrowserActivity;
@@ -35,9 +35,14 @@ public class SettingsActivity extends ThemableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.show();
+        // set up ActionBar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (savedInstanceState == null)
+            getSupportActionBar().setTitle(getString(R.string.settings));
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

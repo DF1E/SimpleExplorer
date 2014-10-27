@@ -23,7 +23,8 @@
             android:singleLine="true"
             android:text="@string/desc"
             android:textIsSelectable="false"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textColor="?android:colorAccent" />
 
         <TextView
             android:id="@+id/path"
