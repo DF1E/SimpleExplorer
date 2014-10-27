@@ -3,13 +3,14 @@
 
     <style name="ThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="themeId">1</item>
+        <item name="windowActionModeOverlay">true</item>
 
-        <item name="android:colorPrimary">@color/light_color_primary</item>
-        <item name="android:colorPrimaryDark">@color/light_color_primaryDark</item>
+        <!-- android colors -->
+        <item name="colorPrimary">@color/light_color_primary</item>
+        <item name="colorPrimaryDark">@color/light_color_primaryDark</item>
         <item name="android:windowBackground">@color/holo_light_window_background</item>
 
-        <!-- custom backgrounds -->
-        <item name="toolbar_background">@color/light_color_primary</item>
+        <!-- custom colors -->
         <item name="bookmark_windoBackground">@color/light_bookmark_bg</item>
 
         <!-- drawables -->
@@ -31,13 +32,14 @@
 
     <style name="ThemeDark" parent="Theme.AppCompat.NoActionBar">
         <item name="themeId">2</item>
+        <item name="windowActionModeOverlay">true</item>
 
-        <item name="android:colorPrimary">@color/dark_color_primary</item>
-        <item name="android:colorPrimaryDark">@color/dark_color_primaryDark</item>
+        <!-- android colors -->
+        <item name="colorPrimary">@color/dark_color_primary</item>
+        <item name="colorPrimaryDark">@color/dark_color_primaryDark</item>
         <item name="android:windowBackground">@color/holo_dark_window_background</item>
 
-        <!-- custom backgrounds -->
-        <item name="toolbar_background">@color/dark_color_primary</item>
+        <!-- custom colors -->
         <item name="bookmark_windoBackground">@color/dark_bookmark_bg</item>
 
         <!-- drawables -->

@@ -33,7 +33,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="@string/desc"
-            android:textColor="@color/gray"
+            android:textColor="?colorAccent"
             android:textIsSelectable="false" />
     </LinearLayout>
 

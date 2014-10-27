@@ -19,7 +19,6 @@
 
 package com.dnielfe.manager;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -43,7 +42,6 @@ import java.util.ArrayList;
 
 public class SearchActivity extends ThemableActivity {
 
-    private ActionBar mActionBar;
     private ListView mListView;
     private BrowserListAdapter mAdapter;
 
@@ -65,7 +63,7 @@ public class SearchActivity extends ThemableActivity {
             mAdapter.addContent(savedInstanceState
                     .getStringArrayList("savedList"));
 
-            mActionBar.setSubtitle(String.valueOf(mAdapter.getCount())
+            getSupportActionBar().setSubtitle(String.valueOf(mAdapter.getCount())
                     + getString(R.string._files));
         } else {
             // open search interface at start if savedInstanceState = null
@@ -173,11 +171,10 @@ public class SearchActivity extends ThemableActivity {
             if (len == 0) {
                 Toast.makeText(context, R.string.itcouldntbefound,
                         Toast.LENGTH_SHORT).show();
-                mActionBar.setSubtitle(null);
+                getSupportActionBar().setSubtitle(null);
             } else {
                 mAdapter.addContent(files);
-
-                mActionBar.setSubtitle(String.valueOf(len)
+                getSupportActionBar().setSubtitle(String.valueOf(len)
                         + getString(R.string._files));
             }
         }

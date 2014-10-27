@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1.5dp"
                 android:background="?android:attr/dividerHorizontal"
-                vpi:selectedColor="?android:colorAccent" />
+                vpi:selectedColor="?colorAccent" />
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"

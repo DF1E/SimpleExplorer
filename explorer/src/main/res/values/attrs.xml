@@ -19,7 +19,6 @@
 
     <!-- background -->
     <attr name="bookmark_windoBackground" format="reference" />
-    <attr name="toolbar_background" format="reference" />
     <attr name="fab_drawable" format="reference" />
 
     <!-- theme ID -->

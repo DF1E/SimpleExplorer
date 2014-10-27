@@ -5,4 +5,4 @@
     android:layout_height="?attr/actionBarSize"
     android:layout_width="match_parent"
     android:minHeight="?attr/actionBarSize"
-    android:background="?attr/toolbar_background" />
+    android:background="?colorPrimary" />
