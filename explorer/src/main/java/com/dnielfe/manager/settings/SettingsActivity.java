@@ -39,9 +39,6 @@ public class SettingsActivity extends ThemableActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (savedInstanceState == null)
-            getSupportActionBar().setTitle(getString(R.string.settings));
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

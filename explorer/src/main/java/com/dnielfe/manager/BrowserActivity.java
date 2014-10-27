@@ -82,9 +82,6 @@ public final class BrowserActivity extends ThemableActivity implements
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (savedInstanceState == null)
-            getSupportActionBar().setTitle(getString(R.string.app_name));
-
         init();
     }
 

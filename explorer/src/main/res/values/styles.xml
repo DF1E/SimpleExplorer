@@ -3,10 +3,16 @@
 
     <style name="ThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="themeId">1</item>
+
         <item name="android:colorPrimary">@color/light_color_primary</item>
         <item name="android:colorPrimaryDark">@color/light_color_primaryDark</item>
         <item name="android:windowBackground">@color/holo_light_window_background</item>
+
+        <!-- custom backgrounds -->
+        <item name="toolbar_background">@color/light_color_primary</item>
         <item name="bookmark_windoBackground">@color/light_bookmark_bg</item>
+
+        <!-- drawables -->
         <item name="ic_drawer">@drawable/holo_light_ic_drawer</item>
         <item name="fab_drawable">@drawable/holo_dark_ic_action_new</item>
         <item name="action_copy">@drawable/holo_light_action_copy</item>
@@ -25,10 +31,16 @@
 
     <style name="ThemeDark" parent="Theme.AppCompat.NoActionBar">
         <item name="themeId">2</item>
+
         <item name="android:colorPrimary">@color/dark_color_primary</item>
         <item name="android:colorPrimaryDark">@color/dark_color_primaryDark</item>
         <item name="android:windowBackground">@color/holo_dark_window_background</item>
+
+        <!-- custom backgrounds -->
+        <item name="toolbar_background">@color/dark_color_primary</item>
         <item name="bookmark_windoBackground">@color/dark_bookmark_bg</item>
+
+        <!-- drawables -->
         <item name="ic_drawer">@drawable/holo_dark_ic_drawer</item>
         <item name="fab_drawable">@drawable/holo_light_ic_action_new</item>
         <item name="action_copy">@drawable/holo_dark_action_copy</item>

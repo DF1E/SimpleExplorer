@@ -5,4 +5,5 @@
     android:layout_centerVertical="true"
     android:gravity="center_vertical"
     android:padding="6dp"
-    android:textSize="17sp" />
+    android:textSize="17sp"
+    android:textColor="?android:textColorPrimary"/>
