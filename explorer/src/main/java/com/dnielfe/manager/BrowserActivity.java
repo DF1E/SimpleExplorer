@@ -90,7 +90,7 @@ public final class BrowserActivity extends ThemableActivity implements
         super.onResume();
         Settings.updatePreferences(this);
 
-        invalidateOptionsMenu();
+        supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -266,9 +266,12 @@ public final class BrowserActivity extends ThemableActivity implements
 
     @Override
     public boolean onKeyDown(int keycode, @NonNull KeyEvent event) {
+        if (keycode != KeyEvent.KEYCODE_BACK)
+            return false;
+
         if (isDrawerOpen())
             mDrawerLayout.closeDrawer(mDrawer);
-        return mBrowserFragment.onBackPressed(keycode);
+        return mBrowserFragment.onBackPressed();
     }
 
     @Override

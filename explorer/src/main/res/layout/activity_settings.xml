@@ -6,9 +6,8 @@
 
     <include layout="@layout/support_toolbar" />
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    <fragment android:name="com.dnielfe.manager.settings.SettingsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="com.dnielfe.manager.settings.SettingsFragment"
         android:tag="settingsFragment" />
 </LinearLayout>

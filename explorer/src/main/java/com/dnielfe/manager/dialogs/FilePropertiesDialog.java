@@ -236,7 +236,9 @@ public final class FilePropertiesDialog extends DialogFragment {
         }
 
         private final class LoadFsTask extends AsyncTask<File, Void, String> {
-            private long size = 0;
+            private String size;
+            private String time;
+            private String md5;
 
             @Override
             protected void onPreExecute() {
@@ -249,36 +251,32 @@ public final class FilePropertiesDialog extends DialogFragment {
             @Override
             protected String doInBackground(final File... params) {
                 DateFormat df = DateFormat.getDateTimeInstance();
-                String mDisplaySize;
 
-                mTimeLabel.setText(df.format(file3.lastModified()));
+                if (!file3.canRead())
+                    return null;
 
-                if (!file3.canRead()) {
-                    mDisplaySize = "-";
-                    return mDisplaySize;
-                } else if (file3.isFile()) {
-                    size = file3.length();
-                } else {
-                    size = FileUtils.sizeOfDirectory(file3);
-                }
-
-                return FileUtils.byteCountToDisplaySize(size);
-            }
-
-            @Override
-            protected void onPostExecute(final String result) {
-                mSizeLabel.setText(result);
+                time = df.format(file3.lastModified());
 
                 if (file3.isFile()) {
+                    size = FileUtils.byteCountToDisplaySize(file3.length());
+
                     try {
-                        mMD5Label.setText(SimpleUtils.getMD5Checksum(file3
-                                .getPath()));
+                        md5 = SimpleUtils.getMD5Checksum(file3.getPath());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {
-                    mMD5Label.setText("-");
+                    size = FileUtils.byteCountToDisplaySize(FileUtils.sizeOfDirectory(file3));
                 }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(final String result) {
+                mSizeLabel.setText(size);
+                mTimeLabel.setText(time);
+                mMD5Label.setText(md5);
             }
         }
     }

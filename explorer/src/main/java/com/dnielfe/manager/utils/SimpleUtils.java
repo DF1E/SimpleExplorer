@@ -275,7 +275,7 @@ public class SimpleUtils {
     private static byte[] createChecksum(String filename) throws Exception {
         InputStream fis = new FileInputStream(filename);
 
-        byte[] buffer = new byte[BUFFER];
+        byte[] buffer = new byte[2 * BUFFER];
         MessageDigest complete = MessageDigest.getInstance("MD5");
         int numRead;
 

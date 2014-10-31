@@ -4,7 +4,8 @@
     <item
         android:id="@+id/action_search"
         android:icon="?attr/action_search"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="android.support.v7.widget.SearchView"
         android:title="@string/search" />
 
 </menu>

@@ -14,7 +14,6 @@
 -dontpreverify
 
 # avoid errors
--keep class com.github.junrar.**
 -dontwarn com.github.junrar.**
 -dontwarn android.support.**
 
@@ -35,7 +34,7 @@
 #-repackageclasses ''
 
 #Uncomment if using annotations to keep them.
-#-keepattributes *Annotation*
+-keepattributes *Annotation*
 
 #Keep classes that are referenced on the AndroidManifest
 -keep public class * extends android.app.Activity

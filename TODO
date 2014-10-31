@@ -2,20 +2,14 @@ TODO:
 ==========================================================
 -	fix fileobserver not working some dirs (e.g. /data)
 
--	use more commons io fileutils
-
 -	add gridview
 
 -	improve shortcut
 
 -	show progress on asynctasks
 
--	search everywhere (use root access)
-
 -	custom search preferences
 
 -	fix creating thumbnail after move/copy some files
 
 -	fix: after changing theme the current fragment won't be continued
-
--	fix SavedInstance NPE after go to settings

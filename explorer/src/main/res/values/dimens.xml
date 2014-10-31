@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Actionbar height -->
-    <dimen name="actionbar_height">48dp</dimen>
+    <!-- navigation view height -->
+    <dimen name="nav_height">48dp</dimen>
 
-    <!-- ListItem height -->
+    <!-- list item height -->
     <dimen name="item_height">55dp</dimen>
 
     <!-- Navigation drawer width -->
@@ -12,5 +12,8 @@
 
     <!-- drawer menu item height -->
     <dimen name="drawer_menu_item_height">48dp</dimen>
+
+    <!-- properties container height -->
+    <dimen name="container_height">255dp</dimen>
 
 </resources>
