@@ -75,6 +75,10 @@ public final class ActionModeController {
         this.mListView.setMultiChoiceModeListener(this.multiChoiceListener);
     }
 
+    public boolean isActionMode() {
+        return mActionMode != null;
+    }
+
     private final class MultiChoiceListener implements MultiChoiceModeListener {
         final String mSelected = mActivity.getString(R.string._selected);
 

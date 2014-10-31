@@ -39,6 +39,10 @@ public class SortUtils {
     public static void sortList(ArrayList<String> content,
                                 String current) {
         int len = content != null ? content.size() : 0;
+
+        if (len == 0)
+            return;
+
         int index = 0;
         String[] items = new String[len];
         content.toArray(items);

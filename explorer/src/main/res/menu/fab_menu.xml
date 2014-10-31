@@ -3,11 +3,9 @@
 
     <item
         android:id="@+id/createfile"
-        android:showAsAction="ifRoom"
         android:title="@string/newfile" />
     <item
         android:id="@+id/createfolder"
-        android:showAsAction="ifRoom"
         android:title="@string/createnewfolder" />
 
 </menu>

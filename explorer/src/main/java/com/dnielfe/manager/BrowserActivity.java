@@ -19,19 +19,18 @@
 
 package com.dnielfe.manager;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,7 +59,6 @@ public final class BrowserActivity extends ThemableActivity implements
     public static final String EXTRA_SHORTCUT = "shortcut_path";
     public static final String TAG_DIALOG = "dialog";
 
-    private ActionBar mActionBar;
     private static MergeAdapter mMergeAdapter;
     private static BookmarksAdapter mBookmarksAdapter;
     private static DrawerListAdapter mMenuAdapter;
@@ -70,6 +68,7 @@ public final class BrowserActivity extends ThemableActivity implements
     private static DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Cursor mBookmarksCursor;
+    private Toolbar toolbar;
 
     private FragmentManager fm;
     private BrowserTabsAdapter mPagerAdapter;
@@ -80,6 +79,9 @@ public final class BrowserActivity extends ThemableActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         init();
     }
 
@@ -88,7 +90,7 @@ public final class BrowserActivity extends ThemableActivity implements
         super.onResume();
         Settings.updatePreferences(this);
 
-        invalidateOptionsMenu();
+        supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -127,10 +129,6 @@ public final class BrowserActivity extends ThemableActivity implements
         fm = getFragmentManager();
         mNavigation = new NavigationView(this);
 
-        mActionBar = this.getActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.show();
-
         setupDrawer();
         initDrawerList();
 
@@ -153,10 +151,6 @@ public final class BrowserActivity extends ThemableActivity implements
     }
 
     private void setupDrawer() {
-        final TypedArray array = obtainStyledAttributes(new int[]{R.attr.themeId});
-        final int themeId = array.getInteger(0, SimpleExplorer.THEME_ID_LIGHT);
-        array.recycle();
-
         mDrawer = (ListView) findViewById(R.id.left_drawer);
 
         // Set shadow of navigation drawer
@@ -164,23 +158,17 @@ public final class BrowserActivity extends ThemableActivity implements
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
                 GravityCompat.START);
 
-        int icon = themeId == SimpleExplorer.THEME_ID_LIGHT ? R.drawable.holo_light_ic_drawer
-                : R.drawable.holo_dark_ic_drawer;
-
         // Add Navigation Drawer to ActionBar
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, icon,
-                R.string.drawer_open, R.string.drawer_close) {
-
+        mDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this, mDrawerLayout,
+                toolbar, R.string.drawer_open, R.string.drawer_close) {
             @Override
-            public void onDrawerOpened(View view) {
-                super.onDrawerOpened(view);
-                invalidateOptionsMenu();
+            public void onDrawerOpened(View drawerView) {
+                supportInvalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                invalidateOptionsMenu();
+                supportInvalidateOptionsMenu();
             }
         };
 
@@ -278,9 +266,12 @@ public final class BrowserActivity extends ThemableActivity implements
 
     @Override
     public boolean onKeyDown(int keycode, @NonNull KeyEvent event) {
+        if (keycode != KeyEvent.KEYCODE_BACK)
+            return false;
+
         if (isDrawerOpen())
             mDrawerLayout.closeDrawer(mDrawer);
-        return mBrowserFragment.onBackPressed(keycode);
+        return mBrowserFragment.onBackPressed();
     }
 
     @Override

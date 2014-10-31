@@ -26,7 +26,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.FileObserver;
 import android.os.Handler;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -332,10 +331,10 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
                     if (dir.exists() && dir.isFile())
                         listItemAction(dir);
                     // you need to call it when shortcut-dir not exists
-                    defaultdir = Settings.defaultdir;
+                    defaultdir = Settings.getDefaultDir();
                 }
             } catch (Exception e) {
-                defaultdir = Settings.defaultdir;
+                defaultdir = Settings.getDefaultDir();
             }
         }
 
@@ -375,24 +374,24 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
         }
     }
 
-    public boolean onBackPressed(int keycode) {
-        if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
-                && !mCurrentPath.equals("/")) {
+    public boolean onBackPressed() {
+        if (mUseBackKey && mActionController.isActionMode()) {
+            mActionController.finishActionMode();
+            return true;
+        } else if (mUseBackKey && !mCurrentPath.equals("/")) {
             File file = new File(mCurrentPath);
             navigateTo(file.getParent());
 
             // get position of the previous folder in ListView
             mListView.setSelection(mListAdapter.getPosition(file.getPath()));
             return true;
-        } else if (keycode == KeyEvent.KEYCODE_BACK && mUseBackKey
-                && mCurrentPath.equals("/")) {
+        } else if (mUseBackKey && mCurrentPath.equals("/")) {
             Toast.makeText(mActivity, getString(R.string.pressbackagaintoquit),
                     Toast.LENGTH_SHORT).show();
 
             mUseBackKey = false;
             return false;
-        } else if (keycode == KeyEvent.KEYCODE_BACK && !mUseBackKey
-                && mCurrentPath.equals("/")) {
+        } else if (!mUseBackKey && mCurrentPath.equals("/")) {
             mActivity.finish();
             return false;
         }

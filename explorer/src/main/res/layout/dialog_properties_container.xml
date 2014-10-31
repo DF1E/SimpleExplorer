@@ -11,7 +11,7 @@
 
         <ToggleButton
             android:id="@+id/tab1"
-            style="?android:attr/actionBarTabTextStyle"
+            style="?actionBarTabTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -28,7 +28,7 @@
 
         <ToggleButton
             android:id="@+id/tab2"
-            style="?android:attr/actionBarTabTextStyle"
+            style="?actionBarTabTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -40,6 +40,6 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/tabsContainer"
         android:layout_width="match_parent"
-        android:layout_height="250dp" />
+        android:layout_height="@dimen/container_height" />
 
 </LinearLayout>

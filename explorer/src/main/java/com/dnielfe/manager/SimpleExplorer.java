@@ -25,12 +25,10 @@ import com.dnielfe.manager.settings.Settings;
 
 public final class SimpleExplorer extends Application {
 
-    public static final int THEME_ID_LIGHT = 1;
-
     @Override
     public void onCreate() {
         super.onCreate();
-        // get default preferences at start
+        // get default preferences at start - we need this for setting the theme
         Settings.updatePreferences(this);
     }
 }

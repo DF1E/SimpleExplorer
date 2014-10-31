@@ -23,7 +23,8 @@
             android:singleLine="true"
             android:text="@string/desc"
             android:textIsSelectable="false"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textColor="?android:textColorPrimary" />
 
         <TextView
             android:id="@+id/path"
@@ -32,7 +33,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="@string/desc"
-            android:textColor="@color/gray"
+            android:textColor="?colorAccent"
             android:textIsSelectable="false" />
     </LinearLayout>
 

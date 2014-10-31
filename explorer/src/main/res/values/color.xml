@@ -6,12 +6,15 @@
     <color name="vpindicator_bg">#a8a8a8</color>
 
     <!-- ligth theme -->
-    <color name="white">#ffffff</color>
+    <color name="light_bookmark_bg">#fbfbfb</color>
+    <color name="light_color_primary">#e0e0e0</color>
+    <color name="light_color_primaryDark">#212121</color>
     <color name="holo_light_window_background">#F0F0F0</color>
 
     <!-- dark theme -->
-    <color name="darkgray">#444444</color>
-    <color name="holo_dark_window_background">#1f1f1f</color>
-    <color name="holo_dark_actionbar_background">#0f0f0f</color>
+    <color name="dark_bookmark_bg">#333333</color>
+    <color name="dark_color_primary">#131313</color>
+    <color name="dark_color_primaryDark">#090909</color>
+    <color name="holo_dark_window_background">#222222</color>
 
 </resources>

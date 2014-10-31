@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/paste"
         android:icon="?attr/action_paste"
-        android:showAsAction="ifRoom"
+        app:showAsAction="ifRoom"
         android:title="@string/paste" />
     <item
         android:id="@+id/folderinfo"
         android:icon="?attr/action_info"
-        android:showAsAction="ifRoom"
+        app:showAsAction="ifRoom"
         android:title="@string/dir_info" />
     <item
         android:id="@+id/search"
         android:icon="?attr/action_search"
-        android:showAsAction="ifRoom"
+        app:showAsAction="ifRoom"
         android:title="@string/search" />
 
 </menu>

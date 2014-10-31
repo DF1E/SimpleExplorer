@@ -36,7 +36,7 @@ public final class Settings {
     public static int mListAppearance;
     public static int mSortType;
     public static int mTheme;
-    public static String defaultdir;
+    private static String defaultdir;
 
     public static void updatePreferences(Context context) {
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
@@ -69,5 +69,9 @@ public final class Settings {
 
     public static boolean reverseListView() {
         return reverseList;
+    }
+
+    public static String getDefaultDir() {
+        return defaultdir;
     }
 }

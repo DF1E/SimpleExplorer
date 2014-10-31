@@ -19,14 +19,15 @@
 
 package com.dnielfe.manager;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
-import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,9 +41,8 @@ import com.dnielfe.manager.utils.SimpleUtils;
 import java.io.File;
 import java.util.ArrayList;
 
-public class SearchActivity extends ThemableActivity {
+public class SearchActivity extends ThemableActivity implements SearchView.OnQueryTextListener {
 
-    private ActionBar mActionBar;
     private ListView mListView;
     private BrowserListAdapter mAdapter;
 
@@ -51,24 +51,22 @@ public class SearchActivity extends ThemableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        // set up ActionBar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // init
         init();
 
         if (savedInstanceState != null) {
             mAdapter.addContent(savedInstanceState
                     .getStringArrayList("savedList"));
 
-            mActionBar.setSubtitle(String.valueOf(mAdapter.getCount())
+            getSupportActionBar().setSubtitle(String.valueOf(mAdapter.getCount())
                     + getString(R.string._files));
-        } else {
-            // open search interface at start if savedInstanceState = null
-            this.onSearchRequested();
         }
-    }
-
-    @Override
-    public void onNewIntent(Intent intent) {
-        setIntent(intent);
-        SearchIntent(intent);
     }
 
     @Override
@@ -78,10 +76,6 @@ public class SearchActivity extends ThemableActivity {
     }
 
     private void init() {
-        mActionBar = getActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.show();
-
         mAdapter = new BrowserListAdapter(this, getLayoutInflater());
 
         mListView = (ListView) findViewById(android.R.id.list);
@@ -105,29 +99,18 @@ public class SearchActivity extends ThemableActivity {
         });
     }
 
-    private void SearchIntent(Intent intent) {
-        setIntent(intent);
-
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String mQuery = intent.getStringExtra(SearchManager.QUERY);
-
-            if (mQuery.length() > 0) {
-                SearchTask mTask = new SearchTask(this);
-                mTask.execute(mQuery);
-            }
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(this);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case android.R.id.home:
                 this.onBackPressed();
                 return true;
@@ -137,6 +120,23 @@ public class SearchActivity extends ThemableActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(final String query) {
+        if (TextUtils.isEmpty(query)) {
+            return false;
+        }
+
+        SearchTask mTask = new SearchTask(this);
+        mTask.execute(query);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(final String query) {
+        // do nothing
+        return false;
     }
 
     private class SearchTask extends AsyncTask<String, Void, ArrayList<String>> {
@@ -169,11 +169,10 @@ public class SearchActivity extends ThemableActivity {
             if (len == 0) {
                 Toast.makeText(context, R.string.itcouldntbefound,
                         Toast.LENGTH_SHORT).show();
-                mActionBar.setSubtitle(null);
+                getSupportActionBar().setSubtitle(null);
             } else {
                 mAdapter.addContent(files);
-
-                mActionBar.setSubtitle(String.valueOf(len)
+                getSupportActionBar().setSubtitle(String.valueOf(len)
                         + getString(R.string._files));
             }
         }
