@@ -40,6 +40,7 @@ import com.dnielfe.manager.R;
 import com.dnielfe.manager.commands.Permissions;
 import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
+import com.viewpagerindicator.UnderlinePageIndicator;
 
 import org.apache.commons.io.FileUtils;
 
@@ -86,36 +87,9 @@ public final class FilePropertiesDialog extends DialogFragment {
                 .findViewById(R.id.tabsContainer);
         pager.setAdapter(mAdapter);
 
-        final CompoundButton tab1 = (CompoundButton) view
-                .findViewById(R.id.tab1);
-        final CompoundButton tab2 = (CompoundButton) view
-                .findViewById(R.id.tab2);
-
-        pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                tab1.setChecked(position == 0);
-                tab2.setChecked(position == 1);
-            }
-        });
-
-        tab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tab1.setChecked(true);
-                tab2.setChecked(false);
-                pager.setCurrentItem(0);
-            }
-        });
-
-        tab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tab2.setChecked(true);
-                tab1.setChecked(false);
-                pager.setCurrentItem(1);
-            }
-        });
+        UnderlinePageIndicator mIndicator = (UnderlinePageIndicator) view.findViewById(R.id.tab_indicator);
+        mIndicator.setViewPager(pager);
+        mIndicator.setFades(false);
     }
 
     @Override
