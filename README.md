@@ -41,6 +41,7 @@ This program licensed under http://www.gnu.org/licenses/gpl-2.0.html
 + DMDP - ukrainian
 + svetlemodry - czech
 + Wechy77 - hungarian
++ naofum - japanese
 
 ####Discussion Thread
 http://forum.xda-developers.com/showthread.php?t=2330864
