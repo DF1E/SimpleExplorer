@@ -90,8 +90,8 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
             }
         }
 
-        SimpleUtils.requestMediaScanner(activity,
-                new File(location).listFiles());
+        if (new File(location).canRead())
+            SimpleUtils.requestMediaScanner(activity, new File(location).listFiles());
         return failed;
     }
 
