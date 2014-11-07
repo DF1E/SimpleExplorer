@@ -1,1 +1,1 @@
-include ':libraries:FloatingActionButton', ':libraries:AndroidViewPagerIndicator', ':explorer'
+include ':libraries:FloatingActionButton', ':libraries:AndroidViewPagerIndicator', ':libraries:RootTools', ':explorer'
