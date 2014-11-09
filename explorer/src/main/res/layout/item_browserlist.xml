@@ -13,7 +13,7 @@
         android:layout_height="@dimen/item_height"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/desc"
+        android:contentDescription="@null"
         android:cropToPadding="true"
         android:padding="5dp"
         android:scaleType="centerCrop"
@@ -41,7 +41,6 @@
             android:singleLine="true"
             android:textAllCaps="false"
             android:textColor="?android:textColorPrimary"
-            android:textIsSelectable="false"
             android:textSize="16sp" />
 
         <TextView
@@ -54,7 +53,6 @@
             android:singleLine="true"
             android:textAllCaps="false"
             android:textColor="@color/gray"
-            android:textIsSelectable="false"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -69,7 +67,6 @@
         android:paddingRight="4dp"
         android:singleLine="true"
         android:textColor="@color/gray"
-        android:textIsSelectable="false"
         android:textSize="12sp" />
 
 </RelativeLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/bookmark_height"
     android:background="?attr/bookmark_windoBackground"
     android:descendantFocusability="blocksDescendants">
 
@@ -41,7 +41,7 @@
         android:id="@+id/imageButton_remove"
         style="?android:attr/actionButtonStyle"
         android:layout_width="40dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:contentDescription="@null"

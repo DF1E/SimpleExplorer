@@ -34,7 +34,7 @@
     <string name="error">Hata</string>
     <string name="exit">Çıkış</string>
     <string name="extractto">Çıkart...</string>
-    <string name="extractionsuccess">Package successfully extracted.</string>
+    <string name="extractionsuccess">Paket başarıyla çıkarıldı.</string>
     <string name="filecreated">Dosya oluşturuldu.</string>
     <string name="fileexists">Dosya zaten var.</string>
     <string name="files">"Dosya"</string>

@@ -1,4 +1,9 @@
 Changelog:
+2.2.1
+fixed bug when move/copy files with root
+add japanese
+small changes
+
 2.2
 material design
 search files with root (only partial)

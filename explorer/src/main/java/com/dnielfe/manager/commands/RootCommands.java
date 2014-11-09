@@ -193,22 +193,21 @@ public class RootCommands {
                 e.printStackTrace();
                 return false;
             }
-            if (procData.toString() != null) {
-                String[] tmp = procData.toString().split("\n");
-                for (String aTmp : tmp) {
-                    // Kept simple here on purpose different devices have
-                    // different blocks
-                    if (aTmp.contains("/dev/block")
-                            && aTmp.contains("/system")) {
-                        if (aTmp.contains("rw")) {
-                            // system is rw
-                            return true;
-                        } else if (aTmp.contains("ro")) {
-                            // system is ro
-                            return false;
-                        } else {
-                            return false;
-                        }
+
+            String[] tmp = procData.toString().split("\n");
+            for (String aTmp : tmp) {
+                // Kept simple here on purpose different devices have
+                // different blocks
+                if (aTmp.contains("/dev/block")
+                        && aTmp.contains("/system")) {
+                    if (aTmp.contains("rw")) {
+                        // system is rw
+                        return true;
+                    } else if (aTmp.contains("ro")) {
+                        // system is ro
+                        return false;
+                    } else {
+                        return false;
                     }
                 }
             }
@@ -224,7 +223,7 @@ public class RootCommands {
         return matcher.find();
     }
 
-    public static BufferedReader execute(String cmd) {
+    private static BufferedReader execute(String cmd) {
         BufferedReader reader;
         try {
             Process process = Runtime.getRuntime().exec("su");

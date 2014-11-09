@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1"
+    buildToolsVersion "21.1.1"
 
     defaultConfig {
         applicationId "com.dnielfe.manager"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 58
-        versionName "2.2"
+        versionCode 59
+        versionName "2.2.1"
     }
 
     lintOptions {

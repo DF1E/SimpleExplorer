@@ -48,7 +48,6 @@ public abstract class ThemableActivity extends ActionBarActivity {
         final Bundle outState = new Bundle();
         onSaveInstanceState(outState);
         final Intent intent = new Intent(this, getClass());
-        // intent.putExtra(EXTRA_SAVED_STATE, outState);
         finish();
         overridePendingTransition(0, 0);
         startActivity(intent);
