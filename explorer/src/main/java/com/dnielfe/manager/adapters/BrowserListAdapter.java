@@ -45,9 +45,11 @@ public class BrowserListAdapter extends BaseAdapter {
     private final LayoutInflater mInflater;
     private final Resources mResources;
     private ArrayList<String> mDataSource;
+    private Context mContext;
 
     public BrowserListAdapter(Context context, LayoutInflater inflater) {
         mInflater = inflater;
+        mContext = context;
         mDataSource = new ArrayList<String>();
         mResources = context.getResources();
     }
@@ -117,7 +119,7 @@ public class BrowserListAdapter extends BaseAdapter {
         if (!mDataSource.isEmpty())
             mDataSource.clear();
 
-        mDataSource = SimpleUtils.listFiles(path);
+        mDataSource = SimpleUtils.listFiles(path, mContext);
 
         // sort files with a comparator if not empty
         if (!mDataSource.isEmpty())

@@ -129,8 +129,8 @@ public class RootCommands {
             if (!readReadWriteFile())
                 RootTools.remount(path, "rw");
 
-            execute("mv " + file.getAbsolutePath() + " "
-                    + newf.getAbsolutePath());
+            execute("mv " + getCommandLineString(file.getAbsolutePath()) + " "
+                    + getCommandLineString(newf.getAbsolutePath()));
         } catch (Exception e) {
             e.printStackTrace();
         }

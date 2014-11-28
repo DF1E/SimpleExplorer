@@ -90,7 +90,7 @@ public class SimpleUtils {
         }
     }
 
-    public static ArrayList<String> listFiles(String path) {
+    public static ArrayList<String> listFiles(String path, Context c) {
         ArrayList<String> mDirContent = new ArrayList<String>();
         boolean showhidden = Settings.showHiddenFiles();
 
@@ -114,6 +114,8 @@ public class SimpleUtils {
         } else if (Settings.rootAccess()) {
             mDirContent = RootCommands.listFiles(file.getAbsolutePath(),
                     showhidden);
+        } else {
+            Toast.makeText(c, c.getString(R.string.cantreadfolder), Toast.LENGTH_SHORT);
         }
 
         return mDirContent;
