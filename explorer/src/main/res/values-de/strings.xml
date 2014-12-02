@@ -41,7 +41,7 @@
     <string name="filewasrenamed">Umbenennen erfolgreich</string>
     <string name="hiddenfiles">Versteckte Dateien</string>
     <string name="itcouldntbefound">Die Sucheingabe konnte nicht gefunden werden</string>
-    <string name="LastModified">Zuletzt Geändert:</string>
+    <string name="LastModified">Zuletzt geändert:</string>
     <string name="md5">MD5:</string>
     <string name="move">Verschieben</string>
     <string name="movefail">Verschieben fehlgeschlagen</string>
@@ -52,7 +52,7 @@
     <string name="newfolderwasnotcreated">Neuer Ordner wurde nicht erstellt</string>
     <string name="ok">OK</string>
     <string name="options">Optionen</string>
-    <string name="packing">Verpacken</string>
+    <string name="packing">Komprimieren</string>
     <string name="paste">Einfügen</string>
     <string name="pressbackagaintoquit">Erneut klicken, um das Programm zu beenden</string>
     <string name="rename">Umbenennen</string>
@@ -65,7 +65,7 @@
     <string name="shortcutcreated">Verknüpfung erstellt</string>
     <string name="showpreview">Bildvorschau</string>
     <string name="simple">Einfache Liste</string>
-    <string name="size">Verwendet:</string>
+    <string name="size">Größe:</string>
     <string name="uisettings">Ansichtseinstellungen</string>
     <string name="unzipping">Entpacken</string>
     <string name="viewmode">Ansichtsmodus</string>
