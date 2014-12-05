@@ -5,7 +5,6 @@ android {
     buildToolsVersion '21.1.1'
 
     defaultConfig {
-        applicationId 'com.viewpagerindicator'
         minSdkVersion 14
         targetSdkVersion 21
         versionName "2.4.1"
@@ -24,7 +23,6 @@ android {
             aidl.srcDirs = ['src']
             renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
-            assets.srcDirs = ['assets']
         }
     }
 }
