@@ -79,6 +79,8 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
     protected List<String> doInBackground(String... content) {
         final List<String> failed = new ArrayList<String>();
         final Activity activity = this.activity.get();
+        // TODO: test
+        ClipBoard.lock();
 
         for (String target : content) {
             if (ClipBoard.isMove()) {

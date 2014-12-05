@@ -39,7 +39,7 @@ public final class MultiFileObserver extends FileObserver {
         this(path, ALL_EVENTS);
     }
 
-    public MultiFileObserver(String path, int mask) {
+    private MultiFileObserver(String path, int mask) {
         super(path, FileObserver.ALL_EVENTS);
         this.path = path;
         this.listeners = new HashSet<OnEventListener>();

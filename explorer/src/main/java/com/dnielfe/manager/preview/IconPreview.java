@@ -52,7 +52,7 @@ public class IconPreview {
     private static DrawableLruCache<String> mMimeTypeIconCache;
     private static BitmapLruCache<String> mBitmapCache;
     private static ExecutorService pool = null;
-    private static Map<ImageView, String> imageViews = Collections
+    private static final Map<ImageView, String> imageViews = Collections
             .synchronizedMap(new ConcurrentHashMap<ImageView, String>());
     private static PackageManager pm;
     private static int mWidth;

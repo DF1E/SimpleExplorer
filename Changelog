@@ -1,4 +1,8 @@
 Changelog:
+next:
+fixed bug while renaming files with root
+updated translations
+
 2.2.1
 fixed bug when move/copy files with root
 add japanese

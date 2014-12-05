@@ -36,7 +36,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -115,7 +114,7 @@ public class SimpleUtils {
             mDirContent = RootCommands.listFiles(file.getAbsolutePath(),
                     showhidden);
         } else {
-            Toast.makeText(c, c.getString(R.string.cantreadfolder), Toast.LENGTH_SHORT);
+            Toast.makeText(c, c.getString(R.string.cantreadfolder), Toast.LENGTH_SHORT).show();
         }
 
         return mDirContent;
@@ -157,8 +156,6 @@ public class SimpleUtils {
                     o_stream.flush();
                     i_stream.close();
                     o_stream.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

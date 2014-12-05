@@ -44,7 +44,6 @@ import com.dnielfe.manager.adapters.DrawerListAdapter;
 import com.dnielfe.manager.adapters.MergeAdapter;
 import com.dnielfe.manager.fragments.BrowserFragment;
 import com.dnielfe.manager.preview.IconPreview;
-import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.settings.SettingsActivity;
 import com.dnielfe.manager.utils.Bookmarks;
 import com.dnielfe.manager.utils.NavigationView;
@@ -83,14 +82,6 @@ public final class BrowserActivity extends ThemableActivity implements
         setSupportActionBar(toolbar);
 
         init();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Settings.updatePreferences(this);
-
-        supportInvalidateOptionsMenu();
     }
 
     @Override

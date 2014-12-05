@@ -138,6 +138,8 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
             activity.setCurrentlyDisplayedFragment(this);
         }
 
+        Settings.updatePreferences(mActivity);
+
         navigateTo(mCurrentPath);
     }
 

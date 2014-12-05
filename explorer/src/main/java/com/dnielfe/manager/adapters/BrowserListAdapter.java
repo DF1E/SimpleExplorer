@@ -45,7 +45,7 @@ public class BrowserListAdapter extends BaseAdapter {
     private final LayoutInflater mInflater;
     private final Resources mResources;
     private ArrayList<String> mDataSource;
-    private Context mContext;
+    private final Context mContext;
 
     public BrowserListAdapter(Context context, LayoutInflater inflater) {
         mInflater = inflater;
