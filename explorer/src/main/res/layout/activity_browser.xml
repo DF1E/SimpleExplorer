@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/nav_height"
                 android:fillViewport="true"
+                android:background="?colorPrimary"
                 android:scrollbars="none">
 
                 <LinearLayout
@@ -38,7 +39,7 @@
                 android:id="@+id/indicator"
                 android:layout_width="match_parent"
                 android:layout_height="1.5dp"
-                android:background="?android:attr/dividerHorizontal"
+                android:background="?colorPrimary"
                 vpi:selectedColor="?colorAccent" />
 
             <android.support.v4.view.ViewPager
@@ -55,7 +56,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="?android:attr/windowBackground"
-            android:clickable="true" />
+            android:divider="@null" />
 
     </android.support.v4.widget.DrawerLayout>
 </LinearLayout>

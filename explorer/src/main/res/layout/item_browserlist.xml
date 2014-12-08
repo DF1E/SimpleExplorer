@@ -41,6 +41,7 @@
             android:singleLine="true"
             android:textAllCaps="false"
             android:textColor="?android:textColorPrimary"
+            android:fontFamily="sans-serif-light"
             android:textSize="16sp" />
 
         <TextView
@@ -53,6 +54,7 @@
             android:singleLine="true"
             android:textAllCaps="false"
             android:textColor="@color/gray"
+            android:fontFamily="sans-serif-light"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -67,6 +69,7 @@
         android:paddingRight="4dp"
         android:singleLine="true"
         android:textColor="@color/gray"
+        android:fontFamily="sans-serif-light"
         android:textSize="12sp" />
 
 </RelativeLayout>

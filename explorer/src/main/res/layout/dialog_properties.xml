@@ -26,7 +26,7 @@
                 android:text="@string/location"
                 android:textIsSelectable="false"
                 android:textStyle="bold"
-                android:textColor="?android:textColorPrimary"/>
+                android:textColor="?android:textColorPrimary" />
 
             <TextView
                 android:id="@+id/path_label"
@@ -55,7 +55,7 @@
                 android:text="@string/LastModified"
                 android:textIsSelectable="false"
                 android:textStyle="bold"
-                android:textColor="?android:textColorPrimary"/>
+                android:textColor="?android:textColorPrimary" />
 
             <TextView
                 android:id="@+id/time_stamp"
@@ -83,7 +83,7 @@
                 android:text="@string/size"
                 android:textIsSelectable="false"
                 android:textStyle="bold"
-                android:textColor="?android:textColorPrimary"/>
+                android:textColor="?android:textColorPrimary" />
 
             <TextView
                 android:id="@+id/total_size"
@@ -111,7 +111,7 @@
                 android:text="@string/md5"
                 android:textIsSelectable="false"
                 android:textStyle="bold"
-                android:textColor="?android:textColorPrimary"/>
+                android:textColor="?android:textColorPrimary" />
 
             <TextView
                 android:id="@+id/md5_summary"

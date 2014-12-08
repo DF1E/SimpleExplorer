@@ -24,6 +24,7 @@
             android:text="@string/desc"
             android:textIsSelectable="false"
             android:textSize="18sp"
+            android:fontFamily="sans-serif-light"
             android:textColor="?android:textColorPrimary" />
 
         <TextView
@@ -33,6 +34,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="@string/desc"
+            android:fontFamily="sans-serif-light"
             android:textColor="?colorAccent"
             android:textIsSelectable="false" />
     </LinearLayout>
