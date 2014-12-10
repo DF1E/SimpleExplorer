@@ -21,6 +21,4 @@
     <item android:state_selected="true" android:color="@color/vpi__bright_foreground_holo_light"/>
     <!--item android:state_activated="true" android:color="@color/vpi__bright_foreground_holo_light"/-->
     <item android:color="@color/vpi__bright_foreground_holo_light"/> <!-- not selected -->
-    
 </selector>
-
