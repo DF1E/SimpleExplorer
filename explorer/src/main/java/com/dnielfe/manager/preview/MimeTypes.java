@@ -108,6 +108,7 @@ public final class MimeTypes {
         // PDF
         EXT_ICONS.put("pdf", R.drawable.type_pdf);
         EXT_ICONS.put("fdf", R.drawable.type_pdf);
+        EXT_ICONS.put("ldwf", R.drawable.type_pdf);
 
         // Package
         EXT_ICONS.put("ace", R.drawable.type_package);
@@ -164,6 +165,7 @@ public final class MimeTypes {
         EXT_ICONS.put("pic", R.drawable.type_pic);
         EXT_ICONS.put("xbm", R.drawable.type_pic);
         EXT_ICONS.put("xwd", R.drawable.type_pic);
+        EXT_ICONS.put("bpg", R.drawable.type_pic);
 
         // Audio
         EXT_ICONS.put("aac", R.drawable.type_music);
