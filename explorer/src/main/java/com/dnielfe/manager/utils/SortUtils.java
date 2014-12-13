@@ -21,8 +21,6 @@ package com.dnielfe.manager.utils;
 
 import com.dnielfe.manager.settings.Settings;
 
-import org.apache.commons.io.FilenameUtils;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -156,8 +154,8 @@ public class SortUtils {
                 return 1;
             }
 
-            final String ext_a = FilenameUtils.getExtension(a.getName());
-            final String ext_b = FilenameUtils.getExtension(b.getName());
+            final String ext_a = SimpleUtils.getExtension(a.getName());
+            final String ext_b = SimpleUtils.getExtension(b.getName());
 
             if (ext_a.isEmpty() && ext_b.isEmpty()) {
                 return arg0.toLowerCase().compareTo(arg1.toLowerCase());

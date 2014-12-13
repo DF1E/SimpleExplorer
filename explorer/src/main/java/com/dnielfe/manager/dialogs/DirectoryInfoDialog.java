@@ -31,10 +31,9 @@ import android.widget.TextView;
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.commands.RootCommands;
+import com.dnielfe.manager.utils.SimpleUtils;
 import com.dnielfe.manager.utils.StatFsCompat;
 import com.stericson.RootTools.RootTools;
-
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -86,12 +85,12 @@ public final class DirectoryInfoDialog extends DialogFragment {
             this.mFreeBytes = freeBytes;
             this.mUsedSpace = usedSpace;
 
-            this.mTotalBytesText = FileUtils.byteCountToDisplaySize(totalBytes);
+            this.mTotalBytesText = SimpleUtils.formatCalculatedSize(totalBytes);
             this.mBlockSizeText = Long.toString(blockSize);
-            this.mFreeBytesText = FileUtils.byteCountToDisplaySize(freeBytes);
+            this.mFreeBytesText = SimpleUtils.formatCalculatedSize(freeBytes);
 
             if (totalBytes != 0L) {
-                this.mUsedSpaceText = FileUtils.byteCountToDisplaySize(usedSpace) + ' ' + '(' + usedSpace * 100L / totalBytes + '%' + ')';
+                this.mUsedSpaceText = SimpleUtils.formatCalculatedSize(usedSpace) + ' ' + '(' + usedSpace * 100L / totalBytes + '%' + ')';
             } else {
                 this.mUsedSpaceText = null;
             }

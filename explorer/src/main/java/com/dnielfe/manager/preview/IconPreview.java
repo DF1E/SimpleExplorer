@@ -37,8 +37,7 @@ import android.widget.ImageView;
 
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.settings.Settings;
-
-import org.apache.commons.io.FilenameUtils;
+import com.dnielfe.manager.utils.SimpleUtils;
 
 import java.io.File;
 import java.util.Collections;
@@ -97,7 +96,7 @@ public class IconPreview {
             else
                 mimeIcon = mResources.getDrawable(R.drawable.type_folder_empty);
         } else if (file != null && file.isFile()) {
-            final String fileExt = FilenameUtils.getExtension(file.getName());
+            final String fileExt = SimpleUtils.getExtension(file.getName());
             mimeIcon = mMimeTypeIconCache.get(fileExt);
 
             if (mimeIcon == null) {

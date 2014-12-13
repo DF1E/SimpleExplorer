@@ -42,8 +42,6 @@ import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
 import com.viewpagerindicator.UnderlinePageIndicator;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
@@ -232,7 +230,7 @@ public final class FilePropertiesDialog extends DialogFragment {
                 time = df.format(file3.lastModified());
 
                 if (file3.isFile()) {
-                    size = FileUtils.byteCountToDisplaySize(file3.length());
+                    size = SimpleUtils.formatCalculatedSize(file3.length());
 
                     try {
                         md5 = SimpleUtils.getMD5Checksum(file3.getPath());
@@ -240,7 +238,7 @@ public final class FilePropertiesDialog extends DialogFragment {
                         e.printStackTrace();
                     }
                 } else {
-                    size = FileUtils.byteCountToDisplaySize(FileUtils.sizeOfDirectory(file3));
+                    size = SimpleUtils.formatCalculatedSize(SimpleUtils.getDirectorySize(file3));
                 }
 
                 return null;

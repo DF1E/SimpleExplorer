@@ -22,8 +22,7 @@ package com.dnielfe.manager.preview;
 import android.webkit.MimeTypeMap;
 
 import com.dnielfe.manager.R;
-
-import org.apache.commons.io.FilenameUtils;
+import com.dnielfe.manager.utils.SimpleUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -331,7 +330,7 @@ public final class MimeTypes {
         }
 
         String type = null;
-        final String extension = FilenameUtils.getExtension(file.getName());
+        final String extension = SimpleUtils.getExtension(file.getName());
 
         if (extension != null && !extension.isEmpty()) {
             final String extensionLowerCase = extension.toLowerCase(Locale

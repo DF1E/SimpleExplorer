@@ -58,8 +58,6 @@ import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
 import com.faizmalkani.floatingactionbutton.FloatingActionButton;
 
-import org.apache.commons.io.FilenameUtils;
-
 import java.io.File;
 
 public final class BrowserFragment extends UserVisibleHintFragment implements
@@ -243,7 +241,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     }
 
     private void listItemAction(File file) {
-        String item_ext = FilenameUtils.getExtension(file.getName());
+        String item_ext = SimpleUtils.getExtension(file.getName());
 
         if (item_ext.equalsIgnoreCase("zip")
                 || item_ext.equalsIgnoreCase("rar")) {
