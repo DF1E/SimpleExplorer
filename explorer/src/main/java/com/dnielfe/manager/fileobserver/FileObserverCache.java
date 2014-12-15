@@ -37,7 +37,7 @@ public final class FileObserverCache {
     private final Map<String, WeakReference<MultiFileObserver>> cache;
 
     private FileObserverCache() {
-        this.cache = new HashMap<String, WeakReference<MultiFileObserver>>();
+        this.cache = new HashMap<>();
     }
 
     public void clear() {
@@ -52,7 +52,7 @@ public final class FileObserverCache {
         } else {
             observer = new MultiFileObserver(path);
             this.cache
-                    .put(path, new WeakReference<MultiFileObserver>(observer));
+                    .put(path, new WeakReference<>(observer));
         }
         return observer;
     }

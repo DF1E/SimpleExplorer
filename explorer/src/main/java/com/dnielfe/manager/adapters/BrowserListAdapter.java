@@ -48,7 +48,7 @@ public class BrowserListAdapter extends BaseAdapter {
     public BrowserListAdapter(Context context, LayoutInflater inflater) {
         mInflater = inflater;
         mContext = context;
-        mDataSource = new ArrayList<String>();
+        mDataSource = new ArrayList<>();
         mResources = context.getResources();
     }
 

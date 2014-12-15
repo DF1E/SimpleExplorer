@@ -42,7 +42,7 @@ public final class MultiFileObserver extends FileObserver {
     private MultiFileObserver(String path, int mask) {
         super(path, FileObserver.ALL_EVENTS);
         this.path = path;
-        this.listeners = new HashSet<OnEventListener>();
+        this.listeners = new HashSet<>();
     }
 
     public void addOnEventListener(final OnEventListener listener) {
@@ -51,10 +51,6 @@ public final class MultiFileObserver extends FileObserver {
 
     public void removeOnEventListener(final OnEventListener listener) {
         this.listeners.remove(listener);
-    }
-
-    public String getPath() {
-        return this.path;
     }
 
     @Override

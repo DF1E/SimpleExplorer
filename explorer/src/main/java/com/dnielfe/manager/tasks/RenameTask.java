@@ -44,7 +44,7 @@ public final class RenameTask extends AsyncTask<String, Void, List<String>> {
     private boolean succes = false;
 
     public RenameTask(final Activity activity) {
-        this.activity = new WeakReference<Activity>(activity);
+        this.activity = new WeakReference<>(activity);
     }
 
     @Override
@@ -70,7 +70,7 @@ public final class RenameTask extends AsyncTask<String, Void, List<String>> {
 
     @Override
     protected List<String> doInBackground(String... files) {
-        final List<String> failed = new ArrayList<String>();
+        final List<String> failed = new ArrayList<>();
         String path = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
 
         try {

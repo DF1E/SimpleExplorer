@@ -103,7 +103,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
         private final WeakReference<View> mViewRef;
 
         private PartitionInfoTask(final View view) {
-            this.mViewRef = new WeakReference<View>(view);
+            this.mViewRef = new WeakReference<>(view);
         }
 
         @Override

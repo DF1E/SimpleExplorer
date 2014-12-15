@@ -40,7 +40,7 @@ public final class DeleteTask extends AsyncTask<String, Void, List<String>> {
     private ProgressDialog dialog;
 
     public DeleteTask(final Activity activity) {
-        this.activity = new WeakReference<Activity>(activity);
+        this.activity = new WeakReference<>(activity);
     }
 
     @Override
@@ -67,7 +67,7 @@ public final class DeleteTask extends AsyncTask<String, Void, List<String>> {
     @Override
     protected List<String> doInBackground(String... files) {
         final Activity activity = this.activity.get();
-        final List<String> failed = new ArrayList<String>();
+        final List<String> failed = new ArrayList<>();
 
         for (String str : files) {
             SimpleUtils.deleteTarget(str);

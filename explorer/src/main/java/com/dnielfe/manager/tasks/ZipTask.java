@@ -42,7 +42,7 @@ public final class ZipTask extends AsyncTask<String, Void, List<String>> {
     private final String zipname;
 
     public ZipTask(final Activity activity, String name1) {
-        this.activity = new WeakReference<Activity>(activity);
+        this.activity = new WeakReference<>(activity);
         this.zipname = name1;
     }
 
@@ -69,7 +69,7 @@ public final class ZipTask extends AsyncTask<String, Void, List<String>> {
 
     @Override
     protected List<String> doInBackground(String... files) {
-        final List<String> failed = new ArrayList<String>();
+        final List<String> failed = new ArrayList<>();
 
         try {
             ZipUtils.createZip(

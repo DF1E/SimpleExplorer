@@ -45,7 +45,7 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
     private boolean success = false;
 
     public PasteTask(final Activity activity, String currentDir) {
-        this.activity = new WeakReference<Activity>(activity);
+        this.activity = new WeakReference<>(activity);
         this.location = currentDir;
     }
 
@@ -77,7 +77,7 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 
     @Override
     protected List<String> doInBackground(String... content) {
-        final List<String> failed = new ArrayList<String>();
+        final List<String> failed = new ArrayList<>();
         final Activity activity = this.activity.get();
         ClipBoard.lock();
 

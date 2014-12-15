@@ -44,10 +44,10 @@ public final class PasteTaskExecutor implements OnClickListener {
     private String current;
 
     public PasteTaskExecutor(final Activity activity, final String location) {
-        this.mActivityReference = new WeakReference<Activity>(activity);
+        this.mActivityReference = new WeakReference<>(activity);
         this.mLocation = location;
-        this.mToProcess = new LinkedList<String>();
-        this.mExisting = new HashMap<String, String>();
+        this.mToProcess = new LinkedList<>();
+        this.mExisting = new HashMap<>();
     }
 
     public void start() {

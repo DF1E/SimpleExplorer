@@ -23,6 +23,11 @@ android {
             proguardFiles 'proguard-android.txt'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 
 dependencies {
@@ -31,5 +36,5 @@ dependencies {
     compile project(':libraries:FloatingActionButton')
     compile project(':libraries:RootTools')
     compile 'com.android.support:support-v13:21.0.+'
-    compile "com.android.support:appcompat-v7:21.+"
+    compile 'com.android.support:appcompat-v7:21.+'
 }

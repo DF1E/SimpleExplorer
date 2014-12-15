@@ -66,8 +66,8 @@ public class IconPreview {
         mResources = activity.getResources();
         pm = mContext.getPackageManager();
 
-        mMimeTypeIconCache = new DrawableLruCache<String>();
-        mBitmapCache = new BitmapLruCache<String>();
+        mMimeTypeIconCache = new DrawableLruCache<>();
+        mBitmapCache = new BitmapLruCache<>();
     }
 
     public static void getFileIcon(File file, final ImageView icon) {

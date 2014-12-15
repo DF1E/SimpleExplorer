@@ -348,7 +348,7 @@ public final class FilePropertiesDialog extends DialogFragment {
             private final WeakReference<FilePermissionsPagerItem> mItemRef;
 
             private LoadFsTask(final FilePermissionsPagerItem item) {
-                this.mItemRef = new WeakReference<FilePermissionsPagerItem>(
+                this.mItemRef = new WeakReference<>(
                         item);
             }
 

@@ -50,7 +50,7 @@ public class NavigationView {
 
     public NavigationView(Activity activity) {
         this.mActivity = activity;
-        this.listeners = new HashSet<OnNavigateListener>();
+        this.listeners = new HashSet<>();
     }
 
     public void setDirectoryButtons(String path) {

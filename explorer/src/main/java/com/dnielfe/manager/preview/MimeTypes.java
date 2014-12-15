@@ -33,9 +33,9 @@ public final class MimeTypes {
 
     public static final String ALL_MIME_TYPES = "*/*";
 
-    private static final HashMap<String, Integer> EXT_ICONS = new HashMap<String, Integer>();
+    private static final HashMap<String, Integer> EXT_ICONS = new HashMap<>();
 
-    private static final HashMap<String, String> MIME_TYPES = new HashMap<String, String>();
+    private static final HashMap<String, String> MIME_TYPES = new HashMap<>();
 
     static {
         // BINARY
