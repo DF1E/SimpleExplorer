@@ -39,7 +39,7 @@ More info under: http://www.gnu.org/licenses/gpl-2.0.html
 + youngbrod - english
 + youngbrod - spanish
 + DF1E - german
-+ mirhl - italian
++ mirhl, bovirus - italian
 + muamers - bosnian
 + kaizokan - dutch
 + lexaleon - russian
