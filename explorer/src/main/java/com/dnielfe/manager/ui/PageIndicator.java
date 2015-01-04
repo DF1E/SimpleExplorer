@@ -1,19 +1,23 @@
 /*
- * Copyright (C) 2012 Jake Wharton
+ * Copyright (C) 2014 Simple Explorer
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA  02110-1301, USA.
  */
-package com.viewpagerindicator;
+
+package com.dnielfe.manager.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -31,11 +35,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
-/**
- * Draws a line for each page. The current page line is colored differently
- * than the unselected page lines.
- */
-public class UnderlinePageIndicator extends View implements PageIndicator {
+import com.dnielfe.manager.R;
+
+public class PageIndicator extends View implements ViewPager.OnPageChangeListener {
+
     private static final int INVALID_POINTER = -1;
     private static final int FADE_FRAME_MS = 30;
 
@@ -71,15 +74,15 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         }
     };
 
-    public UnderlinePageIndicator(Context context) {
+    public PageIndicator(Context context) {
         this(context, null);
     }
 
-    public UnderlinePageIndicator(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.vpiUnderlinePageIndicatorStyle);
+    public PageIndicator(Context context, AttributeSet attrs) {
+        this(context, attrs, R.attr.PageIndicatorStyle);
     }
 
-    public UnderlinePageIndicator(Context context, AttributeSet attrs, int defStyle) {
+    public PageIndicator(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         if (isInEditMode()) return;
 
@@ -92,14 +95,14 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         final int defaultSelectedColor = res.getColor(R.color.default_underline_indicator_selected_color);
 
         //Retrieve styles attributes
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.UnderlinePageIndicator, defStyle, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PageIndicatorStyle, defStyle, 0);
 
-        setFades(a.getBoolean(R.styleable.UnderlinePageIndicator_fades, defaultFades));
-        setSelectedColor(a.getColor(R.styleable.UnderlinePageIndicator_selectedColor, defaultSelectedColor));
-        setFadeDelay(a.getInteger(R.styleable.UnderlinePageIndicator_fadeDelay, defaultFadeDelay));
-        setFadeLength(a.getInteger(R.styleable.UnderlinePageIndicator_fadeLength, defaultFadeLength));
+        setFades(a.getBoolean(R.styleable.PageIndicatorStyle_fades, defaultFades));
+        setSelectedColor(a.getColor(R.styleable.PageIndicatorStyle_selectedColor, defaultSelectedColor));
+        setFadeDelay(a.getInteger(R.styleable.PageIndicatorStyle_fadeDelay, defaultFadeDelay));
+        setFadeLength(a.getInteger(R.styleable.PageIndicatorStyle_fadeLength, defaultFadeLength));
 
-        Drawable background = a.getDrawable(R.styleable.UnderlinePageIndicator_android_background);
+        Drawable background = a.getDrawable(R.styleable.PageIndicatorStyle_android_background);
         if (background != null) {
             setBackground(background);
         }
@@ -108,10 +111,6 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
 
         final ViewConfiguration configuration = ViewConfiguration.get(context);
         mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(configuration);
-    }
-
-    public boolean getFades() {
-        return mFades;
     }
 
     public void setFades(boolean fades) {
@@ -127,25 +126,13 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         }
     }
 
-    public int getFadeDelay() {
-        return mFadeDelay;
-    }
-
     public void setFadeDelay(int fadeDelay) {
         mFadeDelay = fadeDelay;
-    }
-
-    public int getFadeLength() {
-        return mFadeLength;
     }
 
     public void setFadeLength(int fadeLength) {
         mFadeLength = fadeLength;
         mFadeBy = 0xFF / (mFadeLength / FADE_FRAME_MS);
-    }
-
-    public int getSelectedColor() {
-        return mPaint.getColor();
     }
 
     public void setSelectedColor(int selectedColor) {
@@ -188,13 +175,13 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         }
 
         final int action = ev.getAction() & MotionEventCompat.ACTION_MASK;
+
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
                 mLastMotionX = ev.getX();
                 break;
-
-            case MotionEvent.ACTION_MOVE: {
+            case MotionEvent.ACTION_MOVE:
                 final int activePointerIndex = MotionEventCompat.findPointerIndex(ev, mActivePointerId);
                 final float x = MotionEventCompat.getX(ev, activePointerIndex);
                 final float deltaX = x - mLastMotionX;
@@ -213,8 +200,6 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
                 }
 
                 break;
-            }
-
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 if (!mIsDragging) {
@@ -240,14 +225,11 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
                 mActivePointerId = INVALID_POINTER;
                 if (mViewPager.isFakeDragging()) mViewPager.endFakeDrag();
                 break;
-
-            case MotionEventCompat.ACTION_POINTER_DOWN: {
+            case MotionEventCompat.ACTION_POINTER_DOWN:
                 final int index = MotionEventCompat.getActionIndex(ev);
                 mLastMotionX = MotionEventCompat.getX(ev, index);
                 mActivePointerId = MotionEventCompat.getPointerId(ev, index);
                 break;
-            }
-
             case MotionEventCompat.ACTION_POINTER_UP:
                 final int pointerIndex = MotionEventCompat.getActionIndex(ev);
                 final int pointerId = MotionEventCompat.getPointerId(ev, pointerIndex);
@@ -262,7 +244,6 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         return true;
     }
 
-    @Override
     public void setViewPager(ViewPager viewPager) {
         if (mViewPager == viewPager) {
             return;
@@ -287,24 +268,17 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         });
     }
 
-    @Override
     public void setViewPager(ViewPager view, int initialPosition) {
         setViewPager(view);
         setCurrentItem(initialPosition);
     }
 
-    @Override
     public void setCurrentItem(int item) {
         if (mViewPager == null) {
             throw new IllegalStateException("ViewPager has not been bound.");
         }
         mViewPager.setCurrentItem(item);
         mCurrentPage = item;
-        invalidate();
-    }
-
-    @Override
-    public void notifyDataSetChanged() {
         invalidate();
     }
 
@@ -349,7 +323,6 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         }
     }
 
-    @Override
     public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
         mListener = listener;
     }
@@ -370,7 +343,7 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         return savedState;
     }
 
-    static class SavedState extends BaseSavedState {
+    private static class SavedState extends BaseSavedState {
         int currentPage;
 
         public SavedState(Parcelable superState) {

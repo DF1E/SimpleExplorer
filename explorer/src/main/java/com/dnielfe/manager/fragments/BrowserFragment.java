@@ -122,8 +122,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_browser, container,
-                false);
+        View rootView = inflater.inflate(R.layout.fragment_browser, container, false);
 
         initList(inflater, rootView);
         return rootView;
@@ -139,6 +138,8 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
         Settings.updatePreferences(mActivity);
 
         navigateTo(mCurrentPath);
+
+        activity.supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -281,8 +282,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
             menu.findItem(R.id.search).setVisible(false);
         }
 
-        MenuItem paste = menu.findItem(R.id.paste);
-        paste.setVisible(!ClipBoard.isEmpty());
+        menu.findItem(R.id.paste).setVisible(!ClipBoard.isEmpty());
     }
 
     @Override

@@ -22,13 +22,14 @@ package com.dnielfe.manager.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.widget.Toast;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.commands.RootCommands;
+import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.settings.Settings;
 
@@ -53,8 +54,7 @@ public class SimpleUtils {
     private static final BigInteger TB_BI = KB_BI.multiply(GB_BI);
 
     // scan file after move/copy
-    public static void requestMediaScanner(final Context context,
-                                           final File... files) {
+    public static void requestMediaScanner(final Context context, final File... files) {
         final String[] paths = new String[files.length];
         int i = 0;
         for (final File file : files) {
@@ -65,18 +65,17 @@ public class SimpleUtils {
     }
 
     // TODO: fix search with root
-    private static void search_file(String dir, String fileName,
-                                    ArrayList<String> n) {
+    private static void search_file(String dir, String fileName, ArrayList<String> n) {
         File root_dir = new File(dir);
         String[] list = root_dir.list();
+        boolean root = Settings.rootAccess();
 
         if (list != null && root_dir.canRead()) {
             for (String aList : list) {
                 File check = new File(dir + "/" + aList);
                 String name = check.getName();
 
-                if (check.isFile()
-                        && name.toLowerCase().contains(fileName.toLowerCase())) {
+                if (check.isFile() && name.toLowerCase().contains(fileName.toLowerCase())) {
                     n.add(check.getPath());
                 } else if (check.isDirectory()) {
                     if (name.toLowerCase().contains(fileName.toLowerCase())) {
@@ -85,13 +84,18 @@ public class SimpleUtils {
                         // change this!
                     } else if (check.canRead() && !dir.equals("/")) {
                         search_file(check.getAbsolutePath(), fileName, n);
-                    } else if (check.getName().contains("data")) {
-                        n.addAll(RootCommands.findFiles(check.getAbsolutePath(), fileName));
+                    } else if (!check.canRead() & root) {
+                        ArrayList<String> al = RootCommands.findFiles(check.getAbsolutePath(), fileName);
+
+                        for (String items : al) {
+                            n.add(items);
+                        }
                     }
                 }
             }
         } else {
-            n.addAll(RootCommands.findFiles(dir, fileName));
+            if (root)
+                n.addAll(RootCommands.findFiles(dir, fileName));
         }
     }
 
@@ -245,8 +249,7 @@ public class SimpleUtils {
         }
     }
 
-    public static ArrayList<String> searchInDirectory(String dir,
-                                                      String fileName) {
+    public static ArrayList<String> searchInDirectory(String dir, String fileName) {
         ArrayList<String> names = new ArrayList<>();
         search_file(dir, fileName, names);
         return names;
@@ -333,14 +336,19 @@ public class SimpleUtils {
             intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
             intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, file.getName());
 
-            if (file.isFile())
+            if (file.isFile()) {
+                BitmapDrawable bd = (BitmapDrawable) IconPreview.getBitmapDrawableFromFile(file);
+
+                if (bd != null) {
+                    intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bd.getBitmap());
+                } else {
+                    intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                            Intent.ShortcutIconResource.fromContext(main, R.drawable.type_unknown));
+                }
+            } else {
                 intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                        Intent.ShortcutIconResource.fromContext(main,
-                                R.drawable.type_unknown));
-            else
-                intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                        Intent.ShortcutIconResource.fromContext(main,
-                                R.drawable.ic_launcher));
+                        Intent.ShortcutIconResource.fromContext(main, R.drawable.ic_launcher));
+            }
 
             intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
             main.sendBroadcast(intent);
@@ -348,8 +356,8 @@ public class SimpleUtils {
             Toast.makeText(main, main.getString(R.string.shortcutcreated),
                     Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            Toast.makeText(main, main.getString(R.string.error),
-                    Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+            Toast.makeText(main, main.getString(R.string.error), Toast.LENGTH_SHORT).show();
         }
     }
 

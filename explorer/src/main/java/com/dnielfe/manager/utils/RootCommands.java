@@ -17,7 +17,7 @@
  * MA  02110-1301, USA.
  */
 
-package com.dnielfe.manager.commands;
+package com.dnielfe.manager.utils;
 
 import android.util.Log;
 
@@ -269,7 +269,7 @@ public class RootCommands {
             if (!readReadWriteFile())
                 RootTools.remount(file.getAbsolutePath(), "rw");
 
-            execute("chmod " + toOctalPermission(permissions) + " "
+            execute("chmod " + Permissions.toOctalPermission(permissions) + " "
                     + getCommandLineString(file.getAbsolutePath()));
             return true;
         } catch (Exception e) {
@@ -335,50 +335,5 @@ public class RootCommands {
         }
 
         return results;
-    }
-
-    /**
-     * Returns octal-formatted permission
-     *
-     * @param p Permissions to generate octal format for
-     * @return octal-formatted permission representation
-     */
-
-    private static String toOctalPermission(final Permissions p) {
-        byte user = 00;
-        byte group = 00;
-        byte other = 00;
-
-        if (p.ur) {
-            user += 04;
-        }
-        if (p.uw) {
-            user += 02;
-        }
-        if (p.ux) {
-            user += 01;
-        }
-
-        if (p.gr) {
-            group += 04;
-        }
-        if (p.gw) {
-            group += 02;
-        }
-        if (p.gx) {
-            group += 01;
-        }
-
-        if (p.or) {
-            other += 04;
-        }
-        if (p.ow) {
-            other += 02;
-        }
-        if (p.ox) {
-            other += 01;
-        }
-
-        return String.valueOf(user) + group + other;
     }
 }

@@ -127,7 +127,6 @@ public class ZipUtils {
                 int count;
                 while ((count = origin.read(data, 0, BUFFER)) != -1) {
                     out.write(data, 0, count);
-
                 }
                 origin.close();
             }
@@ -147,7 +146,6 @@ public class ZipUtils {
         int count;
         while ((count = origin.read(data, 0, BUFFER)) != -1) {
             out.write(data, 0, count);
-
         }
         origin.close();
     }

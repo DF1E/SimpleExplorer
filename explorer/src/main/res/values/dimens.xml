@@ -14,7 +14,7 @@
     <dimen name="drawer_width">240dp</dimen>
 
     <!-- drawer menu item height -->
-    <dimen name="drawer_menu_item_height">48dp</dimen>
+    <dimen name="drawer_menu_item_height">50dp</dimen>
 
     <!-- properties container height -->
     <dimen name="container_height">255dp</dimen>

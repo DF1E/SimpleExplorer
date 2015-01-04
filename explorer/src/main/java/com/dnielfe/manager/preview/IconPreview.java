@@ -159,6 +159,14 @@ public class IconPreview {
         }
     }
 
+    public static Drawable getBitmapDrawableFromFile(File file) {
+        if (isvalidMimeType(file)) {
+            return new BitmapDrawable(mResources, mBitmapCache.get(file.getAbsolutePath()));
+        } else {
+            return null;
+        }
+    }
+
     private static Bitmap getPreview(File file) {
         final boolean isImage = MimeTypes.isPicture(file);
         final boolean isVideo = MimeTypes.isVideo(file);

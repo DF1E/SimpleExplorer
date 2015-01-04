@@ -45,10 +45,10 @@ import com.dnielfe.manager.adapters.MergeAdapter;
 import com.dnielfe.manager.fragments.BrowserFragment;
 import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.settings.SettingsActivity;
+import com.dnielfe.manager.ui.NavigationView;
+import com.dnielfe.manager.ui.NavigationView.OnNavigateListener;
+import com.dnielfe.manager.ui.PageIndicator;
 import com.dnielfe.manager.utils.Bookmarks;
-import com.dnielfe.manager.utils.NavigationView;
-import com.dnielfe.manager.utils.NavigationView.OnNavigateListener;
-import com.viewpagerindicator.UnderlinePageIndicator;
 
 import java.io.File;
 
@@ -70,7 +70,6 @@ public final class BrowserActivity extends ThemableActivity implements
     private Toolbar toolbar;
 
     private FragmentManager fm;
-    private BrowserTabsAdapter mPagerAdapter;
     private static BrowserFragment mBrowserFragment;
 
     @Override
@@ -133,10 +132,10 @@ public final class BrowserActivity extends ThemableActivity implements
 
         // Instantiate a ViewPager and a PagerAdapter.
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new BrowserTabsAdapter(fm);
+        BrowserTabsAdapter mPagerAdapter = new BrowserTabsAdapter(fm);
         mPager.setAdapter(mPagerAdapter);
 
-        UnderlinePageIndicator mIndicator = (UnderlinePageIndicator) findViewById(R.id.indicator);
+        PageIndicator mIndicator = (PageIndicator) findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
         mIndicator.setFades(false);
     }

@@ -57,8 +57,7 @@ public final class ZipFilesDialog extends DialogFragment {
         inputf.setText(zipfile);
 
         final AlertDialog.Builder b = new AlertDialog.Builder(a);
-        b.setTitle(getString(R.string.packing) + " (" + String.valueOf(size)
-                + ")");
+        b.setTitle(getString(R.string.packing) + " (" + String.valueOf(size) + ")");
         b.setView(inputf);
         b.setPositiveButton(getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
@@ -74,8 +73,7 @@ public final class ZipFilesDialog extends DialogFragment {
 
                         dialog.dismiss();
                         final ZipTask task = new ZipTask(a, newpath);
-                        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                files);
+                        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, files);
                     }
                 });
         b.setNegativeButton(R.string.cancel,

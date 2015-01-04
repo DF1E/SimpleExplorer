@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.commands.RootCommands;
+import com.dnielfe.manager.utils.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
 import com.dnielfe.manager.utils.StatFsCompat;
 import com.stericson.RootTools.RootTools;
@@ -119,8 +119,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
             if (RootTools.isAccessGiven())
                 permission = RootCommands.getFileProperties(params[0]);
 
-            perm = permission != null ? permission[0]
-                    : getFilePermissions(params[0]);
+            perm = permission != null ? permission[0] : getFilePermissions(params[0]);
 
             return new PartitionInfo(path, perm, valueTotal,
                     statFs.getBlockSizeLong(), statFs.getFreeBytes(), valueUsed);

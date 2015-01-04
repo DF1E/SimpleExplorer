@@ -37,13 +37,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.commands.Permissions;
-import com.dnielfe.manager.commands.RootCommands;
+import com.dnielfe.manager.settings.Settings;
+import com.dnielfe.manager.ui.PageIndicator;
+import com.dnielfe.manager.utils.Permissions;
+import com.dnielfe.manager.utils.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
-import com.viewpagerindicator.UnderlinePageIndicator;
 
 import java.io.File;
-import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 
 public final class FilePropertiesDialog extends DialogFragment {
@@ -85,7 +85,7 @@ public final class FilePropertiesDialog extends DialogFragment {
                 .findViewById(R.id.tabsContainer);
         pager.setAdapter(mAdapter);
 
-        UnderlinePageIndicator mIndicator = (UnderlinePageIndicator) view.findViewById(R.id.tab_indicator);
+        PageIndicator mIndicator = (PageIndicator) view.findViewById(R.id.tab_indicator);
         mIndicator.setViewPager(pager);
         mIndicator.setFades(false);
     }
@@ -141,8 +141,7 @@ public final class FilePropertiesDialog extends DialogFragment {
         }
 
         @Override
-        public Object instantiateItem(final ViewGroup container,
-                                      final int position) {
+        public Object instantiateItem(final ViewGroup container, final int position) {
             final PagerItem item = mItems[position];
             final View view = item.onCreateView(mLayoutInflater);
             container.addView(view);
@@ -207,10 +206,7 @@ public final class FilePropertiesDialog extends DialogFragment {
             this.mMD5Label = (TextView) table.findViewById(R.id.md5_summary);
         }
 
-        private final class LoadFsTask extends AsyncTask<File, Void, String> {
-            private String size;
-            private String time;
-            private String md5;
+        private final class LoadFsTask extends AsyncTask<File, Void, String[]> {
 
             @Override
             protected void onPreExecute() {
@@ -221,34 +217,44 @@ public final class FilePropertiesDialog extends DialogFragment {
             }
 
             @Override
-            protected String doInBackground(final File... params) {
+            protected String[] doInBackground(final File... params) {
                 DateFormat df = DateFormat.getDateTimeInstance();
 
-                if (!file3.canRead())
+                if (!params[0].canRead()) {
                     return null;
+                }
 
-                time = df.format(file3.lastModified());
+                String time = df.format(params[0].lastModified());
+                String md5 = null;
+                String size;
 
-                if (file3.isFile()) {
-                    size = SimpleUtils.formatCalculatedSize(file3.length());
+                if (params[0].isFile()) {
+                    size = SimpleUtils.formatCalculatedSize(params[0].length());
 
                     try {
-                        md5 = SimpleUtils.getMD5Checksum(file3.getPath());
+                        md5 = SimpleUtils.getMD5Checksum(params[0].getPath());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {
-                    size = SimpleUtils.formatCalculatedSize(SimpleUtils.getDirectorySize(file3));
+                    size = SimpleUtils.formatCalculatedSize(SimpleUtils.getDirectorySize(params[0]));
+                    md5 = "-";
                 }
 
-                return null;
+                return new String[]{size, time, md5};
             }
 
             @Override
-            protected void onPostExecute(final String result) {
-                mSizeLabel.setText(size);
-                mTimeLabel.setText(time);
-                mMD5Label.setText(md5);
+            protected void onPostExecute(final String[] result) {
+                if (result != null) {
+                    mSizeLabel.setText(result[0]);
+                    mTimeLabel.setText(result[1]);
+                    mMD5Label.setText(result[2]);
+                } else {
+                    mSizeLabel.setText("-");
+                    mTimeLabel.setText("-");
+                    mMD5Label.setText("-");
+                }
             }
         }
     }
@@ -284,7 +290,6 @@ public final class FilePropertiesDialog extends DialogFragment {
         private final File mFile;
         private View mView;
         private TextView mGroup, mOwner;
-        private LoadFsTask mTask;
         private Permissions mPermission;
 
         private FilePermissionsPagerItem(final File file) {
@@ -300,21 +305,10 @@ public final class FilePropertiesDialog extends DialogFragment {
 
         @Override
         public void onStart() {
-            if (mView != null) {
-                if (mTask == null) {
-                    mTask = new LoadFsTask(this);
-                }
-                if (mTask.getStatus() != AsyncTask.Status.RUNNING) {
-                    mTask.execute(mFile);
-                }
-            }
         }
 
         @Override
         public void onStop() {
-            if (mTask != null && mTask.getStatus() == AsyncTask.Status.RUNNING) {
-                mTask.cancel(false);
-            }
         }
 
         private void initView() {
@@ -334,38 +328,12 @@ public final class FilePropertiesDialog extends DialogFragment {
         }
 
         @Override
-        public void onCheckedChanged(CompoundButton buttonView,
-                                     boolean isChecked) {
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             this.mModifiedPermissions = new Permissions(this.ur.isChecked(),
                     this.uw.isChecked(), this.ux.isChecked(),
                     this.gr.isChecked(), this.gw.isChecked(),
                     this.gx.isChecked(), this.or.isChecked(),
                     this.ow.isChecked(), this.ox.isChecked());
-        }
-
-        private class LoadFsTask extends AsyncTask<File, Void, String> {
-
-            private final WeakReference<FilePermissionsPagerItem> mItemRef;
-
-            private LoadFsTask(final FilePermissionsPagerItem item) {
-                this.mItemRef = new WeakReference<>(
-                        item);
-            }
-
-            @Override
-            protected String doInBackground(final File... params) {
-                return params[0].getAbsolutePath();
-            }
-
-            @Override
-            protected void onPostExecute(final String file) {
-                final FilePermissionsPagerItem item = mItemRef.get();
-                if (item != null) {
-                    if (file == null) {
-                        item.disableBoxes();
-                    }
-                }
-            }
         }
 
         public void applyPermissions(final Context context) {
@@ -406,17 +374,17 @@ public final class FilePropertiesDialog extends DialogFragment {
             @Override
             protected void onPostExecute(Boolean result) {
                 if (result)
-                    Toast.makeText(
-                            this.context,
+                    Toast.makeText(this.context,
                             this.context.getString(R.string.permissionschanged),
                             Toast.LENGTH_SHORT).show();
             }
         }
 
         private void getPermissions(File file32) {
-            String[] mFileInfo;
+            String[] mFileInfo = null;
 
-            mFileInfo = RootCommands.getFileProperties(file32);
+            if (Settings.rootAccess())
+                mFileInfo = RootCommands.getFileProperties(file32);
 
             if (mFileInfo != null) {
                 mOwner.setText(mFileInfo[1]);

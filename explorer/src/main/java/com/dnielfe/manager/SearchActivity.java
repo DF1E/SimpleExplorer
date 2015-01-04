@@ -24,10 +24,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +37,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dnielfe.manager.adapters.BrowserListAdapter;
+import com.dnielfe.manager.controller.ActionModeController;
 import com.dnielfe.manager.utils.SimpleUtils;
 
 import java.io.File;
@@ -46,6 +47,7 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
 
     private AbsListView mListView;
     private BrowserListAdapter mAdapter;
+    private ActionModeController mActionController;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,8 +64,7 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
         init();
 
         if (savedInstanceState != null) {
-            mAdapter.addContent(savedInstanceState
-                    .getStringArrayList("savedList"));
+            mAdapter.addContent(savedInstanceState.getStringArrayList("savedList"));
 
             getSupportActionBar().setSubtitle(String.valueOf(mAdapter.getCount())
                     + getString(R.string._files));
@@ -78,10 +79,12 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
 
     private void init() {
         mAdapter = new BrowserListAdapter(this, getLayoutInflater());
+        mActionController = new ActionModeController(this);
 
         mListView = (ListView) findViewById(android.R.id.list);
         mListView.setEmptyView(findViewById(android.R.id.empty));
         mListView.setAdapter(mAdapter);
+        mListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -98,13 +101,22 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
                 }
             }
         });
+
+        mActionController.setListView(mListView);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mActionController.isActionMode()) {
+            mActionController.finishActionMode();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setOnQueryTextListener(this);
         return super.onCreateOptionsMenu(menu);
     }
@@ -138,6 +150,18 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
     public boolean onQueryTextChange(final String query) {
         // do nothing
         return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keycode, @NonNull KeyEvent event) {
+        if (keycode != KeyEvent.KEYCODE_BACK)
+            return false;
+
+        if (mActionController.isActionMode()) {
+            mActionController.finishActionMode();
+        }
+
+        return true;
     }
 
     private class SearchTask extends AsyncTask<String, Void, ArrayList<String>> {

@@ -17,7 +17,7 @@
  * MA  02110-1301, USA.
  */
 
-package com.dnielfe.manager.utils;
+package com.dnielfe.manager.ui;
 
 import android.app.Activity;
 import android.view.Gravity;
@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.utils.SimpleUtils;
 
 import java.io.File;
 import java.util.HashSet;
@@ -37,12 +38,10 @@ import java.util.Set;
 public class NavigationView {
 
     public final Set<OnNavigateListener> listeners;
-    private LinearLayout mView;
     private final Activity mActivity;
-
+    private final int text_size = 16;
     private final int WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT;
     private final int MATCH_PARENT = FrameLayout.LayoutParams.MATCH_PARENT;
-    private final int textsize = 16;
 
     public interface OnNavigateListener {
         void onNavigate(String path);
@@ -59,7 +58,7 @@ public class NavigationView {
 
         HorizontalScrollView scrolltext = (HorizontalScrollView) mActivity
                 .findViewById(R.id.scroll_text);
-        mView = (LinearLayout) mActivity.findViewById(R.id.directory_buttons);
+        LinearLayout mView = (LinearLayout) mActivity.findViewById(R.id.directory_buttons);
         mView.removeAllViews();
 
         String[] parts = currentDirectory.getAbsolutePath().split("/");
@@ -70,7 +69,7 @@ public class NavigationView {
         t0.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT,
                 MATCH_PARENT, Gravity.CENTER_VERTICAL));
         t0.setText("/");
-        t0.setTextSize(textsize);
+        t0.setTextSize(text_size);
         t0.setTag(dir);
         t0.setOnClickListener(new OnClickListener() {
             @Override
@@ -101,7 +100,7 @@ public class NavigationView {
             t2.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT,
                     MATCH_PARENT, Gravity.CENTER_VERTICAL));
             t2.setText(parts[i]);
-            t2.setTextSize(textsize);
+            t2.setTextSize(text_size);
             t2.setTag(dir);
             t2.setOnClickListener(new OnClickListener() {
                 @Override

@@ -30,8 +30,8 @@ import android.widget.Toast;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.settings.Settings;
+import com.dnielfe.manager.utils.RootCommands;
 
 import java.io.File;
 
