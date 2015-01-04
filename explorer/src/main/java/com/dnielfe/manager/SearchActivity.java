@@ -31,6 +31,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ import java.util.ArrayList;
 
 public class SearchActivity extends ThemableActivity implements SearchView.OnQueryTextListener {
 
-    private ListView mListView;
+    private AbsListView mListView;
     private BrowserListAdapter mAdapter;
 
     @Override

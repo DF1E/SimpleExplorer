@@ -30,10 +30,8 @@ import android.widget.EditText;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.tasks.UnRarTask;
 import com.dnielfe.manager.tasks.UnZipTask;
-
-import org.apache.commons.io.FilenameUtils;
+import com.dnielfe.manager.utils.SimpleUtils;
 
 import java.io.File;
 
@@ -44,7 +42,7 @@ public final class UnpackDialog extends DialogFragment {
 
     public static DialogFragment instantiate(File file1) {
         file = file1;
-        ext = FilenameUtils.getExtension(file1.getName());
+        ext = SimpleUtils.getExtension(file1.getName());
         return new UnpackDialog();
     }
 
@@ -69,11 +67,6 @@ public final class UnpackDialog extends DialogFragment {
 
                         if (ext.equals("zip")) {
                             final UnZipTask task = new UnZipTask(a);
-                            task.executeOnExecutor(
-                                    AsyncTask.THREAD_POOL_EXECUTOR,
-                                    file.getPath(), newpath);
-                        } else if (ext.equals("rar")) {
-                            final UnRarTask task = new UnRarTask(a);
                             task.executeOnExecutor(
                                     AsyncTask.THREAD_POOL_EXECUTOR,
                                     file.getPath(), newpath);

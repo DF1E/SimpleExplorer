@@ -32,7 +32,7 @@ import android.provider.BaseColumns;
 import android.text.TextUtils;
 
 public class Bookmarks extends ContentProvider implements BaseColumns {
-    public static final String TB_NAME = "bookmarks";
+    private static final String TB_NAME = "bookmarks";
     public static final String NAME = "name";
     public static final String PATH = "path";
 
@@ -40,7 +40,7 @@ public class Bookmarks extends ContentProvider implements BaseColumns {
     public static final String CHECKED = "checked";
 
     private static final String BASE_PATH = "bookmarks";
-    public static final String PROVIDER_NAME = "com.dnielfe.manager.bookmarks";
+    private static final String PROVIDER_NAME = "com.dnielfe.manager.bookmarks";
     public static final Uri CONTENT_URI = Uri.parse("content://"
             + PROVIDER_NAME + "/" + BASE_PATH);
 

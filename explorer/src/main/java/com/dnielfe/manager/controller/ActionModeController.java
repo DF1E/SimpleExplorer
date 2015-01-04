@@ -175,7 +175,7 @@ public final class ActionModeController {
                             BrowserActivity.TAG_DIALOG);
                     return true;
                 case R.id.actionshare:
-                    final ArrayList<Uri> uris = new ArrayList<Uri>(
+                    final ArrayList<Uri> uris = new ArrayList<>(
                             mListView.getCheckedItemCount());
                     for (int i = 0; i < checkedItemSize; i++) {
                         final int key = items.keyAt(i);

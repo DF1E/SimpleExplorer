@@ -44,7 +44,7 @@ public class RootCommands {
     }
 
     public static ArrayList<String> listFiles(String path, boolean showhidden) {
-        ArrayList<String> mDirContent = new ArrayList<String>();
+        ArrayList<String> mDirContent = new ArrayList<>();
         BufferedReader in;
 
         try {
@@ -67,7 +67,7 @@ public class RootCommands {
     }
 
     public static ArrayList<String> findFiles(String path, String query) {
-        ArrayList<String> mDirContent = new ArrayList<String>();
+        ArrayList<String> mDirContent = new ArrayList<>();
         BufferedReader in;
 
         try {
@@ -243,8 +243,6 @@ public class RootCommands {
                 return null;
             }
             return reader;
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

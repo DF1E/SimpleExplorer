@@ -34,8 +34,6 @@ import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.utils.SimpleUtils;
 import com.dnielfe.manager.utils.SortUtils;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -50,7 +48,7 @@ public class BrowserListAdapter extends BaseAdapter {
     public BrowserListAdapter(Context context, LayoutInflater inflater) {
         mInflater = inflater;
         mContext = context;
-        mDataSource = new ArrayList<String>();
+        mDataSource = new ArrayList<>();
         mResources = context.getResources();
     }
 
@@ -82,8 +80,7 @@ public class BrowserListAdapter extends BaseAdapter {
 
         if (file.isFile()) {
             // Shows the size of File
-            mViewHolder.bottomView.setText(FileUtils
-                    .byteCountToDisplaySize(file.length()));
+            mViewHolder.bottomView.setText(SimpleUtils.formatCalculatedSize(file.length()));
         } else {
             String[] list = file.list();
 

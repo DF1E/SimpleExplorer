@@ -42,7 +42,7 @@ public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
     private ProgressDialog dialog;
 
     public UnZipTask(final Activity activity) {
-        this.activity = new WeakReference<Activity>(activity);
+        this.activity = new WeakReference<>(activity);
     }
 
     @Override
@@ -69,7 +69,7 @@ public final class UnZipTask extends AsyncTask<String, Void, List<String>> {
     @Override
     protected List<String> doInBackground(String... files) {
         final Activity activity = this.activity.get();
-        final List<String> failed = new ArrayList<String>();
+        final List<String> failed = new ArrayList<>();
 
         try {
             ZipUtils.unpackZip(files[0], files[1]);

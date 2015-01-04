@@ -22,8 +22,7 @@ package com.dnielfe.manager.preview;
 import android.webkit.MimeTypeMap;
 
 import com.dnielfe.manager.R;
-
-import org.apache.commons.io.FilenameUtils;
+import com.dnielfe.manager.utils.SimpleUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -34,9 +33,9 @@ public final class MimeTypes {
 
     public static final String ALL_MIME_TYPES = "*/*";
 
-    private static final HashMap<String, Integer> EXT_ICONS = new HashMap<String, Integer>();
+    private static final HashMap<String, Integer> EXT_ICONS = new HashMap<>();
 
-    private static final HashMap<String, String> MIME_TYPES = new HashMap<String, String>();
+    private static final HashMap<String, String> MIME_TYPES = new HashMap<>();
 
     static {
         // BINARY
@@ -108,6 +107,7 @@ public final class MimeTypes {
         // PDF
         EXT_ICONS.put("pdf", R.drawable.type_pdf);
         EXT_ICONS.put("fdf", R.drawable.type_pdf);
+        EXT_ICONS.put("ldwf", R.drawable.type_pdf);
 
         // Package
         EXT_ICONS.put("ace", R.drawable.type_package);
@@ -164,6 +164,7 @@ public final class MimeTypes {
         EXT_ICONS.put("pic", R.drawable.type_pic);
         EXT_ICONS.put("xbm", R.drawable.type_pic);
         EXT_ICONS.put("xwd", R.drawable.type_pic);
+        EXT_ICONS.put("bpg", R.drawable.type_pic);
 
         // Audio
         EXT_ICONS.put("aac", R.drawable.type_music);
@@ -329,7 +330,7 @@ public final class MimeTypes {
         }
 
         String type = null;
-        final String extension = FilenameUtils.getExtension(file.getName());
+        final String extension = SimpleUtils.getExtension(file.getName());
 
         if (extension != null && !extension.isEmpty()) {
             final String extensionLowerCase = extension.toLowerCase(Locale
