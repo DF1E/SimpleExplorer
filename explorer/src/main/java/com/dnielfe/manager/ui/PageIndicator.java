@@ -46,7 +46,6 @@ public class PageIndicator extends View implements ViewPager.OnPageChangeListene
 
     private boolean mFades;
     private int mFadeDelay;
-    private int mFadeLength;
     private int mFadeBy;
 
     private ViewPager mViewPager;
@@ -131,8 +130,7 @@ public class PageIndicator extends View implements ViewPager.OnPageChangeListene
     }
 
     public void setFadeLength(int fadeLength) {
-        mFadeLength = fadeLength;
-        mFadeBy = 0xFF / (mFadeLength / FADE_FRAME_MS);
+        mFadeBy = 0xFF / (fadeLength / FADE_FRAME_MS);
     }
 
     public void setSelectedColor(int selectedColor) {
@@ -360,18 +358,5 @@ public class PageIndicator extends View implements ViewPager.OnPageChangeListene
             super.writeToParcel(dest, flags);
             dest.writeInt(currentPage);
         }
-
-        @SuppressWarnings("UnusedDeclaration")
-        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            @Override
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
-
-            @Override
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
     }
 }

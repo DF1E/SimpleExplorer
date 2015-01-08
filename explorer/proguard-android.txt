@@ -58,4 +58,4 @@
 
 # === custom ===
 # this fixed a bug with SearchView on Cyanogenmod
--keep public class android.support.v7.** { *; }
+-keep public class android.support.v7.widget.** { *; }

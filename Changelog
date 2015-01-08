@@ -1,4 +1,13 @@
 Changelog:
+2.2.3
+create multiple bookmarks and shortcuts
+improved file properties dialog
+improved action mode - now you can use it in SearchActivity
+add swedish translation
+add persian translation - not completely translated yet
+updated translations
+bug fixes
+
 2.2.2
 fixed bug while renaming files with root
 design improvements and small fixes

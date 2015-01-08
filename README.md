@@ -46,12 +46,14 @@ More info under: http://www.gnu.org/licenses/gpl-2.0.html
 + hungarian - Wechy77
 + italian - mirhl, bovirus
 + japanese - naofum
++ persian - aliashell
 + polish - SealQ
 + portuguese - smarquespt
 + romanian - Silviumik
 + russian -lexaleon
 + slovakian - pylerSM
 + spanish - youngbrod
++ swedish - boss302
 + thai - atlasslusho
 + turkish - adamslast
 + ukrainian - DMDP
