@@ -44,6 +44,7 @@ import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.SearchActivity;
 import com.dnielfe.manager.adapters.BrowserListAdapter;
+import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.controller.ActionModeController;
 import com.dnielfe.manager.dialogs.CreateFileDialog;
 import com.dnielfe.manager.dialogs.CreateFolderDialog;
@@ -139,7 +140,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
         navigateTo(mCurrentPath);
 
-        activity.supportInvalidateOptionsMenu();
+        // this is only needed if you select "move/copy files" in SearchActivity and come back
+        if (!ClipBoard.isEmpty())
+            activity.supportInvalidateOptionsMenu();
     }
 
     @Override
