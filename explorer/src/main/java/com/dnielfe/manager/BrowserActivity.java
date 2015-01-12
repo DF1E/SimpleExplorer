@@ -70,7 +70,6 @@ public final class BrowserActivity extends ThemableActivity implements
     private Toolbar toolbar;
 
     private FragmentManager fm;
-    private static BrowserFragment mBrowserFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,14 +104,6 @@ public final class BrowserActivity extends ThemableActivity implements
     @Override
     public void onTrimMemory(int level) {
         IconPreview.clearCache();
-    }
-
-    public void setCurrentlyDisplayedFragment(final BrowserFragment fragment) {
-        mBrowserFragment = fragment;
-    }
-
-    public static BrowserFragment getCurrentlyDisplayedFragment() {
-        return mBrowserFragment;
     }
 
     private void init() {
@@ -192,7 +183,7 @@ public final class BrowserActivity extends ThemableActivity implements
                                 .getString(mBookmarksCursor
                                         .getColumnIndex(Bookmarks.PATH)));
 
-                        mBrowserFragment.onBookmarkClick(file);
+                        BrowserTabsAdapter.getCurrentBrowserFragment().onBookmarkClick(file);
                     }
                 } else if (mMergeAdapter.getAdapter(position).equals(
                         mMenuAdapter)) {
@@ -261,12 +252,12 @@ public final class BrowserActivity extends ThemableActivity implements
 
         if (isDrawerOpen())
             mDrawerLayout.closeDrawer(mDrawer);
-        return mBrowserFragment.onBackPressed();
+        return BrowserTabsAdapter.getCurrentBrowserFragment().onBackPressed();
     }
 
     @Override
     public void onNavigate(String path) {
-        mBrowserFragment.onNavigate(path);
+        BrowserTabsAdapter.getCurrentBrowserFragment().onNavigate(path);
     }
 
     @Override

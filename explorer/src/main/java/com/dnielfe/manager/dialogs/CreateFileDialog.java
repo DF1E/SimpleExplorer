@@ -28,8 +28,8 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.utils.RootCommands;
 
@@ -53,8 +53,7 @@ public final class CreateFileDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String name = inputf.getText().toString();
-                        String path = BrowserActivity
-                                .getCurrentlyDisplayedFragment().mCurrentPath;
+                        String path = BrowserTabsAdapter.getCurrentBrowserFragment().mCurrentPath;
                         boolean success = false;
 
                         File file = new File(path + File.separator + name);

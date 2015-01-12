@@ -29,8 +29,8 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.tasks.ZipTask;
 
 import java.io.File;
@@ -47,7 +47,7 @@ public final class ZipFilesDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle state) {
         final Activity a = getActivity();
-        final String zipfile = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath
+        final String zipfile = BrowserTabsAdapter.getCurrentBrowserFragment().mCurrentPath
                 + "/" + "zipfile.zip";
         final int size = files.length;
 

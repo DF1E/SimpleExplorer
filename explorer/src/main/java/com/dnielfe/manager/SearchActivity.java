@@ -37,6 +37,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dnielfe.manager.adapters.BrowserListAdapter;
+import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.controller.ActionModeController;
 import com.dnielfe.manager.utils.SimpleUtils;
 
@@ -94,8 +95,7 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
                 if (f.isDirectory()) {
                     finish();
 
-                    BrowserActivity.getCurrentlyDisplayedFragment().navigateTo(
-                            f.getAbsolutePath());
+                    BrowserTabsAdapter.getCurrentBrowserFragment().navigateTo(f.getAbsolutePath());
                 } else if (f.isFile()) {
                     SimpleUtils.openFile(SearchActivity.this, f);
                 }
@@ -181,7 +181,7 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
 
         @Override
         protected ArrayList<String> doInBackground(String... params) {
-            String location = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
+            String location = BrowserTabsAdapter.getCurrentBrowserFragment().mCurrentPath;
             return SimpleUtils.searchInDirectory(location, params[0]);
         }
 

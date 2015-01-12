@@ -28,8 +28,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.tasks.UnZipTask;
 import com.dnielfe.manager.utils.SimpleUtils;
 
@@ -53,7 +53,7 @@ public final class UnpackDialog extends DialogFragment {
         // Set an EditText view to get user input
         final EditText inputf = new EditText(a);
         inputf.setHint(R.string.enter_name);
-        inputf.setText(BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath + "/");
+        inputf.setText(BrowserTabsAdapter.getCurrentBrowserFragment().mCurrentPath + "/");
 
         final AlertDialog.Builder b = new AlertDialog.Builder(a);
         b.setTitle(R.string.extractto);

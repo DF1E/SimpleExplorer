@@ -25,8 +25,8 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.utils.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
@@ -71,7 +71,7 @@ public final class RenameTask extends AsyncTask<String, Void, List<String>> {
     @Override
     protected List<String> doInBackground(String... files) {
         final List<String> failed = new ArrayList<>();
-        String path = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
+        String path = BrowserTabsAdapter.getCurrentBrowserFragment().mCurrentPath;
 
         try {
             if (SimpleUtils.renameTarget(path + "/" + files[0], files[1])) {

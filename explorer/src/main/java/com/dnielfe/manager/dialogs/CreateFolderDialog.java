@@ -28,8 +28,8 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.utils.SimpleUtils;
 
 public final class CreateFolderDialog extends DialogFragment {
@@ -55,8 +55,7 @@ public final class CreateFolderDialog extends DialogFragment {
 
                         if (name.length() >= 1)
                             success = SimpleUtils.createDir(
-                                    BrowserActivity
-                                            .getCurrentlyDisplayedFragment().mCurrentPath,
+                                    BrowserTabsAdapter.getCurrentBrowserFragment().mCurrentPath,
                                     name);
 
                         if (success)

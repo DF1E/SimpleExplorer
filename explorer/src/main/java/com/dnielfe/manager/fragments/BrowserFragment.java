@@ -132,10 +132,6 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     @Override
     protected void onVisible() {
         final BrowserActivity activity = (BrowserActivity) getActivity();
-        if (activity != null && !activity.isFinishing()) {
-            activity.setCurrentlyDisplayedFragment(this);
-        }
-
         Settings.updatePreferences(mActivity);
 
         navigateTo(mCurrentPath);
@@ -356,7 +352,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
         @Override
         public void run() {
-            BrowserActivity.getCurrentlyDisplayedFragment().navigateTo(target);
+            BrowserTabsAdapter.getCurrentBrowserFragment().navigateTo(target);
         }
     }
 

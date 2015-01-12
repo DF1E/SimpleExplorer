@@ -64,12 +64,12 @@
     <string name="shortcutcreated">Genväg skapad.</string>
     <string name="showpreview">Miniatyrbilder</string>
     <string name="simple">Enkel</string>
-    <string name="size">Använd:</string>
-    <string name="uisettings">Visa inställningar</string>
+    <string name="size">Storlek:</string>
+    <string name="uisettings">Anpassa vy</string>
     <string name="unzipping">Extraherar</string>
     <string name="viewmode">Visningsläge</string>
     <string name="xdaforum">XDA forum</string>
-    <string name="sort">Sortera efter..</string>
+    <string name="sort">Ordna efter..</string>
     <string name="sortpreferences">Sorterings-inställningar</string>
     <string name="sort_reverselist">Omvänd ordning</string>
     <string name="sort_name">Namn</string>

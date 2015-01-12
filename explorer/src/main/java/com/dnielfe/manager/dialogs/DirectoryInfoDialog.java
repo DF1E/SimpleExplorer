@@ -28,8 +28,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.utils.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
 import com.dnielfe.manager.utils.StatFsCompat;
@@ -56,8 +56,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        File mFile = new File(
-                BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath);
+        File mFile = new File(BrowserTabsAdapter.getCurrentBrowserFragment().mCurrentPath);
         PartitionInfoTask mTask = new PartitionInfoTask(mView);
         mTask.execute(mFile);
     }
