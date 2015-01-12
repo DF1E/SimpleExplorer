@@ -1,1 +1,1 @@
-include ':libraries:FloatingActionButton', ':libraries:RootTools', ':explorer'
+include ':libraries:FloatingActionButton', ':explorer'
