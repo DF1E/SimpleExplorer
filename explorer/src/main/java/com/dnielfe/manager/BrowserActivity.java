@@ -23,7 +23,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
@@ -48,7 +47,6 @@ import com.dnielfe.manager.settings.SettingsActivity;
 import com.dnielfe.manager.ui.NavigationView;
 import com.dnielfe.manager.ui.NavigationView.OnNavigateListener;
 import com.dnielfe.manager.ui.PageIndicator;
-import com.dnielfe.manager.utils.Bookmarks;
 
 import java.io.File;
 
@@ -66,7 +64,6 @@ public final class BrowserActivity extends ThemableActivity implements
     private static ListView mDrawer;
     private static DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-    private Cursor mBookmarksCursor;
     private Toolbar toolbar;
 
     private FragmentManager fm;
@@ -157,8 +154,7 @@ public final class BrowserActivity extends ThemableActivity implements
     }
 
     private void initDrawerList() {
-        mBookmarksCursor = getBookmarksCursor();
-        mBookmarksAdapter = new BookmarksAdapter(this, mBookmarksCursor);
+        mBookmarksAdapter = new BookmarksAdapter(this);
         mMenuAdapter = new DrawerListAdapter(this);
 
         // create MergeAdapter to combine multiple adapter
@@ -169,24 +165,16 @@ public final class BrowserActivity extends ThemableActivity implements
         mDrawer.setAdapter(mMergeAdapter);
         mDrawer.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                if (mMergeAdapter.getAdapter(position)
-                        .equals(mBookmarksAdapter)) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mMergeAdapter.getAdapter(position).equals(mBookmarksAdapter)) {
 
                     // handle bookmark items
                     if (mDrawerLayout.isDrawerOpen(mDrawer))
                         mDrawerLayout.closeDrawer(mDrawer);
 
-                    if (mBookmarksCursor.moveToPosition(position)) {
-                        File file = new File(mBookmarksCursor
-                                .getString(mBookmarksCursor
-                                        .getColumnIndex(Bookmarks.PATH)));
-
-                        BrowserTabsAdapter.getCurrentBrowserFragment().onBookmarkClick(file);
-                    }
-                } else if (mMergeAdapter.getAdapter(position).equals(
-                        mMenuAdapter)) {
+                    File file = new File(mBookmarksAdapter.getItem(position).getPath());
+                    BrowserTabsAdapter.getCurrentBrowserFragment().onBookmarkClick(file);
+                } else if (mMergeAdapter.getAdapter(position).equals(mMenuAdapter)) {
                     // handle menu items
                     switch ((int) mMergeAdapter.getItemId(position)) {
                         case 0:
@@ -236,13 +224,6 @@ public final class BrowserActivity extends ThemableActivity implements
 
     public static BookmarksAdapter getBookmarksAdapter() {
         return mBookmarksAdapter;
-    }
-
-    private Cursor getBookmarksCursor() {
-        return getContentResolver().query(
-                Bookmarks.CONTENT_URI,
-                new String[]{Bookmarks._ID, Bookmarks.NAME, Bookmarks.PATH,
-                        Bookmarks.CHECKED}, null, null, null);
     }
 
     @Override

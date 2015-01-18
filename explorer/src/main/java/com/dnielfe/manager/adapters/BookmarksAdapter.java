@@ -19,98 +19,90 @@
 
 package com.dnielfe.manager.adapters;
 
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.utils.Bookmarks;
+import com.dnielfe.manager.utils.Bookmark;
+import com.dnielfe.manager.utils.BookmarksHelper;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-public class BookmarksAdapter extends SimpleCursorAdapter {
+public class BookmarksAdapter extends BaseAdapter {
 
-    private static final String[] fromColumns = {Bookmarks.NAME, Bookmarks.PATH};
-    private static final int[] toViews = {R.id.title, R.id.path};
-    private final Cursor mCursor;
-    private final Context mContext;
     private final LayoutInflater mLayoutInflater;
-    private final int mTitleIndex;
-    private final int mPathIndex;
+    private List<Bookmark> mBookmarksList = new ArrayList<>();
+    private BookmarksHelper db;
 
-    public BookmarksAdapter(Context context, Cursor c) {
-        super(context, R.layout.item_bookmark, c, fromColumns, toViews, 0);
-        this.mLayoutInflater = LayoutInflater.from(context);
-        this.mContext = context;
-        this.mCursor = c;
-        this.mTitleIndex = c.getColumnIndexOrThrow(Bookmarks.NAME);
-        this.mPathIndex = c.getColumnIndexOrThrow(Bookmarks.PATH);
+    public BookmarksAdapter(Context context) {
+        mLayoutInflater = LayoutInflater.from(context);
+        db = new BookmarksHelper(context);
+
+        mBookmarksList = db.getAllBooks();
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (mCursor.moveToPosition(position)) {
-            ViewHolder viewHolder;
+        final ViewHolder viewHolder;
+        final Bookmark bm = getItem(position);
 
-            if (convertView == null) {
-                convertView = mLayoutInflater.inflate(R.layout.item_bookmark,
-                        parent, false);
-                viewHolder = new ViewHolder(convertView);
-                convertView.setTag(viewHolder);
-            } else {
-                viewHolder = (ViewHolder) convertView.getTag();
-            }
-
-            viewHolder.title.setText(mCursor.getString(mTitleIndex));
-            viewHolder.path.setText(mCursor.getString(mPathIndex));
-            viewHolder.remove.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-                    Uri deleteUri = ContentUris.withAppendedId(
-                            Bookmarks.CONTENT_URI, getItemId(position));
-                    mContext.getContentResolver().delete(deleteUri, null, null);
-                    update(mCursor);
-                }
-            });
+        if (convertView == null) {
+            convertView = mLayoutInflater.inflate(R.layout.item_bookmark, parent, false);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        viewHolder.title.setText(bm.getName());
+        viewHolder.path.setText(bm.getPath());
+        viewHolder.remove.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                db.deleteBook(bm);
+                updateList();
+            }
+        });
+
         return convertView;
     }
 
     public void createBookmark(File file) {
-        Cursor c = mContext.getContentResolver().query(Bookmarks.CONTENT_URI,
-                new String[]{Bookmarks._ID}, Bookmarks.PATH + "=?",
-                new String[]{file.getPath()}, null);
-
-        if (!c.moveToFirst()) {
-            ContentValues values = new ContentValues();
-            values.put(Bookmarks.NAME, file.getName());
-            values.put(Bookmarks.PATH, file.getPath());
-            mContext.getContentResolver().insert(Bookmarks.CONTENT_URI, values);
-            Toast.makeText(mContext, R.string.bookmarkadded, Toast.LENGTH_SHORT)
-                    .show();
-        } else {
-            Toast.makeText(mContext, R.string.bookmarkexist, Toast.LENGTH_SHORT)
-                    .show();
-        }
-
-        update(mCursor);
+        db.addBookmark(new Bookmark(file.getName(), file.getPath()));
+        updateList();
     }
 
-    @SuppressWarnings("deprecation")
-    private void update(Cursor c) {
-        c.requery();
+    // TODO: find a better solution for refreshing ListView
+    private void updateList() {
+        if (!mBookmarksList.isEmpty())
+            mBookmarksList.clear();
+
+        mBookmarksList = db.getAllBooks();
         notifyDataSetChanged();
+    }
+
+    @Override
+    public Bookmark getItem(int pos) {
+        return mBookmarksList.get(pos);
+    }
+
+    @Override
+    public int getCount() {
+        return mBookmarksList.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     private class ViewHolder {

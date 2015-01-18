@@ -44,11 +44,6 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:name="com.dnielfe.manager.utils.Bookmarks"
-            android:authorities="com.dnielfe.manager.bookmarks"
-            android:exported="false" />
-
         <!-- support multi-window for samsung devices -->
         <meta-data
             android:name="com.sec.android.support.multiwindow"
