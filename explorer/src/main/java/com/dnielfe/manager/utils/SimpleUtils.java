@@ -436,4 +436,21 @@ public class SimpleUtils {
         }
         return ext;
     }
+
+    // use this as alternative if no root is available
+    public static String getBasicPermission(File file) {
+        String per = "";
+
+        per += file.isDirectory() ? "d" : "-";
+        per += file.canRead() ? "r" : "-";
+        per += file.canWrite() ? "w" : "-";
+        per += file.canExecute() ? "x" : "-";
+
+        return per;
+    }
+
+    public static boolean isSupportedArchive(File file) {
+        String ext = getExtension(file.getName());
+        return ext.equalsIgnoreCase("zip");
+    }
 }

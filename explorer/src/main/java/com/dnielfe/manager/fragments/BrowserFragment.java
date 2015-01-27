@@ -241,10 +241,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     }
 
     private void listItemAction(File file) {
-        String item_ext = SimpleUtils.getExtension(file.getName());
-
-        if (item_ext.equalsIgnoreCase("zip")
-                || item_ext.equalsIgnoreCase("rar")) {
+        if (SimpleUtils.isSupportedArchive(file)) {
             final DialogFragment dialog = UnpackDialog.instantiate(file);
             dialog.show(fm, BrowserActivity.TAG_DIALOG);
         } else {

@@ -56,14 +56,10 @@ public class ZipUtils {
         }
     }
 
-    public static void unpackZip(String zipFile, String location) {
+    public static void unpackZip(File zipFile, File location) {
         try {
-            File fSourceZip = new File(zipFile);
-            // File temp = new File(zipPath);
-            // temp.mkdir();
-
             // Extract entries while creating required sub-directories
-            ZipFile zf = new ZipFile(fSourceZip);
+            ZipFile zf = new ZipFile(zipFile);
             Enumeration<?> e = zf.entries();
 
             while (e.hasMoreElements()) {
@@ -77,18 +73,15 @@ public class ZipUtils {
                 if (!entry.isDirectory()) {
                     // Get the InputStream for current entry of the zip file
                     // using InputStream getInputStream(Entry entry) method.
-                    BufferedInputStream bis = new BufferedInputStream(
-                            zf.getInputStream(entry));
+                    BufferedInputStream bis = new BufferedInputStream(zf.getInputStream(entry));
 
                     int b;
                     byte buffer[] = new byte[BUFFER];
 
                     // read the current entry from the zip file, extract it and
                     // write the extracted file.
-                    FileOutputStream fos = new FileOutputStream(
-                            destinationFilePath);
-                    BufferedOutputStream bos = new BufferedOutputStream(fos,
-                            BUFFER);
+                    FileOutputStream fos = new FileOutputStream(destinationFilePath);
+                    BufferedOutputStream bos = new BufferedOutputStream(fos, BUFFER);
 
                     while ((b = bis.read(buffer, 0, 1024)) != -1) {
                         bos.write(buffer, 0, b);

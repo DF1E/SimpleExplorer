@@ -30,19 +30,16 @@ import android.widget.EditText;
 
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.adapters.BrowserTabsAdapter;
-import com.dnielfe.manager.tasks.UnZipTask;
-import com.dnielfe.manager.utils.SimpleUtils;
+import com.dnielfe.manager.tasks.ExtractionTask;
 
 import java.io.File;
 
 public final class UnpackDialog extends DialogFragment {
 
     private static File file;
-    private static String ext;
 
     public static DialogFragment instantiate(File file1) {
         file = file1;
-        ext = SimpleUtils.getExtension(file1.getName());
         return new UnpackDialog();
     }
 
@@ -60,17 +57,15 @@ public final class UnpackDialog extends DialogFragment {
         b.setView(inputf);
         b.setPositiveButton(getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String newpath = inputf.getText().toString();
 
                         dialog.dismiss();
 
-                        if (ext.equals("zip")) {
-                            final UnZipTask task = new UnZipTask(a);
-                            task.executeOnExecutor(
-                                    AsyncTask.THREAD_POOL_EXECUTOR,
-                                    file.getPath(), newpath);
-                        }
+                        final ExtractionTask task = new ExtractionTask(a);
+                        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, file,
+                                new File(newpath));
                     }
                 });
         b.setNegativeButton(R.string.cancel,
