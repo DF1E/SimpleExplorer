@@ -39,7 +39,6 @@ import com.dnielfe.manager.dialogs.FilePropertiesDialog;
 import com.dnielfe.manager.dialogs.GroupOwnerDialog;
 import com.dnielfe.manager.dialogs.RenameDialog;
 import com.dnielfe.manager.dialogs.ZipFilesDialog;
-import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
@@ -186,7 +185,7 @@ public final class ActionModeController {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_SEND_MULTIPLE);
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    intent.setType(MimeTypes.ALL_MIME_TYPES);
+                    intent.setType("*/*");
                     intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
                     mode.finish();
                     mActivity.startActivity(Intent.createChooser(intent,

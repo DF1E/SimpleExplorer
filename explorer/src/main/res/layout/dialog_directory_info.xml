@@ -25,6 +25,7 @@
             android:singleLine="true"
             android:text="@string/location"
             android:textIsSelectable="false"
+            android:textAppearance="?android:attr/textAppearance"
             android:textStyle="bold" />
 
         <TextView
@@ -57,6 +58,7 @@
             android:singleLine="true"
             android:text="@string/permissions"
             android:textIsSelectable="false"
+            android:textAppearance="?android:attr/textAppearance"
             android:textStyle="bold" />
 
         <TextView
@@ -88,6 +90,7 @@
             android:singleLine="true"
             android:text="@string/block_size"
             android:textIsSelectable="false"
+            android:textAppearance="?android:attr/textAppearance"
             android:textStyle="bold" />
 
         <TextView
@@ -119,6 +122,7 @@
             android:singleLine="true"
             android:text="@string/total"
             android:textIsSelectable="false"
+            android:textAppearance="?android:attr/textAppearance"
             android:textStyle="bold" />
 
         <TextView
@@ -150,6 +154,7 @@
             android:singleLine="true"
             android:text="@string/free"
             android:textIsSelectable="false"
+            android:textAppearance="?android:attr/textAppearance"
             android:textStyle="bold" />
 
         <TextView
@@ -181,6 +186,7 @@
             android:singleLine="true"
             android:text="@string/used"
             android:textIsSelectable="false"
+            android:textAppearance="?android:attr/textAppearance"
             android:textStyle="bold" />
 
         <TextView

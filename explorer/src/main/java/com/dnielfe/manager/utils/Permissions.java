@@ -19,6 +19,7 @@
 
 package com.dnielfe.manager.utils;
 
+import java.io.File;
 import java.io.Serializable;
 
 public final class Permissions implements Serializable {
@@ -106,5 +107,17 @@ public final class Permissions implements Serializable {
         }
 
         return String.valueOf(user) + group + other;
+    }
+
+    // use this as alternative if no root is available
+    public static String getBasicPermission(File file) {
+        String per = "";
+
+        per += file.isDirectory() ? "d" : "-";
+        per += file.canRead() ? "r" : "-";
+        per += file.canWrite() ? "w" : "-";
+        per += file.canExecute() ? "x" : "-";
+
+        return per;
     }
 }

@@ -31,10 +31,7 @@ import java.util.regex.Pattern;
 
 public final class MimeTypes {
 
-    public static final String ALL_MIME_TYPES = "*/*";
-
     private static final HashMap<String, Integer> EXT_ICONS = new HashMap<>();
-
     private static final HashMap<String, String> MIME_TYPES = new HashMap<>();
 
     static {
@@ -200,6 +197,7 @@ public final class MimeTypes {
         EXT_ICONS.put("wav", R.drawable.type_music);
         EXT_ICONS.put("wax", R.drawable.type_music);
         EXT_ICONS.put("wma", R.drawable.type_music);
+        EXT_ICONS.put("xmf", R.drawable.type_music);
 
         // Video
         EXT_ICONS.put("3gp", R.drawable.type_video);
@@ -239,6 +237,7 @@ public final class MimeTypes {
         EXT_ICONS.put("wmv", R.drawable.type_video);
         EXT_ICONS.put("wmx", R.drawable.type_video);
         EXT_ICONS.put("mkv", R.drawable.type_video);
+        EXT_ICONS.put("divx", R.drawable.type_video);
 
         // Application
         EXT_ICONS.put("apk", R.drawable.type_apk);
@@ -333,8 +332,7 @@ public final class MimeTypes {
         final String extension = SimpleUtils.getExtension(file.getName());
 
         if (extension != null && !extension.isEmpty()) {
-            final String extensionLowerCase = extension.toLowerCase(Locale
-                    .getDefault());
+            final String extensionLowerCase = extension.toLowerCase(Locale.getDefault());
             final MimeTypeMap mime = MimeTypeMap.getSingleton();
             type = mime.getMimeTypeFromExtension(extensionLowerCase);
             if (type == null) {

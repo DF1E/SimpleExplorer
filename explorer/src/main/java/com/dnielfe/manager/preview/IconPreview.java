@@ -146,7 +146,7 @@ public class IconPreview {
     private static void loadBitmap(final File file, final ImageView imageView) {
         imageView.setTag(file.getAbsolutePath());
         imageViews.put(imageView, file.getAbsolutePath());
-        Bitmap mimeIcon = mBitmapCache.get(file.getAbsolutePath());
+        Bitmap mimeIcon = getBitmapFromMemCache(file.getAbsolutePath());
 
         // check in UI thread, so no concurrency issues
         if (mimeIcon != null) {
@@ -161,10 +161,20 @@ public class IconPreview {
 
     public static Drawable getBitmapDrawableFromFile(File file) {
         if (isvalidMimeType(file)) {
-            return new BitmapDrawable(mResources, mBitmapCache.get(file.getAbsolutePath()));
+            return new BitmapDrawable(mResources, getBitmapFromMemCache(file.getAbsolutePath()));
         } else {
             return null;
         }
+    }
+
+    private static void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+        if (getBitmapFromMemCache(key) == null) {
+            mBitmapCache.put(key, bitmap);
+        }
+    }
+
+    private static Bitmap getBitmapFromMemCache(String key) {
+        return mBitmapCache.get(key);
     }
 
     private static Bitmap getPreview(File file) {
@@ -189,13 +199,13 @@ public class IconPreview {
 
             mBitmap = BitmapFactory.decodeFile(path, o);
 
-            mBitmapCache.put(path, mBitmap);
+            addBitmapToMemoryCache(path, mBitmap);
             return mBitmap;
         } else if (isVideo) {
             mBitmap = ThumbnailUtils.createVideoThumbnail(path,
                     MediaStore.Video.Thumbnails.MICRO_KIND);
 
-            mBitmapCache.put(path, mBitmap);
+            addBitmapToMemoryCache(path, mBitmap);
             return mBitmap;
         } else if (isApk) {
             final PackageInfo packageInfo = pm.getPackageArchiveInfo(path,
@@ -219,7 +229,7 @@ public class IconPreview {
                         R.drawable.type_apk);
             }
 
-            mBitmapCache.put(path, mBitmap);
+            addBitmapToMemoryCache(path, mBitmap);
             return mBitmap;
         }
         return null;

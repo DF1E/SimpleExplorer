@@ -46,7 +46,7 @@ import java.util.ArrayList;
 
 public class SimpleUtils {
 
-    private static final int BUFFER = 4096;
+    private static final int BUFFER = 8192;
     private static final long ONE_KB = 1024;
     private static final BigInteger KB_BI = BigInteger.valueOf(ONE_KB);
     private static final BigInteger MB_BI = KB_BI.multiply(KB_BI);
@@ -435,18 +435,6 @@ public class SimpleUtils {
             ext = name.substring(index + 1, name.length());
         }
         return ext;
-    }
-
-    // use this as alternative if no root is available
-    public static String getBasicPermission(File file) {
-        String per = "";
-
-        per += file.isDirectory() ? "d" : "-";
-        per += file.canRead() ? "r" : "-";
-        per += file.canWrite() ? "w" : "-";
-        per += file.canExecute() ? "x" : "-";
-
-        return per;
     }
 
     public static boolean isSupportedArchive(File file) {

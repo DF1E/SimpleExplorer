@@ -276,9 +276,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
             menu.findItem(R.id.paste).setVisible(false);
             menu.findItem(R.id.folderinfo).setVisible(false);
             menu.findItem(R.id.search).setVisible(false);
+        } else {
+            menu.findItem(R.id.paste).setVisible(!ClipBoard.isEmpty());
         }
-
-        menu.findItem(R.id.paste).setVisible(!ClipBoard.isEmpty());
     }
 
     @Override

@@ -36,9 +36,7 @@ import java.util.List;
 public final class ZipTask extends AsyncTask<String, Void, List<String>> {
 
     private final WeakReference<Activity> activity;
-
     private ProgressDialog dialog;
-
     private final String zipname;
 
     public ZipTask(final Activity activity, String name1) {
@@ -54,8 +52,7 @@ public final class ZipTask extends AsyncTask<String, Void, List<String>> {
             this.dialog = new ProgressDialog(activity);
             this.dialog.setMessage(activity.getString(R.string.packing));
             this.dialog.setCancelable(true);
-            this.dialog
-                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+            this.dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override
                         public void onCancel(DialogInterface dialog) {
                             cancel(false);
@@ -72,10 +69,7 @@ public final class ZipTask extends AsyncTask<String, Void, List<String>> {
         final List<String> failed = new ArrayList<>();
 
         try {
-            ZipUtils.createZip(
-                    files,
-                    zipname
-            );
+            ZipUtils.createZip(files, zipname);
         } catch (Exception e) {
             failed.add(Arrays.toString(files));
         }

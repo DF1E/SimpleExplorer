@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.adapters.BrowserTabsAdapter;
+import com.dnielfe.manager.utils.Permissions;
 import com.dnielfe.manager.utils.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
 import com.dnielfe.manager.utils.StatFsCompat;
@@ -118,7 +119,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
             if (RootTools.isAccessGiven())
                 permission = RootCommands.getFileProperties(params[0]);
 
-            perm = permission != null ? permission[0] : getFilePermissions(params[0]);
+            perm = permission != null ? permission[0] : Permissions.getBasicPermission(params[0]);
 
             return new PartitionInfo(path, perm, valueTotal,
                     statFs.getBlockSizeLong(), statFs.getFreeBytes(), valueUsed);
@@ -163,17 +164,5 @@ public final class DirectoryInfoDialog extends DialogFragment {
                 }
             }
         }
-    }
-
-    // use this as alternative if no root is avaible
-    private static String getFilePermissions(File file) {
-        String per = "";
-
-        per += file.isDirectory() ? "d" : "-";
-        per += file.canRead() ? "r" : "-";
-        per += file.canWrite() ? "w" : "-";
-        per += file.canExecute() ? "x" : "-";
-
-        return per;
     }
 }
