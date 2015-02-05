@@ -31,6 +31,9 @@ public abstract class ThemableActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // get default preferences at start - we need this for setting the theme
+        Settings.updatePreferences(this);
+
         mCurrentTheme = Settings.mTheme;
         setTheme(mCurrentTheme);
         super.onCreate(savedInstanceState);
