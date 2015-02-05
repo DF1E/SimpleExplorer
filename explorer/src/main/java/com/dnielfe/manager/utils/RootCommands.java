@@ -22,6 +22,8 @@ package com.dnielfe.manager.utils;
 import android.util.Log;
 
 import com.dnielfe.manager.settings.Settings;
+import com.stericson.RootShell.execution.Command;
+import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
 
 import java.io.BufferedReader;
@@ -68,10 +70,11 @@ public class RootCommands {
 
     public static ArrayList<String> findFiles(String path, String query) {
         ArrayList<String> mDirContent = new ArrayList<>();
+        String cmd = "find " + getCommandLineString(path) + " -type f -iname " + '*' + getCommandLineString(query) + '*' + " -exec ls -a {} \\;";
         BufferedReader in;
 
         try {
-            in = execute("find " + getCommandLineString(path) + " -type f -iname " + '*' + getCommandLineString(query) + '*' + " -exec ls -a {} \\;");
+            in = execute(cmd);
 
             String line;
             while ((line = in.readLine()) != null) {
@@ -93,7 +96,7 @@ public class RootCommands {
             if (!readReadWriteFile())
                 RootTools.remount(path, "rw");
 
-            execute("mkdir " + getCommandLineString(dir.getAbsolutePath()));
+            runAndWait("mkdir " + getCommandLineString(dir.getAbsolutePath()));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,8 +111,7 @@ public class RootCommands {
             if (!readReadWriteFile())
                 RootTools.remount(newDir, "rw");
 
-            execute("cp -fr " + getCommandLineString(old) + " "
-                    + getCommandLineString(newDir));
+            runAndWait("cp -fr " + getCommandLineString(old) + " " + getCommandLineString(newDir));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -129,7 +131,7 @@ public class RootCommands {
             if (!readReadWriteFile())
                 RootTools.remount(path, "rw");
 
-            execute("mv " + getCommandLineString(file.getAbsolutePath()) + " "
+            runAndWait("mv " + getCommandLineString(file.getAbsolutePath()) + " "
                     + getCommandLineString(newf.getAbsolutePath()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -144,9 +146,9 @@ public class RootCommands {
                 RootTools.remount(path, "rw");
 
             if (new File(path).isDirectory()) {
-                execute("rm -f -r " + getCommandLineString(path));
+                runAndWait("rm -rf " + getCommandLineString(path));
             } else {
-                execute("rm -r " + getCommandLineString(path));
+                runAndWait("rm -r " + getCommandLineString(path));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -164,7 +166,7 @@ public class RootCommands {
             if (!readReadWriteFile())
                 RootTools.remount(cdir, "rw");
 
-            execute("touch " + getCommandLineString(dir.getAbsolutePath()));
+            runAndWait("touch " + getCommandLineString(dir.getAbsolutePath()));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -181,8 +183,7 @@ public class RootCommands {
             try {
                 FileInputStream fis = new FileInputStream(mountFile.toString());
                 DataInputStream dis = new DataInputStream(fis);
-                BufferedReader br = new BufferedReader(new InputStreamReader(
-                        dis));
+                BufferedReader br = new BufferedReader(new InputStreamReader(dis));
                 String data;
                 while ((data = br.readLine()) != null) {
                     procData.append(data).append("\n");
@@ -227,8 +228,7 @@ public class RootCommands {
         BufferedReader reader;
         try {
             Process process = Runtime.getRuntime().exec("su");
-            DataOutputStream os = new DataOutputStream(
-                    process.getOutputStream());
+            DataOutputStream os = new DataOutputStream(process.getOutputStream());
             os.writeBytes(cmd + "\n");
             os.writeBytes("exit\n");
             reader = new BufferedReader(new InputStreamReader(
@@ -254,7 +254,7 @@ public class RootCommands {
             if (!readReadWriteFile())
                 RootTools.remount(file.getAbsolutePath(), "rw");
 
-            execute("chown " + owner + "." + group + " "
+            runAndWait("chown " + owner + "." + group + " "
                     + getCommandLineString(file.getAbsolutePath()));
             return true;
         } catch (Exception e) {
@@ -269,7 +269,7 @@ public class RootCommands {
             if (!readReadWriteFile())
                 RootTools.remount(file.getAbsolutePath(), "rw");
 
-            execute("chmod " + Permissions.toOctalPermission(permissions) + " "
+            runAndWait("chmod " + Permissions.toOctalPermission(permissions) + " "
                     + getCommandLineString(file.getAbsolutePath()));
             return true;
         } catch (Exception e) {
@@ -288,8 +288,7 @@ public class RootCommands {
             return null;
 
         try {
-            in = execute("ls -l "
-                    + getCommandLineString(file.getAbsolutePath()));
+            in = execute("ls -l " + getCommandLineString(file.getAbsolutePath()));
 
             while ((line = in.readLine()) != null) {
                 info = getAttrs(line);
@@ -335,5 +334,43 @@ public class RootCommands {
         }
 
         return results;
+    }
+
+    // TODO: rename to execute
+    private static String runAndWait(String cmd) {
+        Command c = new Command(0, cmd);
+
+        try {
+            Shell.runRootCommand(c);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        if (!waitForCommand(c)) {
+            return null;
+        }
+
+        return c.toString();
+    }
+
+    private static boolean waitForCommand(Command cmd) {
+        while (!cmd.isFinished()) {
+            synchronized (cmd) {
+                try {
+                    if (!cmd.isFinished()) {
+                        cmd.wait(2000);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (!cmd.isExecuting() && !cmd.isFinished()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
