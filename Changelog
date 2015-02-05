@@ -1,10 +1,17 @@
 Changelog:
+2.2.4
+new bookmark database
+updated translations
+performance improvements
+bux fixes
+
 2.2.3
+removed JunRAR library from source
 create multiple bookmarks and shortcuts
 improved file properties dialog
 improved action mode - now you can use it in SearchActivity
 add swedish translation
-add persian translation - not completely translated yet
+add persian translation
 updated translations
 bug fixes
 
