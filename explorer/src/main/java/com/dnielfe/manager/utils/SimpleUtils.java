@@ -247,47 +247,39 @@ public class SimpleUtils {
         }
 
         if (context.getPackageManager().queryIntentActivities(i, 0).isEmpty()) {
-            Toast.makeText(context, R.string.cantopenfile, Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(context, R.string.cantopenfile, Toast.LENGTH_SHORT).show();
             return;
         }
 
         try {
             context.startActivity(i);
         } catch (Exception e) {
-            Toast.makeText(context,
-                    context.getString(R.string.cantopenfile) + e.getMessage(),
+            Toast.makeText(context, context.getString(R.string.cantopenfile) + e.getMessage(),
                     Toast.LENGTH_SHORT).show();
         }
     }
 
-    private static byte[] createChecksum(String filename) throws Exception {
-        InputStream fis = new FileInputStream(filename);
+    // get MD5 or SHA1 checksum from a file
+    public static String getChecksum(File file, String algorithm) {
+        try {
+            InputStream fis = new FileInputStream(file);
+            MessageDigest digester = MessageDigest.getInstance(algorithm);
+            byte[] bytes = new byte[2 * BUFFER];
+            int byteCount;
+            String result = "";
 
-        byte[] buffer = new byte[2 * BUFFER];
-        MessageDigest complete = MessageDigest.getInstance("MD5");
-        int numRead;
-
-        do {
-            numRead = fis.read(buffer);
-            if (numRead > 0) {
-                complete.update(buffer, 0, numRead);
+            while ((byteCount = fis.read(bytes)) > 0) {
+                digester.update(bytes, 0, byteCount);
             }
-        } while (numRead != -1);
 
-        fis.close();
-        return complete.digest();
-    }
-
-    // a byte array to a HEX string
-    public static String getMD5Checksum(String filename) throws Exception {
-        byte[] b = createChecksum(filename);
-        String result = "";
-
-        for (byte aB : b) {
-            result += Integer.toString((aB & 0xff) + 0x100, 16).substring(1);
+            for (byte aB : digester.digest()) {
+                result += Integer.toString((aB & 0xff) + 0x100, 16).substring(1);
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return result;
+        return null;
     }
 
     // save current string in ClipBoard

@@ -62,8 +62,7 @@ public final class FilePropertiesDialog extends DialogFragment {
     }
 
     private void initView(final View view) {
-        final ViewPager pager = (ViewPager) view
-                .findViewById(R.id.tabsContainer);
+        final ViewPager pager = (ViewPager) view.findViewById(R.id.tabsContainer);
         pager.setAdapter(mAdapter);
 
         PageIndicator mIndicator = (PageIndicator) view.findViewById(R.id.tab_indicator);
@@ -117,7 +116,7 @@ public final class FilePropertiesDialog extends DialogFragment {
             }
         }
 
-        PagerItem getItem(final int position) {
+        private PagerItem getItem(final int position) {
             return mItems[position];
         }
 
@@ -147,13 +146,13 @@ public final class FilePropertiesDialog extends DialogFragment {
     }
 
     private static final class FilePropertiesPagerItem implements PagerItem {
-        private final File file3;
-        private TextView mPathLabel, mTimeLabel, mSizeLabel, mMD5Label;
+        private final File mFile;
+        private TextView mPathLabel, mTimeLabel, mSizeLabel, mMD5Label, mSHA1Label;
         private View mView;
         private LoadFsTask mTask;
 
         private FilePropertiesPagerItem(File file) {
-            this.file3 = file;
+            mFile = file;
         }
 
         @Override
@@ -185,16 +184,18 @@ public final class FilePropertiesDialog extends DialogFragment {
             this.mTimeLabel = (TextView) table.findViewById(R.id.time_stamp);
             this.mSizeLabel = (TextView) table.findViewById(R.id.total_size);
             this.mMD5Label = (TextView) table.findViewById(R.id.md5_summary);
+            this.mSHA1Label = (TextView) table.findViewById(R.id.sha1_summary);
         }
 
         private final class LoadFsTask extends AsyncTask<File, Void, String[]> {
 
             @Override
             protected void onPreExecute() {
-                mPathLabel.setText(file3.getAbsolutePath());
+                mPathLabel.setText(mFile.getAbsolutePath());
                 mTimeLabel.setText("...");
                 mSizeLabel.setText("...");
                 mMD5Label.setText("...");
+                mSHA1Label.setText("...");
             }
 
             @Override
@@ -206,23 +207,20 @@ public final class FilePropertiesDialog extends DialogFragment {
                 }
 
                 String time = df.format(params[0].lastModified());
-                String md5 = null;
-                String size;
+                String md5, sha1, size;
 
                 if (params[0].isFile()) {
                     size = SimpleUtils.formatCalculatedSize(params[0].length());
 
-                    try {
-                        md5 = SimpleUtils.getMD5Checksum(params[0].getPath());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    md5 = SimpleUtils.getChecksum(params[0], "MD5");
+                    sha1 = SimpleUtils.getChecksum(params[0], "SHA1");
                 } else {
                     size = SimpleUtils.formatCalculatedSize(SimpleUtils.getDirectorySize(params[0]));
                     md5 = "-";
+                    sha1 = "-";
                 }
 
-                return new String[]{size, time, md5};
+                return new String[]{size, time, md5, sha1};
             }
 
             @Override
@@ -231,10 +229,12 @@ public final class FilePropertiesDialog extends DialogFragment {
                     mSizeLabel.setText(result[0]);
                     mTimeLabel.setText(result[1]);
                     mMD5Label.setText(result[2]);
+                    mSHA1Label.setText(result[3]);
                 } else {
                     mSizeLabel.setText("-");
                     mTimeLabel.setText("-");
                     mMD5Label.setText("-");
+                    mSHA1Label.setText("-");
                 }
             }
         }
@@ -243,29 +243,19 @@ public final class FilePropertiesDialog extends DialogFragment {
     private final class FilePermissionsPagerItem implements PagerItem,
             CompoundButton.OnCheckedChangeListener {
 
-        /**
-         * Permissions that file had when FilePermissionsController was created
-         */
+        // Permissions that file had when FilePermissionsController was created
         private Permissions mInputPermissions = null;
 
-        /**
-         * Currently modified permissions
-         */
+        // Currently modified permissions
         private Permissions mModifiedPermissions = null;
 
-        /**
-         * User: read, write, execute
-         */
+        // User: read, write, execute
         private CompoundButton ur, uw, ux = null;
 
-        /**
-         * Group: read, write, execute
-         */
+        // Group: read, write, execute
         private CompoundButton gr, gw, gx = null;
 
-        /**
-         * Others: read, write, execute
-         */
+        // Others: read, write, execute
         private CompoundButton or, ow, ox = null;
 
         private final File mFile;
@@ -355,17 +345,16 @@ public final class FilePropertiesDialog extends DialogFragment {
             @Override
             protected void onPostExecute(Boolean result) {
                 if (result)
-                    Toast.makeText(this.context,
-                            this.context.getString(R.string.permissionschanged),
+                    Toast.makeText(context, context.getString(R.string.permissionschanged),
                             Toast.LENGTH_SHORT).show();
             }
         }
 
-        private void getPermissions(File file32) {
+        private void getPermissions(File file) {
             String[] mFileInfo = null;
 
             if (Settings.rootAccess())
-                mFileInfo = RootCommands.getFileProperties(file32);
+                mFileInfo = RootCommands.getFileProperties(file);
 
             if (mFileInfo != null) {
                 mOwner.setText(mFileInfo[1]);

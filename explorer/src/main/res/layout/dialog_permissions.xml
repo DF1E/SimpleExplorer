@@ -2,7 +2,8 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
+    android:padding="10dp"
+    android:layout_gravity="center_vertical"
     android:shrinkColumns="1,2,3"
     android:stretchColumns="0">
 
@@ -21,7 +22,8 @@
             android:singleLine="true"
             android:text="@string/owner"
             android:textIsSelectable="false"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="?android:textColorPrimary" />
 
         <TextView
             android:id="@+id/owner"
@@ -50,7 +52,8 @@
             android:singleLine="true"
             android:text="@string/group"
             android:textIsSelectable="false"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="?android:textColorPrimary" />
 
         <TextView
             android:id="@+id/group"
