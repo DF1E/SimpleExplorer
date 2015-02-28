@@ -17,6 +17,6 @@
     <dimen name="drawer_menu_item_height">50dp</dimen>
 
     <!-- properties container height -->
-    <dimen name="container_height">255dp</dimen>
+    <dimen name="container_height">265dp</dimen>
 
 </resources>

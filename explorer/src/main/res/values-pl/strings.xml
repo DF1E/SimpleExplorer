@@ -33,7 +33,7 @@
     <string name="error">Błąd</string>
     <string name="exit">Wyjdź</string>
     <string name="extractto">Wypakuj do</string>
-    <string name="extractionsuccess">Package successfully extracted.</string>
+    <string name="extractionsuccess">Zakończono powodzeniem.</string>
     <string name="filecreated">Plik został utworzony.</string>
     <string name="fileexists">Plik już istnieje.</string>
     <string name="files">"\" Pliki"</string>
@@ -71,7 +71,7 @@
     <string name="xdaforum">Forum XDA</string>
     <string name="sort">Sortuj</string>
     <string name="sortpreferences">Sortowanie</string>
-    <string name="sort_reverselist">Reverse list</string>
+    <string name="sort_reverselist">Odwrócona lista</string>
     <string name="sort_name">Nazwa</string>
     <string name="sort_size">Rozmiar</string>
     <string name="sort_type">Typ</string>

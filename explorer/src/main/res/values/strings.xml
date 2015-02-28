@@ -61,6 +61,7 @@
     <string name="searchtext">Search</string>
     <string name="selectall">Select all</string>
     <string name="settings">Settings</string>
+    <string name="sha1_key">SHA-1</string>
     <string name="share">Share</string>
     <string name="shortcut">Create shortcut</string>
     <string name="shortcutcreated">Shortcut created.</string>
