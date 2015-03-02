@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.dnielfe.manager.settings.Settings;
 import com.stericson.RootShell.execution.Command;
-import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
 
 import java.io.BufferedReader;
@@ -119,21 +118,9 @@ public class RootCommands {
         }
     }
 
-    // Delete file with root
-    public static void DeleteFileRoot(String path) {
-
-        try {
-            if (!readReadWriteFile())
-                RootTools.remount(path, "rw");
-
-            if (new File(path).isDirectory()) {
-                runAndWait("rm -rf " + getCommandLineString(path));
-            } else {
-                runAndWait("rm -r " + getCommandLineString(path));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    // Delete file with root using RootTools library
+    public static void deleteRootFileOrDir(File f) {
+        RootTools.deleteFileOrDirectory(getCommandLineString(f.getPath()), true);
     }
 
     // Create file with root
@@ -317,12 +304,11 @@ public class RootCommands {
         return results;
     }
 
-    // TODO: rename to execute
     private static String runAndWait(String cmd) {
         Command c = new Command(0, cmd);
 
         try {
-            Shell.runRootCommand(c);
+            RootTools.getShell(true).add(c);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

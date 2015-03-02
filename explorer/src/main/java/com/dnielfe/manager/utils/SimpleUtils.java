@@ -102,8 +102,7 @@ public class SimpleUtils {
                 }
             }
         } else if (Settings.rootAccess()) {
-            mDirContent = RootCommands.listFiles(file.getAbsolutePath(),
-                    showhidden);
+            mDirContent = RootCommands.listFiles(file.getAbsolutePath(), showhidden);
         } else {
             Toast.makeText(c, c.getString(R.string.cantreadfolder), Toast.LENGTH_SHORT).show();
         }
@@ -200,33 +199,29 @@ public class SimpleUtils {
 
         if (target.isFile() && target.canWrite()) {
             target.delete();
-        } else {
-            if (target.isDirectory() && target.canRead()) {
-                String[] file_list = target.list();
+        } else if (target.isDirectory() && target.canRead()) {
+            String[] file_list = target.list();
 
-                if (file_list != null && file_list.length == 0) {
-                    target.delete();
-                    return;
-                } else if (file_list != null && file_list.length > 0) {
+            if (file_list != null && file_list.length == 0) {
+                target.delete();
+                return;
+            } else if (file_list != null && file_list.length > 0) {
+                for (String aFile_list : file_list) {
+                    File temp_f = new File(target.getAbsolutePath() + "/"
+                            + aFile_list);
 
-                    for (String aFile_list : file_list) {
-                        File temp_f = new File(target.getAbsolutePath() + "/"
-                                + aFile_list);
-
-                        if (temp_f.isDirectory())
-                            deleteTarget(temp_f.getAbsolutePath());
-                        else if (temp_f.isFile()) {
-                            temp_f.delete();
-                        }
+                    if (temp_f.isDirectory())
+                        deleteTarget(temp_f.getAbsolutePath());
+                    else if (temp_f.isFile()) {
+                        temp_f.delete();
                     }
                 }
-
-                if (target.exists())
-                    target.delete();
-            } else if (target.exists() && !target.delete()) {
-                if (Settings.rootAccess())
-                    RootCommands.DeleteFileRoot(path);
             }
+
+            if (target.exists())
+                target.delete();
+        } else if (!target.delete() && Settings.rootAccess()) {
+            RootCommands.deleteRootFileOrDir(target);
         }
     }
 
