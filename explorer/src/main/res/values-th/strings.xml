@@ -33,7 +33,7 @@
     <string name="error">ผิดพลาด</string>
     <string name="exit">ออก</string>
     <string name="extractto">แยกไฟล์ไปที่</string>
-    <string name="extractionsuccess">Package successfully extracted.</string>
+    <string name="extractionsuccess">แพคเกจที่สกัดได้ประสบความสำเร็จ</string>
     <string name="filecreated">ไฟล์ได้ถูกสร้าง</string>
     <string name="fileexists">ไฟล์นี้มีอยู่แล้ว</string>
     <string name="files">" ไฟล์"</string>
