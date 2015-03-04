@@ -24,9 +24,11 @@ public final class GroupOwnerDialog extends DialogFragment {
     public static DialogFragment instantiate(File file1) {
         file = file1;
 
-        String[] mFileInfo = RootCommands.getFileProperties(file);
-        oldowner = mFileInfo[1];
-        oldgroup = mFileInfo[2];
+        String[] mFileInfo = RootCommands.getFileProperties(file1);
+        if (mFileInfo != null) {
+            oldowner = mFileInfo[1];
+            oldgroup = mFileInfo[2];
+        }
         return new GroupOwnerDialog();
     }
 
@@ -34,8 +36,7 @@ public final class GroupOwnerDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle state) {
         final Activity a = getActivity();
 
-        View view = getActivity().getLayoutInflater().inflate(
-                R.layout.dialog_groupowner, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_groupowner, null);
 
         final EditText inputowner = (EditText) view.findViewById(R.id.owner);
         inputowner.setText(oldowner);
@@ -48,6 +49,7 @@ public final class GroupOwnerDialog extends DialogFragment {
         b.setView(view);
         b.setPositiveButton(getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String newgroup = inputowner.getText().toString();
                         String newowner = inputgroup.getText().toString();
@@ -55,10 +57,8 @@ public final class GroupOwnerDialog extends DialogFragment {
                         dialog.dismiss();
 
                         if (newgroup.length() > 1 && newowner.length() > 1) {
-                            final GroupOwnerTask task = new GroupOwnerTask(a,
-                                    newgroup, newowner);
-                            task.executeOnExecutor(
-                                    AsyncTask.THREAD_POOL_EXECUTOR, file);
+                            final GroupOwnerTask task = new GroupOwnerTask(a, newgroup, newowner);
+                            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, file);
                         }
                     }
                 });

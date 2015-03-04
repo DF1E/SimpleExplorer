@@ -2,7 +2,6 @@ package com.dnielfe.manager.utils;
 
 import android.util.Log;
 
-import com.dnielfe.manager.settings.Settings;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootTools.RootTools;
 
@@ -251,12 +250,14 @@ public class RootCommands {
         BufferedReader in;
         String[] info = null;
         String line;
+        String dir = "";
 
-        if (!Settings.rootAccess())
-            return null;
+        if (file.isDirectory()) {
+            dir = "d";
+        }
 
         try {
-            in = execute("ls -l " + getCommandLineString(file.getAbsolutePath()));
+            in = execute("ls -l" + dir + " " + getCommandLineString(file.getAbsolutePath()));
 
             while ((line = in.readLine()) != null) {
                 info = getAttrs(line);
