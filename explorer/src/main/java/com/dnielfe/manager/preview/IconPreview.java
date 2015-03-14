@@ -31,7 +31,7 @@ public class IconPreview {
 
     private static DrawableLruCache<String> mMimeTypeIconCache;
     private static BitmapLruCache<String> mBitmapCache;
-    private static ExecutorService pool = null;
+    private static ExecutorService pool = Executors.newFixedThreadPool(6);
     private static final Map<ImageView, String> imageViews = Collections
             .synchronizedMap(new ConcurrentHashMap<ImageView, String>());
     private static PackageManager pm;
@@ -43,7 +43,6 @@ public class IconPreview {
     public IconPreview(Activity activity) {
         mContext = activity;
         mWidth = (int) mContext.getResources().getDimension(R.dimen.item_height);
-        pool = Executors.newFixedThreadPool(6);
         mResources = activity.getResources();
         pm = mContext.getPackageManager();
 
@@ -97,33 +96,6 @@ public class IconPreview {
         }
     }
 
-    private static void queueJob(final File uri, final ImageView imageView) {
-        /* Create handler in UI thread. */
-        final Handler handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                String tag = imageViews.get(imageView);
-                if (tag != null && tag.equals(uri.getAbsolutePath())) {
-                    if (msg.obj != null) {
-                        imageView.setImageBitmap((Bitmap) msg.obj);
-                    } else {
-                        imageView.setImageBitmap(null);
-                    }
-                }
-            }
-        };
-
-        pool.submit(new Runnable() {
-            public void run() {
-                final Bitmap bmp = getPreview(uri);
-                Message message = Message.obtain();
-                message.obj = bmp;
-
-                handler.sendMessage(message);
-            }
-        });
-    }
-
     private static void loadBitmap(final File file, final ImageView imageView) {
         imageView.setTag(file.getAbsolutePath());
         imageViews.put(imageView, file.getAbsolutePath());
@@ -136,7 +108,28 @@ public class IconPreview {
         } else {
             // here you can set a placeholder
             imageView.setImageBitmap(null);
-            queueJob(file, imageView);
+
+            // Create handler in UI thread
+            final Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    String tag = imageViews.get(imageView);
+                    if (tag != null && tag.equals(file.getAbsolutePath())) {
+                        if (msg.obj != null) {
+                            imageView.setImageBitmap((Bitmap) msg.obj);
+                        }
+                    }
+                }
+            };
+
+            pool.submit(new Runnable() {
+                public void run() {
+                    Message message = Message.obtain();
+                    message.obj = getPreview(file);
+
+                    handler.sendMessage(message);
+                }
+            });
         }
     }
 
