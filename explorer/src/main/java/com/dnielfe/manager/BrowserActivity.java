@@ -231,8 +231,10 @@ public final class BrowserActivity extends ThemableActivity implements
         if (keycode != KeyEvent.KEYCODE_BACK)
             return false;
 
-        if (isDrawerOpen())
+        if (isDrawerOpen()) {
             mDrawerLayout.closeDrawer(mDrawer);
+            return true;
+        }
         return BrowserTabsAdapter.getCurrentBrowserFragment().onBackPressed();
     }
 
