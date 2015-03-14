@@ -1,20 +1,16 @@
 package com.dnielfe.manager.utils;
 
-import android.util.Log;
-
+import com.stericson.RootShell.RootShell;
 import com.stericson.RootShell.execution.Command;
+import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class RootCommands {
 
@@ -25,45 +21,25 @@ public class RootCommands {
     }
 
     public static ArrayList<String> listFiles(String path, boolean showhidden) {
-        ArrayList<String> mDirContent = new ArrayList<>();
-        BufferedReader in;
+        ArrayList<String> content = new ArrayList<>();
+        ArrayList<String> items;
+        String hidden = "";
 
-        try {
-            in = execute("ls -a " + getCommandLineString(path));
+        if (showhidden)
+            hidden = "-a ";
 
-            String line;
-            while ((line = in.readLine()) != null) {
-                if (!showhidden) {
-                    if (line.charAt(0) != '.')
-                        mDirContent.add(path + "/" + line);
-                } else {
-                    mDirContent.add(path + "/" + line);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        items = executeForResult("ls " + hidden + getCommandLineString(path));
+
+        // add path to files/folders
+        for (String i : items) {
+            content.add(path + "/" + i);
         }
-
-        return mDirContent;
+        return content;
     }
 
     public static ArrayList<String> findFiles(String path, String query) {
-        ArrayList<String> mDirContent = new ArrayList<>();
         String cmd = "find " + getCommandLineString(path) + " -type f -iname " + '*' + getCommandLineString(query) + '*' + " -exec ls -a {} \\;";
-        BufferedReader in;
-
-        try {
-            in = execute(cmd);
-
-            String line;
-            while ((line = in.readLine()) != null) {
-                mDirContent.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return mDirContent;
+        return executeForResult(cmd);
     }
 
     // Create Directory with root
@@ -183,39 +159,6 @@ public class RootCommands {
         return false;
     }
 
-    private static boolean containsIllegals(String toExamine) {
-        // checks for "+" sign so the program doesn't throw an error when its
-        // not erroring.
-        Pattern pattern = Pattern.compile("[+]");
-        Matcher matcher = pattern.matcher(toExamine);
-        return matcher.find();
-    }
-
-    private static BufferedReader execute(String cmd) {
-        BufferedReader reader;
-        try {
-            Process process = Runtime.getRuntime().exec("su");
-            DataOutputStream os = new DataOutputStream(process.getOutputStream());
-            os.writeBytes(cmd + "\n");
-            os.writeBytes("exit\n");
-            reader = new BufferedReader(new InputStreamReader(
-                    process.getInputStream()));
-            String err = (new BufferedReader(new InputStreamReader(
-                    process.getErrorStream()))).readLine();
-            os.flush();
-
-            if (process.waitFor() != 0 || (!"".equals(err) && null != err)
-                    && !containsIllegals(err)) {
-                Log.e("Root Error, cmd: " + cmd, err);
-                return null;
-            }
-            return reader;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public static boolean changeGroupOwner(File file, String owner, String group) {
         try {
             if (!readReadWriteFile())
@@ -247,26 +190,16 @@ public class RootCommands {
     }
 
     public static String[] getFileProperties(File file) {
-        BufferedReader in;
-        String[] info = null;
-        String line;
+        String[] info;
         String dir = "";
 
         if (file.isDirectory()) {
             dir = "d";
         }
 
-        try {
-            in = execute("ls -l" + dir + " " + getCommandLineString(file.getAbsolutePath()));
+        String cmd = "ls -l" + dir + " " + getCommandLineString(file.getAbsolutePath());
 
-            while ((line = in.readLine()) != null) {
-                info = getAttrs(line);
-            }
-            in.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        info = getAttrs(executeForResult(cmd).get(0));
         return info;
     }
 
@@ -309,20 +242,39 @@ public class RootCommands {
         Command c = new Command(0, cmd);
 
         try {
-            RootTools.getShell(true).add(c);
+            RootShell.getShell(false).add(c);
+            commandWait(RootShell.getShell(false), c);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
-        if (!waitForCommand(c)) {
+        return null;
+    }
+
+    private static ArrayList<String> executeForResult(String cmd) {
+        final ArrayList<String> results = new ArrayList<>();
+
+        Command command = new Command(3, false, cmd) {
+            @Override
+            public void commandOutput(int id, String line) {
+                results.add(line);
+                super.commandOutput(id, line);
+            }
+        };
+
+        try {
+            RootShell.getShell(true).add(command);
+            commandWait(RootShell.getShell(true), command);
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
 
-        return c.toString();
+        return results;
     }
 
-    private static boolean waitForCommand(Command cmd) {
+    private static void commandWait(Shell shell, Command cmd) {
         while (!cmd.isFinished()) {
             synchronized (cmd) {
                 try {
@@ -335,10 +287,20 @@ public class RootCommands {
             }
 
             if (!cmd.isExecuting() && !cmd.isFinished()) {
-                return false;
+                if (!shell.isExecuting && !shell.isReading) {
+                    Exception e = new Exception();
+                    e.setStackTrace(Thread.currentThread().getStackTrace());
+                    e.printStackTrace();
+                } else if (shell.isExecuting && !shell.isReading) {
+                    Exception e = new Exception();
+                    e.setStackTrace(Thread.currentThread().getStackTrace());
+                    e.printStackTrace();
+                } else {
+                    Exception e = new Exception();
+                    e.setStackTrace(Thread.currentThread().getStackTrace());
+                    e.printStackTrace();
+                }
             }
         }
-
-        return true;
     }
 }
