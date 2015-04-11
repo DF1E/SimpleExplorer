@@ -48,6 +48,7 @@ More info under: https://www.gnu.org/licenses/gpl-3.0
 + hungarian - Wechy77
 + italian - mirhl, bovirus
 + japanese - naofum
++ korean - unrulygnu
 + persian - aliashell
 + polish - SealQ
 + portuguese - smarquespt
