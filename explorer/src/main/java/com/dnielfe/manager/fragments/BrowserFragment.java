@@ -38,7 +38,7 @@ import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.tasks.PasteTaskExecutor;
 import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
-import com.faizmalkani.floatingactionbutton.FloatingActionButton;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.io.File;
 
@@ -163,9 +163,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
             }
         });
 
-        FloatingActionButton mFab = (FloatingActionButton) rootView.findViewById(R.id.fabbutton);
-        mFab.listenTo(mListView);
-        mFab.setOnClickListener(new OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fabbutton);
+        fab.attachToListView(mListView);
+        fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 showMenu(view);

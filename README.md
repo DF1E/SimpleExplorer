@@ -28,10 +28,10 @@ More info under: https://www.gnu.org/licenses/gpl-3.0
 ````
 
 ####Credits
-+ [Zedd.](https://forum.xda-developers.com/member.php?u=4112951) for the handsome icons
-+ [Android-ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator) by JakeWharton
-+ [FloatingActionButton](https://github.com/FaizMalkani/FloatingActionButton) by FaizMalkani
-+ [RootTools](https://github.com/Stericson/RootTools) library
++ [Zedd. for new icons](https://forum.xda-developers.com/member.php?u=4112951)
++ [Android-ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator)
++ [FloatingActionButton](https://github.com/makovkastar/FloatingActionButton)
++ [RootTools](https://github.com/Stericson/RootTools)
 
 ####Thanks for translations (XDA, Getlocalization and Crowdin)
 + bosnian -muamers
