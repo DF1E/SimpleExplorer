@@ -135,14 +135,15 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
 
     @Override
     public boolean onKeyDown(int keycode, @NonNull KeyEvent event) {
-        if (keycode != KeyEvent.KEYCODE_BACK)
+        if (keycode != KeyEvent.KEYCODE_BACK) {
             return false;
+        }
 
         if (mActionController.isActionMode()) {
             mActionController.finishActionMode();
         }
 
-        return true;
+        return super.onKeyDown(keycode, event);
     }
 
     private class SearchTask extends AsyncTask<String, Void, ArrayList<String>> {
