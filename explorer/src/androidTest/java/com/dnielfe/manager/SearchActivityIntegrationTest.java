@@ -35,7 +35,7 @@ public class SearchActivityIntegrationTest
         assertFalse(mBrowserActivity.hasWindowFocus());
     }
 
-    public void testNavBack_ByBackButton_DisplaysBrowserActivity() throws Exception {
+    public void testNavBack_ByBackButton_DisplaysBrowserActivity() {
         this.sendKeys(KeyEvent.KEYCODE_BACK);
         mInstrumentation.waitForIdleSync();
         assertFalse(mSearchActivity.hasWindowFocus());
