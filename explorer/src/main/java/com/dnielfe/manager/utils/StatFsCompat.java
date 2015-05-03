@@ -6,6 +6,7 @@ import android.os.StatFs;
 
 /**
  * Backward compatible version of {@link android.os.StatFs}
+ * This can be removed if minApi = 18.
  */
 public final class StatFsCompat {
 

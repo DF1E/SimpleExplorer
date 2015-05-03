@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class BrowserListAdapter extends BaseAdapter {
+
     private final LayoutInflater mInflater;
     private final Resources mResources;
     private ArrayList<String> mDataSource;
@@ -50,7 +51,7 @@ public class BrowserListAdapter extends BaseAdapter {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
 
-        if (Settings.mListAppearance > 0) {
+        if (Settings.getListAppearance() > 0) {
             mViewHolder.dateview.setVisibility(TextView.VISIBLE);
         } else {
             mViewHolder.dateview.setVisibility(TextView.GONE);

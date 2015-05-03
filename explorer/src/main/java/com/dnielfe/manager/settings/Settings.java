@@ -10,49 +10,51 @@ import com.stericson.RootTools.RootTools;
 
 public final class Settings {
 
-    private static boolean showthumbnail;
-    private static boolean mShowHiddenFiles;
-    private static boolean mRootAccess;
-    private static boolean reverseList;
-    public static int mListAppearance;
-    public static int mSortType;
+    private static SharedPreferences mPrefs;
+
     public static int mTheme;
-    private static String defaultdir;
 
     public static void updatePreferences(Context context) {
-        SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        mShowHiddenFiles = p.getBoolean("displayhiddenfiles", true);
-        showthumbnail = p.getBoolean("showpreview", true);
-        mRootAccess = p.getBoolean("enablerootaccess", false);
-        reverseList = p.getBoolean("reverseList", false);
-        mTheme = Integer.parseInt(p.getString("preference_theme",
-                Integer.toString(R.style.ThemeLight)));
-        mSortType = Integer.parseInt(p.getString("sort", "1"));
-        mListAppearance = Integer.parseInt(p.getString("viewmode", "1"));
-        defaultdir = p.getString("defaultdir", Environment
-                .getExternalStorageDirectory().getPath());
+        mTheme = Integer.parseInt(mPrefs.getString("preference_theme", Integer.toString(R.style.ThemeLight)));
 
         rootAccess();
     }
 
     public static boolean showThumbnail() {
-        return showthumbnail;
+        return mPrefs.getBoolean("showpreview", true);
     }
 
     public static boolean showHiddenFiles() {
-        return mShowHiddenFiles;
+        return mPrefs.getBoolean("displayhiddenfiles", true);
     }
 
     public static boolean rootAccess() {
-        return mRootAccess && RootTools.isAccessGiven();
+        return mPrefs.getBoolean("enablerootaccess", false) && RootTools.isAccessGiven();
     }
 
     public static boolean reverseListView() {
-        return reverseList;
+        return mPrefs.getBoolean("reverseList", false);
     }
 
     public static String getDefaultDir() {
-        return defaultdir;
+        return mPrefs.getString("defaultdir", Environment.getExternalStorageDirectory().getPath());
+    }
+
+    public static int getListAppearance() {
+        return Integer.parseInt(mPrefs.getString("viewmode", "1"));
+    }
+
+    public static int getSortType() {
+        return Integer.parseInt(mPrefs.getString("sort", "1"));
+    }
+
+    public static int getDefaultTheme() {
+        return mTheme;
+    }
+
+    public static void setDefaultTheme(int theme) {
+        mTheme = theme;
     }
 }

@@ -26,7 +26,7 @@ public class SortUtils {
         String[] items = new String[len];
         content.toArray(items);
 
-        switch (Settings.mSortType) {
+        switch (Settings.getSortType()) {
             case SORT_ALPHA:
                 Arrays.sort(items, Comparator_ALPH);
                 content.clear();

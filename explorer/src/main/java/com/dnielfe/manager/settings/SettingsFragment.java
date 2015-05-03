@@ -17,31 +17,28 @@ public final class SettingsFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.addPreferencesFromResource(R.xml.preferences);
-        this.init();
+        addPreferencesFromResource(R.xml.preferences);
+        init();
     }
 
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
         if (!(activity instanceof SettingsActivity)) {
-            throw new RuntimeException(
-                    "Should be attached only to SettingsActivity");
+            throw new RuntimeException("Should be attached only to SettingsActivity");
         }
     }
 
     private void init() {
-        // final SettingsActivity parent = (SettingsActivity) getActivity();
         final ListPreference theme = (ListPreference) findPreference("preference_theme");
         theme.setEntryValues(THEMES_VALUES);
-        theme.setValue(String.valueOf(Settings.mTheme));
+        theme.setValue(String.valueOf(Settings.getDefaultTheme()));
         theme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference,
-                                              Object newValue) {
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
                 final int chosenTheme = Integer.parseInt((String) newValue);
-                if (chosenTheme != Settings.mTheme) {
-                    Settings.mTheme = chosenTheme;
+                if (chosenTheme != Settings.getDefaultTheme()) {
+                    Settings.setDefaultTheme(chosenTheme);
                     ((SettingsActivity) getActivity()).proxyRestart();
                     return true;
                 }

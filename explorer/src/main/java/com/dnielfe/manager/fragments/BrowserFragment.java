@@ -62,7 +62,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     private boolean mUseBackKey = true;
 
     public interface onUpdatePathListener {
-        public void onUpdatePath(String path);
+        void onUpdatePath(String path);
     }
 
     @Override
@@ -113,7 +113,8 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     @Override
     protected void onVisible() {
         final BrowserActivity activity = (BrowserActivity) getActivity();
-        Settings.updatePreferences(mActivity);
+        // check for root
+        Settings.rootAccess();
 
         navigateTo(mCurrentPath);
 
@@ -299,8 +300,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
             defaultdir = savedInstanceState.getString("location");
         } else {
             try {
-                File dir = new File(
-                        intent.getStringExtra(BrowserActivity.EXTRA_SHORTCUT));
+                File dir = new File(intent.getStringExtra(BrowserActivity.EXTRA_SHORTCUT));
 
                 if (dir.exists() && dir.isDirectory()) {
                     defaultdir = dir.getAbsolutePath();

@@ -15,7 +15,7 @@ public abstract class ThemableActivity extends AppCompatActivity {
         // get default preferences at start - we need this for setting the theme
         Settings.updatePreferences(this);
 
-        mCurrentTheme = Settings.mTheme;
+        mCurrentTheme = Settings.getDefaultTheme();
         setTheme(mCurrentTheme);
         super.onCreate(savedInstanceState);
     }
@@ -23,7 +23,7 @@ public abstract class ThemableActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mCurrentTheme != Settings.mTheme) {
+        if (mCurrentTheme != Settings.getDefaultTheme()) {
             restart();
         }
     }
