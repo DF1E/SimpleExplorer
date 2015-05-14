@@ -4,7 +4,6 @@ import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.KeyEvent;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,8 +11,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.Matchers.is;
 
 @RunWith(AndroidJUnit4.class)
 public class SearchActivityIntegrationTest
@@ -45,16 +47,16 @@ public class SearchActivityIntegrationTest
 
     @Test
     public void testPreconditions() {
-        assertTrue(mSearchActivity.hasWindowFocus());
-        assertFalse(mBrowserActivity.hasWindowFocus());
+        assertThat(mSearchActivity.hasWindowFocus(), is(true));
+        assertThat(mBrowserActivity.hasWindowFocus(), is(false));
     }
 
     @Test
     public void testNavBack_ByBackButton_DisplaysBrowserActivity() {
-        this.sendKeys(KeyEvent.KEYCODE_BACK);
+        pressBack();
+        assertThat(mSearchActivity.isFinishing(), is(true));
         mInstrumentation.waitForIdleSync();
-        assertFalse(mSearchActivity.hasWindowFocus());
-        assertTrue(mBrowserActivity.hasWindowFocus());
+        assertThat(mBrowserActivity.hasWindowFocus(), is(true));
     }
 
     private SearchActivity getSearchActivityByMenuClick() {
