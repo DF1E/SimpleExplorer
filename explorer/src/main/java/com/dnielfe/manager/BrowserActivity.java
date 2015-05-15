@@ -28,6 +28,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -67,6 +68,7 @@ public final class BrowserActivity extends ThemableActivity implements
     private Toolbar toolbar;
 
     private FragmentManager fm;
+    private boolean mIsGetContent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,9 @@ public final class BrowserActivity extends ThemableActivity implements
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // TODO: GET_CONTENT: evaluate intent action
+        mIsGetContent = Intent.ACTION_GET_CONTENT.equalsIgnoreCase(getIntent().getAction());
 
         init();
     }
@@ -107,9 +112,6 @@ public final class BrowserActivity extends ThemableActivity implements
         fm = getFragmentManager();
         mNavigation = new NavigationView(this);
 
-        setupDrawer();
-        initDrawerList();
-
         // add listener for navigation view
         if (mNavigation.listeners.isEmpty())
             mNavigation.addonNavigateListener(this);
@@ -120,12 +122,23 @@ public final class BrowserActivity extends ThemableActivity implements
 
         // Instantiate a ViewPager and a PagerAdapter.
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
-        BrowserTabsAdapter mPagerAdapter = new BrowserTabsAdapter(fm);
+        BrowserTabsAdapter mPagerAdapter = new BrowserTabsAdapter(fm, mIsGetContent);
         mPager.setAdapter(mPagerAdapter);
 
         PageIndicator mIndicator = (PageIndicator) findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
         mIndicator.setFades(false);
+
+        setupDrawer();
+        initDrawerList();
+
+        // TODO: GET_CONTENT:  set toolbar title
+        if (mIsGetContent) {
+            final ActionBar supportActionBar = getSupportActionBar();
+            if (supportActionBar != null) {
+                getSupportActionBar().setTitle(getText(R.string.picker_choose_one_file));
+            }
+        }
     }
 
     private void setupDrawer() {
@@ -193,13 +206,13 @@ public final class BrowserActivity extends ThemableActivity implements
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
+        if (!mIsGetContent) mDrawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
+        if (!mIsGetContent) mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override

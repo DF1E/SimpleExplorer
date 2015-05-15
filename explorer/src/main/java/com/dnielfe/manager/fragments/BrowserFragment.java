@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.FileObserver;
 import android.os.Handler;
@@ -45,6 +46,7 @@ import java.io.File;
 public final class BrowserFragment extends UserVisibleHintFragment implements
         OnEventListener, OnMenuItemClickListener {
 
+    public static final String KEY_IS_GET_CONTENT = "is_get_content";
     private Activity mActivity;
     private FragmentManager fm;
 
@@ -60,6 +62,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     private AbsListView mListView;
 
     private boolean mUseBackKey = true;
+    private boolean mIsGetContent;
 
     public interface onUpdatePathListener {
         void onUpdatePath(String path);
@@ -69,6 +72,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     public void onCreate(Bundle state) {
         setRetainInstance(true);
         setHasOptionsMenu(true);
+        mIsGetContent = getArguments().getBoolean(KEY_IS_GET_CONTENT);
         super.onCreate(state);
     }
 
@@ -164,14 +168,19 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
             }
         });
 
+        // TODO: GET_CONTENT: remove FAB
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fabbutton);
-        fab.attachToListView(mListView);
-        fab.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showMenu(view);
-            }
-        });
+        if (mIsGetContent) {
+            fab.setVisibility(View.GONE);
+        } else {
+            fab.attachToListView(mListView);
+            fab.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showMenu(view);
+                }
+            });
+        }
     }
 
     private void showMenu(View v) {
@@ -223,7 +232,15 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     }
 
     private void listItemAction(File file) {
-        if (SimpleUtils.isSupportedArchive(file)) {
+        // TODO: GET_CONTENT: return the Uri
+        if (mIsGetContent) {
+            final Uri pickedUri = Uri.fromFile(file);
+            final Intent result = new Intent();
+            result.setData(pickedUri);
+            final Activity activity = getActivity();
+            activity.setResult(Activity.RESULT_OK, result);
+            activity.finish();
+        } else if (SimpleUtils.isSupportedArchive(file)) {
             final DialogFragment dialog = UnpackDialog.instantiate(file);
             dialog.show(fm, BrowserActivity.TAG_DIALOG);
         } else {
@@ -252,14 +269,19 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-
-        if (BrowserActivity.isDrawerOpen()) {
-            menu.findItem(R.id.paste).setVisible(false);
-            menu.findItem(R.id.folderinfo).setVisible(false);
-            menu.findItem(R.id.search).setVisible(false);
+        // TODO: GET_CONTENT: change menu
+        if (mIsGetContent) {
+            inflater.inflate(R.menu.picker_menu, menu);
         } else {
-            menu.findItem(R.id.paste).setVisible(!ClipBoard.isEmpty());
+            inflater.inflate(R.menu.main, menu);
+
+            if (BrowserActivity.isDrawerOpen()) {
+                menu.findItem(R.id.paste).setVisible(false);
+                menu.findItem(R.id.folderinfo).setVisible(false);
+                menu.findItem(R.id.search).setVisible(false);
+            } else {
+                menu.findItem(R.id.paste).setVisible(!ClipBoard.isEmpty());
+            }
         }
     }
 
@@ -279,7 +301,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
                         mCurrentPath);
                 ptc.start();
                 return true;
-
+            case R.id.pick_cancel:
+                // TODO: GET_CONTENT: close activity, return nothing
+                getActivity().finish();
             default:
                 return super.onOptionsItemSelected(item);
         }
