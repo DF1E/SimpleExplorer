@@ -1,10 +1,23 @@
 package com.dnielfe.manager;
 
 import android.app.Instrumentation;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.KeyEvent;
-import android.view.View;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.Matchers.is;
+
+@RunWith(AndroidJUnit4.class)
 public class SearchActivityIntegrationTest
         extends ActivityInstrumentationTestCase2<BrowserActivity> {
     private Instrumentation mInstrumentation;
@@ -15,44 +28,42 @@ public class SearchActivityIntegrationTest
         super(BrowserActivity.class);
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
+        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
         setActivityInitialTouchMode(false);
         mInstrumentation = getInstrumentation();
-        mBrowserActivity = getActivity();
+        mBrowserActivity = this.getActivity();
         mSearchActivity = getSearchActivityByMenuClick();
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         mSearchActivity.finish();
         mBrowserActivity.finish();
+        super.tearDown();
     }
 
+    @Test
     public void testPreconditions() {
-        assertTrue(mSearchActivity.hasWindowFocus());
-        assertFalse(mBrowserActivity.hasWindowFocus());
+        assertThat(mSearchActivity.hasWindowFocus(), is(true));
+        assertThat(mBrowserActivity.hasWindowFocus(), is(false));
     }
 
+    @Test
     public void testNavBack_ByBackButton_DisplaysBrowserActivity() {
-        this.sendKeys(KeyEvent.KEYCODE_BACK);
+        pressBack();
+        assertThat(mSearchActivity.isFinishing(), is(true));
         mInstrumentation.waitForIdleSync();
-        assertFalse(mSearchActivity.hasWindowFocus());
-        assertTrue(mBrowserActivity.hasWindowFocus());
+        assertThat(mBrowserActivity.hasWindowFocus(), is(true));
     }
 
     private SearchActivity getSearchActivityByMenuClick() {
         Instrumentation.ActivityMonitor activityMonitor =
                 mInstrumentation.addMonitor(SearchActivity.class.getName(), null, false);
-        mBrowserActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                View searchMenuItem = mBrowserActivity.findViewById(R.id.search);
-                assertNotNull(searchMenuItem);
-                searchMenuItem.performClick();
-            }
-        });
+        onView(withId(R.id.search))
+                .perform(click());
         SearchActivity searchActivity =
                 (SearchActivity) activityMonitor.waitForActivityWithTimeout(2000);
         mInstrumentation.removeMonitor(activityMonitor);
