@@ -22,7 +22,7 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Toast;
 
-import com.dnielfe.manager.BrowserActivity;
+import com.dnielfe.manager.AbstractBrowserActivity;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.SearchActivity;
 import com.dnielfe.manager.adapters.BrowserListAdapter;
@@ -47,6 +47,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
         OnEventListener, OnMenuItemClickListener {
 
     public static final String KEY_IS_GET_CONTENT = "is_get_content";
+    public static final String TAG_PRIMARY_BROWSER_LIST_FRAGMENT = "primary_browser_list_fragment";
     private Activity mActivity;
     private FragmentManager fm;
 
@@ -72,7 +73,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     public void onCreate(Bundle state) {
         setRetainInstance(true);
         setHasOptionsMenu(true);
-        mIsGetContent = getArguments().getBoolean(KEY_IS_GET_CONTENT);
+        // TODO: GET_CONTENT: get boolean
+        final Bundle args = getArguments();
+        if (args != null) mIsGetContent = args.getBoolean(KEY_IS_GET_CONTENT);
         super.onCreate(state);
     }
 
@@ -116,7 +119,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
     @Override
     protected void onVisible() {
-        final BrowserActivity activity = (BrowserActivity) getActivity();
+        final AbstractBrowserActivity activity = (AbstractBrowserActivity) getActivity();
         // check for root
         Settings.rootAccess();
 
@@ -143,7 +146,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     }
 
     private void initList(LayoutInflater inflater, View rootView) {
-        final BrowserActivity context = (BrowserActivity) getActivity();
+        final AbstractBrowserActivity context = (AbstractBrowserActivity) getActivity();
         mListAdapter = new BrowserListAdapter(context, inflater);
 
         mListView = (ListView) rootView.findViewById(android.R.id.list);
@@ -197,11 +200,11 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
         switch (item.getItemId()) {
             case R.id.createfile:
                 final DialogFragment dialog1 = new CreateFileDialog();
-                dialog1.show(fm, BrowserActivity.TAG_DIALOG);
+                dialog1.show(fm, AbstractBrowserActivity.TAG_DIALOG);
                 return true;
             case R.id.createfolder:
                 final DialogFragment dialog2 = new CreateFolderDialog();
-                dialog2.show(fm, BrowserActivity.TAG_DIALOG);
+                dialog2.show(fm, AbstractBrowserActivity.TAG_DIALOG);
                 return true;
             default:
                 return false;
@@ -242,7 +245,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
             activity.finish();
         } else if (SimpleUtils.isSupportedArchive(file)) {
             final DialogFragment dialog = UnpackDialog.instantiate(file);
-            dialog.show(fm, BrowserActivity.TAG_DIALOG);
+            dialog.show(fm, AbstractBrowserActivity.TAG_DIALOG);
         } else {
             SimpleUtils.openFile(mActivity, file);
         }
@@ -275,7 +278,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
         } else {
             inflater.inflate(R.menu.main, menu);
 
-            if (BrowserActivity.isDrawerOpen()) {
+            if (AbstractBrowserActivity.isDrawerOpen()) {
                 menu.findItem(R.id.paste).setVisible(false);
                 menu.findItem(R.id.folderinfo).setVisible(false);
                 menu.findItem(R.id.search).setVisible(false);
@@ -290,7 +293,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
         switch (item.getItemId()) {
             case R.id.folderinfo:
                 final DialogFragment dirInfo = new DirectoryInfoDialog();
-                dirInfo.show(fm, BrowserActivity.TAG_DIALOG);
+                dirInfo.show(fm, AbstractBrowserActivity.TAG_DIALOG);
                 return true;
             case R.id.search:
                 Intent sintent = new Intent(mActivity, SearchActivity.class);
@@ -324,7 +327,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
             defaultdir = savedInstanceState.getString("location");
         } else {
             try {
-                File dir = new File(intent.getStringExtra(BrowserActivity.EXTRA_SHORTCUT));
+                File dir = new File(intent.getStringExtra(AbstractBrowserActivity.EXTRA_SHORTCUT));
 
                 if (dir.exists() && dir.isDirectory()) {
                     defaultdir = dir.getAbsolutePath();
@@ -354,6 +357,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
         @Override
         public void run() {
+            // TODO: Need different methods of getting current BrowserFragment
             BrowserTabsAdapter.getCurrentBrowserFragment().navigateTo(target);
         }
     }
