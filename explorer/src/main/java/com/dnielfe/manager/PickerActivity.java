@@ -3,9 +3,9 @@ package com.dnielfe.manager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 
-import com.dnielfe.manager.fragments.BrowserFragment;
+import com.dnielfe.manager.fragments.PickerFragment;
 
-public class PickerActivity extends AbstractBrowserActivity {
+public final class PickerActivity extends AbstractBrowserActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,19 +18,15 @@ public class PickerActivity extends AbstractBrowserActivity {
     }
 
     @Override
-    protected BrowserFragment getCurrentBrowserFragment() {
-        return (BrowserFragment) getFragmentManager()
-                .findFragmentByTag(BrowserFragment.TAG_PRIMARY_BROWSER_LIST_FRAGMENT);
+    public PickerFragment getCurrentBrowserFragment() {
+        return (PickerFragment) getFragmentManager()
+                .findFragmentByTag(PickerFragment.TAG);
     }
 
     private void initBrowserFragment() {
-        final Bundle args = new Bundle();
-        args.putBoolean(BrowserFragment.KEY_IS_GET_CONTENT, true);
-
-        final BrowserFragment browserFragment = new BrowserFragment();
-        browserFragment.setArguments(args);
+        final PickerFragment pickerFragment = new PickerFragment();
         getFragmentManager().beginTransaction()
-                .add(R.id.browser_fragment_container, browserFragment, BrowserFragment.TAG_PRIMARY_BROWSER_LIST_FRAGMENT)
+                .add(R.id.browser_fragment_container, pickerFragment, PickerFragment.TAG)
                 .commit();
     }
 

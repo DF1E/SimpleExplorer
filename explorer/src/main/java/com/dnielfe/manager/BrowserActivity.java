@@ -19,21 +19,12 @@
 
 package com.dnielfe.manager;
 
-import android.os.Bundle;
-
 import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.fragments.BrowserFragment;
 
 public final class BrowserActivity extends AbstractBrowserActivity {
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        initViewPager();
-    }
-
-    @Override
-    protected BrowserFragment getCurrentBrowserFragment() {
+    public BrowserFragment getCurrentBrowserFragment() {
         return BrowserTabsAdapter.getCurrentBrowserFragment();
     }
 }

@@ -21,6 +21,7 @@ import com.dnielfe.manager.adapters.BookmarksAdapter;
 import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.adapters.DrawerListAdapter;
 import com.dnielfe.manager.adapters.MergeAdapter;
+import com.dnielfe.manager.fragments.AbstractBrowserFragment;
 import com.dnielfe.manager.fragments.BrowserFragment;
 import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.settings.SettingsActivity;
@@ -46,7 +47,7 @@ public abstract class AbstractBrowserActivity extends ThemableActivity implement
 
     private FragmentManager fm;
 
-    protected abstract BrowserFragment getCurrentBrowserFragment();
+    public abstract AbstractBrowserFragment getCurrentBrowserFragment();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public abstract class AbstractBrowserActivity extends ThemableActivity implement
         initRequiredComponents();
         initToolbar();
         initDrawer();
+        initViewPager();
     }
 
     @Override
