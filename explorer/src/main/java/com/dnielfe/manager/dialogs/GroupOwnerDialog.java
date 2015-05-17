@@ -51,8 +51,8 @@ public final class GroupOwnerDialog extends DialogFragment {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        String newgroup = inputowner.getText().toString();
-                        String newowner = inputgroup.getText().toString();
+                        String newgroup = inputgroup.getText().toString();
+                        String newowner = inputowner.getText().toString();
 
                         dialog.dismiss();
 
