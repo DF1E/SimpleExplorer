@@ -287,6 +287,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
     public void onNavigate(String path) {
         // navigate to path when Navigation button is clicked
+        if (mActionController.isActionMode()) {
+            mActionController.finishActionMode();
+        }
         navigateTo(path);
         // go to the top of the ListView
         mListView.setSelection(0);
