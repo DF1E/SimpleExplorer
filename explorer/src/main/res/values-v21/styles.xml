@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="themeId">1</item>
+        <item name="windowActionModeOverlay">true</item>
+
+        <!-- android colors -->
+        <item name="colorPrimary">@color/light_color_primary</item>
+        <item name="colorPrimaryDark">@color/light_color_primaryDark</item>
+        <item name="android:windowBackground">@color/holo_light_window_background</item>
+
+        <!-- custom colors -->
+        <item name="bookmark_windoBackground">@color/light_bookmark_bg</item>
+
+        <!-- main drawables -->
+        <item name="fab_drawable">@drawable/holo_dark_ic_action_new</item>
+        <item name="action_info">@drawable/holo_light_action_info</item>
+        <item name="action_paste">@drawable/actionpaste</item>
+        <item name="action_remove">@drawable/holo_light_action_remove</item>
+        <item name="action_search">@drawable/holo_light_action_search</item>
+
+        <!-- action mode drawables -->
+        <item name="action_copy">@drawable/holo_light_action_copy</item>
+        <item name="action_cut">@drawable/holo_light_action_cut</item>
+        <item name="action_edit">@drawable/holo_light_action_edit</item>
+        <item name="action_multi">@drawable/holo_light_action_select_all</item>
+        <item name="action_zip">@drawable/holo_light_ic_storage</item>
+        <item name="action_bookmark">@drawable/holo_light_ic_bookmark</item>
+        <item name="action_delete">@drawable/holo_light_action_delete</item>
+        <item name="action_share">@drawable/holo_light_action_share</item>
+
+        <!-- pre-lollipop Theme.AppCompat action mode drawables (for AlertDialog, issue #32) -->
+        <!-- TODO: remove when android.support.v7.AlertDialog is implemented -->
+        <item name="actionModeSelectAllDrawable">@drawable/holo_light_action_select_all</item>
+        <item name="actionModeCutDrawable">@drawable/holo_light_action_cut</item>
+        <item name="actionModeCopyDrawable">@drawable/holo_light_action_copy</item>
+    </style>
+
+    <style name="ThemeDark" parent="Theme.AppCompat.NoActionBar">
+        <item name="themeId">2</item>
+        <item name="windowActionModeOverlay">true</item>
+
+        <!-- android colors -->
+        <item name="colorPrimary">@color/dark_color_primary</item>
+        <item name="colorPrimaryDark">@color/dark_color_primaryDark</item>
+        <item name="android:windowBackground">@color/holo_dark_window_background</item>
+
+        <!-- custom colors -->
+        <item name="bookmark_windoBackground">@color/dark_bookmark_bg</item>
+
+        <!-- main drawables -->
+        <item name="fab_drawable">@drawable/holo_light_ic_action_new</item>
+        <item name="action_info">@drawable/holo_dark_action_info</item>
+        <item name="action_paste">@drawable/actionpaste</item>
+        <item name="action_remove">@drawable/holo_dark_action_remove</item>
+        <item name="action_search">@drawable/holo_dark_action_search</item>
+
+        <!-- action mode drawables -->
+        <item name="action_copy">@drawable/holo_dark_action_copy</item>
+        <item name="action_cut">@drawable/holo_dark_action_cut</item>
+        <item name="action_edit">@drawable/holo_dark_action_edit</item>
+        <item name="action_multi">@drawable/holo_dark_ic_action_select_all</item>
+        <item name="action_zip">@drawable/holo_dark_ic_storage</item>
+        <item name="action_bookmark">@drawable/holo_dark_ic_bookmark</item>
+        <item name="action_delete">@drawable/holo_dark_action_delete</item>
+        <item name="action_share">@drawable/holo_dark_action_share</item>
+
+        <!-- pre-lollipop Theme.AppCompat action mode drawables (for AlertDialog, issue #32) -->
+        <!-- TODO: remove when android.support.v7.AlertDialog is implemented -->
+        <item name="actionModeSelectAllDrawable">@drawable/holo_dark_ic_action_select_all</item>
+        <item name="actionModeCutDrawable">@drawable/holo_dark_action_cut</item>
+        <item name="actionModeCopyDrawable">@drawable/holo_dark_action_copy</item>
+    </style>
+
+        <!-- Alert Dialog for ACRA-->
+    <style name="AlertDialogStyle" parent="android:Theme.Material.Light.Dialog.Alert">
+        <item name="android:colorAccent">@color/blue_500</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+</resources>
