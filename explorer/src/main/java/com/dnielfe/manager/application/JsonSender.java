@@ -5,7 +5,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
-
 import org.acra.ACRA;
 import org.acra.ACRAConstants;
 import org.acra.ReportField;
@@ -48,9 +47,9 @@ public class JsonSender implements ReportSender {
      *
      * @param formUri The URL of your server-side crash report collection script.
      * @param mapping If null, POST parameters will be named with
-     * {@link org.acra.ReportField} values converted to String with
-     * .toString(). If not null, POST parameters will be named with
-     * the result of mapping.get(ReportField.SOME_FIELD);
+     *                {@link org.acra.ReportField} values converted to String with
+     *                .toString(). If not null, POST parameters will be named with
+     *                the result of mapping.get(ReportField.SOME_FIELD);
      */
     public JsonSender(String formUri, Map<ReportField, String> mapping) {
         mFormUri = Uri.parse(formUri);
@@ -58,7 +57,6 @@ public class JsonSender implements ReportSender {
     }
 
     public void send(Context context, CrashReportData errorContent) throws ReportSenderException {
-
         try {
             URL reportUrl;
             reportUrl = new URL(mFormUri.toString());
@@ -67,16 +65,9 @@ public class JsonSender implements ReportSender {
             JSONObject json = createJSON(errorContent);
 
             sendHttpPost(json.toString(), reportUrl, ACRA.getConfig().formUriBasicAuthLogin(), ACRA.getConfig().formUriBasicAuthPassword());
-
         } catch (Exception e) {
             throw new ReportSenderException("Error while sending report to Http Post Form.", e);
         }
-
-    }
-
-    private static boolean isNull(String aString) {
-        return aString == null || aString == null;
-
     }
 
     private JSONObject createJSON(Map<ReportField, String> report) {
@@ -117,18 +108,15 @@ public class JsonSender implements ReportSender {
             StringEntity se = new StringEntity(getDataForMandrill(data));
             httPost.setEntity(se);
 
-//sets a request header so the page receving the request
+            //sets a request header so the page receving the request
             //will know what to do with it
             httPost.setHeader("Accept", "application/json");
             httPost.setHeader("Content-type", "application/json");
-
 
             HttpResponse httpResponse = httpClient.execute(httPost);
 
             Log.d(LOG_TAG, "Server Status: " + httpResponse.getStatusLine());
             Log.d(LOG_TAG, "Server Response: " + EntityUtils.toString(httpResponse.getEntity()));
-
-
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
@@ -141,13 +129,10 @@ public class JsonSender implements ReportSender {
     }
 
     private String getDataForMandrill(String data) {
-
-
         try {
-
             JSONObject email_json = new JSONObject();
-            email_json.put("email", "ENTER YOUR EMAIL HERE"); // recipient email address goes here
-            email_json.put("name", "ENTER YOUR NAME HERE"); // receiver's name..can be changed
+            email_json.put("email", "dnielfe@gmail.com");
+            email_json.put("name", "DF1E");
             email_json.put("type", "to");
 
             JSONArray email_array = new JSONArray();
@@ -156,22 +141,19 @@ public class JsonSender implements ReportSender {
             JSONObject message_json = new JSONObject();
             message_json.put("html", "");
             message_json.put("text", "Logs: \n" + data);
-            message_json.put("subject", "Simple Explorer Error Report"); // add your own subject
-            message_json.put("from_email", "error@android.com"); // change if your preferred "from email" You can enter any email ID
-            message_json.put("from_name", "Simple Explorer Error Report"); // change it to your preferred name
+            message_json.put("subject", "Simple Explorer Error Report");
+            message_json.put("from_email", "error@android.com");
+            message_json.put("from_name", "Simple Explorer Error Report");
             message_json.put("to", email_array);
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("key", "ENTER THE API KEY HERE"); // Get API key from https://mandrill.com/signup/ Signup here and go to settings > Create New API key. Copy and Paste the key here.
+            jsonObject.put("key", "VMPfN0oXxF1o8M0Y22nu9Q");
             jsonObject.put("message", message_json);
-
             return jsonObject.toString();
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         return null;
     }
-
 }

@@ -4,24 +4,23 @@ import android.app.Application;
 
 import com.dnielfe.manager.R;
 
-import org.acra.*;
+import org.acra.ACRA;
+import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
-
-
 
 @ReportsCrashes(
         formUri = "http://mandrillapp.com/api/1.0/messages/send.json",
         mode = ReportingInteractionMode.DIALOG,
-        resToastText = R.string.crash_toast_text, // optional, displayed as soon as the crash occurs, before collecting data which can take a few seconds
+        resToastText = R.string.crash_toast_text,
         resDialogText = R.string.crash_dialog_text,
-        resDialogIcon = R.drawable.ic_action_report_problem, //optional. default is a warning sign
-        resDialogTitle = R.string.crash_dialog_title, // optional. default is your application name
-        resDialogCommentPrompt = R.string.crash_dialog_comment_prompt, // optional. When defined, adds a user text field input with this text resource as a label
-        resDialogOkToast = R.string.crash_dialog_ok_toast // optional. displays a Toast message when the user accepts to send a report.
-
+        // resDialogIcon = R.drawable.ic_action_report_problem,
+        resDialogTitle = R.string.crash_dialog_title,
+        resDialogCommentPrompt = R.string.crash_dialog_comment_prompt,
+        resDialogOkToast = R.string.crash_dialog_ok_toast
 )
 
 public class SimpleExplorerApplication extends Application {
+
     private ReportsCrashes mReportsCrashes;
 
     @Override
@@ -33,6 +32,5 @@ public class SimpleExplorerApplication extends Application {
         mReportsCrashes = this.getClass().getAnnotation(ReportsCrashes.class);
         JsonSender jsonSender = new JsonSender(mReportsCrashes.formUri(), null);
         ACRA.getErrorReporter().setReportSender(jsonSender);
-
     }
 }

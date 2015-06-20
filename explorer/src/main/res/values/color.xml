@@ -15,8 +15,4 @@
     <color name="dark_color_primaryDark">#090909</color>
     <color name="holo_dark_window_background">#222222</color>
 
-    <!-- Colors for ACRA Dialog -->
-    <color name="blue_500">#2196F3</color>
-    <color name="white">#ffffff</color>
-
 </resources>
