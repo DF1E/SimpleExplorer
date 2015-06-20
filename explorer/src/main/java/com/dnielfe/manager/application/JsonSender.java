@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.util.Log;
 
 import org.acra.ACRA;
-import org.acra.ACRAConstants;
 import org.acra.ReportField;
 import org.acra.collector.CrashReportData;
 import org.acra.sender.ReportSender;
@@ -30,15 +29,31 @@ import java.util.List;
 import java.util.Map;
 
 import static org.acra.ACRA.LOG_TAG;
+import static org.acra.ReportField.ANDROID_VERSION;
+import static org.acra.ReportField.APP_VERSION_CODE;
+import static org.acra.ReportField.APP_VERSION_NAME;
+import static org.acra.ReportField.BRAND;
+import static org.acra.ReportField.BUILD;
+import static org.acra.ReportField.ENVIRONMENT;
+import static org.acra.ReportField.LOGCAT;
+import static org.acra.ReportField.PACKAGE_NAME;
+import static org.acra.ReportField.PHONE_MODEL;
+import static org.acra.ReportField.PRODUCT;
+import static org.acra.ReportField.REPORT_ID;
+import static org.acra.ReportField.SHARED_PREFERENCES;
+import static org.acra.ReportField.STACK_TRACE;
 
 public class JsonSender implements ReportSender {
+
     private Uri mFormUri = null;
     private Map<ReportField, String> mMapping = null;
-    private static final String CONTENT_TYPE;
 
-    static {
-        CONTENT_TYPE = "application/json";
-    }
+    public static final ReportField[] CUSTOM_REPORT_FIELDS = {
+            REPORT_ID, APP_VERSION_NAME, APP_VERSION_CODE,
+            PACKAGE_NAME, PHONE_MODEL, BRAND,
+            PRODUCT, ANDROID_VERSION, BUILD, ENVIRONMENT, SHARED_PREFERENCES,
+            STACK_TRACE, LOGCAT
+    };
 
     /**
      * <p>
@@ -75,7 +90,7 @@ public class JsonSender implements ReportSender {
 
         ReportField[] fields = ACRA.getConfig().customReportContent();
         if (fields.length == 0) {
-            fields = ACRAConstants.DEFAULT_REPORT_FIELDS;
+            fields = CUSTOM_REPORT_FIELDS;
         }
         for (ReportField field : fields) {
             try {
