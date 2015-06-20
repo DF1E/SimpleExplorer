@@ -50,6 +50,10 @@ public final class Settings {
         return Integer.parseInt(mPrefs.getString("sort", "1"));
     }
 
+    public static boolean getErrorReports() {
+        return mPrefs.getBoolean("error_reports", true);
+    }
+
     public static int getDefaultTheme() {
         return mTheme;
     }

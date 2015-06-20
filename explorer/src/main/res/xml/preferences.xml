@@ -48,6 +48,10 @@
             android:defaultValue="false"
             android:key="enablerootaccess"
             android:title="@string/enable_root" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="error_reports"
+            android:title="@string/error_reports" />
     </PreferenceCategory>
 
     <PreferenceScreen android:title="@string/xdaforum">
