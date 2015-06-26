@@ -59,11 +59,3 @@
 # === custom ===
 # this fixed a bug with SearchView on Cyanogenmod
 -keep public class android.support.v7.widget.** { *; }
-
-#ACRA specifics
-# Restore some Source file names and restore approximate line numbers in the stack traces,
-# otherwise the stack traces are pretty useless
--keepattributes SourceFile, LineNumberTable
-
-# Keep all the ACRA classes
--keep class org.acra.** { *; }

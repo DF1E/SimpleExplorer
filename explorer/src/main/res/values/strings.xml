@@ -121,11 +121,4 @@
     <string name="overwrite_skip_all">Skip all</string>
     <string name="overwrite_replace">Replace</string>
     <string name="overwrite_replace_all">Replace all</string>
-
-    <!-- Crash Report -->
-    <string name="error_reports">Send error reports</string>
-    <string name="crash_toast_text">An unexpected error forced this application to stop!</string>
-    <string name="crash_dialog_title">Error report</string>
-    <string name="crash_dialog_text">Send error report?</string>
-    <string name="crash_dialog_ok_toast">Thanks for reporting!</string>
 </resources>

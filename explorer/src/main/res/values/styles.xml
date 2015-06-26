@@ -73,9 +73,4 @@
         <item name="actionModeCopyDrawable">@drawable/holo_dark_action_copy</item>
     </style>
 
-    <!-- Alert Dialog for ACRA-->
-    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:windowBackground">@color/holo_light_window_background</item>
-    </style>
-
 </resources>
