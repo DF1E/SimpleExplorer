@@ -22,13 +22,4 @@
         android:scrollbarStyle="outsideOverlay"
         android:smoothScrollbar="true" />
 
-	<!-- If FAB is moved to activity, PickerFragment should inflate this layout instead -->
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fabbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="20dp"
-        android:src="?attr/fab_drawable"
-        fab:fab_colorNormal="?colorAccent" />
 </FrameLayout>

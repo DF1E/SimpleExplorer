@@ -1,5 +1,6 @@
 package com.dnielfe.manager;
 
+import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -10,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.DrawerMatchers.isClosed;
@@ -20,61 +22,77 @@ import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4.class)
-public class BrowserActivityMainFunctionalTest extends AbstractBrowserActivityFunctionalTestCase {
-    private BrowserActivity mBrowserActivity;
+public class PickerActivityFunctionalTest extends AbstractBrowserActivityFunctionalTestCase {
+    private static final String MIME_TYPE_FILE = "file/*";
+    private PickerActivity mPickerActivity;
 
     @Rule
-    public ActivityTestRule<BrowserActivity> mActivityRule =
-            new ActivityTestRule<>(BrowserActivity.class);
+    public ActivityTestRule<PickerActivity> mActivityRule =
+            new ActivityTestRule<>(PickerActivity.class, false, false);
 
     @Before
     public void setUp() throws Exception {
-        mBrowserActivity = mActivityRule.getActivity();
-        setAbsBrowserActivity(mBrowserActivity);
+        initActivity();
+        setAbsBrowserActivity(mPickerActivity);
     }
 
     @After
     public void tearDown() throws Exception {
-        mBrowserActivity.finish();
+        mPickerActivity.finish();
     }
 
     @Test
     public void testPreconditions() {
-        assertNotNull(mBrowserActivity);
-        assertThat(mBrowserActivity.hasWindowFocus(), is(true));
+        assertNotNull(mPickerActivity);
+        assertThat(mPickerActivity.hasWindowFocus(), is(true));
     }
 
     @Test
     public void testUiState_WithDefaultScreen_CorrectElementsDisplayed() {
         onView(withId(R.id.drawer_layout))
                 .check(matches(isClosed()))
-                .check(matches(hasDescendant(withId(R.id.pager))));
+                .check(matches(hasDescendant(withId(R.id.browser_fragment_container))));
         onView(withId(R.id.toolbar))
-                .check(matches(hasDescendant(withText(R.string.app_name))));
-        onView(withId(R.id.folderinfo))
-                .check(matches(isDisplayed()));
-        onView(withId(R.id.search))
-                .check(matches(isDisplayed()));
+                .check(matches(hasDescendant(withText(R.string.picker_choose_one_file))));
         onView(withId(R.id.pick_cancel))
+                .check(matches(isDisplayed()));
+        onView(withId(R.id.folderinfo))
+                .check(doesNotExist());
+        onView(withId(R.id.search))
                 .check(doesNotExist());
         onView(withId(R.id.directory_buttons))
                 .check(matches(isDisplayed()))
                 .check(matches(withChild(withText("/"))));
-        onView(withId(R.id.indicator))
+        onView(withId(R.id.browser_fragment_container))
+                .check(matches(isDisplayed()))
+                .check(matches(hasDescendant(withId(android.R.id.list))));
+        onView(withId(android.R.id.list))
                 .check(matches(isDisplayed()));
         onView(withId(R.id.pager))
-                .check(matches(isDisplayed()))
-                .check(matches(hasDescendant(withId(android.R.id.list))))
-                .check(matches(hasDescendant(withId(R.id.fabbutton))));
-        // TODO: check that list and fabbutton are actually displayed when fragments are tagged
+                .check(doesNotExist());
+        onView(withId(R.id.fabbutton))
+                .check(doesNotExist());
     }
 
-    // TODO: test folder info
-    // TODO: test viewpager nav
-    // TODO: test browser list item context actions
-    // TODO: test add file
-    // TODO: test add folder
+    @Test
+    public void testClickCancel_WithDefaultScreen_ClosesActivity() {
+        onView(withId(R.id.pick_cancel))
+                .perform(click());
+        assertThat(mPickerActivity.isFinishing(), is(true));
+    }
+
+    // TODO: test tapping a list item
+
+    // Helpers
+
+    private void initActivity() {
+        Intent startIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        startIntent.setType(MIME_TYPE_FILE);
+        // TODO: create another test class for EXTRA_ALLOW_MULTIPLE?
+        mPickerActivity = mActivityRule.launchActivity(startIntent);
+    }
 }

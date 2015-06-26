@@ -6,7 +6,7 @@
 
     <include layout="@layout/support_toolbar" />
 
-    <android.support.v4.widget.DrawerLayout xmlns:vpi="http://schemas.android.com/apk/res-auto"
+    <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,22 +19,14 @@
             android:orientation="vertical">
 
             <include layout="@layout/directory_buttons" />
-
-            <com.dnielfe.manager.ui.PageIndicator
-                android:id="@+id/indicator"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:background="?colorPrimary"
-                vpi:selectedColor="?colorAccent" />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pager"
+            
+            <FrameLayout
+                android:id="@+id/browser_fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
 
         <!-- Navigation drawer -->
-
         <ListView
             android:id="@+id/left_drawer"
             android:layout_width="@dimen/drawer_width"
