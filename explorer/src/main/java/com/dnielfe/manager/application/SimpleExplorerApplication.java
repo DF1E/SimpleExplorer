@@ -21,18 +21,16 @@ import org.acra.annotation.ReportsCrashes;
 
 public class SimpleExplorerApplication extends Application {
 
-    private ReportsCrashes mReportsCrashes;
-
     @Override
     public void onCreate() {
         super.onCreate();
         // get default preferences at start - we need this for setting the theme
         Settings.updatePreferences(this);
 
-        if (Settings.getErrorReports()) {
+        if (Settings.isReleaseVersion() && Settings.getErrorReports()) {
             ACRA.init(this);
 
-            mReportsCrashes = this.getClass().getAnnotation(ReportsCrashes.class);
+            ReportsCrashes mReportsCrashes = this.getClass().getAnnotation(ReportsCrashes.class);
             JsonSender jsonSender = new JsonSender(mReportsCrashes.formUri(), null);
             ACRA.getErrorReporter().setReportSender(jsonSender);
         }
