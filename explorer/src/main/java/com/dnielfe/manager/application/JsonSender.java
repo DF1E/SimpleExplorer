@@ -162,7 +162,7 @@ public class JsonSender implements ReportSender {
             message_json.put("to", email_array);
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("key", "VMPfN0oXxF1o8M0Y22nu9Q");
+            jsonObject.put("key", "API_KEY"); // enter api key here
             jsonObject.put("message", message_json);
             return jsonObject.toString();
         } catch (JSONException e) {

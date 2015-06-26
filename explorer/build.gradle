@@ -22,12 +22,14 @@ android {
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix "-DEBUG"
+            buildConfigField "boolean", "RELEASE_VERSION", "false"
         }
 
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles 'proguard-android.txt'
+            buildConfigField "boolean", "RELEASE_VERSION", "true"
         }
     }
 
