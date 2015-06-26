@@ -16,7 +16,6 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:name=".application.SimpleExplorerApplication"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@style/ThemeDark"
@@ -47,18 +46,13 @@
             </intent-filter>
         </activity>
 
-        <!-- ACRA Report Activity -->
-        <activity
-            android:name="org.acra.CrashReportDialog"
-            android:theme="@style/AlertDialogStyle"
-            android:launchMode="singleInstance"
-            android:excludeFromRecents="true"
-            android:finishOnTaskLaunch="true" />
-
         <!-- support multi-window for samsung devices -->
         <meta-data
             android:name="com.sec.android.support.multiwindow"
             android:value="true" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="78545b2da64c3e73dae596e59c5cc3c8e767a8fd" />
     </application>
 
 </manifest>

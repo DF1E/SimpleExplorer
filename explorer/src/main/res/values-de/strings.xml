@@ -106,9 +106,5 @@
     <string name="overwrite_skip_all">Alle überspringen</string>
     <string name="overwrite_replace">Ersetzen</string>
     <string name="overwrite_replace_all">Alle ersetzen</string>
-    <string name="error_reports">Sende Fehlerberichte</string>
-    <string name="crash_toast_text">Ein unerwarteter Fehler hat die App beendet!</string>
-    <string name="crash_dialog_title">Fehlerbericht</string>
-    <string name="crash_dialog_text">Fehlerbericht senden?</string>
-    <string name="crash_dialog_ok_toast">Vielen Dank!</string>
+    <string name="error_reports">Fehlerberichte senden</string>
 </resources>
