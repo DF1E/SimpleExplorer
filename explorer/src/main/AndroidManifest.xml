@@ -50,6 +50,9 @@
         <meta-data
             android:name="com.sec.android.support.multiwindow"
             android:value="true" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="78545b2da64c3e73dae596e59c5cc3c8e767a8fd" />
     </application>
 
 </manifest>

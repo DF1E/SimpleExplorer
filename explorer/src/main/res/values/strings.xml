@@ -121,4 +121,7 @@
     <string name="overwrite_skip_all">Skip all</string>
     <string name="overwrite_replace">Replace</string>
     <string name="overwrite_replace_all">Replace all</string>
+
+    <!-- Crash Report -->
+    <string name="error_reports">Send error reports</string>
 </resources>
