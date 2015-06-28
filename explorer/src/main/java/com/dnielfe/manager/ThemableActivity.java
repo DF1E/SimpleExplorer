@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.crashlytics.android.Crashlytics;
 import com.dnielfe.manager.settings.Settings;
-
-import io.fabric.sdk.android.Fabric;
 
 public abstract class ThemableActivity extends AppCompatActivity {
 
@@ -15,13 +12,6 @@ public abstract class ThemableActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // get default preferences at start - we need this for setting the theme
-        Settings.updatePreferences(this);
-
-        if (Settings.isReleaseVersion() && Settings.getErrorReports()) {
-            Fabric.with(this, new Crashlytics());
-        }
-
         mCurrentTheme = Settings.getDefaultTheme();
         setTheme(mCurrentTheme);
         super.onCreate(savedInstanceState);
