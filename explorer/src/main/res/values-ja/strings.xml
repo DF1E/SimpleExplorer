@@ -59,6 +59,7 @@
     <string name="searchtext">検索</string>
     <string name="selectall">すべて選択</string>
     <string name="settings">設定</string>
+    <string name="sha1_key">SHA-1:</string>
     <string name="share">共有</string>
     <string name="shortcut">ショートカットを作成</string>
     <string name="shortcutcreated">ショートカットを作成しました。</string>
@@ -105,4 +106,7 @@
     <string name="overwrite_skip_all">すべてスキップ</string>
     <string name="overwrite_replace">置換</string>
     <string name="overwrite_replace_all">すべて置換</string>
+    <string name="error_reports">エラー レポートを送信</string>
+    <string name="picker_choose_one_file">ファイルを選択</string>
+    <string name="picker_choose_multiple_files">ファイルを選択</string>
 </resources>

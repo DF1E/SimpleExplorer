@@ -59,6 +59,7 @@
     <string name="searchtext">Sök</string>
     <string name="selectall">Markera alla</string>
     <string name="settings">Inställningar</string>
+    <string name="sha1_key">SHA-1:</string>
     <string name="share">Dela</string>
     <string name="shortcut">Skapa genväg</string>
     <string name="shortcutcreated">Genväg skapad.</string>
@@ -105,4 +106,7 @@
     <string name="overwrite_skip_all">Hoppa över alla</string>
     <string name="overwrite_replace">Ersätt</string>
     <string name="overwrite_replace_all">Ersätt alla</string>
+    <string name="error_reports">Skicka felrapport</string>
+    <string name="picker_choose_one_file">Välj en fil</string>
+    <string name="picker_choose_multiple_files">Välj filer</string>
 </resources>
