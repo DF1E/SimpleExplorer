@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dnielfe.manager.AbstractBrowserActivity;
 import com.dnielfe.manager.R;
 
 import java.io.File;
@@ -31,10 +30,6 @@ public final class PickerFragment extends AbstractBrowserFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.picker_menu, menu);
-
-        if (AbstractBrowserActivity.isDrawerOpen()) {
-            menu.findItem(R.id.pick_cancel).setVisible(false);
-        }
     }
 
     @Override

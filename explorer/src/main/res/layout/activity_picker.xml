@@ -6,34 +6,24 @@
 
     <include layout="@layout/support_toolbar" />
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <!-- Main content view -->
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!-- Main content view -->
+        <include layout="@layout/directory_buttons" />
 
-        <LinearLayout
+        <View
+            android:layout_height="1.5dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="?colorAccent" />
 
-            <include layout="@layout/directory_buttons" />
-            
-            <FrameLayout
-                android:id="@+id/browser_fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/browser_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
-        <!-- Navigation drawer -->
-        <ListView
-            android:id="@+id/left_drawer"
-            android:layout_width="@dimen/drawer_width"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="?android:attr/windowBackground"
-            android:divider="@null" />
-
-    </android.support.v4.widget.DrawerLayout>
 </LinearLayout>

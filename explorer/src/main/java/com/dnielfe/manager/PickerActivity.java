@@ -13,7 +13,6 @@ public final class PickerActivity extends AbstractBrowserActivity {
 
         initToolbar();
         setToolbarTitle(getText(R.string.picker_choose_one_file));
-        initDrawer();
         initBrowserFragment();
     }
 
