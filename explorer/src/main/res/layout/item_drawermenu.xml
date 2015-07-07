@@ -4,6 +4,6 @@
     android:layout_height="@dimen/drawer_menu_item_height"
     android:layout_centerVertical="true"
     android:gravity="center_vertical"
-    android:padding="6dp"
-    android:textSize="17sp"
-    android:textColor="?android:textColorPrimary" />
+    android:padding="7dp"
+    android:textSize="18sp"
+    android:textAppearance="?android:attr/textAppearance" />

@@ -1,22 +1,3 @@
-/*
- * Copyright (C) 2014 Simple Explorer
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA  02110-1301, USA.
- */
-
 package com.dnielfe.manager;
 
 import android.app.ProgressDialog;
@@ -24,10 +5,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +18,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dnielfe.manager.adapters.BrowserListAdapter;
+import com.dnielfe.manager.adapters.BrowserTabsAdapter;
+import com.dnielfe.manager.controller.ActionModeController;
 import com.dnielfe.manager.utils.SimpleUtils;
 
 import java.io.File;
@@ -46,6 +29,7 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
 
     private AbsListView mListView;
     private BrowserListAdapter mAdapter;
+    private ActionModeController mActionController;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,8 +46,7 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
         init();
 
         if (savedInstanceState != null) {
-            mAdapter.addContent(savedInstanceState
-                    .getStringArrayList("savedList"));
+            mAdapter.addContent(savedInstanceState.getStringArrayList("savedList"));
 
             getSupportActionBar().setSubtitle(String.valueOf(mAdapter.getCount())
                     + getString(R.string._files));
@@ -78,10 +61,12 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
 
     private void init() {
         mAdapter = new BrowserListAdapter(this, getLayoutInflater());
+        mActionController = new ActionModeController(this);
 
         mListView = (ListView) findViewById(android.R.id.list);
         mListView.setEmptyView(findViewById(android.R.id.empty));
         mListView.setAdapter(mAdapter);
+        mListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -91,20 +76,28 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
                 if (f.isDirectory()) {
                     finish();
 
-                    BrowserActivity.getCurrentlyDisplayedFragment().navigateTo(
-                            f.getAbsolutePath());
+                    BrowserTabsAdapter.getCurrentBrowserFragment().navigateTo(f.getAbsolutePath());
                 } else if (f.isFile()) {
                     SimpleUtils.openFile(SearchActivity.this, f);
                 }
             }
         });
+
+        mActionController.setListView(mListView);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mActionController.isActionMode()) {
+            mActionController.finishActionMode();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setOnQueryTextListener(this);
         return super.onCreateOptionsMenu(menu);
     }
@@ -140,6 +133,19 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
         return false;
     }
 
+    @Override
+    public boolean onKeyDown(int keycode, @NonNull KeyEvent event) {
+        if (keycode != KeyEvent.KEYCODE_BACK) {
+            return false;
+        }
+
+        if (mActionController.isActionMode()) {
+            mActionController.finishActionMode();
+        }
+
+        return super.onKeyDown(keycode, event);
+    }
+
     private class SearchTask extends AsyncTask<String, Void, ArrayList<String>> {
         public ProgressDialog pr_dialog;
         private final Context context;
@@ -157,7 +163,7 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
 
         @Override
         protected ArrayList<String> doInBackground(String... params) {
-            String location = BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath;
+            String location = BrowserTabsAdapter.getCurrentBrowserFragment().mCurrentPath;
             return SimpleUtils.searchInDirectory(location, params[0]);
         }
 

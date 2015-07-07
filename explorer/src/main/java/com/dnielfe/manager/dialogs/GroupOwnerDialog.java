@@ -1,22 +1,3 @@
-/*
- * Copyright (C) 2014 Simple Explorer
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA  02110-1301, USA.
- */
-
 package com.dnielfe.manager.dialogs;
 
 import android.app.Activity;
@@ -30,8 +11,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.commands.RootCommands;
 import com.dnielfe.manager.tasks.GroupOwnerTask;
+import com.dnielfe.manager.utils.RootCommands;
 
 import java.io.File;
 
@@ -43,9 +24,11 @@ public final class GroupOwnerDialog extends DialogFragment {
     public static DialogFragment instantiate(File file1) {
         file = file1;
 
-        String[] mFileInfo = RootCommands.getFileProperties(file);
-        oldowner = mFileInfo[1];
-        oldgroup = mFileInfo[2];
+        String[] mFileInfo = RootCommands.getFileProperties(file1);
+        if (mFileInfo != null) {
+            oldowner = mFileInfo[1];
+            oldgroup = mFileInfo[2];
+        }
         return new GroupOwnerDialog();
     }
 
@@ -53,8 +36,7 @@ public final class GroupOwnerDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle state) {
         final Activity a = getActivity();
 
-        View view = getActivity().getLayoutInflater().inflate(
-                R.layout.dialog_groupowner, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_groupowner, null);
 
         final EditText inputowner = (EditText) view.findViewById(R.id.owner);
         inputowner.setText(oldowner);
@@ -67,17 +49,16 @@ public final class GroupOwnerDialog extends DialogFragment {
         b.setView(view);
         b.setPositiveButton(getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        String newgroup = inputowner.getText().toString();
-                        String newowner = inputgroup.getText().toString();
+                        String newgroup = inputgroup.getText().toString();
+                        String newowner = inputowner.getText().toString();
 
                         dialog.dismiss();
 
                         if (newgroup.length() > 1 && newowner.length() > 1) {
-                            final GroupOwnerTask task = new GroupOwnerTask(a,
-                                    newgroup, newowner);
-                            task.executeOnExecutor(
-                                    AsyncTask.THREAD_POOL_EXECUTOR, file);
+                            final GroupOwnerTask task = new GroupOwnerTask(a, newgroup, newowner);
+                            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, file);
                         }
                     }
                 });

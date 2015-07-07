@@ -11,7 +11,7 @@
     <string name="copy">Copia</string>
     <string name="copyfail">Copia fallita!</string>
     <string name="copying">Copia in corso</string>
-    <string name="copysuccsess">copia eseguita con successo</string>
+    <string name="copysuccsess">Copia eseguita corrtettamente</string>
     <string name="create">Crea</string>
     <string name="created">" creato"</string>
     <string name="createmsg">Inserisci un punto prima del testo per creare una cartella nascosta.</string>
@@ -33,9 +33,9 @@
     <string name="error">Errore</string>
     <string name="exit">Esci</string>
     <string name="extractto">Estrai in</string>
-    <string name="extractionsuccess">Pacchetto estratto corretamente.</string>
-    <string name="filecreated">Il File è stato creato</string>
-    <string name="fileexists">Il File esiste già</string>
+    <string name="extractionsuccess">Pacchetto estratto correttamente.</string>
+    <string name="filecreated">Il file è stato creato</string>
+    <string name="fileexists">Il file esiste già</string>
     <string name="files">" file"</string>
     <string name="filewasrenamed">Il file è stato rinominato</string>
     <string name="hiddenfiles">File nascosti</string>

@@ -59,6 +59,7 @@
     <string name="searchtext">Suchbegriff eingeben</string>
     <string name="selectall">Alle auswählen</string>
     <string name="settings">Einstellungen</string>
+    <string name="sha1_key">SHA-1:</string>
     <string name="share">Teilen</string>
     <string name="shortcut">Verknüpfung erstellen</string>
     <string name="shortcutcreated">Verknüpfung erstellt</string>
@@ -105,4 +106,5 @@
     <string name="overwrite_skip_all">Alle überspringen</string>
     <string name="overwrite_replace">Ersetzen</string>
     <string name="overwrite_replace_all">Alle ersetzen</string>
+    <string name="error_reports">Fehlerberichte senden</string>
 </resources>

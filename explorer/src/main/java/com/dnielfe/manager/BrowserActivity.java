@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2014 Simple Explorer
+ * Copyright (C) 2013 - 2015 Daniel F.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
+ * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,7 +23,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
@@ -45,10 +44,9 @@ import com.dnielfe.manager.adapters.MergeAdapter;
 import com.dnielfe.manager.fragments.BrowserFragment;
 import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.settings.SettingsActivity;
-import com.dnielfe.manager.utils.Bookmarks;
-import com.dnielfe.manager.utils.NavigationView;
-import com.dnielfe.manager.utils.NavigationView.OnNavigateListener;
-import com.viewpagerindicator.UnderlinePageIndicator;
+import com.dnielfe.manager.ui.NavigationView;
+import com.dnielfe.manager.ui.NavigationView.OnNavigateListener;
+import com.dnielfe.manager.ui.PageIndicator;
 
 import java.io.File;
 
@@ -66,12 +64,9 @@ public final class BrowserActivity extends ThemableActivity implements
     private static ListView mDrawer;
     private static DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-    private Cursor mBookmarksCursor;
     private Toolbar toolbar;
 
     private FragmentManager fm;
-    private BrowserTabsAdapter mPagerAdapter;
-    private static BrowserFragment mBrowserFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,14 +103,6 @@ public final class BrowserActivity extends ThemableActivity implements
         IconPreview.clearCache();
     }
 
-    public void setCurrentlyDisplayedFragment(final BrowserFragment fragment) {
-        mBrowserFragment = fragment;
-    }
-
-    public static BrowserFragment getCurrentlyDisplayedFragment() {
-        return mBrowserFragment;
-    }
-
     private void init() {
         fm = getFragmentManager();
         mNavigation = new NavigationView(this);
@@ -133,10 +120,10 @@ public final class BrowserActivity extends ThemableActivity implements
 
         // Instantiate a ViewPager and a PagerAdapter.
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new BrowserTabsAdapter(fm);
+        BrowserTabsAdapter mPagerAdapter = new BrowserTabsAdapter(fm);
         mPager.setAdapter(mPagerAdapter);
 
-        UnderlinePageIndicator mIndicator = (UnderlinePageIndicator) findViewById(R.id.indicator);
+        PageIndicator mIndicator = (PageIndicator) findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
         mIndicator.setFades(false);
     }
@@ -167,8 +154,7 @@ public final class BrowserActivity extends ThemableActivity implements
     }
 
     private void initDrawerList() {
-        mBookmarksCursor = getBookmarksCursor();
-        mBookmarksAdapter = new BookmarksAdapter(this, mBookmarksCursor);
+        mBookmarksAdapter = new BookmarksAdapter(this);
         mMenuAdapter = new DrawerListAdapter(this);
 
         // create MergeAdapter to combine multiple adapter
@@ -179,24 +165,16 @@ public final class BrowserActivity extends ThemableActivity implements
         mDrawer.setAdapter(mMergeAdapter);
         mDrawer.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                if (mMergeAdapter.getAdapter(position)
-                        .equals(mBookmarksAdapter)) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mMergeAdapter.getAdapter(position).equals(mBookmarksAdapter)) {
 
                     // handle bookmark items
                     if (mDrawerLayout.isDrawerOpen(mDrawer))
                         mDrawerLayout.closeDrawer(mDrawer);
 
-                    if (mBookmarksCursor.moveToPosition(position)) {
-                        File file = new File(mBookmarksCursor
-                                .getString(mBookmarksCursor
-                                        .getColumnIndex(Bookmarks.PATH)));
-
-                        mBrowserFragment.onBookmarkClick(file);
-                    }
-                } else if (mMergeAdapter.getAdapter(position).equals(
-                        mMenuAdapter)) {
+                    File file = new File(mBookmarksAdapter.getItem(position).getPath());
+                    BrowserTabsAdapter.getCurrentBrowserFragment().onBookmarkClick(file);
+                } else if (mMergeAdapter.getAdapter(position).equals(mMenuAdapter)) {
                     // handle menu items
                     switch ((int) mMergeAdapter.getItemId(position)) {
                         case 0:
@@ -248,26 +226,21 @@ public final class BrowserActivity extends ThemableActivity implements
         return mBookmarksAdapter;
     }
 
-    private Cursor getBookmarksCursor() {
-        return getContentResolver().query(
-                Bookmarks.CONTENT_URI,
-                new String[]{Bookmarks._ID, Bookmarks.NAME, Bookmarks.PATH,
-                        Bookmarks.CHECKED}, null, null, null);
-    }
-
     @Override
     public boolean onKeyDown(int keycode, @NonNull KeyEvent event) {
         if (keycode != KeyEvent.KEYCODE_BACK)
             return false;
 
-        if (isDrawerOpen())
+        if (isDrawerOpen()) {
             mDrawerLayout.closeDrawer(mDrawer);
-        return mBrowserFragment.onBackPressed();
+            return true;
+        }
+        return BrowserTabsAdapter.getCurrentBrowserFragment().onBackPressed();
     }
 
     @Override
     public void onNavigate(String path) {
-        mBrowserFragment.onNavigate(path);
+        BrowserTabsAdapter.getCurrentBrowserFragment().onNavigate(path);
     }
 
     @Override

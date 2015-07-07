@@ -8,7 +8,7 @@
     <string name="cantreadfolder">Não foi possível ler a pasta devido a permissões</string>
     <string name="changegroupowner">Mudar grupo/proprietário</string>
     <string name="copiedtoclipboard">Copiado para a área de transferência</string>
-    <string name="copy">Cópia</string>
+    <string name="copy">Copiar</string>
     <string name="copyfail">Falha ao copiar</string>
     <string name="copying">Copiando</string>
     <string name="copysuccsess">Copiado com sucesso</string>

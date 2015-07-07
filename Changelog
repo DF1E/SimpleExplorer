@@ -1,4 +1,30 @@
 Changelog:
+2.x
+add korean translation
+update FAB button
+many fixes
+
+2.2.5
+important fixes with root
+get sha1 key in properties
+updated translations
+
+2.2.4
+new bookmark database
+updated translations
+performance improvements
+bux fixes
+
+2.2.3
+removed JunRAR library from source
+create multiple bookmarks and shortcuts
+improved file properties dialog
+improved action mode - now you can use it in SearchActivity
+add swedish translation
+add persian translation
+updated translations
+bug fixes
+
 2.2.2
 fixed bug while renaming files with root
 design improvements and small fixes

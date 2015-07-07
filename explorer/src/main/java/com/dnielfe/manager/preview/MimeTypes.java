@@ -1,22 +1,3 @@
-/*
- * Copyright (C) 2013 Simple Explorer
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA  02110-1301, USA.
- */
-
 package com.dnielfe.manager.preview;
 
 import android.webkit.MimeTypeMap;
@@ -31,10 +12,7 @@ import java.util.regex.Pattern;
 
 public final class MimeTypes {
 
-    public static final String ALL_MIME_TYPES = "*/*";
-
     private static final HashMap<String, Integer> EXT_ICONS = new HashMap<>();
-
     private static final HashMap<String, String> MIME_TYPES = new HashMap<>();
 
     static {
@@ -200,6 +178,7 @@ public final class MimeTypes {
         EXT_ICONS.put("wav", R.drawable.type_music);
         EXT_ICONS.put("wax", R.drawable.type_music);
         EXT_ICONS.put("wma", R.drawable.type_music);
+        EXT_ICONS.put("xmf", R.drawable.type_music);
 
         // Video
         EXT_ICONS.put("3gp", R.drawable.type_video);
@@ -239,6 +218,7 @@ public final class MimeTypes {
         EXT_ICONS.put("wmv", R.drawable.type_video);
         EXT_ICONS.put("wmx", R.drawable.type_video);
         EXT_ICONS.put("mkv", R.drawable.type_video);
+        EXT_ICONS.put("divx", R.drawable.type_video);
 
         // Application
         EXT_ICONS.put("apk", R.drawable.type_apk);
@@ -333,8 +313,7 @@ public final class MimeTypes {
         final String extension = SimpleUtils.getExtension(file.getName());
 
         if (extension != null && !extension.isEmpty()) {
-            final String extensionLowerCase = extension.toLowerCase(Locale
-                    .getDefault());
+            final String extensionLowerCase = extension.toLowerCase(Locale.getDefault());
             final MimeTypeMap mime = MimeTypeMap.getSingleton();
             type = mime.getMimeTypeFromExtension(extensionLowerCase);
             if (type == null) {

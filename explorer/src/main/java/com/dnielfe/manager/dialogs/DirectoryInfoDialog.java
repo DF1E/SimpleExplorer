@@ -1,22 +1,3 @@
-/*
- * Copyright (C) 2014 Simple Explorer
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA  02110-1301, USA.
- */
-
 package com.dnielfe.manager.dialogs;
 
 import android.app.Activity;
@@ -28,9 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.commands.RootCommands;
+import com.dnielfe.manager.adapters.BrowserTabsAdapter;
+import com.dnielfe.manager.utils.Permissions;
+import com.dnielfe.manager.utils.RootCommands;
 import com.dnielfe.manager.utils.SimpleUtils;
 import com.dnielfe.manager.utils.StatFsCompat;
 import com.stericson.RootTools.RootTools;
@@ -56,8 +38,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        File mFile = new File(
-                BrowserActivity.getCurrentlyDisplayedFragment().mCurrentPath);
+        File mFile = new File(BrowserTabsAdapter.getCurrentBrowserFragment().mCurrentPath);
         PartitionInfoTask mTask = new PartitionInfoTask(mView);
         mTask.execute(mFile);
     }
@@ -119,8 +100,7 @@ public final class DirectoryInfoDialog extends DialogFragment {
             if (RootTools.isAccessGiven())
                 permission = RootCommands.getFileProperties(params[0]);
 
-            perm = permission != null ? permission[0]
-                    : getFilePermissions(params[0]);
+            perm = permission != null ? permission[0] : Permissions.getBasicPermission(params[0]);
 
             return new PartitionInfo(path, perm, valueTotal,
                     statFs.getBlockSizeLong(), statFs.getFreeBytes(), valueUsed);
@@ -165,17 +145,5 @@ public final class DirectoryInfoDialog extends DialogFragment {
                 }
             }
         }
-    }
-
-    // use this as alternative if no root is avaible
-    private static String getFilePermissions(File file) {
-        String per = "";
-
-        per += file.isDirectory() ? "d" : "-";
-        per += file.canRead() ? "r" : "-";
-        per += file.canWrite() ? "w" : "-";
-        per += file.canExecute() ? "x" : "-";
-
-        return per;
     }
 }

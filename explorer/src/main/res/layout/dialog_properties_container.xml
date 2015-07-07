@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.viewpagerindicator.UnderlinePageIndicator
+    <com.dnielfe.manager.ui.PageIndicator
         android:id="@+id/tab_indicator"
         android:layout_width="match_parent"
         android:layout_height="1.5dp"

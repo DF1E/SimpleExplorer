@@ -1,22 +1,3 @@
-/*
- * Copyright (C) 2014 Simple Explorer
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA  02110-1301, USA.
- */
-
 package com.dnielfe.manager.tasks;
 
 import android.app.Activity;
@@ -36,9 +17,7 @@ import java.util.List;
 public final class ZipTask extends AsyncTask<String, Void, List<String>> {
 
     private final WeakReference<Activity> activity;
-
     private ProgressDialog dialog;
-
     private final String zipname;
 
     public ZipTask(final Activity activity, String name1) {
@@ -54,8 +33,7 @@ public final class ZipTask extends AsyncTask<String, Void, List<String>> {
             this.dialog = new ProgressDialog(activity);
             this.dialog.setMessage(activity.getString(R.string.packing));
             this.dialog.setCancelable(true);
-            this.dialog
-                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+            this.dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override
                         public void onCancel(DialogInterface dialog) {
                             cancel(false);
@@ -72,10 +50,7 @@ public final class ZipTask extends AsyncTask<String, Void, List<String>> {
         final List<String> failed = new ArrayList<>();
 
         try {
-            ZipUtils.createZip(
-                    files,
-                    zipname
-            );
+            ZipUtils.createZip(files, zipname);
         } catch (Exception e) {
             failed.add(Arrays.toString(files));
         }

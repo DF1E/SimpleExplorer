@@ -1,22 +1,3 @@
-/*
- * Copyright (C) 2014 Simple Explorer
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA  02110-1301, USA.
- */
-
 package com.dnielfe.manager.utils;
 
 import java.io.BufferedInputStream;
@@ -32,7 +13,7 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipUtils {
 
-    private static final int BUFFER = 4096;
+    private static final int BUFFER = 8192;
 
     public static void createZip(String[] files, String zipFile) {
         try {
@@ -56,14 +37,10 @@ public class ZipUtils {
         }
     }
 
-    public static void unpackZip(String zipFile, String location) {
+    public static void unpackZip(File zipFile, File location) {
         try {
-            File fSourceZip = new File(zipFile);
-            // File temp = new File(zipPath);
-            // temp.mkdir();
-
             // Extract entries while creating required sub-directories
-            ZipFile zf = new ZipFile(fSourceZip);
+            ZipFile zf = new ZipFile(zipFile);
             Enumeration<?> e = zf.entries();
 
             while (e.hasMoreElements()) {
@@ -77,18 +54,15 @@ public class ZipUtils {
                 if (!entry.isDirectory()) {
                     // Get the InputStream for current entry of the zip file
                     // using InputStream getInputStream(Entry entry) method.
-                    BufferedInputStream bis = new BufferedInputStream(
-                            zf.getInputStream(entry));
+                    BufferedInputStream bis = new BufferedInputStream(zf.getInputStream(entry));
 
                     int b;
                     byte buffer[] = new byte[BUFFER];
 
                     // read the current entry from the zip file, extract it and
                     // write the extracted file.
-                    FileOutputStream fos = new FileOutputStream(
-                            destinationFilePath);
-                    BufferedOutputStream bos = new BufferedOutputStream(fos,
-                            BUFFER);
+                    FileOutputStream fos = new FileOutputStream(destinationFilePath);
+                    BufferedOutputStream bos = new BufferedOutputStream(fos, BUFFER);
 
                     while ((b = bis.read(buffer, 0, 1024)) != -1) {
                         bos.write(buffer, 0, b);
@@ -127,7 +101,6 @@ public class ZipUtils {
                 int count;
                 while ((count = origin.read(data, 0, BUFFER)) != -1) {
                     out.write(data, 0, count);
-
                 }
                 origin.close();
             }
@@ -147,7 +120,6 @@ public class ZipUtils {
         int count;
         while ((count = origin.read(data, 0, BUFFER)) != -1) {
             out.write(data, 0, count);
-
         }
         origin.close();
     }

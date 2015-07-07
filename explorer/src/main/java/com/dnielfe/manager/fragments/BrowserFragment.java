@@ -1,22 +1,3 @@
-/*
- * Copyright (C) 2014 Simple Explorer
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA  02110-1301, USA.
- */
-
 package com.dnielfe.manager.fragments;
 
 import android.app.Activity;
@@ -44,6 +25,7 @@ import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.SearchActivity;
 import com.dnielfe.manager.adapters.BrowserListAdapter;
+import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.controller.ActionModeController;
 import com.dnielfe.manager.dialogs.CreateFileDialog;
 import com.dnielfe.manager.dialogs.CreateFolderDialog;
@@ -56,7 +38,7 @@ import com.dnielfe.manager.settings.Settings;
 import com.dnielfe.manager.tasks.PasteTaskExecutor;
 import com.dnielfe.manager.utils.ClipBoard;
 import com.dnielfe.manager.utils.SimpleUtils;
-import com.faizmalkani.floatingactionbutton.FloatingActionButton;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.io.File;
 
@@ -80,7 +62,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     private boolean mUseBackKey = true;
 
     public interface onUpdatePathListener {
-        public void onUpdatePath(String path);
+        void onUpdatePath(String path);
     }
 
     @Override
@@ -122,8 +104,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_browser, container,
-                false);
+        View rootView = inflater.inflate(R.layout.fragment_browser, container, false);
 
         initList(inflater, rootView);
         return rootView;
@@ -132,13 +113,14 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     @Override
     protected void onVisible() {
         final BrowserActivity activity = (BrowserActivity) getActivity();
-        if (activity != null && !activity.isFinishing()) {
-            activity.setCurrentlyDisplayedFragment(this);
-        }
-
-        Settings.updatePreferences(mActivity);
+        // check for root
+        Settings.rootAccess();
 
         navigateTo(mCurrentPath);
+
+        // this is only needed if you select "move/copy files" in SearchActivity and come back
+        if (!ClipBoard.isEmpty())
+            activity.supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -182,9 +164,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
             }
         });
 
-        FloatingActionButton mFab = (FloatingActionButton) rootView.findViewById(R.id.fabbutton);
-        mFab.listenTo(mListView);
-        mFab.setOnClickListener(new OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fabbutton);
+        fab.attachToListView(mListView);
+        fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 showMenu(view);
@@ -241,10 +223,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
     }
 
     private void listItemAction(File file) {
-        String item_ext = SimpleUtils.getExtension(file.getName());
-
-        if (item_ext.equalsIgnoreCase("zip")
-                || item_ext.equalsIgnoreCase("rar")) {
+        if (SimpleUtils.isSupportedArchive(file)) {
             final DialogFragment dialog = UnpackDialog.instantiate(file);
             dialog.show(fm, BrowserActivity.TAG_DIALOG);
         } else {
@@ -279,10 +258,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
             menu.findItem(R.id.paste).setVisible(false);
             menu.findItem(R.id.folderinfo).setVisible(false);
             menu.findItem(R.id.search).setVisible(false);
+        } else {
+            menu.findItem(R.id.paste).setVisible(!ClipBoard.isEmpty());
         }
-
-        MenuItem paste = menu.findItem(R.id.paste);
-        paste.setVisible(!ClipBoard.isEmpty());
     }
 
     @Override
@@ -309,6 +287,9 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
     public void onNavigate(String path) {
         // navigate to path when Navigation button is clicked
+        if (mActionController.isActionMode()) {
+            mActionController.finishActionMode();
+        }
         navigateTo(path);
         // go to the top of the ListView
         mListView.setSelection(0);
@@ -322,8 +303,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
             defaultdir = savedInstanceState.getString("location");
         } else {
             try {
-                File dir = new File(
-                        intent.getStringExtra(BrowserActivity.EXTRA_SHORTCUT));
+                File dir = new File(intent.getStringExtra(BrowserActivity.EXTRA_SHORTCUT));
 
                 if (dir.exists() && dir.isDirectory()) {
                     defaultdir = dir.getAbsolutePath();
@@ -353,7 +333,7 @@ public final class BrowserFragment extends UserVisibleHintFragment implements
 
         @Override
         public void run() {
-            BrowserActivity.getCurrentlyDisplayedFragment().navigateTo(target);
+            BrowserTabsAdapter.getCurrentBrowserFragment().navigateTo(target);
         }
     }
 

@@ -1,34 +1,16 @@
-/*
- * Copyright (C) 2014 Simple Explorer
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA  02110-1301, USA.
- */
-
 package com.dnielfe.manager.utils;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.widget.Toast;
 
 import com.dnielfe.manager.BrowserActivity;
 import com.dnielfe.manager.R;
-import com.dnielfe.manager.commands.RootCommands;
+import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.settings.Settings;
 
@@ -45,7 +27,7 @@ import java.util.ArrayList;
 
 public class SimpleUtils {
 
-    private static final int BUFFER = 4096;
+    private static final int BUFFER = 8192;
     private static final long ONE_KB = 1024;
     private static final BigInteger KB_BI = BigInteger.valueOf(ONE_KB);
     private static final BigInteger MB_BI = KB_BI.multiply(KB_BI);
@@ -53,8 +35,7 @@ public class SimpleUtils {
     private static final BigInteger TB_BI = KB_BI.multiply(GB_BI);
 
     // scan file after move/copy
-    public static void requestMediaScanner(final Context context,
-                                           final File... files) {
+    public static void requestMediaScanner(final Context context, final File... files) {
         final String[] paths = new String[files.length];
         int i = 0;
         for (final File file : files) {
@@ -65,18 +46,17 @@ public class SimpleUtils {
     }
 
     // TODO: fix search with root
-    private static void search_file(String dir, String fileName,
-                                    ArrayList<String> n) {
+    private static void search_file(String dir, String fileName, ArrayList<String> n) {
         File root_dir = new File(dir);
         String[] list = root_dir.list();
+        boolean root = Settings.rootAccess();
 
         if (list != null && root_dir.canRead()) {
             for (String aList : list) {
                 File check = new File(dir + "/" + aList);
                 String name = check.getName();
 
-                if (check.isFile()
-                        && name.toLowerCase().contains(fileName.toLowerCase())) {
+                if (check.isFile() && name.toLowerCase().contains(fileName.toLowerCase())) {
                     n.add(check.getPath());
                 } else if (check.isDirectory()) {
                     if (name.toLowerCase().contains(fileName.toLowerCase())) {
@@ -85,13 +65,18 @@ public class SimpleUtils {
                         // change this!
                     } else if (check.canRead() && !dir.equals("/")) {
                         search_file(check.getAbsolutePath(), fileName, n);
-                    } else if (check.getName().contains("data")) {
-                        n.addAll(RootCommands.findFiles(check.getAbsolutePath(), fileName));
+                    } else if (!check.canRead() & root) {
+                        ArrayList<String> al = RootCommands.findFiles(check.getAbsolutePath(), fileName);
+
+                        for (String items : al) {
+                            n.add(items);
+                        }
                     }
                 }
             }
         } else {
-            n.addAll(RootCommands.findFiles(dir, fileName));
+            if (root)
+                n.addAll(RootCommands.findFiles(dir, fileName));
         }
     }
 
@@ -117,8 +102,7 @@ public class SimpleUtils {
                 }
             }
         } else if (Settings.rootAccess()) {
-            mDirContent = RootCommands.listFiles(file.getAbsolutePath(),
-                    showhidden);
+            mDirContent = RootCommands.listFiles(file.getAbsolutePath(), showhidden);
         } else {
             Toast.makeText(c, c.getString(R.string.cantreadfolder), Toast.LENGTH_SHORT).show();
         }
@@ -215,38 +199,33 @@ public class SimpleUtils {
 
         if (target.isFile() && target.canWrite()) {
             target.delete();
-        } else {
-            if (target.isDirectory() && target.canRead()) {
-                String[] file_list = target.list();
+        } else if (target.isDirectory() && target.canRead()) {
+            String[] file_list = target.list();
 
-                if (file_list != null && file_list.length == 0) {
-                    target.delete();
-                    return;
-                } else if (file_list != null && file_list.length > 0) {
+            if (file_list != null && file_list.length == 0) {
+                target.delete();
+                return;
+            } else if (file_list != null && file_list.length > 0) {
+                for (String aFile_list : file_list) {
+                    File temp_f = new File(target.getAbsolutePath() + "/"
+                            + aFile_list);
 
-                    for (String aFile_list : file_list) {
-                        File temp_f = new File(target.getAbsolutePath() + "/"
-                                + aFile_list);
-
-                        if (temp_f.isDirectory())
-                            deleteTarget(temp_f.getAbsolutePath());
-                        else if (temp_f.isFile()) {
-                            temp_f.delete();
-                        }
+                    if (temp_f.isDirectory())
+                        deleteTarget(temp_f.getAbsolutePath());
+                    else if (temp_f.isFile()) {
+                        temp_f.delete();
                     }
                 }
-
-                if (target.exists())
-                    target.delete();
-            } else if (target.exists() && !target.delete()) {
-                if (Settings.rootAccess())
-                    RootCommands.DeleteFileRoot(path);
             }
+
+            if (target.exists())
+                target.delete();
+        } else if (!target.delete() && Settings.rootAccess()) {
+            RootCommands.deleteRootFileOrDir(target);
         }
     }
 
-    public static ArrayList<String> searchInDirectory(String dir,
-                                                      String fileName) {
+    public static ArrayList<String> searchInDirectory(String dir, String fileName) {
         ArrayList<String> names = new ArrayList<>();
         search_file(dir, fileName, names);
         return names;
@@ -263,47 +242,39 @@ public class SimpleUtils {
         }
 
         if (context.getPackageManager().queryIntentActivities(i, 0).isEmpty()) {
-            Toast.makeText(context, R.string.cantopenfile, Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(context, R.string.cantopenfile, Toast.LENGTH_SHORT).show();
             return;
         }
 
         try {
             context.startActivity(i);
         } catch (Exception e) {
-            Toast.makeText(context,
-                    context.getString(R.string.cantopenfile) + e.getMessage(),
+            Toast.makeText(context, context.getString(R.string.cantopenfile) + e.getMessage(),
                     Toast.LENGTH_SHORT).show();
         }
     }
 
-    private static byte[] createChecksum(String filename) throws Exception {
-        InputStream fis = new FileInputStream(filename);
+    // get MD5 or SHA1 checksum from a file
+    public static String getChecksum(File file, String algorithm) {
+        try {
+            InputStream fis = new FileInputStream(file);
+            MessageDigest digester = MessageDigest.getInstance(algorithm);
+            byte[] bytes = new byte[2 * BUFFER];
+            int byteCount;
+            String result = "";
 
-        byte[] buffer = new byte[2 * BUFFER];
-        MessageDigest complete = MessageDigest.getInstance("MD5");
-        int numRead;
-
-        do {
-            numRead = fis.read(buffer);
-            if (numRead > 0) {
-                complete.update(buffer, 0, numRead);
+            while ((byteCount = fis.read(bytes)) > 0) {
+                digester.update(bytes, 0, byteCount);
             }
-        } while (numRead != -1);
 
-        fis.close();
-        return complete.digest();
-    }
-
-    // a byte array to a HEX string
-    public static String getMD5Checksum(String filename) throws Exception {
-        byte[] b = createChecksum(filename);
-        String result = "";
-
-        for (byte aB : b) {
-            result += Integer.toString((aB & 0xff) + 0x100, 16).substring(1);
+            for (byte aB : digester.digest()) {
+                result += Integer.toString((aB & 0xff) + 0x100, 16).substring(1);
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return result;
+        return null;
     }
 
     // save current string in ClipBoard
@@ -333,14 +304,19 @@ public class SimpleUtils {
             intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
             intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, file.getName());
 
-            if (file.isFile())
+            if (file.isFile()) {
+                BitmapDrawable bd = (BitmapDrawable) IconPreview.getBitmapDrawableFromFile(file);
+
+                if (bd != null) {
+                    intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bd.getBitmap());
+                } else {
+                    intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                            Intent.ShortcutIconResource.fromContext(main, R.drawable.type_unknown));
+                }
+            } else {
                 intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                        Intent.ShortcutIconResource.fromContext(main,
-                                R.drawable.type_unknown));
-            else
-                intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                        Intent.ShortcutIconResource.fromContext(main,
-                                R.drawable.ic_launcher));
+                        Intent.ShortcutIconResource.fromContext(main, R.drawable.ic_launcher));
+            }
 
             intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
             main.sendBroadcast(intent);
@@ -348,8 +324,8 @@ public class SimpleUtils {
             Toast.makeText(main, main.getString(R.string.shortcutcreated),
                     Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            Toast.makeText(main, main.getString(R.string.error),
-                    Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+            Toast.makeText(main, main.getString(R.string.error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -427,5 +403,10 @@ public class SimpleUtils {
             ext = name.substring(index + 1, name.length());
         }
         return ext;
+    }
+
+    public static boolean isSupportedArchive(File file) {
+        String ext = getExtension(file.getName());
+        return ext.equalsIgnoreCase("zip");
     }
 }

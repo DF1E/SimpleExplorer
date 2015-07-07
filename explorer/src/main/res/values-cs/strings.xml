@@ -33,7 +33,7 @@
     <string name="error">Chyba</string>
     <string name="exit">Ukončit</string>
     <string name="extractto">Rozbalit do</string>
-    <string name="extractionsuccess">Package successfully extracted.</string>
+    <string name="extractionsuccess">Balíček úspěšně rozbalen.</string>
     <string name="filecreated">Soubor byl vytvořen.</string>
     <string name="fileexists">Soubor již existuje.</string>
     <string name="files">" Soubory"</string>

@@ -1,22 +1,3 @@
-/*
- * Copyright (C) 2014 Simple Explorer
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA  02110-1301, USA.
- */
-
 package com.dnielfe.manager.preview;
 
 import android.app.Activity;
@@ -50,7 +31,7 @@ public class IconPreview {
 
     private static DrawableLruCache<String> mMimeTypeIconCache;
     private static BitmapLruCache<String> mBitmapCache;
-    private static ExecutorService pool = null;
+    private static ExecutorService pool = Executors.newFixedThreadPool(6);
     private static final Map<ImageView, String> imageViews = Collections
             .synchronizedMap(new ConcurrentHashMap<ImageView, String>());
     private static PackageManager pm;
@@ -62,7 +43,6 @@ public class IconPreview {
     public IconPreview(Activity activity) {
         mContext = activity;
         mWidth = (int) mContext.getResources().getDimension(R.dimen.item_height);
-        pool = Executors.newFixedThreadPool(6);
         mResources = activity.getResources();
         pm = mContext.getPackageManager();
 
@@ -116,37 +96,10 @@ public class IconPreview {
         }
     }
 
-    private static void queueJob(final File uri, final ImageView imageView) {
-        /* Create handler in UI thread. */
-        final Handler handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                String tag = imageViews.get(imageView);
-                if (tag != null && tag.equals(uri.getAbsolutePath())) {
-                    if (msg.obj != null) {
-                        imageView.setImageBitmap((Bitmap) msg.obj);
-                    } else {
-                        imageView.setImageBitmap(null);
-                    }
-                }
-            }
-        };
-
-        pool.submit(new Runnable() {
-            public void run() {
-                final Bitmap bmp = getPreview(uri);
-                Message message = Message.obtain();
-                message.obj = bmp;
-
-                handler.sendMessage(message);
-            }
-        });
-    }
-
     private static void loadBitmap(final File file, final ImageView imageView) {
         imageView.setTag(file.getAbsolutePath());
         imageViews.put(imageView, file.getAbsolutePath());
-        Bitmap mimeIcon = mBitmapCache.get(file.getAbsolutePath());
+        Bitmap mimeIcon = getBitmapFromMemCache(file.getAbsolutePath());
 
         // check in UI thread, so no concurrency issues
         if (mimeIcon != null) {
@@ -155,8 +108,47 @@ public class IconPreview {
         } else {
             // here you can set a placeholder
             imageView.setImageBitmap(null);
-            queueJob(file, imageView);
+
+            // Create handler in UI thread
+            final Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    String tag = imageViews.get(imageView);
+                    if (tag != null && tag.equals(file.getAbsolutePath())) {
+                        if (msg.obj != null) {
+                            imageView.setImageBitmap((Bitmap) msg.obj);
+                        }
+                    }
+                }
+            };
+
+            pool.submit(new Runnable() {
+                public void run() {
+                    Message message = Message.obtain();
+                    message.obj = getPreview(file);
+
+                    handler.sendMessage(message);
+                }
+            });
         }
+    }
+
+    public static Drawable getBitmapDrawableFromFile(File file) {
+        if (isvalidMimeType(file)) {
+            return new BitmapDrawable(mResources, getBitmapFromMemCache(file.getAbsolutePath()));
+        } else {
+            return null;
+        }
+    }
+
+    private static void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+        if (getBitmapFromMemCache(key) == null) {
+            mBitmapCache.put(key, bitmap);
+        }
+    }
+
+    private static Bitmap getBitmapFromMemCache(String key) {
+        return mBitmapCache.get(key);
     }
 
     private static Bitmap getPreview(File file) {
@@ -181,13 +173,13 @@ public class IconPreview {
 
             mBitmap = BitmapFactory.decodeFile(path, o);
 
-            mBitmapCache.put(path, mBitmap);
+            addBitmapToMemoryCache(path, mBitmap);
             return mBitmap;
         } else if (isVideo) {
             mBitmap = ThumbnailUtils.createVideoThumbnail(path,
                     MediaStore.Video.Thumbnails.MICRO_KIND);
 
-            mBitmapCache.put(path, mBitmap);
+            addBitmapToMemoryCache(path, mBitmap);
             return mBitmap;
         } else if (isApk) {
             final PackageInfo packageInfo = pm.getPackageArchiveInfo(path,
@@ -211,7 +203,7 @@ public class IconPreview {
                         R.drawable.type_apk);
             }
 
-            mBitmapCache.put(path, mBitmap);
+            addBitmapToMemoryCache(path, mBitmap);
             return mBitmap;
         }
         return null;
