@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 64
-        versionName "2.2.6"
+        versionCode 65
+        versionName "2.3"
     }
 
     lintOptions {
@@ -31,13 +31,11 @@ android {
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix "-DEBUG"
-            buildConfigField "boolean", "RELEASE_VERSION", "false"
         }
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles 'proguard-android.txt'
-            buildConfigField "boolean", "RELEASE_VERSION", "true"
         }
     }
 }
