@@ -106,7 +106,6 @@
     <string name="overwrite_skip_all">すべてスキップ</string>
     <string name="overwrite_replace">置換</string>
     <string name="overwrite_replace_all">すべて置換</string>
-    <string name="error_reports">エラー レポートを送信</string>
     <string name="picker_choose_one_file">ファイルを選択</string>
     <string name="picker_choose_multiple_files">ファイルを選択</string>
 </resources>

@@ -106,7 +106,6 @@
     <string name="overwrite_skip_all">Preskočiť všetko</string>
     <string name="overwrite_replace">Nahradiť</string>
     <string name="overwrite_replace_all">Nahradiť všetko</string>
-    <string name="error_reports">Poslať hlásenia o chybách</string>
     <string name="picker_choose_one_file">Vyberte súbor</string>
     <string name="picker_choose_multiple_files">Vyberte súbory</string>
 </resources>

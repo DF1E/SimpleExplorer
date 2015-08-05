@@ -106,7 +106,6 @@
     <string name="overwrite_skip_all">Salta tutti</string>
     <string name="overwrite_replace">Sostituisci</string>
     <string name="overwrite_replace_all">Sostituisci tutti</string>
-    <string name="error_reports">Invia segnalazioni errori</string>
     <string name="picker_choose_one_file">Scegli un file</string>
     <string name="picker_choose_multiple_files">Scegli file</string>
 </resources>

@@ -40,22 +40,6 @@ import com.melnykov.fab.FloatingActionButton;
 import java.io.File;
 import java.lang.ref.WeakReference;
 
-/**
- * Displays a clickable, navigable list of files.
- *
- * To implement default UI and behavior, extend the class with no overrides or additional code.
- *
- * To implement a custom root {@link View}, first ensure it contains a {@link ListView} with id
- * {@code android.R.id.list} and an empty placeholder {@code View} with id
- * {@code android.R.id.empty}, then override
- * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}. {@link #initList(LayoutInflater, View)}
- * must be called after inflating the view.
- *
- * To implement a custom {@link Menu}, override {@link #onCreateOptionsMenu(Menu, MenuInflater)}
- * and {@link #onOptionsItemSelected(MenuItem)}.
- *
- * To implement a custom action upon clicking {@link File}s, override {@link #listItemAction(File)}.
- */
 public abstract class AbstractBrowserFragment extends UserVisibleHintFragment implements
         MultiFileObserver.OnEventListener, PopupMenu.OnMenuItemClickListener {
     private Activity mActivity;
@@ -190,15 +174,6 @@ public abstract class AbstractBrowserFragment extends UserVisibleHintFragment im
         });
     }
 
-    protected final void listItemActionOpenOrUnpack(File file) {
-        if (SimpleUtils.isSupportedArchive(file)) {
-            final DialogFragment dialog = UnpackDialog.instantiate(file);
-            dialog.show(fm, AbstractBrowserActivity.TAG_DIALOG);
-        } else {
-            SimpleUtils.openFile(mActivity, file);
-        }
-    }
-
     private void showMenu(View v) {
         PopupMenu popup = new PopupMenu(mActivity, v);
 
@@ -224,8 +199,14 @@ public abstract class AbstractBrowserFragment extends UserVisibleHintFragment im
         }
     }
 
+    // this will be overwritten in picker fragment
     public void listItemAction(File file) {
-        listItemActionOpenOrUnpack(file);
+        if (SimpleUtils.isSupportedArchive(file)) {
+            final DialogFragment dialog = UnpackDialog.instantiate(file);
+            dialog.show(fm, AbstractBrowserActivity.TAG_DIALOG);
+        } else {
+            SimpleUtils.openFile(mActivity, file);
+        }
     }
 
     public void navigateTo(String path) {

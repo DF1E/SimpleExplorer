@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dnielfe.manager.R;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.io.File;
 
@@ -21,9 +22,10 @@ public final class PickerFragment extends AbstractBrowserFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_picker, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_browser, container, false);
 
         initList(inflater, rootView);
+        initFab(rootView);
         return rootView;
     }
 
@@ -52,5 +54,11 @@ public final class PickerFragment extends AbstractBrowserFragment {
         final Activity activity = getActivity();
         activity.setResult(Activity.RESULT_OK, result);
         activity.finish();
+    }
+
+    @Override
+    protected void initFab(View rootView) {
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fabbutton);
+        fab.setVisibility(View.GONE);
     }
 }

@@ -25,20 +25,21 @@ import com.dnielfe.manager.fragments.AbstractBrowserFragment;
 import com.dnielfe.manager.fragments.BrowserFragment;
 import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.settings.SettingsActivity;
-import com.dnielfe.manager.ui.NavigationView;
+import com.dnielfe.manager.ui.DirectoryNavigationView;
 import com.dnielfe.manager.ui.PageIndicator;
 
 import java.io.File;
 
 public abstract class AbstractBrowserActivity extends ThemableActivity implements
-        NavigationView.OnNavigateListener, BrowserFragment.onUpdatePathListener {
+        DirectoryNavigationView.OnNavigateListener, BrowserFragment.onUpdatePathListener {
+
     public static final String EXTRA_SHORTCUT = "shortcut_path";
     public static final String TAG_DIALOG = "dialog";
 
     private static MergeAdapter mMergeAdapter;
     private static BookmarksAdapter mBookmarksAdapter;
     private static DrawerListAdapter mMenuAdapter;
-    private static NavigationView mNavigation;
+    private static DirectoryNavigationView mNavigation;
 
     private static ListView mDrawer;
     private static DrawerLayout mDrawerLayout;
@@ -86,7 +87,7 @@ public abstract class AbstractBrowserActivity extends ThemableActivity implement
 
     private void initRequiredComponents() {
         fm = getFragmentManager();
-        mNavigation = new NavigationView(this);
+        mNavigation = new DirectoryNavigationView(this);
 
         // add listener for navigation view
         if (mNavigation.listeners.isEmpty())

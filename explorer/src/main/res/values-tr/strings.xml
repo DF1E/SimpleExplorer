@@ -106,7 +106,6 @@
     <string name="overwrite_skip_all">Tümünü atla</string>
     <string name="overwrite_replace">Değiştir</string>
     <string name="overwrite_replace_all">Tümünü değiştir</string>
-    <string name="error_reports">Send error reports</string>
     <string name="picker_choose_one_file">Choose a file</string>
     <string name="picker_choose_multiple_files">Choose files</string>
 </resources>
