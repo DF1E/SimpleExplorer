@@ -9,7 +9,7 @@
     <string name="changegroupowner">Changer groupe/propriétaire</string>
     <string name="copiedtoclipboard">Copié dans le presse-papiers.</string>
     <string name="copy">Copier</string>
-    <string name="copyfail">La copie a échoué!</string>
+    <string name="copyfail">La copie a échoué !</string>
     <string name="copying">Copie en cours</string>
     <string name="copysuccsess">Copié avec succès.</string>
     <string name="create">Création</string>
@@ -59,6 +59,7 @@
     <string name="searchtext">Recherche</string>
     <string name="selectall">Tout sélectionner</string>
     <string name="settings">Paramètres</string>
+    <string name="sha1_key">SHA-1:</string>
     <string name="share">Partager</string>
     <string name="shortcut">Créer un raccourci</string>
     <string name="shortcutcreated">Raccourci créé.</string>
@@ -105,4 +106,6 @@
     <string name="overwrite_skip_all">Tout passer</string>
     <string name="overwrite_replace">Remplacer</string>
     <string name="overwrite_replace_all">Tout remplacer</string>
+    <string name="picker_choose_one_file">Choisir un fichier</string>
+    <string name="picker_choose_multiple_files">Choisir des fichiers</string>
 </resources>

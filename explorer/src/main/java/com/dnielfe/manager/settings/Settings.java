@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 
-import com.dnielfe.manager.BuildConfig;
 import com.dnielfe.manager.R;
 import com.stericson.RootTools.RootTools;
 
@@ -14,7 +13,6 @@ public final class Settings {
     private static SharedPreferences mPrefs;
 
     public static int mTheme;
-    public static final boolean RELEASE_VERSION = BuildConfig.RELEASE_VERSION;
 
     public static void updatePreferences(Context context) {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -52,19 +50,11 @@ public final class Settings {
         return Integer.parseInt(mPrefs.getString("sort", "1"));
     }
 
-    public static boolean getErrorReports() {
-        return mPrefs.getBoolean("error_reports", true);
-    }
-
     public static int getDefaultTheme() {
         return mTheme;
     }
 
     public static void setDefaultTheme(int theme) {
         mTheme = theme;
-    }
-
-    public static boolean isReleaseVersion() {
-        return RELEASE_VERSION;
     }
 }

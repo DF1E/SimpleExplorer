@@ -59,6 +59,7 @@
     <string name="searchtext">Caută</string>
     <string name="selectall">Selectează tot</string>
     <string name="settings">Setări</string>
+    <string name="sha1_key">SHA-1:</string>
     <string name="share">Distribuie</string>
     <string name="shortcut">Crează comandă rapidă</string>
     <string name="shortcutcreated">Scurtătură creată.</string>
@@ -105,4 +106,6 @@
     <string name="overwrite_skip_all">Sări peste tot</string>
     <string name="overwrite_replace">Înlocuieşte</string>
     <string name="overwrite_replace_all">Înlocuieşte tot</string>
+    <string name="picker_choose_one_file">Selectaţi un fişier</string>
+    <string name="picker_choose_multiple_files">Selectaţi fişierele</string>
 </resources>

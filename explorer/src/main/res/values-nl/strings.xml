@@ -59,6 +59,7 @@
     <string name="searchtext">Zoeken</string>
     <string name="selectall">Alles selecteren</string>
     <string name="settings">Instellingen</string>
+    <string name="sha1_key">SHA-1:</string>
     <string name="share">Delen</string>
     <string name="shortcut">Snelkoppeling maken</string>
     <string name="shortcutcreated">Snelkoppeling gemaakt.</string>
@@ -105,4 +106,6 @@
     <string name="overwrite_skip_all">Alles overslaan</string>
     <string name="overwrite_replace">Vervangen</string>
     <string name="overwrite_replace_all">Alles vervangen</string>
+    <string name="picker_choose_one_file">Kies een bestand</string>
+    <string name="picker_choose_multiple_files">Kies bestanden</string>
 </resources>

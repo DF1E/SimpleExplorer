@@ -1,5 +1,9 @@
 Changelog:
-2.x
+2.3
+file picker
+fix deleting files with root
+
+2.2.6
 add korean translation
 update FAB button
 many fixes

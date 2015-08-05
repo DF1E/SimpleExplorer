@@ -59,6 +59,7 @@
     <string name="searchtext">Cerca</string>
     <string name="selectall">Seleziona tutto</string>
     <string name="settings">Impostazioni</string>
+    <string name="sha1_key">SHA-1:</string>
     <string name="share">Condividi</string>
     <string name="shortcut">Crea collegamento</string>
     <string name="shortcutcreated">Collegamento creato.</string>
@@ -105,4 +106,6 @@
     <string name="overwrite_skip_all">Salta tutti</string>
     <string name="overwrite_replace">Sostituisci</string>
     <string name="overwrite_replace_all">Sostituisci tutti</string>
+    <string name="picker_choose_one_file">Scegli un file</string>
+    <string name="picker_choose_multiple_files">Scegli file</string>
 </resources>
