@@ -59,6 +59,7 @@
     <string name="searchtext">Procura</string>
     <string name="selectall">Marcar tudo</string>
     <string name="settings">Definições</string>
+    <string name="sha1_key">SHA-1:</string>
     <string name="share">Partilhar</string>
     <string name="shortcut">Criar atalho</string>
     <string name="shortcutcreated">Atalho criado</string>
@@ -105,4 +106,7 @@
     <string name="overwrite_skip_all">Ignorar tudo</string>
     <string name="overwrite_replace">Substituir</string>
     <string name="overwrite_replace_all">Substituir tudo</string>
+    <string name="error_reports">Enviar relatórios de erro</string>
+    <string name="picker_choose_one_file">Escolha um ficheiro</string>
+    <string name="picker_choose_multiple_files">Escolha os ficheiros</string>
 </resources>

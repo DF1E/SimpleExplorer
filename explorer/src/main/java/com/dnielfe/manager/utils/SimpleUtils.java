@@ -199,7 +199,7 @@ public class SimpleUtils {
 
         if (target.isFile() && target.canWrite()) {
             target.delete();
-        } else if (target.isDirectory() && target.canRead()) {
+        } else if (target.isDirectory() && target.canRead() && target.canWrite()) {
             String[] file_list = target.list();
 
             if (file_list != null && file_list.length == 0) {

@@ -19,12 +19,22 @@
 
 package com.dnielfe.manager;
 
-import com.dnielfe.manager.adapters.BrowserTabsAdapter;
-import com.dnielfe.manager.fragments.BrowserFragment;
+import android.app.Application;
 
-public final class BrowserActivity extends AbstractBrowserActivity {
+import com.crashlytics.android.Crashlytics;
+import com.dnielfe.manager.settings.Settings;
+
+import io.fabric.sdk.android.Fabric;
+
+public final class SimpleExplorerApplication extends Application {
     @Override
-    public BrowserFragment getCurrentBrowserFragment() {
-        return BrowserTabsAdapter.getCurrentBrowserFragment();
+    public void onCreate() {
+        super.onCreate();
+        // get default preferences at start - we need this for setting the theme
+        Settings.updatePreferences(this);
+
+        if (Settings.isReleaseVersion() && Settings.getErrorReports()) {
+            Fabric.with(this, new Crashlytics());
+        }
     }
 }

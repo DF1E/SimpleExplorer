@@ -2,11 +2,12 @@ package com.dnielfe.manager;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.ActivityInstrumentationTestCase2;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,23 +19,19 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(AndroidJUnit4.class)
-public class SearchActivityIntegrationTest
-        extends ActivityInstrumentationTestCase2<BrowserActivity> {
+public class SearchActivityIntegrationTest {
     private Instrumentation mInstrumentation;
     private BrowserActivity mBrowserActivity;
     private SearchActivity mSearchActivity;
 
-    public SearchActivityIntegrationTest() {
-        super(BrowserActivity.class);
-    }
+    @Rule
+    public ActivityTestRule<BrowserActivity> mActivityRule =
+            new ActivityTestRule<>(BrowserActivity.class);
 
     @Before
     public void setUp() throws Exception {
-        super.setUp();
-        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
-        setActivityInitialTouchMode(false);
-        mInstrumentation = getInstrumentation();
-        mBrowserActivity = this.getActivity();
+        mInstrumentation = InstrumentationRegistry.getInstrumentation();
+        mBrowserActivity = mActivityRule.getActivity();
         mSearchActivity = getSearchActivityByMenuClick();
     }
 
@@ -42,7 +39,6 @@ public class SearchActivityIntegrationTest
     public void tearDown() throws Exception {
         mSearchActivity.finish();
         mBrowserActivity.finish();
-        super.tearDown();
     }
 
     @Test

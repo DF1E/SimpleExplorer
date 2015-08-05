@@ -59,6 +59,7 @@
     <string name="searchtext">Keresés</string>
     <string name="selectall">Összes kijelölése</string>
     <string name="settings">Beállítások</string>
+    <string name="sha1_key">SHA-1:</string>
     <string name="share">Megosztás</string>
     <string name="shortcut">Parancsikon létrehozása</string>
     <string name="shortcutcreated">Parancsikon létrehozva.</string>
@@ -105,4 +106,7 @@
     <string name="overwrite_skip_all">Mindet kihagyja</string>
     <string name="overwrite_replace">Csere</string>
     <string name="overwrite_replace_all">Mindet cserél</string>
+    <string name="error_reports">Hibajelentések küldése</string>
+    <string name="picker_choose_one_file">Fájl kiválasztása</string>
+    <string name="picker_choose_multiple_files">Fájlok kiválasztása</string>
 </resources>

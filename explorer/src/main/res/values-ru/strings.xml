@@ -59,6 +59,7 @@
     <string name="searchtext">Что ищем?</string>
     <string name="selectall">Выбрать всё</string>
     <string name="settings">Настройки</string>
+    <string name="sha1_key">SHA-1:</string>
     <string name="share">Отправить</string>
     <string name="shortcut">Создать ярлык</string>
     <string name="shortcutcreated">Ярлык создан.</string>
@@ -105,4 +106,7 @@
     <string name="overwrite_skip_all">Пропустить все</string>
     <string name="overwrite_replace">Заменить</string>
     <string name="overwrite_replace_all">Заменить все</string>
+    <string name="error_reports">Отправить отчеты об ошибках</string>
+    <string name="picker_choose_one_file">Выбрать файл</string>
+    <string name="picker_choose_multiple_files">Выбрать несколько файлов</string>
 </resources>

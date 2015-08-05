@@ -24,14 +24,7 @@ public class BrowserTabsAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int pos) {
-        switch (pos) {
-            case 0:
-                new BrowserFragment();
-            case 1:
-                new BrowserFragment();
-            default:
-                return new BrowserFragment();
-        }
+        return new BrowserFragment();
     }
 
     @Override

@@ -107,4 +107,6 @@
     <string name="overwrite_replace">Ersetzen</string>
     <string name="overwrite_replace_all">Alle ersetzen</string>
     <string name="error_reports">Fehlerberichte senden</string>
+    <string name="picker_choose_one_file">Datei auswählen</string>
+    <string name="picker_choose_multiple_files">Dateien auswählen</string>
 </resources>
