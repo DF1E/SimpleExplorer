@@ -16,7 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.anthonycr.grant.PermissionsManager;
+import com.anthonycr.grant.PermissionsResultAction;
 import com.dnielfe.manager.adapters.BookmarksAdapter;
 import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.adapters.DrawerListAdapter;
@@ -29,6 +32,7 @@ import com.dnielfe.manager.ui.DirectoryNavigationView;
 import com.dnielfe.manager.ui.PageIndicator;
 
 import java.io.File;
+import java.util.Locale;
 
 public abstract class AbstractBrowserActivity extends ThemableActivity implements
         DirectoryNavigationView.OnNavigateListener, BrowserFragment.onUpdatePathListener {
@@ -55,6 +59,7 @@ public abstract class AbstractBrowserActivity extends ThemableActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
 
+        checkPermissions();
         initRequiredComponents();
         initToolbar();
         initDrawer();
@@ -237,5 +242,24 @@ public abstract class AbstractBrowserActivity extends ThemableActivity implement
     @Override
     public void onUpdatePath(String path) {
         mNavigation.setDirectoryButtons(path);
+    }
+
+    private void checkPermissions() {
+        PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
+            @Override
+            public void onGranted() {
+            }
+
+            @Override
+            public void onDenied(String permission) {
+                String message = String.format(Locale.getDefault(), getString(R.string.message_denied), permission);
+                Toast.makeText(AbstractBrowserActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        PermissionsManager.getInstance().notifyPermissionsChange(permissions, grantResults);
     }
 }

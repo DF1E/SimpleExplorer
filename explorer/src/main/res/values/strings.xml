@@ -121,8 +121,11 @@
     <string name="overwrite_skip_all">Skip all</string>
     <string name="overwrite_replace">Replace</string>
     <string name="overwrite_replace_all">Replace all</string>
-	
+
 	<!-- file picker -->
 	<string name="picker_choose_one_file">Choose a file</string>
 	<string name="picker_choose_multiple_files">Choose files</string>
+
+    <!-- permissions -->
+    <string name="message_denied">Permission \"%1$s\" has been denied</string>
 </resources>
