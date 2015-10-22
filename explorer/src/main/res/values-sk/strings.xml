@@ -107,5 +107,4 @@
     <string name="overwrite_replace">Nahradiť</string>
     <string name="overwrite_replace_all">Nahradiť všetko</string>
     <string name="picker_choose_one_file">Vyberte súbor</string>
-    <string name="picker_choose_multiple_files">Vyberte súbory</string>
 </resources>

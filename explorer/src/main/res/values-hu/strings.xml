@@ -107,5 +107,4 @@
     <string name="overwrite_replace">Csere</string>
     <string name="overwrite_replace_all">Mindet cserél</string>
     <string name="picker_choose_one_file">Fájl kiválasztása</string>
-    <string name="picker_choose_multiple_files">Fájlok kiválasztása</string>
 </resources>

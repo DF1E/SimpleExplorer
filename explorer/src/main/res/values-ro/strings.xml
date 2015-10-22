@@ -107,5 +107,4 @@
     <string name="overwrite_replace">Înlocuieşte</string>
     <string name="overwrite_replace_all">Înlocuieşte tot</string>
     <string name="picker_choose_one_file">Selectaţi un fişier</string>
-    <string name="picker_choose_multiple_files">Selectaţi fişierele</string>
 </resources>

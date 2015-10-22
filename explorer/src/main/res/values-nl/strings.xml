@@ -107,5 +107,4 @@
     <string name="overwrite_replace">Vervangen</string>
     <string name="overwrite_replace_all">Alles vervangen</string>
     <string name="picker_choose_one_file">Kies een bestand</string>
-    <string name="picker_choose_multiple_files">Kies bestanden</string>
 </resources>

@@ -107,5 +107,4 @@
     <string name="overwrite_replace">Substituir</string>
     <string name="overwrite_replace_all">Substituir tudo</string>
     <string name="picker_choose_one_file">Escolha um ficheiro</string>
-    <string name="picker_choose_multiple_files">Escolha os ficheiros</string>
 </resources>

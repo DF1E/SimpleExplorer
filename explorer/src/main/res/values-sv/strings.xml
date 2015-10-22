@@ -107,5 +107,4 @@
     <string name="overwrite_replace">Ersätt</string>
     <string name="overwrite_replace_all">Ersätt alla</string>
     <string name="picker_choose_one_file">Välj en fil</string>
-    <string name="picker_choose_multiple_files">Välj filer</string>
 </resources>
