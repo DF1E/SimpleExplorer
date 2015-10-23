@@ -290,13 +290,20 @@ public class SimpleUtils {
 
     public static void createShortcut(Activity main, String path) {
         File file = new File(path);
+        Intent shortcutIntent;
 
         try {
             // Create the intent that will handle the shortcut
-            Intent shortcutIntent = new Intent(main, BrowserActivity.class);
-            shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            shortcutIntent.putExtra(BrowserActivity.EXTRA_SHORTCUT, path);
+            if (file.isFile()) {
+                shortcutIntent = new Intent(Intent.ACTION_VIEW);
+                shortcutIntent.setDataAndType(Uri.fromFile(file), MimeTypes.getMimeType(file));
+                shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            } else {
+                shortcutIntent = new Intent(main, BrowserActivity.class);
+                shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                shortcutIntent.putExtra(BrowserActivity.EXTRA_SHORTCUT, path);
+            }
 
             // The intent to send to broadcast for register the shortcut intent
             Intent intent = new Intent();
