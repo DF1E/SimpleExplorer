@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,14 +36,12 @@ public class BookmarksHelper extends SQLiteOpenHelper {
         // create books table
         db.execSQL(CREATE_BOOK_TABLE);
 
-        /*
-        create bookmark at start
-        ContentValues cv = new ContentValues();
-        File file = Environment.getExternalStorageDirectory();
-        cv.put(KEY_NAME, "SDCard");
-        cv.put(KEY_PATH, file.getPath());
-        db.insert(TABLE_BOOKS, null, cv);
-        */
+        // add SDCard bookmark at start
+        addBookmarkOnCreate(db, new Bookmark("SDCard", Environment.getExternalStorageDirectory().getPath()));
+        // add root bookmark at start
+        addBookmarkOnCreate(db, new Bookmark("Root", "/"));
+        // add system bookmark at start
+        addBookmarkOnCreate(db, new Bookmark("System", Environment.getRootDirectory().getPath()));
     }
 
     @Override
@@ -72,6 +71,14 @@ public class BookmarksHelper extends SQLiteOpenHelper {
         }
 
         return books;
+    }
+
+    public void addBookmarkOnCreate(SQLiteDatabase db, Bookmark book) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, book.getName());
+        values.put(KEY_PATH, book.getPath());
+
+        db.insert(TABLE_BOOKS, null, values);
     }
 
     public void addBookmark(Bookmark book) {
