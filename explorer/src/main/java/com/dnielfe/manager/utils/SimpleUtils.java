@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.dnielfe.manager.BrowserActivity;
@@ -104,31 +103,10 @@ public class SimpleUtils {
             }
         } else if (Settings.rootAccess()) {
             mDirContent = RootCommands.listFiles(file.getAbsolutePath(), showhidden);
-            // TODO: remove this
-            debugRootFiles(mDirContent);
         } else {
             Toast.makeText(c, c.getString(R.string.cantreadfolder), Toast.LENGTH_SHORT).show();
         }
-
         return mDirContent;
-    }
-
-    // TODO: remove this
-    private static void debugRootFiles(ArrayList<String> mDirContent) {
-        for (String i : mDirContent) {
-            File file = new File(i);
-            boolean dir = false;
-            String path2 = "";
-
-            try {
-                dir = file.isDirectory();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            path2 = file.getAbsolutePath();
-            Log.d("SimpleUtils", path2 + " - dir: " + dir);
-        }
     }
 
     public static void moveToDirectory(String old, String newDir) {
