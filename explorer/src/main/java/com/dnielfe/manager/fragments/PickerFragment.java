@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,9 +47,10 @@ public final class PickerFragment extends AbstractBrowserFragment {
 
     @Override
     public void listItemAction(File file) {
-        final Uri pickedUri = Uri.fromFile(file);
+        final Uri pickedUri = FileProvider.getUriForFile(getActivity(), "com.dnielfe.manager.fileprovider", file);
 
         final Intent result = new Intent();
+        result.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         result.setData(pickedUri);
 
         final Activity activity = getActivity();
