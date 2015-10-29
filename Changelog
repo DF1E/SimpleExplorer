@@ -1,7 +1,11 @@
 Changelog:
 2.3
+handle marshmallow permissions
 file picker
 fix deleting files with root
+improve shortcut icon
+add bookmarks at first start
+updated translations
 
 2.2.6
 add korean translation

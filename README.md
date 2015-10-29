@@ -27,11 +27,12 @@ MA  02110-1301, USA.
 More info under: https://www.gnu.org/licenses/gpl-3.0
 ````
 
-####Credits
+####Credits and Libraries
 + [Zedd. for new icons](https://forum.xda-developers.com/member.php?u=4112951)
 + [Android-ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator)
 + [FloatingActionButton](https://github.com/makovkastar/FloatingActionButton)
 + [RootTools](https://github.com/Stericson/RootTools)
++ [Grant](https://github.com/anthonycr/Grant)
 
 ####Thanks for translations (XDA, Getlocalization and Crowdin)
 + bosnian -muamers
