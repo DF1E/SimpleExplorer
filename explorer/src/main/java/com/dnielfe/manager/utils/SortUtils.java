@@ -78,6 +78,21 @@ public class SortUtils {
 
         @Override
         public int compare(String arg0, String arg1) {
+            File a = new File(arg0);
+            File b = new File(arg1);
+
+            if (a.isDirectory() && b.isDirectory()) {
+                return arg0.toLowerCase().compareTo(arg1.toLowerCase());
+            }
+
+            if (a.isDirectory()) {
+                return -1;
+            }
+
+            if (b.isDirectory()) {
+                return 1;
+            }
+
             return arg0.toLowerCase().compareTo(arg1.toLowerCase());
         }
     };
