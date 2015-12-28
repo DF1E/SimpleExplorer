@@ -70,30 +70,19 @@ public abstract class AbstractBrowserFragment extends UserVisibleHintFragment im
     }
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-        mObserverCache = FileObserverCache.getInstance();
-        mActionController = new ActionModeController(activity);
-
-        if (sHandler == null) {
-            sHandler = new Handler(activity.getMainLooper());
-        }
-
-        try {
-            mUpdatePathListener = (onUpdatePathListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement mUpdatePathListener");
-        }
-    }
-
-    @Override
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
         mActivity = getActivity();
         Intent intent = mActivity.getIntent();
         fm = getFragmentManager();
+        mObserverCache = FileObserverCache.getInstance();
+        mUpdatePathListener = (onUpdatePathListener) mActivity;
+        mActionController = new ActionModeController(mActivity);
         mActionController.setListView(mListView);
+
+        if (sHandler == null) {
+            sHandler = new Handler(mActivity.getMainLooper());
+        }
 
         initDirectory(state, intent);
     }
@@ -280,8 +269,7 @@ public abstract class AbstractBrowserFragment extends UserVisibleHintFragment im
                 startActivity(sintent);
                 return true;
             case R.id.paste:
-                final PasteTaskExecutor ptc = new PasteTaskExecutor(activity,
-                        mCurrentPath);
+                final PasteTaskExecutor ptc = new PasteTaskExecutor(activity, mCurrentPath);
                 ptc.start();
                 return true;
             default:

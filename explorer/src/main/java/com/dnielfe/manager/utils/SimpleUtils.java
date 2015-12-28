@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.provider.DocumentFile;
 import android.widget.Toast;
 
 import com.dnielfe.manager.BrowserActivity;
@@ -14,20 +16,20 @@ import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.preview.MimeTypes;
 import com.dnielfe.manager.settings.Settings;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
+import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 
 public class SimpleUtils {
 
-    private static final int BUFFER = 8192;
+    private static final int BUFFER = 16384;
     private static final long ONE_KB = 1024;
     private static final BigInteger KB_BI = BigInteger.valueOf(ONE_KB);
     private static final BigInteger MB_BI = KB_BI.multiply(KB_BI);
@@ -109,59 +111,78 @@ public class SimpleUtils {
         return mDirContent;
     }
 
-    public static void moveToDirectory(String old, String newDir) {
-        String file_name = old.substring(old.lastIndexOf("/"), old.length());
-        File old_file = new File(old);
-        File cp_file = new File(newDir + file_name);
-
-        if (!old_file.renameTo(cp_file)) {
-            copyToDirectory(old, newDir);
-            deleteTarget(old);
+    public static void moveToDirectory(File old_file, File target, Context c) {
+        if (!old_file.renameTo(target)) {
+            if (copyFile(old_file, target, c))
+                deleteTarget(old_file.getAbsolutePath());
         }
     }
 
-    public static void copyToDirectory(String old, String newDir) {
-        File old_file = new File(old);
-        File temp_dir = new File(newDir);
-        byte[] data = new byte[BUFFER];
-        int read;
+    // TODO: fix copy file to sdcard root
+    public static boolean copyFile(final File source, final File target, Context context) {
+        FileInputStream inStream = null;
+        OutputStream outStream = null;
+        FileChannel inChannel = null;
+        FileChannel outChannel = null;
 
-        if (old_file.canWrite() && temp_dir.isDirectory()
-                && temp_dir.canWrite()) {
-            if (old_file.isFile()) {
-                String file_name = old.substring(old.lastIndexOf("/"),
-                        old.length());
-                File cp_file = new File(newDir + file_name);
+        try {
+            File temp_dir = target.getParentFile();
 
-                try {
-                    BufferedOutputStream o_stream = new BufferedOutputStream(
-                            new FileOutputStream(cp_file));
-                    BufferedInputStream i_stream = new BufferedInputStream(
-                            new FileInputStream(old_file));
+            if (source.isFile())
+                inStream = new FileInputStream(source);
 
-                    while ((read = i_stream.read(data, 0, BUFFER)) != -1)
-                        o_stream.write(data, 0, read);
+            if (source.canRead() && temp_dir.isDirectory()) {
+                if (source.isFile()) {
+                    outStream = new FileOutputStream(target);
+                    inChannel = inStream.getChannel();
+                    outChannel = ((FileOutputStream) outStream).getChannel();
+                    inChannel.transferTo(0, inChannel.size(), outChannel);
+                } else if (source.isDirectory()){
+                    File[] files = source.listFiles();
 
-                    o_stream.flush();
-                    i_stream.close();
-                    o_stream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    if (createDir(target)) {
+                        for (File file : files) {
+                            copyFile(new File(source, file.getName()), new File(target, file.getName()), context);
+                        }
+                    }
                 }
-            } else if (old_file.isDirectory()) {
-                String files[] = old_file.list();
-                String dir = newDir
-                        + old.substring(old.lastIndexOf("/"), old.length());
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    DocumentFile targetDocument = DocumentFile.fromFile(temp_dir);
+                    outStream = context.getContentResolver().openOutputStream(targetDocument.getUri());
+                } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+                    Uri uri = MediaStoreUtils.getUriFromFile(target.getAbsolutePath(), context);
+                    outStream = context.getContentResolver().openOutputStream(uri);
+                } else {
+                    return false;
+                }
 
-                if (!new File(dir).mkdir())
-                    return;
-
-                for (String file : files) copyToDirectory(old + "/" + file, dir);
+                if (outStream != null) {
+                    byte[] buffer = new byte[BUFFER];
+                    int bytesRead;
+                    while ((bytesRead = inStream.read(buffer)) != -1) {
+                        outStream.write(buffer, 0, bytesRead);
+                    }
+                } else {
+                    RootCommands.moveCopyRoot(source.getAbsolutePath(), target.getAbsolutePath());
+                }
             }
-        } else {
-            if (Settings.rootAccess())
-                RootCommands.moveCopyRoot(old, newDir);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (inStream != null && outStream != null && inChannel != null && outChannel != null) {
+                    inStream.close();
+                    outStream.close();
+                    inChannel.close();
+                    outChannel.close();
+                }
+            } catch (Exception e) {
+                // ignore exception
+            }
         }
+        return true;
     }
 
     // filePath = currentDir + "/" + item
@@ -172,25 +193,65 @@ public class SimpleUtils {
         String temp = filePath.substring(0, filePath.lastIndexOf("/"));
         File dest = new File(temp + "/" + newName);
 
-        return src.renameTo(dest);
+        if (src.renameTo(dest)) {
+            return true;
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                DocumentFile document = DocumentFile.fromFile(src);
+
+                if (document.renameTo(dest.getAbsolutePath())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
-    // path = currentDir
-    // name = new name
-    public static boolean createDir(String path, String name) {
-        File folder = new File(path, name);
-        boolean success = false;
-
-        if (folder.exists())
-            success = false;
-
-        if (folder.mkdir())
-            success = true;
-        else if (Settings.rootAccess()) {
-            success = RootCommands.createRootdir(folder, path);
+    public static boolean createFile(File file) {
+        if (file.exists()) {
+            return !file.isDirectory();
         }
 
-        return success;
+        try {
+            if (file.createNewFile()) {
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            DocumentFile document = DocumentFile.fromFile(file.getParentFile());
+
+            try {
+                return document.createFile(MimeTypes.getMimeType(file), file.getName()) != null;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public static boolean createDir(File folder) {
+        if (folder.exists())
+            return false;
+
+        if (folder.mkdir())
+            return true;
+        else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                DocumentFile document = DocumentFile.fromFile(folder.getParentFile());
+                if (document.exists())
+                    return true;
+            }
+
+            if (Settings.rootAccess()) {
+                return RootCommands.createRootdir(folder);
+            }
+        }
+
+        return false;
     }
 
     public static void deleteTarget(String path) {

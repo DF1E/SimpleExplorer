@@ -43,13 +43,13 @@ public class RootCommands {
     }
 
     // Create Directory with root
-    public static boolean createRootdir(File dir, String path) {
+    public static boolean createRootdir(File dir) {
         if (dir.exists())
             return false;
 
         try {
             if (!readReadWriteFile())
-                RootTools.remount(getCommandLineString(path), "rw");
+                RootTools.remount(getCommandLineString(dir.getParent()), "rw");
 
             runAndWait("mkdir " + getCommandLineString(dir.getAbsolutePath()));
             return true;

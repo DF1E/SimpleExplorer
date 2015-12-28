@@ -320,6 +320,9 @@ public final class MimeTypes {
                 type = MIME_TYPES.get(extensionLowerCase);
             }
         }
+
+        if(type == null)
+            type="*/*";
         return type;
     }
 

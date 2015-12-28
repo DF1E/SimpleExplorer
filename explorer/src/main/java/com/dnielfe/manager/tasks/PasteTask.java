@@ -21,11 +21,11 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 
     private ProgressDialog dialog;
 
-    private final String location;
+    private final File location;
 
     private boolean success = false;
 
-    public PasteTask(final Activity activity, String currentDir) {
+    public PasteTask(final Activity activity, File currentDir) {
         this.activity = new WeakReference<>(activity);
         this.location = currentDir;
     }
@@ -62,18 +62,19 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
         final Activity activity = this.activity.get();
         ClipBoard.lock();
 
-        for (String target : content) {
+        for (String s : content) {
+            String file_name = s.substring(s.lastIndexOf("/"), s.length());
             if (ClipBoard.isMove()) {
-                SimpleUtils.moveToDirectory(target, location);
+                SimpleUtils.moveToDirectory(new File(s), new File(location, file_name), activity);
                 success = true;
             } else {
-                SimpleUtils.copyToDirectory(target, location);
+                SimpleUtils.copyFile(new File(s), new File(location, file_name), activity);
                 success = true;
             }
         }
 
-        if (new File(location).canRead())
-            SimpleUtils.requestMediaScanner(activity, new File(location).listFiles());
+        if (location.canRead())
+            SimpleUtils.requestMediaScanner(activity, location.listFiles());
         return failed;
     }
 
