@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.provider.DocumentFile;
@@ -35,17 +34,6 @@ public class SimpleUtils {
     private static final BigInteger MB_BI = KB_BI.multiply(KB_BI);
     private static final BigInteger GB_BI = KB_BI.multiply(MB_BI);
     private static final BigInteger TB_BI = KB_BI.multiply(GB_BI);
-
-    // scan file after move/copy
-    public static void requestMediaScanner(final Context context, final File... files) {
-        final String[] paths = new String[files.length];
-        int i = 0;
-        for (final File file : files) {
-            paths[i] = file.getPath();
-            i++;
-        }
-        MediaScannerConnection.scanFile(context, paths, null, null);
-    }
 
     // TODO: fix search with root
     private static void search_file(String dir, String fileName, ArrayList<String> n) {
@@ -118,7 +106,7 @@ public class SimpleUtils {
         }
     }
 
-    // TODO: fix copy file to sdcard root
+    // TODO: fix copy to sdcard root
     public static boolean copyFile(final File source, final File target, Context context) {
         FileInputStream inStream = null;
         OutputStream outStream = null;

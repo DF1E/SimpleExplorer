@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.ClipBoard;
+import com.dnielfe.manager.utils.MediaStoreUtils;
 import com.dnielfe.manager.utils.SimpleUtils;
 
 import java.io.File;
@@ -73,8 +74,10 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
             }
         }
 
-        if (location.canRead())
-            SimpleUtils.requestMediaScanner(activity, location.listFiles());
+        if (location.canRead()) {
+            for (File file : location.listFiles())
+                MediaStoreUtils.addFileToMediaStore(file.getPath(), activity);
+        }
         return failed;
     }
 

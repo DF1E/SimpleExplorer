@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.dnielfe.manager.R;
+import com.dnielfe.manager.utils.MediaStoreUtils;
 import com.dnielfe.manager.utils.SimpleUtils;
 import com.dnielfe.manager.utils.ZipUtils;
 
@@ -60,7 +61,10 @@ public final class ExtractionTask extends AsyncTask<File, Void, List<String>> {
             failed.add(Arrays.toString(files));
         }
 
-        SimpleUtils.requestMediaScanner(activity, files[1].listFiles());
+        if (files[1].canRead()) {
+            for (File file : files[1].listFiles())
+                MediaStoreUtils.addFileToMediaStore(file.getPath(), activity);
+        }
         return failed;
     }
 

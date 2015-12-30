@@ -1,9 +1,7 @@
 Simple Explorer
 ===========
 
-Simple Explorer is a open source file explorer. You can help to translate this app at [Crowdin](https://crowdin.com/project/simpleexplorer).
-
-[![Crowdin](https://d322cqt584bo4o.cloudfront.net/simpleexplorer/localized.png)](https://crowdin.com/project/simpleexplorer)
+Simple Explorer is a open source file explorer.
 
 ####License
 ````
@@ -62,7 +60,6 @@ More info under: https://www.gnu.org/licenses/gpl-3.0
 + turkish - adamslast
 + ukrainian - DMDP
 + vietnamese - hoangnguyen
-+ [More translators](https://crowdin.com/project/simpleexplorer/settings#members)
 
 ####Discussion Thread
 http://forum.xda-developers.com/showthread.php?t=2330864

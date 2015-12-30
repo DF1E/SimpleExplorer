@@ -36,7 +36,7 @@ public abstract class MediaStoreUtils {
         }
     }
 
-    public static final void addFileToMediaStore(final String path, Context context) {
+    public static void addFileToMediaStore(final String path, Context context) {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File file = new File(path);
         Uri contentUri = Uri.fromFile(file);
