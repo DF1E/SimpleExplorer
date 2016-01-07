@@ -3,7 +3,7 @@
     <string name="app_name">Simple Explorer</string>
     <string name="advancedsettings">Avancé</string>
     <string name="cancel">Annuler</string>
-    <string name="cannotbeundoneareyousureyouwanttodelete">"Annulation impossible !"</string>
+    <string name="cannotbeundoneareyousureyouwanttodelete">"Impossible d\'annuler !"</string>
     <string name="cantopenfile">Impossible d\'ouvrir ce fichier</string>
     <string name="cantreadfolder">Impossible de lire le dossier à cause des autorisations</string>
     <string name="changegroupowner">Changer groupe/propriétaire</string>
@@ -12,8 +12,8 @@
     <string name="copyfail">Copie impossible.</string>
     <string name="copying">Copie en cours</string>
     <string name="copysuccsess">Copié avec succès.</string>
-    <string name="create">Création</string>
-    <string name="created">" Créé."</string>
+    <string name="create">Créer</string>
+    <string name="created">" créé."</string>
     <string name="createmsg">Définir un délai avant le texte pour créer un dossier caché.</string>
     <string name="createnewfolder">Nouveau dossier</string>
     <string name="defaultdir">Dossier par défaut</string>
@@ -28,7 +28,7 @@
     <string name="drawer_close">Fermer le volet de navigation</string>
     <string name="edit">Éditer</string>
     <string name="empty">Vide</string>
-    <string name="enable_root">Autoriser accès Root</string>
+    <string name="enable_root">Activer l\'accès Root</string>
     <string name="enter_name">Entrer un nom</string>
     <string name="error">Erreur</string>
     <string name="exit">Quitter</string>
@@ -36,7 +36,7 @@
     <string name="extractionsuccess">Paquet extrait avec succès.</string>
     <string name="filecreated">Fichier créé.</string>
     <string name="fileexists">Le fichier existe déjà.</string>
-    <string name="files">" Fichiers"</string>
+    <string name="files">" fichiers"</string>
     <string name="filewasrenamed">Fichier renommé.</string>
     <string name="hiddenfiles">Fichiers cachés</string>
     <string name="itcouldntbefound">Impossible à trouver.</string>
@@ -66,14 +66,14 @@
     <string name="showpreview">Miniatures</string>
     <string name="simple">Simple</string>
     <string name="size">Utilisé :</string>
-    <string name="uisettings">Afficher les paramètres</string>
+    <string name="uisettings">Affichage</string>
     <string name="unzipping">Extraction</string>
     <string name="viewmode">Mode d\'affichage</string>
     <string name="xdaforum">Forum XDA</string>
     
     <!-- sort preferences -->    
     <string name="sort">Trier</string>
-    <string name="sortpreferences">Définir préférences</string>
+    <string name="sortpreferences">Préférences</string>
     <string name="sort_reverselist">Inverser la liste</string>
     <string name="sort_name">Nom</string>
     <string name="sort_size">Taille</string>
