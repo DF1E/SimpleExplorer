@@ -1,4 +1,8 @@
 Changelog:
+2.3.1
+external sdcard support (need testing)
+updated translations
+
 2.3
 handle marshmallow permissions
 file picker
