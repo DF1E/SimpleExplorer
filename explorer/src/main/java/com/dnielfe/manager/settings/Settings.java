@@ -10,6 +10,8 @@ import com.stericson.RootTools.RootTools;
 
 public final class Settings {
 
+    private Settings() {}
+
     private static SharedPreferences mPrefs;
 
     public static int mTheme;

@@ -13,6 +13,8 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipUtils {
 
+    private ZipUtils() {}
+
     private static final int BUFFER = 8192;
 
     public static void createZip(String[] files, String zipFile) {

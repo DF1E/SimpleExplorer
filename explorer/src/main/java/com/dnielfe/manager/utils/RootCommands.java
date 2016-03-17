@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 public class RootCommands {
 
+    private RootCommands() {}
+
     private static final String UNIX_ESCAPE_EXPRESSION = "(\\(|\\)|\\[|\\]|\\s|\'|\"|`|\\{|\\}|&|\\\\|\\?)";
 
     private static String getCommandLineString(String input) {
