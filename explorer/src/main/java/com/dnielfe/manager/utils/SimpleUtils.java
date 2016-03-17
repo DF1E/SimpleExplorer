@@ -304,8 +304,9 @@ public class SimpleUtils {
 
     // get MD5 or SHA1 checksum from a file
     public static String getChecksum(File file, String algorithm) {
+        InputStream fis = null;
         try {
-            InputStream fis = new FileInputStream(file);
+            fis = new FileInputStream(file);
             MessageDigest digester = MessageDigest.getInstance(algorithm);
             byte[] bytes = new byte[2 * BUFFER];
             int byteCount;
@@ -321,6 +322,14 @@ public class SimpleUtils {
             return result;
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
         }
         return null;
     }

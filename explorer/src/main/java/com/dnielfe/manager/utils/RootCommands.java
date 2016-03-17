@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -123,19 +124,27 @@ public class RootCommands {
         File mountFile = new File("/proc/mounts");
         StringBuilder procData = new StringBuilder();
         if (mountFile.exists()) {
+            BufferedReader br = null;
             try {
                 FileInputStream fis = new FileInputStream(mountFile.toString());
                 DataInputStream dis = new DataInputStream(fis);
-                BufferedReader br = new BufferedReader(new InputStreamReader(dis));
+                br = new BufferedReader(new InputStreamReader(dis));
                 String data;
                 while ((data = br.readLine()) != null) {
                     procData.append(data).append("\n");
                 }
-
-                br.close();
+                
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
+            } finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        // ignore
+                    }
+                }
             }
 
             String[] tmp = procData.toString().split("\n");

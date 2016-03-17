@@ -16,10 +16,10 @@ public class ZipUtils {
     private static final int BUFFER = 8192;
 
     public static void createZip(String[] files, String zipFile) {
+        ZipOutputStream out = null;
         try {
             FileOutputStream dest = new FileOutputStream(zipFile);
-            ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(
-                    dest));
+            out = new ZipOutputStream(new BufferedOutputStream(dest));
 
             for (String s : files) {
                 File file = new File(s);
@@ -30,17 +30,24 @@ public class ZipUtils {
                     zipFile(out, file);
                 }
             }
-
-            out.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
         }
     }
 
     public static void unpackZip(File zipFile, File location) {
+        ZipFile zf = null;
         try {
             // Extract entries while creating required sub-directories
-            ZipFile zf = new ZipFile(zipFile);
+            zf = new ZipFile(zipFile);
             Enumeration<?> e = zf.entries();
 
             while (e.hasMoreElements()) {
@@ -73,10 +80,16 @@ public class ZipUtils {
                     bis.close();
                 }
             }
-
-            zf.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
+        } finally {
+            if (zf != null) {
+                try {
+                    zf.close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
         }
     }
 
