@@ -22,7 +22,7 @@ public class GroupOwnerTask extends AsyncTask<File, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(final File... params) {
-        return RootCommands.changeGroupOwner((params[0]), owner, group);
+        return RootCommands.changeGroupOwner(params[0], owner, group);
     }
 
     @Override
