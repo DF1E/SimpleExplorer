@@ -147,7 +147,7 @@ public class SearchActivity extends ThemableActivity implements SearchView.OnQue
     }
 
     private class SearchTask extends AsyncTask<String, Void, ArrayList<String>> {
-        public ProgressDialog pr_dialog;
+        private ProgressDialog pr_dialog;
         private final Context context;
 
         private SearchTask(Context c) {

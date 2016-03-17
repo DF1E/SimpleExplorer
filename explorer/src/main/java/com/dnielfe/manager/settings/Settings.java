@@ -12,7 +12,7 @@ public final class Settings {
 
     private static SharedPreferences mPrefs;
 
-    public static int mTheme;
+    private static int mTheme;
 
     public static void updatePreferences(Context context) {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
