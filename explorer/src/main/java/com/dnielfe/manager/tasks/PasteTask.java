@@ -64,12 +64,12 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
         ClipBoard.lock();
 
         for (String s : content) {
-            String file_name = s.substring(s.lastIndexOf("/"), s.length());
+            String fileName = s.substring(s.lastIndexOf("/"), s.length());
             if (ClipBoard.isMove()) {
-                SimpleUtils.moveToDirectory(new File(s), new File(location, file_name), activity);
+                SimpleUtils.moveToDirectory(new File(s), new File(location, fileName), activity);
                 success = true;
             } else {
-                SimpleUtils.copyFile(new File(s), new File(location, file_name), activity);
+                SimpleUtils.copyFile(new File(s), new File(location, fileName), activity);
                 success = true;
             }
         }

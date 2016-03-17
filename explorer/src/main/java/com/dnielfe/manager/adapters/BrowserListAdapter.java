@@ -37,7 +37,7 @@ public class BrowserListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder mViewHolder;
-        int num_items = 0;
+        int numItems = 0;
         final File file = new File(getItem(position));
         DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT,
                 DateFormat.SHORT, Locale.getDefault());
@@ -67,10 +67,10 @@ public class BrowserListAdapter extends BaseAdapter {
             String[] list = file.list();
 
             if (list != null)
-                num_items = list.length;
+                numItems = list.length;
 
             // show the number of files in Folder
-            mViewHolder.bottomView.setText(num_items
+            mViewHolder.bottomView.setText(numItems
                     + mResources.getString(R.string.files));
         }
 

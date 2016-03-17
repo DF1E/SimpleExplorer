@@ -37,11 +37,11 @@ public class SimpleUtils {
 
     // TODO: fix search with root
     private static void search_file(String dir, String fileName, ArrayList<String> n) {
-        File root_dir = new File(dir);
-        String[] list = root_dir.list();
+        File rootDir = new File(dir);
+        String[] list = rootDir.list();
         boolean root = Settings.rootAccess();
 
-        if (list != null && root_dir.canRead()) {
+        if (list != null && rootDir.canRead()) {
             for (String aList : list) {
                 File check = new File(dir + "/" + aList);
                 String name = check.getName();
@@ -99,10 +99,10 @@ public class SimpleUtils {
         return mDirContent;
     }
 
-    public static void moveToDirectory(File old_file, File target, Context c) {
-        if (!old_file.renameTo(target)) {
-            if (copyFile(old_file, target, c))
-                deleteTarget(old_file.getAbsolutePath());
+    public static void moveToDirectory(File oldFile, File target, Context c) {
+        if (!oldFile.renameTo(target)) {
+            if (copyFile(oldFile, target, c))
+                deleteTarget(oldFile.getAbsolutePath());
         }
     }
 
@@ -114,12 +114,12 @@ public class SimpleUtils {
         FileChannel outChannel = null;
 
         try {
-            File temp_dir = target.getParentFile();
+            File tempDir = target.getParentFile();
 
             if (source.isFile())
                 inStream = new FileInputStream(source);
 
-            if (source.canRead() && temp_dir.isDirectory()) {
+            if (source.canRead() && tempDir.isDirectory()) {
                 if (source.isFile()) {
                     outStream = new FileOutputStream(target);
                     inChannel = inStream.getChannel();
@@ -136,7 +136,7 @@ public class SimpleUtils {
                 }
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    DocumentFile targetDocument = DocumentFile.fromFile(temp_dir);
+                    DocumentFile targetDocument = DocumentFile.fromFile(tempDir);
                     outStream = context.getContentResolver().openOutputStream(targetDocument.getUri());
                 } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
                     Uri uri = MediaStoreUtils.getUriFromFile(target.getAbsolutePath(), context);
@@ -248,20 +248,20 @@ public class SimpleUtils {
         if (target.isFile() && target.canWrite()) {
             target.delete();
         } else if (target.isDirectory() && target.canRead() && target.canWrite()) {
-            String[] file_list = target.list();
+            String[] fileList = target.list();
 
-            if (file_list != null && file_list.length == 0) {
+            if (fileList != null && fileList.length == 0) {
                 target.delete();
                 return;
-            } else if (file_list != null && file_list.length > 0) {
-                for (String aFile_list : file_list) {
-                    File temp_f = new File(target.getAbsolutePath() + "/"
+            } else if (fileList != null && fileList.length > 0) {
+                for (String aFile_list : fileList) {
+                    File tempF = new File(target.getAbsolutePath() + "/"
                             + aFile_list);
 
-                    if (temp_f.isDirectory())
-                        deleteTarget(temp_f.getAbsolutePath());
-                    else if (temp_f.isFile()) {
-                        temp_f.delete();
+                    if (tempF.isDirectory())
+                        deleteTarget(tempF.getAbsolutePath());
+                    else if (tempF.isFile()) {
+                        tempF.delete();
                     }
                 }
             }
