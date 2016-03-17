@@ -164,11 +164,9 @@ public final class FilePropertiesDialog extends DialogFragment {
 
         @Override
         public void onStart() {
-            if (mView != null) {
-                if (mTask == null) {
-                    mTask = new LoadFsTask();
-                    mTask.execute(mFile);
-                }
+            if (mView != null && mTask == null) {
+                mTask = new LoadFsTask();
+                mTask.execute(mFile);
             }
         }
 
