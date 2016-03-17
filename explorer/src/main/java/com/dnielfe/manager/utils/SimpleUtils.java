@@ -145,7 +145,7 @@ public class SimpleUtils {
                     return false;
                 }
 
-                if (outStream != null) {
+                if (outStream != null && inStream !=null) {
                     byte[] buffer = new byte[BUFFER];
                     int bytesRead;
                     while ((bytesRead = inStream.read(buffer)) != -1) {
