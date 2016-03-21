@@ -20,9 +20,9 @@ public class DirectoryNavigationView {
 
     public final Set<OnNavigateListener> listeners;
     private final Activity mActivity;
-    private final int text_size = 16;
-    private final int WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT;
-    private final int MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT;
+    private static final int TEXT_SIZE = 16;
+    private static final int WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT;
+    private static final int MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT;
 
     public interface OnNavigateListener {
         void onNavigate(String path);
@@ -49,7 +49,7 @@ public class DirectoryNavigationView {
         t0.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, MATCH_PARENT,
                 Gravity.CENTER_VERTICAL));
         t0.setText("/");
-        t0.setTextSize(text_size);
+        t0.setTextSize(TEXT_SIZE);
         t0.setTag(dir);
         t0.setOnClickListener(new OnClickListener() {
             @Override
@@ -79,7 +79,7 @@ public class DirectoryNavigationView {
             t2.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, MATCH_PARENT,
                     Gravity.CENTER_VERTICAL));
             t2.setText(parts[i]);
-            t2.setTextSize(text_size);
+            t2.setTextSize(TEXT_SIZE);
             t2.setTag(dir);
             t2.setOnClickListener(new OnClickListener() {
                 @Override

@@ -57,7 +57,7 @@ public class SimpleUtils {
                         // change this!
                     } else if (check.canRead() && !dir.equals("/")) {
                         search_file(check.getAbsolutePath(), fileName, n);
-                    } else if (!check.canRead() & root) {
+                    } else if (!check.canRead() && root) {
                         ArrayList<String> al = RootCommands.findFiles(check.getAbsolutePath(), fileName);
 
                         for (String items : al) {
