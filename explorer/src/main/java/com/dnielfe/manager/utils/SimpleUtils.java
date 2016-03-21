@@ -102,9 +102,8 @@ public class SimpleUtils {
     }
 
     public static void moveToDirectory(File oldFile, File target, Context c) {
-        if (!oldFile.renameTo(target)) {
-            if (copyFile(oldFile, target, c))
-                deleteTarget(oldFile.getAbsolutePath());
+        if (!oldFile.renameTo(target) && copyFile(oldFile, target, c)) {
+            deleteTarget(oldFile.getAbsolutePath());
         }
     }
 

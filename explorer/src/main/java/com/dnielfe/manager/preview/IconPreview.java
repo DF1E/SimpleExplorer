@@ -114,10 +114,8 @@ public class IconPreview {
                 @Override
                 public void handleMessage(Message msg) {
                     String tag = imageViews.get(imageView);
-                    if (tag != null && tag.equals(file.getAbsolutePath())) {
-                        if (msg.obj != null) {
-                            imageView.setImageBitmap((Bitmap) msg.obj);
-                        }
+                    if (tag != null && tag.equals(file.getAbsolutePath()) && msg.obj != null) {
+                        imageView.setImageBitmap((Bitmap) msg.obj);
                     }
                 }
             };
