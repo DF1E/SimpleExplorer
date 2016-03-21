@@ -53,7 +53,7 @@ public class DrawerListAdapter extends BaseAdapter {
     }
 
     private class ViewHolder {
-        public TextView title = null;
+        private TextView title = null;
 
         ViewHolder(View row) {
             title = (TextView) row.findViewById(R.id.title);

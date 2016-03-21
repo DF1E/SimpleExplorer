@@ -66,7 +66,7 @@ public class ZipUtils {
                     BufferedInputStream bis = new BufferedInputStream(zf.getInputStream(entry));
 
                     int b;
-                    byte buffer[] = new byte[BUFFER];
+                    byte[] buffer = new byte[BUFFER];
 
                     // read the current entry from the zip file, extract it and
                     // write the extracted file.
@@ -104,7 +104,7 @@ public class ZipUtils {
                 zipSubFolder(out, file, basePathLength);
             } else {
                 BufferedInputStream origin;
-                byte data[] = new byte[BUFFER];
+                byte[] data = new byte[BUFFER];
                 String unmodifiedFilePath = file.getPath();
                 String relativePath = unmodifiedFilePath
                         .substring(basePathLength);
@@ -125,7 +125,7 @@ public class ZipUtils {
     private static void zipFile(ZipOutputStream out, File file)
             throws IOException {
         BufferedInputStream origin;
-        byte data[] = new byte[BUFFER];
+        byte[] data = new byte[BUFFER];
         String str = file.getPath();
 
         FileInputStream fi = new FileInputStream(str);
