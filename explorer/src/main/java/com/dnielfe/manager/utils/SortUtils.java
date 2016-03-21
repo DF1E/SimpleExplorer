@@ -10,6 +10,8 @@ import java.util.Comparator;
 
 public class SortUtils {
 
+    private SortUtils() {}
+
     private static final int SORT_ALPHA = 0;
     private static final int SORT_TYPE = 1;
     private static final int SORT_SIZE = 2;

@@ -14,6 +14,8 @@ import java.io.File;
 
 public abstract class MediaStoreUtils {
 
+    private MediaStoreUtils() {}
+
     public static Uri getUriFromFile(final String path, Context context) {
         ContentResolver resolver = context.getContentResolver();
 

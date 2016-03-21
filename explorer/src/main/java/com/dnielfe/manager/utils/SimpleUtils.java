@@ -28,6 +28,8 @@ import java.util.ArrayList;
 
 public class SimpleUtils {
 
+    private SimpleUtils() {}
+
     private static final int BUFFER = 16384;
     private static final long ONE_KB = 1024;
     private static final BigInteger KB_BI = BigInteger.valueOf(ONE_KB);
