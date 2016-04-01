@@ -5,7 +5,13 @@
     <dimen name="nav_height">48dp</dimen>
 
     <!-- list item height -->
-    <dimen name="item_height">55dp</dimen>
+    <dimen name="item_height">60dp</dimen>
+
+    <!-- list item icon padding -->
+    <dimen name="item_icon_padding">10dp</dimen>
+
+    <!-- list item default padding -->
+    <dimen name="item_default_padding">8dp</dimen>
 
     <!-- bookmark item height -->
     <dimen name="bookmark_height">50dp</dimen>
