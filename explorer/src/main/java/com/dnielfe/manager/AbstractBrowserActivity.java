@@ -127,14 +127,10 @@ public abstract class AbstractBrowserActivity extends ThemableActivity implement
     private void setupDrawer() {
         mDrawer = (ListView) findViewById(R.id.left_drawer);
 
-        // Set shadow of navigation drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
-                GravityCompat.START);
-
-        // Add Navigation Drawer to ActionBar
-        mDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this, mDrawerLayout,
-                toolbar, R.string.drawer_open, R.string.drawer_close) {
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
+                R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 supportInvalidateOptionsMenu();
@@ -146,7 +142,7 @@ public abstract class AbstractBrowserActivity extends ThemableActivity implement
             }
         };
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
     }
 
     private void initDrawerList() {

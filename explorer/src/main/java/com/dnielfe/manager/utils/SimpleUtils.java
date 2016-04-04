@@ -168,7 +168,7 @@ public class SimpleUtils {
                     outChannel.close();
                 }
             } catch (Exception e) {
-                // ignore exception
+                e.printStackTrace();
             }
         }
         return true;
