@@ -1,6 +1,8 @@
 Simple Explorer
 ===========
 
+--- The development of this project has stopped ---
+
 Simple Explorer is a open source file explorer.
 
 ####License
