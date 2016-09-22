@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.support.v4.provider.DocumentFile;
 import android.widget.Toast;
 
 import com.dnielfe.manager.BrowserActivity;
+import com.dnielfe.manager.BuildConfig;
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.preview.IconPreview;
 import com.dnielfe.manager.preview.MimeTypes;
@@ -25,6 +27,8 @@ import java.math.BigInteger;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+
+import static java.security.AccessController.getContext;
 
 public class SimpleUtils {
 
@@ -282,21 +286,34 @@ public class SimpleUtils {
 
     public static void openFile(final Context context, final File target) {
         final String mime = MimeTypes.getMimeType(target);
-        final Intent i = new Intent(Intent.ACTION_VIEW);
 
-        if (mime != null) {
-            i.setDataAndType(Uri.fromFile(target), mime);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileprovider", target);
+            intent.setDataAndType(contentUri, mime);
+
+            if (mime != null) {
+                intent.setDataAndType(contentUri, mime);
+            } else {
+                intent.setDataAndType(contentUri, "*/*");
+            }
         } else {
-            i.setDataAndType(Uri.fromFile(target), "*/*");
+            if (mime != null) {
+                intent.setDataAndType(Uri.fromFile(target), mime);
+            } else {
+                intent.setDataAndType(Uri.fromFile(target), "*/*");
+            }
         }
 
-        if (context.getPackageManager().queryIntentActivities(i, 0).isEmpty()) {
+        if (context.getPackageManager().queryIntentActivities(intent, 0).isEmpty()) {
             Toast.makeText(context, R.string.cantopenfile, Toast.LENGTH_SHORT).show();
             return;
         }
 
         try {
-            context.startActivity(i);
+            context.startActivity(intent);
         } catch (Exception e) {
             Toast.makeText(context, context.getString(R.string.cantopenfile) + e.getMessage(),
                     Toast.LENGTH_SHORT).show();
