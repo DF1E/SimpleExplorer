@@ -59,6 +59,7 @@
     <string name="searchtext">Що шукаємо?</string>
     <string name="selectall">Обрати усе</string>
     <string name="settings">Налаштування</string>
+    <string name="sha1_key">SHA-1:</string>
     <string name="share">Надіслати</string>
     <string name="shortcut">Створити ярлик</string>
     <string name="shortcutcreated">Ярлик створено.</string>
@@ -105,4 +106,6 @@
     <string name="overwrite_skip_all">Пропустити все</string>
     <string name="overwrite_replace">Замінити</string>
     <string name="overwrite_replace_all">Замінити все</string>
+    <string name="error_reports">Відправити звіти про помилки</string>
+    <string name="picker_choose_one_file">Вибрати файл</string>
 </resources>

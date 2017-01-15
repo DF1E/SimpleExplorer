@@ -43,13 +43,13 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             int size = piece.getCount();
 
             if (position < size) {
-                return (piece.getItem(position));
+                return piece.getItem(position);
             }
 
             position -= size;
         }
 
-        return (null);
+        return null;
     }
 
     /**
@@ -62,13 +62,13 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             int size = piece.getCount();
 
             if (position < size) {
-                return (piece);
+                return piece;
             }
 
             position -= size;
         }
 
-        return (null);
+        return null;
     }
 
     /**
@@ -85,7 +85,7 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             total = 1;
         }
 
-        return (total);
+        return total;
     }
 
     /**
@@ -99,7 +99,7 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             total += piece.getViewTypeCount();
         }
 
-        return (Math.max(total, 1)); // needed for setListAdapter() before
+        return Math.max(total, 1); // needed for setListAdapter() before
         // content add'
     }
 
@@ -126,7 +126,7 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             typeOffset += piece.getViewTypeCount();
         }
 
-        return (result);
+        return result;
     }
 
     /**
@@ -135,7 +135,7 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
      */
     @Override
     public boolean areAllItemsEnabled() {
-        return (false);
+        return false;
     }
 
     /**
@@ -149,13 +149,13 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             int size = piece.getCount();
 
             if (position < size) {
-                return (piece.isEnabled(position));
+                return piece.isEnabled(position);
             }
 
             position -= size;
         }
 
-        return (false);
+        return false;
     }
 
     /**
@@ -172,7 +172,7 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
 
             if (position < size) {
 
-                return (piece.getView(position, convertView, parent));
+                return piece.getView(position, convertView, parent);
             }
 
             position -= size;
@@ -184,7 +184,7 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             return text;
         }
 
-        return (null);
+        return null;
     }
 
     /**
@@ -197,13 +197,13 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             int size = piece.getCount();
 
             if (position < size) {
-                return (piece.getItemId(position));
+                return piece.getItemId(position);
             }
 
             position -= size;
         }
 
-        return (-1);
+        return -1;
     }
 
     public int getPositionForSection(int section) {
@@ -229,7 +229,7 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             position += piece.getCount();
         }
 
-        return (0);
+        return 0;
     }
 
     public int getSectionForPosition(int position) {
@@ -244,7 +244,7 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
                             .getSectionForPosition(position));
                 }
 
-                return (0);
+                return 0;
             } else {
                 if (piece instanceof SectionIndexer) {
                     Object[] sections = ((SectionIndexer) piece).getSections();
@@ -258,7 +258,7 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             position -= size;
         }
 
-        return (0);
+        return 0;
     }
 
     public Object[] getSections() {
@@ -274,11 +274,11 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             }
         }
 
-        if (sections.size() == 0) {
-            return (null);
+        if (sections.isEmpty()) {
+            return null;
         }
 
-        return (sections.toArray(new Object[sections.size()]));
+        return sections.toArray(new Object[sections.size()]);
     }
 
     private class CascadeDataSetObserver extends DataSetObserver {

@@ -6,4 +6,5 @@
     android:gravity="center_vertical"
     android:padding="7dp"
     android:textSize="18sp"
-    android:textAppearance="?android:attr/textAppearance" />
+    android:textAppearance="?android:attr/textAppearance"
+    android:paddingLeft="10dp" />

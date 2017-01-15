@@ -1,9 +1,9 @@
 Simple Explorer
 ===========
 
-Simple Explorer is a open source file explorer. You can help to translate this app at [Crowdin](https://crowdin.com/project/simpleexplorer).
+--- The development of this project has stopped ---
 
-[![Crowdin](https://d322cqt584bo4o.cloudfront.net/simpleexplorer/localized.png)](https://crowdin.com/project/simpleexplorer)
+Simple Explorer is a open source file explorer.
 
 ####License
 ````
@@ -27,11 +27,12 @@ MA  02110-1301, USA.
 More info under: https://www.gnu.org/licenses/gpl-3.0
 ````
 
-####Credits
+####Credits and Libraries
 + [Zedd. for new icons](https://forum.xda-developers.com/member.php?u=4112951)
 + [Android-ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator)
 + [FloatingActionButton](https://github.com/makovkastar/FloatingActionButton)
 + [RootTools](https://github.com/Stericson/RootTools)
++ [Grant](https://github.com/anthonycr/Grant)
 
 ####Thanks for translations (XDA, Getlocalization and Crowdin)
 + bosnian -muamers
@@ -61,7 +62,6 @@ More info under: https://www.gnu.org/licenses/gpl-3.0
 + turkish - adamslast
 + ukrainian - DMDP
 + vietnamese - hoangnguyen
-+ [More translators](https://crowdin.com/project/simpleexplorer/settings#members)
 
 ####Discussion Thread
 http://forum.xda-developers.com/showthread.php?t=2330864

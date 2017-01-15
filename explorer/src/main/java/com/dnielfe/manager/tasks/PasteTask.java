@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.dnielfe.manager.R;
 import com.dnielfe.manager.utils.ClipBoard;
+import com.dnielfe.manager.utils.MediaStoreUtils;
 import com.dnielfe.manager.utils.SimpleUtils;
 
 import java.io.File;
@@ -21,11 +22,11 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
 
     private ProgressDialog dialog;
 
-    private final String location;
+    private final File location;
 
     private boolean success = false;
 
-    public PasteTask(final Activity activity, String currentDir) {
+    public PasteTask(final Activity activity, File currentDir) {
         this.activity = new WeakReference<>(activity);
         this.location = currentDir;
     }
@@ -62,18 +63,21 @@ public final class PasteTask extends AsyncTask<String, Void, List<String>> {
         final Activity activity = this.activity.get();
         ClipBoard.lock();
 
-        for (String target : content) {
+        for (String s : content) {
+            String fileName = s.substring(s.lastIndexOf("/"), s.length());
             if (ClipBoard.isMove()) {
-                SimpleUtils.moveToDirectory(target, location);
+                SimpleUtils.moveToDirectory(new File(s), new File(location, fileName), activity);
                 success = true;
             } else {
-                SimpleUtils.copyToDirectory(target, location);
+                SimpleUtils.copyFile(new File(s), new File(location, fileName), activity);
                 success = true;
             }
         }
 
-        if (new File(location).canRead())
-            SimpleUtils.requestMediaScanner(activity, new File(location).listFiles());
+        if (location.canRead()) {
+            for (File file : location.listFiles())
+                MediaStoreUtils.addFileToMediaStore(file.getPath(), activity);
+        }
         return failed;
     }
 

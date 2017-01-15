@@ -13,13 +13,15 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipUtils {
 
+    private ZipUtils() {}
+
     private static final int BUFFER = 8192;
 
     public static void createZip(String[] files, String zipFile) {
+        ZipOutputStream out = null;
         try {
             FileOutputStream dest = new FileOutputStream(zipFile);
-            ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(
-                    dest));
+            out = new ZipOutputStream(new BufferedOutputStream(dest));
 
             for (String s : files) {
                 File file = new File(s);
@@ -30,17 +32,24 @@ public class ZipUtils {
                     zipFile(out, file);
                 }
             }
-
-            out.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
         }
     }
 
     public static void unpackZip(File zipFile, File location) {
+        ZipFile zf = null;
         try {
             // Extract entries while creating required sub-directories
-            ZipFile zf = new ZipFile(zipFile);
+            zf = new ZipFile(zipFile);
             Enumeration<?> e = zf.entries();
 
             while (e.hasMoreElements()) {
@@ -57,7 +66,7 @@ public class ZipUtils {
                     BufferedInputStream bis = new BufferedInputStream(zf.getInputStream(entry));
 
                     int b;
-                    byte buffer[] = new byte[BUFFER];
+                    byte[] buffer = new byte[BUFFER];
 
                     // read the current entry from the zip file, extract it and
                     // write the extracted file.
@@ -73,10 +82,16 @@ public class ZipUtils {
                     bis.close();
                 }
             }
-
-            zf.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
+        } finally {
+            if (zf != null) {
+                try {
+                    zf.close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
         }
     }
 
@@ -89,7 +104,7 @@ public class ZipUtils {
                 zipSubFolder(out, file, basePathLength);
             } else {
                 BufferedInputStream origin;
-                byte data[] = new byte[BUFFER];
+                byte[] data = new byte[BUFFER];
                 String unmodifiedFilePath = file.getPath();
                 String relativePath = unmodifiedFilePath
                         .substring(basePathLength);
@@ -110,7 +125,7 @@ public class ZipUtils {
     private static void zipFile(ZipOutputStream out, File file)
             throws IOException {
         BufferedInputStream origin;
-        byte data[] = new byte[BUFFER];
+        byte[] data = new byte[BUFFER];
         String str = file.getPath();
 
         FileInputStream fi = new FileInputStream(str);

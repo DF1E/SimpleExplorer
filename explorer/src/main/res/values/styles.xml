@@ -29,12 +29,6 @@
         <item name="action_bookmark">@drawable/holo_light_ic_bookmark</item>
         <item name="action_delete">@drawable/holo_light_action_delete</item>
         <item name="action_share">@drawable/holo_light_action_share</item>
-
-        <!-- pre-lollipop Theme.AppCompat action mode drawables (for AlertDialog, issue #32) -->
-        <!-- TODO: remove when android.support.v7.AlertDialog is implemented -->
-        <item name="actionModeSelectAllDrawable">@drawable/holo_light_action_select_all</item>
-        <item name="actionModeCutDrawable">@drawable/holo_light_action_cut</item>
-        <item name="actionModeCopyDrawable">@drawable/holo_light_action_copy</item>
     </style>
 
     <style name="ThemeDark" parent="Theme.AppCompat.NoActionBar">
@@ -65,12 +59,6 @@
         <item name="action_bookmark">@drawable/holo_dark_ic_bookmark</item>
         <item name="action_delete">@drawable/holo_dark_action_delete</item>
         <item name="action_share">@drawable/holo_dark_action_share</item>
-
-        <!-- pre-lollipop Theme.AppCompat action mode drawables (for AlertDialog, issue #32) -->
-        <!-- TODO: remove when android.support.v7.AlertDialog is implemented -->
-        <item name="actionModeSelectAllDrawable">@drawable/holo_dark_ic_action_select_all</item>
-        <item name="actionModeCutDrawable">@drawable/holo_dark_action_cut</item>
-        <item name="actionModeCopyDrawable">@drawable/holo_dark_action_copy</item>
     </style>
 
 </resources>

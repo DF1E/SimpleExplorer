@@ -24,14 +24,7 @@ public class BrowserTabsAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int pos) {
-        switch (pos) {
-            case 0:
-                new BrowserFragment();
-            case 1:
-                new BrowserFragment();
-            default:
-                return new BrowserFragment();
-        }
+        return new BrowserFragment();
     }
 
     @Override
@@ -42,7 +35,7 @@ public class BrowserTabsAdapter extends FragmentStatePagerAdapter {
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         if (mCurrentFragment != object) {
-            mCurrentFragment = ((Fragment) object);
+            mCurrentFragment = (Fragment) object;
         }
         super.setPrimaryItem(container, position, object);
     }

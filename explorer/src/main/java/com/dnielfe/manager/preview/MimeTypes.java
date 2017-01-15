@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 
 public final class MimeTypes {
 
+    private MimeTypes() {}
+
     private static final HashMap<String, Integer> EXT_ICONS = new HashMap<>();
     private static final HashMap<String, String> MIME_TYPES = new HashMap<>();
 
@@ -320,6 +322,9 @@ public final class MimeTypes {
                 type = MIME_TYPES.get(extensionLowerCase);
             }
         }
+
+        if(type == null)
+            type="*/*";
         return type;
     }
 

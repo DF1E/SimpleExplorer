@@ -10,6 +10,8 @@ import java.util.Comparator;
 
 public class SortUtils {
 
+    private SortUtils() {}
+
     private static final int SORT_ALPHA = 0;
     private static final int SORT_TYPE = 1;
     private static final int SORT_SIZE = 2;
@@ -101,14 +103,14 @@ public class SortUtils {
                 return 1;
             }
 
-            final long len_a = a.length();
-            final long len_b = b.length();
+            final long lenA = a.length();
+            final long lenB = b.length();
 
-            if (len_a == len_b) {
+            if (lenA == lenB) {
                 return arg0.toLowerCase().compareTo(arg1.toLowerCase());
             }
 
-            if (len_a < len_b) {
+            if (lenA < lenB) {
                 return -1;
             }
 
@@ -135,22 +137,22 @@ public class SortUtils {
                 return 1;
             }
 
-            final String ext_a = SimpleUtils.getExtension(a.getName());
-            final String ext_b = SimpleUtils.getExtension(b.getName());
+            final String extA = SimpleUtils.getExtension(a.getName());
+            final String extB = SimpleUtils.getExtension(b.getName());
 
-            if (ext_a.isEmpty() && ext_b.isEmpty()) {
+            if (extA.isEmpty() && extB.isEmpty()) {
                 return arg0.toLowerCase().compareTo(arg1.toLowerCase());
             }
 
-            if (ext_a.isEmpty()) {
+            if (extA.isEmpty()) {
                 return -1;
             }
 
-            if (ext_b.isEmpty()) {
+            if (extB.isEmpty()) {
                 return 1;
             }
 
-            final int res = ext_a.compareTo(ext_b);
+            final int res = extA.compareTo(extB);
             if (res == 0) {
                 return arg0.toLowerCase().compareTo(arg1.toLowerCase());
             }

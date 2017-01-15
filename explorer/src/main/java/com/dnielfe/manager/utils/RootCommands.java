@@ -9,10 +9,13 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class RootCommands {
+
+    private RootCommands() {}
 
     private static final String UNIX_ESCAPE_EXPRESSION = "(\\(|\\)|\\[|\\]|\\s|\'|\"|`|\\{|\\}|&|\\\\|\\?)";
 
@@ -43,13 +46,13 @@ public class RootCommands {
     }
 
     // Create Directory with root
-    public static boolean createRootdir(File dir, String path) {
+    public static boolean createRootdir(File dir) {
         if (dir.exists())
             return false;
 
         try {
             if (!readReadWriteFile())
-                RootTools.remount(path, "rw");
+                RootTools.remount(getCommandLineString(dir.getParent()), "rw");
 
             runAndWait("mkdir " + getCommandLineString(dir.getAbsolutePath()));
             return true;
@@ -64,7 +67,7 @@ public class RootCommands {
     public static void moveCopyRoot(String old, String newDir) {
         try {
             if (!readReadWriteFile())
-                RootTools.remount(newDir, "rw");
+                RootTools.remount(getCommandLineString(newDir), "rw");
 
             runAndWait("cp -fr " + getCommandLineString(old) + " " + getCommandLineString(newDir));
         } catch (Exception e) {
@@ -84,7 +87,7 @@ public class RootCommands {
 
         try {
             if (!readReadWriteFile())
-                RootTools.remount(path, "rw");
+                RootTools.remount(getCommandLineString(path), "rw");
 
             runAndWait("mv " + getCommandLineString(file.getAbsolutePath()) + " "
                     + getCommandLineString(newf.getAbsolutePath()));
@@ -107,7 +110,7 @@ public class RootCommands {
 
         try {
             if (!readReadWriteFile())
-                RootTools.remount(cdir, "rw");
+                RootTools.remount(getCommandLineString(cdir), "rw");
 
             runAndWait("touch " + getCommandLineString(dir.getAbsolutePath()));
             return true;
@@ -123,19 +126,27 @@ public class RootCommands {
         File mountFile = new File("/proc/mounts");
         StringBuilder procData = new StringBuilder();
         if (mountFile.exists()) {
+            BufferedReader br = null;
             try {
                 FileInputStream fis = new FileInputStream(mountFile.toString());
                 DataInputStream dis = new DataInputStream(fis);
-                BufferedReader br = new BufferedReader(new InputStreamReader(dis));
+                br = new BufferedReader(new InputStreamReader(dis));
                 String data;
                 while ((data = br.readLine()) != null) {
                     procData.append(data).append("\n");
                 }
-
-                br.close();
+                
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
+            } finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        // ignore
+                    }
+                }
             }
 
             String[] tmp = procData.toString().split("\n");
@@ -162,7 +173,7 @@ public class RootCommands {
     public static boolean changeGroupOwner(File file, String owner, String group) {
         try {
             if (!readReadWriteFile())
-                RootTools.remount(file.getAbsolutePath(), "rw");
+                RootTools.remount(getCommandLineString(file.getAbsolutePath()), "rw");
 
             runAndWait("chown " + owner + "." + group + " "
                     + getCommandLineString(file.getAbsolutePath()));
@@ -177,7 +188,7 @@ public class RootCommands {
     public static boolean applyPermissions(File file, Permissions permissions) {
         try {
             if (!readReadWriteFile())
-                RootTools.remount(file.getAbsolutePath(), "rw");
+                RootTools.remount(getCommandLineString(file.getAbsolutePath()), "rw");
 
             runAndWait("chmod " + Permissions.toOctalPermission(permissions) + " "
                     + getCommandLineString(file.getAbsolutePath()));
@@ -238,7 +249,7 @@ public class RootCommands {
         return results;
     }
 
-    private static String runAndWait(String cmd) {
+    private static void runAndWait(String cmd) {
         Command c = new Command(0, cmd);
 
         try {
@@ -246,10 +257,7 @@ public class RootCommands {
             commandWait(RootShell.getShell(false), c);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
-
-        return null;
     }
 
     private static ArrayList<String> executeForResult(String cmd) {

@@ -38,7 +38,7 @@ public final class ZipFilesDialog extends DialogFragment {
         inputf.setText(zipfile);
 
         final AlertDialog.Builder b = new AlertDialog.Builder(a);
-        b.setTitle(getString(R.string.packing) + " (" + String.valueOf(size) + ")");
+        b.setTitle(getString(R.string.packing) + " (" + size + ")");
         b.setView(inputf);
         b.setPositiveButton(getString(R.string.ok),
                 new DialogInterface.OnClickListener() {

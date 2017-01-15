@@ -12,7 +12,7 @@
         android:layout_toLeftOf="@+id/imageButton_remove"
         android:orientation="vertical"
         android:paddingBottom="5dp"
-        android:paddingLeft="6dp"
+        android:paddingLeft="9dp"
         android:paddingTop="4dp">
 
         <TextView

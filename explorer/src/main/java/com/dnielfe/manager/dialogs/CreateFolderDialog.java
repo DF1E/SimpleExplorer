@@ -13,6 +13,8 @@ import com.dnielfe.manager.R;
 import com.dnielfe.manager.adapters.BrowserTabsAdapter;
 import com.dnielfe.manager.utils.SimpleUtils;
 
+import java.io.File;
+
 public final class CreateFolderDialog extends DialogFragment {
 
     @Override
@@ -32,12 +34,11 @@ public final class CreateFolderDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String name = inputf.getText().toString();
+                        String location = BrowserTabsAdapter.getCurrentBrowserFragment().mCurrentPath;
                         boolean success = false;
 
                         if (name.length() >= 1)
-                            success = SimpleUtils.createDir(
-                                    BrowserTabsAdapter.getCurrentBrowserFragment().mCurrentPath,
-                                    name);
+                            success = SimpleUtils.createDir(new File(location, name));
 
                         if (success)
                             Toast.makeText(a,
