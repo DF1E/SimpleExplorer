@@ -5,7 +5,7 @@ Simple Explorer
 
 Simple Explorer is a open source file explorer.
 
-####License
+#### License
 ````
 Copyright 2013 - 2015 Daniel F.
 
@@ -27,14 +27,14 @@ MA  02110-1301, USA.
 More info under: https://www.gnu.org/licenses/gpl-3.0
 ````
 
-####Credits and Libraries
+#### Credits and Libraries
 + [Zedd. for new icons](https://forum.xda-developers.com/member.php?u=4112951)
 + [Android-ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator)
 + [FloatingActionButton](https://github.com/makovkastar/FloatingActionButton)
 + [RootTools](https://github.com/Stericson/RootTools)
 + [Grant](https://github.com/anthonycr/Grant)
 
-####Thanks for translations (XDA, Getlocalization and Crowdin)
+#### Thanks for translations (XDA, Getlocalization and Crowdin)
 + bosnian -muamers
 + brazil - fabiobatera
 + bulgarian - drkalo
@@ -63,5 +63,5 @@ More info under: https://www.gnu.org/licenses/gpl-3.0
 + ukrainian - DMDP
 + vietnamese - hoangnguyen
 
-####Discussion Thread
+#### Discussion Thread
 http://forum.xda-developers.com/showthread.php?t=2330864
